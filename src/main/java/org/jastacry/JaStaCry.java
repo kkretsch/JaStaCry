@@ -33,296 +33,319 @@ import org.jastacry.layer.TransparentLayer;
 import org.jastacry.layer.XorLayer;
 
 public class JaStaCry {
-	static private final String P_SHORT_VERBOSE = "v";
-	static private final String P_SHORT_ASCII = "t";
-	static private final String P_LONG_ASCII = "text";
-	static private final String P_SHORT_ENCODE = "e";
-	static private final String P_LONG_ENCODE = "encode";
-	static private final String P_SHORT_DECODE = "d";
-	static private final String P_LONG_DECODE = "decode";
-	static private final String P_LONG_CONFFILE = "conffile";
-	static private final String P_LONG_INFILE = "infile";
-	static private final String P_LONG_OUTFILE = "outfile";
+    static private final String P_SHORT_VERBOSE = "v";
+    static private final String P_SHORT_ASCII = "t";
+    static private final String P_LONG_ASCII = "text";
+    static private final String P_SHORT_ENCODE = "e";
+    static private final String P_LONG_ENCODE = "encode";
+    static private final String P_SHORT_DECODE = "d";
+    static private final String P_LONG_DECODE = "decode";
+    static private final String P_LONG_CONFFILE = "conffile";
+    static private final String P_LONG_INFILE = "infile";
+    static private final String P_LONG_OUTFILE = "outfile";
 
-	/**
-	 * Main class for running a command line interface
-	 * @param args run as "[encode|decode] layers.conf infile outfile"
-	 */
-	@SuppressWarnings("static-access")
-	public static void main(String[] args) {
-		// Command line parameters
-		Options options = new Options();
-		options.addOption(P_SHORT_ENCODE, P_LONG_ENCODE, false, "encode input stream" );
-		options.addOption(P_SHORT_DECODE, P_LONG_DECODE, false, "decode input stream" );
-		options.addOption(P_SHORT_VERBOSE, false, "verbose" );
-		options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, "text formatted output or input of encrypted data" );
-		options.addOption(OptionBuilder.withLongOpt(P_LONG_CONFFILE)
-                .withDescription( "use FILE as stack configuration" )
-                .hasArg()
-                .withArgName("FILE")
-                .isRequired()
-                .create() );
-		options.addOption(OptionBuilder.withLongOpt(P_LONG_INFILE)
-                .withDescription( "use FILE as input stream" )
-                .hasArg()
-                .withArgName("FILE")
-                .isRequired()
-                .create() );
-		options.addOption(OptionBuilder.withLongOpt(P_LONG_OUTFILE)
-                .withDescription( "use FILE as output stream" )
-                .hasArg()
-                .withArgName("FILE")
-                .isRequired()
-                .create() );
+    /**
+     * Main class for running a command line interface
+     *
+     * @param args
+     *            run as "[encode|decode] layers.conf infile outfile"
+     */
+    @SuppressWarnings("static-access")
+    public static void main(final String[] args) {
+        // Command line parameters
+        final Options options = new Options();
+        options.addOption(P_SHORT_ENCODE, P_LONG_ENCODE, false, "encode input stream");
+        options.addOption(P_SHORT_DECODE, P_LONG_DECODE, false, "decode input stream");
+        options.addOption(P_SHORT_VERBOSE, false, "verbose");
+        options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, "text formatted output or input of encrypted data");
+        options.addOption(OptionBuilder.withLongOpt(P_LONG_CONFFILE).withDescription("use FILE as stack configuration")
+                .hasArg().withArgName("FILE").isRequired().create());
+        options.addOption(OptionBuilder.withLongOpt(P_LONG_INFILE).withDescription("use FILE as input stream").hasArg()
+                .withArgName("FILE").isRequired().create());
+        options.addOption(OptionBuilder.withLongOpt(P_LONG_OUTFILE).withDescription("use FILE as output stream")
+                .hasArg().withArgName("FILE").isRequired().create());
 
-		CommandLineParser parser = new PosixParser();
-		CommandLine cmdLine = null;
-		try {
-			cmdLine = parser.parse( options, args);
-		} catch (MissingOptionException eOpt) {
-			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("jastacry", options );
-			System.exit(org.jastacry.Data.RC_ERROR);
-		} catch (ParseException e2) {
-			e2.printStackTrace();
-			System.exit(org.jastacry.Data.RC_ERROR);
-		}
+        final CommandLineParser parser = new PosixParser();
+        CommandLine cmdLine = null;
+        try {
+            cmdLine = parser.parse(options, args);
+        } catch (final MissingOptionException eOpt) {
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("jastacry", options);
+            System.exit(org.jastacry.Data.RC_ERROR);
+        } catch (final ParseException e2) {
+            e2.printStackTrace();
+            System.exit(org.jastacry.Data.RC_ERROR);
+        }
 
-		// Is verbose?
-		boolean isVerbose = cmdLine.hasOption(P_SHORT_VERBOSE);
-		if(isVerbose) {
-			System.out.println("JaStaCry starting");
-		}
+        if (null == cmdLine) {
+            System.err.println("cmdLine null");
+            return;
+        }
+        // Is verbose?
+        final boolean isVerbose = cmdLine.hasOption(P_SHORT_VERBOSE);
+        if (isVerbose) {
+            System.out.println("JaStaCry starting");
+        }
 
-		int action = 0;
+        int action = 0;
 
-		// is it called with all needed parameters?
-		if(cmdLine.hasOption(P_SHORT_ENCODE) || cmdLine.hasOption(P_LONG_ENCODE)) {
-			action = org.jastacry.Data.ENCODE;
-		} // if
-		if(cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE)) {
-			action = org.jastacry.Data.DECODE;
-		} // if
+        // is it called with all needed parameters?
+        if (cmdLine.hasOption(P_SHORT_ENCODE) || cmdLine.hasOption(P_LONG_ENCODE)) {
+            action = org.jastacry.Data.ENCODE;
+        } // if
+        if (cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE)) {
+            action = org.jastacry.Data.DECODE;
+        } // if
 
-		// Use text format?
-		boolean doEncode = cmdLine.hasOption(P_SHORT_ASCII) || cmdLine.hasOption(P_LONG_ASCII);
+        // Use text format?
+        final boolean doEncode = cmdLine.hasOption(P_SHORT_ASCII) || cmdLine.hasOption(P_LONG_ASCII);
 
-		// Get file names for config, input and output
-		String confFilename = cmdLine.getOptionValue(P_LONG_CONFFILE);
-		String inputFilename = cmdLine.getOptionValue(P_LONG_INFILE);
-		String outputFilename = cmdLine.getOptionValue(P_LONG_OUTFILE);
+        // Get file names for config, input and output
+        final String confFilename = cmdLine.getOptionValue(P_LONG_CONFFILE);
+        final String inputFilename = cmdLine.getOptionValue(P_LONG_INFILE);
+        final String outputFilename = cmdLine.getOptionValue(P_LONG_OUTFILE);
 
-		
-		// Now go
-		List<AbsLayer> layers = new ArrayList<AbsLayer>();
+        // Now go
+        final List<AbsLayer> layers = new ArrayList<AbsLayer>();
 
-		FileInputStream fstream=null;
-		BufferedReader br=null;
-		try {
-			fstream = new FileInputStream(confFilename);
-			br = new BufferedReader(new InputStreamReader(fstream));
-			String strLine;
+        FileInputStream fstream = null;
+        BufferedReader br = null;
+        try {
+            fstream = new FileInputStream(confFilename);
+            br = new BufferedReader(new InputStreamReader(fstream));
+            String strLine;
 
-			AbsLayer layer = null;
+            AbsLayer layer = null;
 
-			// Read File Line By Line
-			while ((strLine = br.readLine()) != null) {
-				strLine = strLine.trim();
-				if(';' == strLine.charAt(0)) continue;
+            // Read File Line By Line
+            while ((strLine = br.readLine()) != null) {
+                strLine = strLine.trim();
+                if (';' == strLine.charAt(0)) {
+                    continue;
+                }
 
-				String sLayer = null;
-				String sParams = "";
+                String sLayer = null;
+                String sParams = "";
 
-				int iPosSpace = strLine.indexOf(' ');
-				// no parameter?
-				if(-1 == iPosSpace) {
-					sLayer = strLine;
-				} else {
-					sLayer = strLine.substring(0, iPosSpace);
-					sParams = strLine.substring(iPosSpace+1);
+                final int iPosSpace = strLine.indexOf(' ');
+                // no parameter?
+                if (-1 == iPosSpace) {
+                    sLayer = strLine;
+                } else {
+                    sLayer = strLine.substring(0, iPosSpace);
+                    sParams = strLine.substring(iPosSpace + 1);
 
-					//System.out.println("Param '" + sParams + "'");
-					
-					// Optional interactive password entry
-					if(sParams.equalsIgnoreCase(org.jastacry.Data.MACRO_PASSWORD)) {
-						Console console = System.console();
-						if(null == console) {
-							System.err.println("No interactive console available for password entry!");
-							System.exit(org.jastacry.Data.RC_ERROR);
-							return;
-						}
-						char[] password = console.readPassword("Layer " + sLayer + " Password: ");
-						sParams = new String(password);
-					}
-				}
+                    // System.out.println("Param '" + sParams + "'");
 
-				switch(sLayer.toLowerCase()) {
-				case "transparent":
-					layer = new TransparentLayer();
-					break;
-				case "xor":
-					layer = new XorLayer();
-					break;
-				case "rotate":
-					layer = new RotateLayer();
-					break;
-				case "random":
-					layer = new RandomLayer();
-					break;
-				case "filemerge":
-					layer = new FilemergeLayer();
-					break;
-				case "md5des":
-					layer = new Md5DesLayer();
-					break;
-				default:
-					System.err.println("unknown layer " + sLayer);
-					System.exit(org.jastacry.Data.RC_ERROR);
-					return;
-				} // switch
+                    // Optional interactive password entry
+                    if (sParams.equalsIgnoreCase(org.jastacry.Data.MACRO_PASSWORD)) {
+                        final Console console = System.console();
+                        if (null == console) {
+                            System.err.println("No interactive console available for password entry!");
+                            System.exit(org.jastacry.Data.RC_ERROR);
+                            return;
+                        }
+                        final char[] password = console.readPassword("Layer " + sLayer + " Password: ");
+                        sParams = new String(password);
+                    }
+                }
 
-				if(isVerbose)
-					System.out.println("adding layer " + sLayer);
+                switch (sLayer.toLowerCase()) {
+                    case "transparent":
+                        layer = new TransparentLayer();
+                        break;
+                    case "xor":
+                        layer = new XorLayer();
+                        break;
+                    case "rotate":
+                        layer = new RotateLayer();
+                        break;
+                    case "random":
+                        layer = new RandomLayer();
+                        break;
+                    case "filemerge":
+                        layer = new FilemergeLayer();
+                        break;
+                    case "md5des":
+                        layer = new Md5DesLayer();
+                        break;
+                    default:
+                        System.err.println("unknown layer " + sLayer);
+                        System.exit(org.jastacry.Data.RC_ERROR);
+                        return;
+                } // switch
 
-				layer.init(sParams);
-				switch(action) {
-				case org.jastacry.Data.ENCODE:
-					layers.add(layer);
-					break;
-				case org.jastacry.Data.DECODE: // reverse order
-					layers.add(0, layer);
-					break;
-				} // switch
-			}
+                if (isVerbose) {
+                    System.out.println("adding layer " + sLayer);
+                }
 
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+                layer.init(sParams);
+                switch (action) {
+                    case org.jastacry.Data.ENCODE:
+                        layers.add(layer);
+                        break;
+                    case org.jastacry.Data.DECODE: // reverse order
+                        layers.add(0, layer);
+                        break;
+                    default:
+                        System.err.println("unkown action " + action);
+                        break;
+                } // switch
+            }
 
-		if(0 == layers.size()) {
-			System.err.println("No layers defined!");
-			System.exit(org.jastacry.Data.RC_ERROR);
-			return;
-		} // if
+        } catch (final FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (final IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != br) {
+                    br.close();
+                }
+            } catch (final IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-		if(1 == layers.size()) {
-			System.out.println("Warning: Only one layer defined!");
-		}
+        if (0 == layers.size()) {
+            System.err.println("No layers defined!");
+            System.exit(org.jastacry.Data.RC_ERROR);
+            return;
+        } // if
 
-		if(doEncode) {
-			AbsLayer layerEncode=new EncodeDecodeLayer();
-			switch(action) {
-			case org.jastacry.Data.ENCODE:
-				layers.add(layerEncode);
-				break;
-			case org.jastacry.Data.DECODE: // reverse order
-				layers.add(0, layerEncode);
-				break;
-			} // switch
-		}
-		
-		AbsLayer l = null;
+        if (1 == layers.size()) {
+            System.out.println("Warning: Only one layer defined!");
+        }
 
-		InputStream input = null;
-		File fileIn = new File(inputFilename);
+        if (doEncode) {
+            final AbsLayer layerEncode = new EncodeDecodeLayer();
+            switch (action) {
+                case org.jastacry.Data.ENCODE:
+                    layers.add(layerEncode);
+                    break;
+                case org.jastacry.Data.DECODE: // reverse order
+                    layers.add(0, layerEncode);
+                    break;
+                default:
+                    System.err.println("unknown action " + action);
+                    break;
+            } // switch
+        }
 
-		OutputStream output = null;
-		File fileOut = new File(outputFilename);
+        AbsLayer l = null;
 
-		// two temporary files for now
-		File tempIn=null;
-		File tempOut=null;
-		try {
-			tempIn = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
-			tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			System.exit(org.jastacry.Data.RC_ERROR);
-		}
+        InputStream input = null;
+        final File fileIn = new File(inputFilename);
 
-		try {
-			input = new BufferedInputStream(new FileInputStream(fileIn));
-			output = new BufferedOutputStream(new FileOutputStream(fileOut));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.exit(org.jastacry.Data.RC_ERROR);
-		}
+        OutputStream output = null;
+        final File fileOut = new File(outputFilename);
 
-		try {
-			for(int i=0; i<layers.size(); i++) {
-				l = layers.get(i);
-				InputStream layerInput = null;
-				OutputStream layerOutput = null;
+        // two temporary files for now
+        File tempIn = null;
+        File tempOut = null;
+        try {
+            tempIn = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
+            tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
+        } catch (final IOException e1) {
+            e1.printStackTrace();
+            System.exit(org.jastacry.Data.RC_ERROR);
+        }
 
-				// first step
-				if(i==0) {
-					layerInput = input;
-					layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
-					if(isVerbose)
-						System.out.println("layer 0 '" + l.toString() + "' from " + fileIn + " to " + tempOut);
-				} else {
-					// middle steps
-					if(i<layers.size()-1) {
-						if(isVerbose)
-							System.out.println("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + tempOut);
-						layerInput = new BufferedInputStream(new FileInputStream(tempIn));						
-						layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
-					} else { // last step
-						if(isVerbose)
-							System.out.println("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + fileOut);
-						layerInput = new BufferedInputStream(new FileInputStream(tempIn));						
-						layerOutput = output;
-					}
-				}
+        try {
+            input = new BufferedInputStream(new FileInputStream(fileIn));
+            output = new BufferedOutputStream(new FileOutputStream(fileOut));
+        } catch (final FileNotFoundException e) {
+            e.printStackTrace();
+            System.exit(org.jastacry.Data.RC_ERROR);
+        }
 
-				switch(action) {
-				case org.jastacry.Data.ENCODE:
-					l.encStream(layerInput, layerOutput);
-					break;
-				case org.jastacry.Data.DECODE:
-					l.decStream(layerInput, layerOutput);
-					break;
-				}
+        try {
+            for (int i = 0; i < layers.size(); i++) {
+                l = layers.get(i);
+                InputStream layerInput = null;
+                OutputStream layerOutput = null;
 
-				// first step
-				if(i==0) {
-					layerOutput.close();
-				} else {
-					// middle steps
-					if(i<layers.size()-1) {
-						layerInput.close();
-						layerOutput.close();
-					} else { // last step
-						layerInput.close();
-					}
-				}
+                // first step
+                if (i == 0) {
+                    layerInput = input;
+                    layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
+                    if (isVerbose) {
+                        System.out.println("layer 0 '" + l.toString() + "' from " + fileIn + " to " + tempOut);
+                    }
+                } else {
+                    // middle steps
+                    if (i < layers.size() - 1) {
+                        if (isVerbose) {
+                            System.out.println(
+                                    "layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + tempOut);
+                        }
+                        layerInput = new BufferedInputStream(new FileInputStream(tempIn));
+                        layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
+                    } else { // last step
+                        if (isVerbose) {
+                            System.out.println(
+                                    "layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + fileOut);
+                        }
+                        layerInput = new BufferedInputStream(new FileInputStream(tempIn));
+                        layerOutput = output;
+                    }
+                }
 
-				// transfer last temporary out to new temporary in
-				tempIn.delete();
-				tempIn = tempOut;
-				tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
-				
-			} // for
+                switch (action) {
+                    case org.jastacry.Data.ENCODE:
+                        l.encStream(layerInput, layerOutput);
+                        break;
+                    case org.jastacry.Data.DECODE:
+                        l.decStream(layerInput, layerOutput);
+                        break;
+                    default:
+                        System.err.println("unknwon action " + action);
+                        break;
+                }
 
-			tempIn.delete();
-			tempOut.delete();
-			
-			input.close();
-			output.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+                // first step
+                if (i == 0) {
+                    layerOutput.close();
+                } else {
+                    // middle steps
+                    if (i < layers.size() - 1) {
+                        layerInput.close();
+                        layerOutput.close();
+                    } else { // last step
+                        layerInput.close();
+                    }
+                }
 
-		if(isVerbose)
-			System.out.println("JaStaCry finished");
-	}
+                // transfer last temporary out to new temporary in
+                if (null != tempIn) {
+                    tempIn.delete();
+                }
+                tempIn = tempOut;
+                tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
+
+            } // for
+
+            if (null != tempIn) {
+                tempIn.delete();
+            }
+            if (null != tempOut) {
+                tempOut.delete();
+            }
+
+            if (null != input) {
+                input.close();
+            }
+            if (null != output) {
+                output.close();
+            }
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+
+        if (isVerbose) {
+            System.out.println("JaStaCry finished");
+        }
+    }
 
 }
