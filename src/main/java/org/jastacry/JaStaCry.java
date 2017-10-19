@@ -23,6 +23,8 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jastacry.layer.AbsLayer;
 import org.jastacry.layer.EncodeDecodeLayer;
 import org.jastacry.layer.FilemergeLayer;
@@ -52,6 +54,7 @@ public class JaStaCry {
      */
     @SuppressWarnings("static-access")
     public static void main(final String[] args) {
+        final Logger logger = LogManager.getLogger();
         // Command line parameters
         final Options options = new Options();
         options.addOption(P_SHORT_ENCODE, P_LONG_ENCODE, false, "encode input stream");
@@ -79,13 +82,13 @@ public class JaStaCry {
         }
 
         if (null == cmdLine) {
-            System.err.println("cmdLine null");
+            logger.error("cmdLine null");
             return;
         }
         // Is verbose?
         final boolean isVerbose = cmdLine.hasOption(P_SHORT_VERBOSE);
         if (isVerbose) {
-            System.out.println("JaStaCry starting");
+            logger.info("JaStaCry starting");
         }
 
         int action = 0;
@@ -136,13 +139,11 @@ public class JaStaCry {
                     sLayer = strLine.substring(0, iPosSpace);
                     sParams = strLine.substring(iPosSpace + 1);
 
-                    // System.out.println("Param '" + sParams + "'");
-
                     // Optional interactive password entry
                     if (sParams.equalsIgnoreCase(org.jastacry.Data.MACRO_PASSWORD)) {
                         final Console console = System.console();
                         if (null == console) {
-                            System.err.println("No interactive console available for password entry!");
+                            logger.error("No interactive console available for password entry!");
                             System.exit(org.jastacry.Data.RC_ERROR);
                             return;
                         }
@@ -171,13 +172,13 @@ public class JaStaCry {
                         layer = new Md5DesLayer();
                         break;
                     default:
-                        System.err.println("unknown layer " + sLayer);
+                        logger.error("unknown layer {}", sLayer);
                         System.exit(org.jastacry.Data.RC_ERROR);
                         return;
                 } // switch
 
                 if (isVerbose) {
-                    System.out.println("adding layer " + sLayer);
+                    logger.debug("adding layer {}", sLayer);
                 }
 
                 layer.init(sParams);
@@ -189,7 +190,7 @@ public class JaStaCry {
                         layers.add(0, layer);
                         break;
                     default:
-                        System.err.println("unkown action " + action);
+                        logger.error("unkown action {}", action);
                         break;
                 } // switch
             }
@@ -204,18 +205,18 @@ public class JaStaCry {
                     br.close();
                 }
             } catch (final IOException e) {
-                e.printStackTrace();
+                logger.catching(e);
             }
         }
 
         if (0 == layers.size()) {
-            System.err.println("No layers defined!");
+            logger.error("No layers defined!");
             System.exit(org.jastacry.Data.RC_ERROR);
             return;
         } // if
 
         if (1 == layers.size()) {
-            System.out.println("Warning: Only one layer defined!");
+            logger.warn("Warning: Only one layer defined!");
         }
 
         if (doEncode) {
@@ -228,7 +229,7 @@ public class JaStaCry {
                     layers.add(0, layerEncode);
                     break;
                 default:
-                    System.err.println("unknown action " + action);
+                    logger.error("unknown action {}", action);
                     break;
             } // switch
         }
@@ -248,7 +249,7 @@ public class JaStaCry {
             tempIn = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
             tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
         } catch (final IOException e1) {
-            e1.printStackTrace();
+            logger.catching(e1);
             System.exit(org.jastacry.Data.RC_ERROR);
         }
 
@@ -256,7 +257,7 @@ public class JaStaCry {
             input = new BufferedInputStream(new FileInputStream(fileIn));
             output = new BufferedOutputStream(new FileOutputStream(fileOut));
         } catch (final FileNotFoundException e) {
-            e.printStackTrace();
+            logger.catching(e);
             System.exit(org.jastacry.Data.RC_ERROR);
         }
 
@@ -271,21 +272,19 @@ public class JaStaCry {
                     layerInput = input;
                     layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
                     if (isVerbose) {
-                        System.out.println("layer 0 '" + l.toString() + "' from " + fileIn + " to " + tempOut);
+                        logger.debug("layer 0 '" + l.toString() + "' from " + fileIn + " to " + tempOut);
                     }
                 } else {
                     // middle steps
                     if (i < layers.size() - 1) {
                         if (isVerbose) {
-                            System.out.println(
-                                    "layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + tempOut);
+                            logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + tempOut);
                         }
                         layerInput = new BufferedInputStream(new FileInputStream(tempIn));
                         layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
                     } else { // last step
                         if (isVerbose) {
-                            System.out.println(
-                                    "layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + fileOut);
+                            logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + fileOut);
                         }
                         layerInput = new BufferedInputStream(new FileInputStream(tempIn));
                         layerOutput = output;
@@ -300,7 +299,7 @@ public class JaStaCry {
                         l.decStream(layerInput, layerOutput);
                         break;
                     default:
-                        System.err.println("unknwon action " + action);
+                        logger.error("unknwon action {}", action);
                         break;
                 }
 
@@ -340,11 +339,11 @@ public class JaStaCry {
                 output.close();
             }
         } catch (final IOException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
 
         if (isVerbose) {
-            System.out.println("JaStaCry finished");
+            logger.info("JaStaCry finished");
         }
     }
 
