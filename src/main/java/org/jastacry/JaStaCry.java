@@ -299,7 +299,7 @@ public class JaStaCry {
                         l.decStream(layerInput, layerOutput);
                         break;
                     default:
-                        logger.error("unknwon action {}", action);
+                        logger.error("unknwon action '{}'", action);
                         break;
                 }
 
