@@ -5,8 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestLayerMd5Des.class, TestLayerRandom.class,
-		TestLayerRotate.class, TestLayerTransparent.class, TestLayerXor.class })
+@SuiteClasses({ TestLayerMd5Des.class, TestLayerRandom.class, TestLayerRotate.class, TestLayerTransparent.class,
+        TestLayerXor.class })
 public class AllTests {
 
 }
