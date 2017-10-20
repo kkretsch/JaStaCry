@@ -1,6 +1,6 @@
 package org.jastacry.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,43 +13,46 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.oneandone.testlinkjunit.tljunit.TestLink;
+
 public class TestLayerRandom {
-	private String testdata = "The quick brown fox jumps over the lazy dog.";
-	private RandomLayer layer=null;
+    private final String testdata = "The quick brown fox jumps over the lazy dog.";
+    private RandomLayer layer = null;
 
-	@Before
-	public void setUp() throws Exception {
-		layer = new RandomLayer();
-	}
+    @Before
+    public void setUp() throws Exception {
+        layer = new RandomLayer();
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		layer = null;
-	}
+    @After
+    public void tearDown() throws Exception {
+        layer = null;
+    }
 
-	@Test
-	public void testEncDecStream() throws IOException {
-		byte[] buf = testdata.getBytes();
-		InputStream isEncode = new ByteArrayInputStream(buf);
-		ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
-		layer.init("333");
-		layer.encStream(isEncode, osEncode);
-		buf = osEncode.toByteArray();
+    @Test
+    @TestLink(externalId = "JAS-6")
+    public void testEncDecStream() throws IOException {
+        byte[] buf = testdata.getBytes();
+        final InputStream isEncode = new ByteArrayInputStream(buf);
+        final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
+        layer.init("333");
+        layer.encStream(isEncode, osEncode);
+        buf = osEncode.toByteArray();
 
-		layer = null;
-		layer = new RandomLayer();
-		InputStream isDecode = new ByteArrayInputStream(buf);
-		OutputStream osDecode = new ByteArrayOutputStream();
-		layer.init("333");
-		layer.decStream(isDecode, osDecode);
-		assertEquals("decoding differs", testdata, osDecode.toString());
+        layer = null;
+        layer = new RandomLayer();
+        final InputStream isDecode = new ByteArrayInputStream(buf);
+        final OutputStream osDecode = new ByteArrayOutputStream();
+        layer.init("333");
+        layer.decStream(isDecode, osDecode);
+        assertEquals("decoding differs", testdata, osDecode.toString());
 
-	}
+    }
 
-
-	@Test
-	public void testToString() {
-		assertEquals("Layer name mismatch", RandomLayer.LAYERNAME, layer.toString());
-	}
+    @Test
+    @TestLink(externalId = "JAS-7")
+    public void testToString() {
+        assertEquals("Layer name mismatch", RandomLayer.LAYERNAME, layer.toString());
+    }
 
 }

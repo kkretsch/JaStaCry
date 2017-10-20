@@ -1,9 +1,9 @@
 /**
- * 
+ *
  */
 package org.jastacry.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,56 +16,63 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.oneandone.testlinkjunit.tljunit.TestLink;
+
 /**
  * @author Kai Kretschmann
  *
  */
 public class TestLayerTransparent {
-	private String testdata = "The quick brown fox jumps over the lazy dog.";
-	private TransparentLayer layer=null;
+    private final String testdata = "The quick brown fox jumps over the lazy dog.";
+    private TransparentLayer layer = null;
 
-	@Before
-	public void setUp() throws Exception {
-		layer = new TransparentLayer();
-	}
+    @Before
+    public void setUp() throws Exception {
+        layer = new TransparentLayer();
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		layer = null;
-	}
+    @After
+    public void tearDown() throws Exception {
+        layer = null;
+    }
 
-	/**
-	 * Test method for {@link org.jastacry.layer.TransparentLayer#encStream(java.io.InputStream, java.io.OutputStream)}.
-	 * @throws IOException 
-	 */
-	@Test
-	public void testEncStream() throws IOException {
-		byte[] buf = testdata.getBytes();
-		InputStream is = new ByteArrayInputStream(buf);
-		OutputStream os = new ByteArrayOutputStream();
-		layer.encStream(is, os);
-		assertEquals("encoding differs", testdata, os.toString());
-	}
+    /**
+     * Test method for {@link org.jastacry.layer.TransparentLayer#encStream(java.io.InputStream, java.io.OutputStream)}.
+     *
+     * @throws IOException
+     */
+    @Test
+    @TestLink(externalId = "JAS-1")
+    public void testEncStream() throws IOException {
+        final byte[] buf = testdata.getBytes();
+        final InputStream is = new ByteArrayInputStream(buf);
+        final OutputStream os = new ByteArrayOutputStream();
+        layer.encStream(is, os);
+        assertEquals("encoding differs", testdata, os.toString());
+    }
 
-	/**
-	 * Test method for {@link org.jastacry.layer.TransparentLayer#decStream(java.io.InputStream, java.io.OutputStream)}.
-	 * @throws IOException 
-	 */
-	@Test
-	public void testDecStream() throws IOException {
-		byte[] buf = testdata.getBytes();
-		InputStream is = new ByteArrayInputStream(buf);
-		OutputStream os = new ByteArrayOutputStream();
-		layer.decStream(is, os);
-		assertEquals("decoding differs", testdata, os.toString());
-	}
+    /**
+     * Test method for {@link org.jastacry.layer.TransparentLayer#decStream(java.io.InputStream, java.io.OutputStream)}.
+     *
+     * @throws IOException
+     */
+    @Test
+    @TestLink(externalId = "JAS-2")
+    public void testDecStream() throws IOException {
+        final byte[] buf = testdata.getBytes();
+        final InputStream is = new ByteArrayInputStream(buf);
+        final OutputStream os = new ByteArrayOutputStream();
+        layer.decStream(is, os);
+        assertEquals("decoding differs", testdata, os.toString());
+    }
 
-	/**
-	 * Test method for {@link org.jastacry.layer.TransparentLayer#toString()}.
-	 */
-	@Test
-	public void testToString() {
-		assertEquals("Layer name mismatch", TransparentLayer.LAYERNAME, layer.toString());
-	}
+    /**
+     * Test method for {@link org.jastacry.layer.TransparentLayer#toString()}.
+     */
+    @Test
+    @TestLink(externalId = "JAS-3")
+    public void testToString() {
+        assertEquals("Layer name mismatch", TransparentLayer.LAYERNAME, layer.toString());
+    }
 
 }
