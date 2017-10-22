@@ -4,7 +4,10 @@
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacrygui</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<build>
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  	<build>
 
 		<plugins>
 			<plugin>
@@ -71,4 +74,21 @@
 			<version>3.0.4-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+	<scm>
+		<url>https://github.com/kkretsch/JaStaCry</url>
+		<tag>HEAD</tag>
+		<connection>scm:git:git://github.com/kkretsch/JaStaCry.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/kkretsch/JaStaCry.git</developerConnection>
+	</scm>
+	<url>https://jastacry.org/</url>
+	<description>Java Stacked Crypto</description>
+	<name>JaStaCry</name>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/kkretsch/JaStaCry/issues/?labels=${project.artifactId}&amp;sort=created&amp;state=open</url>
+	</issueManagement>
+	<ciManagement>
+	    <system>Jenkins</system>
+		<url>https://jen.myocastor.de/job/JaStaCry/</url>
+	</ciManagement>
 </project>
