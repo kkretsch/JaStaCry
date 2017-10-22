@@ -65,5 +65,10 @@
 			<artifactId>tljunit-eclipse</artifactId>
 			<version>3.0.4-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>net.oneandone.testlinkjunit</groupId>
+			<artifactId>tljunit-surefire</artifactId>
+			<version>3.0.4-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
