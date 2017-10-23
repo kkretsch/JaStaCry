@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.mail.MessagingException;
+
+import org.apache.commons.io.IOUtils;
+
 public class EncodeDecodeLayer extends AbsLayer {
     public final static String LAYERNAME = "Encode Layer";
     private final static String UUNAME = "jastacry";
@@ -18,11 +22,16 @@ public class EncodeDecodeLayer extends AbsLayer {
         uuenc.encode(is, os);
     }
 
-    @SuppressWarnings("restriction")
     @Override
     public void decStream(final InputStream is, final OutputStream os) throws IOException {
-        final sun.misc.UUDecoder uuenc = new sun.misc.UUDecoder();
-        uuenc.decodeBuffer(is, os);
+        InputStream isDecoded = null;
+        try {
+            isDecoded = javax.mail.internet.MimeUtility.decode(is, "uuencode");
+        } catch (final MessagingException exception) {
+            exception.printStackTrace();
+            throw new IOException(exception.getLocalizedMessage());
+        }
+        IOUtils.copy(isDecoded, os);
     }
 
     @Override
