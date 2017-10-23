@@ -6,15 +6,15 @@ import java.io.OutputStream;
 
 public class EncodeDecodeLayer extends AbsLayer {
     public final static String LAYERNAME = "Encode Layer";
+    private final static String UUNAME = "jastacry";
 
     @Override
     public void init(final String data) {
     }
 
-    @SuppressWarnings("restriction")
     @Override
     public void encStream(final InputStream is, final OutputStream os) throws IOException {
-        final sun.misc.UUEncoder uuenc = new sun.misc.UUEncoder();
+        final org.apache.tools.ant.util.UUEncoder uuenc = new org.apache.tools.ant.util.UUEncoder(UUNAME);
         uuenc.encode(is, os);
     }
 
