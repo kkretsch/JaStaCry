@@ -13,8 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.oneandone.testlinkjunit.tljunit.TestLink;
-
 public class TestLayerRotate {
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
     private RotateLayer layer = null;
@@ -30,7 +28,7 @@ public class TestLayerRotate {
     }
 
     @Test
-    @TestLink(externalId = "JAS-8")
+    // TestLink(externalId = "JAS-8")
     public void testEncDecStream() throws IOException {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
@@ -46,7 +44,7 @@ public class TestLayerRotate {
     }
 
     @Test
-    @TestLink(externalId = "JAS-9")
+    // TestLink(externalId = "JAS-9")
     public void testToString() {
         assertEquals("Layer name mismatch", RotateLayer.LAYERNAME, layer.toString());
     }

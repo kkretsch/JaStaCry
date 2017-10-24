@@ -14,8 +14,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.oneandone.testlinkjunit.tljunit.TestLink;
-
 public class TestLayerMd5Des {
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
     private AbsCipherLayer layer = null;
@@ -32,7 +30,7 @@ public class TestLayerMd5Des {
     }
 
     @Test
-    @TestLink(externalId = "JAS-4")
+    // TestLink(externalId = "JAS-4")
     public void testEncDecStream() throws IOException {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
@@ -48,7 +46,7 @@ public class TestLayerMd5Des {
     }
 
     @Test
-    @TestLink(externalId = "JAS-5")
+    // TestLink(externalId = "JAS-5")
     public void testToString() {
         assertEquals("Layer name mismatch", Md5DesLayer.LAYERNAME, layer.toString());
     }
