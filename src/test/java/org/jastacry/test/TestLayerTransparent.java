@@ -16,8 +16,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.oneandone.testlinkjunit.tljunit.TestLink;
-
 /**
  * @author Kai Kretschmann
  *
@@ -42,7 +40,7 @@ public class TestLayerTransparent {
      * @throws IOException
      */
     @Test
-    @TestLink(externalId = "JAS-1")
+    // TestLink(externalId = "JAS-1")
     public void testEncStream() throws IOException {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
@@ -57,7 +55,7 @@ public class TestLayerTransparent {
      * @throws IOException
      */
     @Test
-    @TestLink(externalId = "JAS-2")
+    // TestLink(externalId = "JAS-2")
     public void testDecStream() throws IOException {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
@@ -70,7 +68,7 @@ public class TestLayerTransparent {
      * Test method for {@link org.jastacry.layer.TransparentLayer#toString()}.
      */
     @Test
-    @TestLink(externalId = "JAS-3")
+    // TestLink(externalId = "JAS-3")
     public void testToString() {
         assertEquals("Layer name mismatch", TransparentLayer.LAYERNAME, layer.toString());
     }

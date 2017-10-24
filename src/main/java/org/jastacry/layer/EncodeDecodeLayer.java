@@ -10,7 +10,6 @@ import org.apache.commons.io.IOUtils;
 
 public class EncodeDecodeLayer extends AbsLayer {
     public final static String LAYERNAME = "Encode Layer";
-    private final static String UUNAME = "jastacry";
 
     @Override
     public void init(final String data) {
@@ -18,8 +17,13 @@ public class EncodeDecodeLayer extends AbsLayer {
 
     @Override
     public void encStream(final InputStream is, final OutputStream os) throws IOException {
-        final org.apache.tools.ant.util.UUEncoder uuenc = new org.apache.tools.ant.util.UUEncoder(UUNAME);
-        uuenc.encode(is, os);
+        OutputStream osEncoded = null;
+        try {
+            osEncoded = javax.mail.internet.MimeUtility.encode(os, "uuencode");
+        } catch (final MessagingException exception) {
+            exception.printStackTrace();
+        }
+        IOUtils.copy(is, osEncoded);
     }
 
     @Override

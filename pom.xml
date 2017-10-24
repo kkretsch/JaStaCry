@@ -18,7 +18,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<plugin>
+<!-- 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.10</version>
@@ -43,7 +43,7 @@
 						<testlink.loggername>tester</testlink.loggername>
 					</systemPropertyVariables>
 				</configuration>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 	<dependencies>
@@ -62,16 +62,6 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.9.1</version>
-		</dependency>
-		<dependency>
-			<groupId>net.oneandone.testlinkjunit</groupId>
-			<artifactId>tljunit-eclipse</artifactId>
-			<version>3.0.4-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>net.oneandone.testlinkjunit</groupId>
-			<artifactId>tljunit-surefire</artifactId>
-			<version>3.0.4-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven.shared</groupId>
@@ -97,9 +87,9 @@
 			<version>1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.ant</groupId>
-			<artifactId>ant</artifactId>
-			<version>1.10.1</version>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
 		</dependency>
 	</dependencies>
 	<scm>
