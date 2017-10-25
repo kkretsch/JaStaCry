@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 /**
  * Rotate every byte by an offset (either positiv or negativ).
- * 
+ *
  * @author Kai Kretschmann
  * @version 0.1.20130818
  */
@@ -14,6 +14,10 @@ import java.io.OutputStream;
 public class RotateLayer extends AbsLayer {
     public final static String LAYERNAME = "Rotate Layer";
     private int iOffset;
+
+    public RotateLayer() {
+        super(RotateLayer.class);
+    }
 
     @Override
     public void init(final String data) {
