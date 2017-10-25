@@ -7,14 +7,16 @@ import java.io.OutputStream;
 import javax.mail.MessagingException;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
 
 public class EncodeDecodeLayer extends AbsLayer {
     public final static String LAYERNAME = "Encode Layer";
 
+    public EncodeDecodeLayer() {
+        super(EncodeDecodeLayer.class);
+    }
+
     @Override
     public void init(final String data) {
-        logger = LogManager.getLogger(EncodeDecodeLayer.class);
     }
 
     @Override
@@ -25,7 +27,8 @@ public class EncodeDecodeLayer extends AbsLayer {
         } catch (final MessagingException e) {
             logger.catching(e);
         }
-        IOUtils.copy(is, osEncoded);
+        final int iCount = IOUtils.copy(is, osEncoded);
+        logger.debug("copied {} bytes", iCount);
     }
 
     @Override

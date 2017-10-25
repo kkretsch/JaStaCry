@@ -5,38 +5,42 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * A transparent layer just doing nothing with the data.
- * Use it as an example framework to start with.
+ * A transparent layer just doing nothing with the data. Use it as an example framework to start with.
+ *
  * @author Kai Kretschmann
  * @version 0.1.20130818
  */
 
 public class TransparentLayer extends AbsLayer {
-	public final static String LAYERNAME="Transparent Layer";
+    public final static String LAYERNAME = "Transparent Layer";
 
-	@Override
-	public void encStream(InputStream is, OutputStream os) throws IOException {
-		int iChar;
-		while((iChar = is.read()) != -1) {
-			os.write(iChar);
-		}
-	}
+    public TransparentLayer() {
+        super(TransparentLayer.class);
+    }
 
-	@Override
-	public void decStream(InputStream is, OutputStream os) throws IOException {
-		int iChar;
-		while((iChar = is.read()) != -1) {
-			os.write(iChar);
-		}
-	}
+    @Override
+    public void encStream(final InputStream is, final OutputStream os) throws IOException {
+        int iChar;
+        while ((iChar = is.read()) != -1) {
+            os.write(iChar);
+        }
+    }
 
-	@Override
-	public void init(String data) {
-	}
+    @Override
+    public void decStream(final InputStream is, final OutputStream os) throws IOException {
+        int iChar;
+        while ((iChar = is.read()) != -1) {
+            os.write(iChar);
+        }
+    }
 
-	@Override
-	public String toString() {
-		return LAYERNAME;
-	}
+    @Override
+    public void init(final String data) {
+    }
+
+    @Override
+    public String toString() {
+        return LAYERNAME;
+    }
 
 }

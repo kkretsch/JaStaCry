@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -18,6 +19,10 @@ import org.apache.logging.log4j.Logger;
 public abstract class AbsLayer {
     public static String LAYERNAME = null;
     Logger logger = null;
+
+    protected AbsLayer(final Class<?> caller) {
+        logger = LogManager.getLogger(caller);
+    }
 
     /**
      * Optional method for setting encryption or decryption parameters like keys or passwords

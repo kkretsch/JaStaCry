@@ -56,10 +56,10 @@ public class TestLayerEncodeDecode {
     public void testEncStream() throws IOException {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
-        LOGGER.debug("'" + is.toString() + "'");
+        LOGGER.debug("is='{}'", is.toString());
         final OutputStream os = new ByteArrayOutputStream();
         layer.encStream(is, os);
-        LOGGER.debug("'" + os.toString() + "'");
+        LOGGER.debug("os='{}'", os.toString());
         assertEquals("encoding differs", testdata, os.toString());
     }
 

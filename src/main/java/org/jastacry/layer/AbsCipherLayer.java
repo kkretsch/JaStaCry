@@ -19,73 +19,75 @@ import javax.crypto.spec.PBEParameterSpec;
 
 public abstract class AbsCipherLayer extends AbsLayer {
 
-	protected PBEKeySpec pbeKeySpec;
-	protected PBEParameterSpec pbeParamSpec;
-	protected SecretKeyFactory keyFac;
-	protected SecretKey pbeKey;
-	protected String ALG;
+    protected PBEKeySpec pbeKeySpec;
+    protected PBEParameterSpec pbeParamSpec;
+    protected SecretKeyFactory keyFac;
+    protected SecretKey pbeKey;
+    protected String ALG;
 
-	public AbsCipherLayer() {
-		super();
-	}
+    public AbsCipherLayer(final Class<?> c) {
+        super(c);
+    }
 
-	@Override
-	public void encStream(InputStream is, OutputStream os) throws IOException {
-	    // Create PBE Cipher
-	    Cipher pbeCipher;
-		try {
-			pbeCipher = Cipher.getInstance(ALG);
-	        pbeCipher.init(Cipher.ENCRYPT_MODE, pbeKey, pbeParamSpec);
-	
-	        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-	
-	        int nRead;
-	        byte[] data = new byte[1024];
-	
-	        while ((nRead = is.read(data, 0, data.length)) != -1) {
-	          buffer.write(data, 0, nRead);
-	        }
-	
-	        buffer.flush();
-	
-	        byte[] bInput = buffer.toByteArray();
-	        
-	        // Encrypt the cleartext
-	        byte[] ciphertext = pbeCipher.doFinal(bInput);
-	        os.write(ciphertext);
-		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
-			e.printStackTrace();
-		}
-	
-	}
+    @Override
+    public void encStream(final InputStream is, final OutputStream os) throws IOException {
+        // Create PBE Cipher
+        Cipher pbeCipher;
+        try {
+            pbeCipher = Cipher.getInstance(ALG);
+            pbeCipher.init(Cipher.ENCRYPT_MODE, pbeKey, pbeParamSpec);
 
-	@Override
-	public void decStream(InputStream is, OutputStream os) throws IOException {
-	    // Create PBE Cipher
-	    Cipher pbeCipher;
-		try {
-			pbeCipher = Cipher.getInstance(ALG);
-	        pbeCipher.init(Cipher.DECRYPT_MODE, pbeKey, pbeParamSpec);
-	
-	        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-	
-	        int nRead;
-	        byte[] data = new byte[1024];
-	
-	        while ((nRead = is.read(data, 0, data.length)) != -1) {
-	          buffer.write(data, 0, nRead);
-	        }
-	
-	        buffer.flush();
-	
-	        byte[] bInput = buffer.toByteArray();
-	        
-	        // Encrypt the cleartext
-	        byte[] ciphertext = pbeCipher.doFinal(bInput);
-	        os.write(ciphertext);
-		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
-			e.printStackTrace();
-		}
-	}
+            final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+            int nRead;
+            final byte[] data = new byte[1024];
+
+            while ((nRead = is.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+
+            buffer.flush();
+
+            final byte[] bInput = buffer.toByteArray();
+
+            // Encrypt the cleartext
+            final byte[] ciphertext = pbeCipher.doFinal(bInput);
+            os.write(ciphertext);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
+                | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void decStream(final InputStream is, final OutputStream os) throws IOException {
+        // Create PBE Cipher
+        Cipher pbeCipher;
+        try {
+            pbeCipher = Cipher.getInstance(ALG);
+            pbeCipher.init(Cipher.DECRYPT_MODE, pbeKey, pbeParamSpec);
+
+            final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+            int nRead;
+            final byte[] data = new byte[1024];
+
+            while ((nRead = is.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+
+            buffer.flush();
+
+            final byte[] bInput = buffer.toByteArray();
+
+            // Encrypt the cleartext
+            final byte[] ciphertext = pbeCipher.doFinal(bInput);
+            os.write(ciphertext);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
+                | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
