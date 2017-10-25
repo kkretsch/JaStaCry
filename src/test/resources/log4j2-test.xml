@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC
+  "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<Configuration status="warn" packages="org.jastacry">
+	<Appenders>
+		<Console name="ConsoleLog" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS}\t %msg%n" />
+		</Console>
+		<File name="Logfile" fileName="logs/TestLogfile.log">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %msg%n" />
+		</File>
+	</Appenders>
+	<Loggers>
+		<Root level="ALL">
+			<AppenderRef ref="ConsoleLog" level="INFO" />
+		</Root>
+		<Logger additivity="FALSE" level="ALL" name="org.jastacry.test">
+			<AppenderRef level="INFO" ref="ConsoleLog" />
+			<AppenderRef level="ALL" ref="Logfile" />
+		</Logger>
+	</Loggers>
+</Configuration>
