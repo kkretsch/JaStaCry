@@ -10,10 +10,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jastacry.layer.EncodeDecodeLayer;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -21,8 +25,15 @@ import org.junit.Test;
  *
  */
 public class TestLayerEncodeDecode {
+    private static Logger LOGGER = null;
+
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
     private EncodeDecodeLayer layer = null;
+
+    @BeforeClass
+    public static void setLogger() throws MalformedURLException {
+        LOGGER = LogManager.getLogger();
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -45,10 +56,10 @@ public class TestLayerEncodeDecode {
     public void testEncStream() throws IOException {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
-        System.err.println("'" + is.toString() + "'");
+        LOGGER.debug("'" + is.toString() + "'");
         final OutputStream os = new ByteArrayOutputStream();
         layer.encStream(is, os);
-        System.err.println("'" + os.toString() + "'");
+        LOGGER.debug("'" + os.toString() + "'");
         assertEquals("encoding differs", testdata, os.toString());
     }
 

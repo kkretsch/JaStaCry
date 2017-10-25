@@ -7,12 +7,14 @@ import java.io.OutputStream;
 import javax.mail.MessagingException;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
 
 public class EncodeDecodeLayer extends AbsLayer {
     public final static String LAYERNAME = "Encode Layer";
 
     @Override
     public void init(final String data) {
+        logger = LogManager.getLogger(EncodeDecodeLayer.class);
     }
 
     @Override
@@ -20,8 +22,8 @@ public class EncodeDecodeLayer extends AbsLayer {
         OutputStream osEncoded = null;
         try {
             osEncoded = javax.mail.internet.MimeUtility.encode(os, "uuencode");
-        } catch (final MessagingException exception) {
-            exception.printStackTrace();
+        } catch (final MessagingException e) {
+            logger.catching(e);
         }
         IOUtils.copy(is, osEncoded);
     }
@@ -31,9 +33,9 @@ public class EncodeDecodeLayer extends AbsLayer {
         InputStream isDecoded = null;
         try {
             isDecoded = javax.mail.internet.MimeUtility.decode(is, "uuencode");
-        } catch (final MessagingException exception) {
-            exception.printStackTrace();
-            throw new IOException(exception.getLocalizedMessage());
+        } catch (final MessagingException e) {
+            logger.catching(e);
+            throw new IOException(e.getLocalizedMessage());
         }
         IOUtils.copy(isDecoded, os);
     }

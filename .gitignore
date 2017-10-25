@@ -1,5 +1,6 @@
 doc/
 target/
+logs/
 bin/
 pom.xml.tag
 pom.xml.releaseBackup
