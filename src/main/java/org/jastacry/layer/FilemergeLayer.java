@@ -8,28 +8,53 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Mask every byte with data of a given file. If the file is smaller than the data it will be used again and again from
+ * Mask every byte with data of a given file. If the file is smaller than the
+ * data it will be used again and again from
  * the beginning.
- * 
+ *
  * @author Kai Kretschmann
  * @version 0.1.20130818
  */
 
 public class FilemergeLayer extends AbsLayer {
-    File fileMerge;
-    InputStream merge = null;
+    /**
+     * File to merge with..
+     */
+    private File fileMerge;
 
+    /**
+     * Input stream fo file to merge with.
+     */
+    private InputStream merge = null;
+
+    /**
+     * Constructor of FilemergeLayer.
+     */
     public FilemergeLayer() {
         super(FilemergeLayer.class);
     }
 
     @Override
-    public void init(final String data) {
+    /**
+     * init function.
+     *
+     * @param data
+     *            to initialize the file.
+     */
+    public final void init(final String data) {
         this.fileMerge = new File(data);
     }
 
     @Override
-    public void encStream(final InputStream is, final OutputStream os) throws IOException {
+    /**
+     * encode Stream function.
+     *
+     * @param is
+     * @param os
+     * @throws IOException
+     */
+    public final void encStream(final InputStream is, final OutputStream os)
+            throws IOException {
         int iChar;
         int iMerge;
         byte bChar;
@@ -39,7 +64,8 @@ public class FilemergeLayer extends AbsLayer {
         merge.mark(0);
 
         while ((iChar = is.read()) != -1) {
-            if (-1 == (iMerge = merge.read())) {
+            iMerge = merge.read();
+            if (-1 == iMerge) {
                 merge.reset();
                 iMerge = merge.read();
             }
@@ -53,7 +79,15 @@ public class FilemergeLayer extends AbsLayer {
     }
 
     @Override
-    public void decStream(final InputStream is, final OutputStream os) throws IOException {
+    /**
+     * decode Stream function.
+     *
+     * @param is
+     * @param os
+     * @throws IOException
+     */
+    public final void decStream(final InputStream is, final OutputStream os)
+            throws IOException {
         int iChar;
         int iMerge;
         byte bChar;
@@ -63,7 +97,8 @@ public class FilemergeLayer extends AbsLayer {
         merge.mark(0);
 
         while ((iChar = is.read()) != -1) {
-            if (-1 == (iMerge = merge.read())) {
+            iMerge = merge.read();
+            if (-1 == iMerge) {
                 merge.reset();
                 iMerge = merge.read();
             }
@@ -77,7 +112,12 @@ public class FilemergeLayer extends AbsLayer {
     }
 
     @Override
-    public String toString() {
+    /**
+     * Print layer name function.
+     *
+     * @return Layername as String
+     */
+    public final String toString() {
         return "Filemerge Layer";
     }
 

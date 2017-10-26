@@ -8,19 +8,44 @@ import javax.mail.MessagingException;
 
 import org.apache.commons.io.IOUtils;
 
-public class EncodeDecodeLayer extends AbsLayer {
-    public final static String LAYERNAME = "Encode Layer";
+/**
+ * @author Kai Kretschmann
+ * @version 0.1.20130818
+ */
 
+public class EncodeDecodeLayer extends AbsLayer {
+    /**
+     * static name of the layer.
+     */
+    public static final String LAYERNAME = "Encode Layer";
+
+    /**
+     * Constructor of EncodeDecodeLayer.
+     */
     public EncodeDecodeLayer() {
         super(EncodeDecodeLayer.class);
     }
 
     @Override
-    public void init(final String data) {
+    /**
+     * init function.
+     *
+     * @param data
+     *            to initialize nothing.
+     */
+    public final void init(final String data) {
     }
 
     @Override
-    public void encStream(final InputStream is, final OutputStream os) throws IOException {
+    /**
+     * encode Stream function.
+     *
+     * @param is
+     * @param os
+     * @throws IOException
+     */
+    public final void encStream(final InputStream is, final OutputStream os)
+            throws IOException {
         OutputStream osEncoded = null;
         try {
             osEncoded = javax.mail.internet.MimeUtility.encode(os, "uuencode");
@@ -32,7 +57,15 @@ public class EncodeDecodeLayer extends AbsLayer {
     }
 
     @Override
-    public void decStream(final InputStream is, final OutputStream os) throws IOException {
+    /**
+     * decode Stream function.
+     *
+     * @param is
+     * @param os
+     * @throws IOException
+     */
+    public final void decStream(final InputStream is, final OutputStream os)
+            throws IOException {
         InputStream isDecoded = null;
         try {
             isDecoded = javax.mail.internet.MimeUtility.decode(is, "uuencode");
@@ -44,7 +77,12 @@ public class EncodeDecodeLayer extends AbsLayer {
     }
 
     @Override
-    public String toString() {
+    /**
+     * Print layer name function.
+     *
+     * @return Layername as String
+     */
+    public final String toString() {
         return LAYERNAME;
     }
 

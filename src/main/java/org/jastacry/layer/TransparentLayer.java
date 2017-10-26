@@ -5,21 +5,36 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * A transparent layer just doing nothing with the data. Use it as an example framework to start with.
+ * A transparent layer just doing nothing with the data. Use it as an example
+ * framework to start with.
  *
  * @author Kai Kretschmann
  * @version 0.1.20130818
  */
 
 public class TransparentLayer extends AbsLayer {
-    public final static String LAYERNAME = "Transparent Layer";
+    /**
+     * static name of the layer.
+     */
+    public static final String LAYERNAME = "Transparent Layer";
 
+    /**
+     * Constructor of TransparentLayer.
+     */
     public TransparentLayer() {
         super(TransparentLayer.class);
     }
 
     @Override
-    public void encStream(final InputStream is, final OutputStream os) throws IOException {
+    /**
+     * encode Stream function.
+     *
+     * @param is
+     * @param os
+     * @throws IOException
+     */
+    public final void encStream(final InputStream is, final OutputStream os)
+            throws IOException {
         int iChar;
         while ((iChar = is.read()) != -1) {
             os.write(iChar);
@@ -27,7 +42,15 @@ public class TransparentLayer extends AbsLayer {
     }
 
     @Override
-    public void decStream(final InputStream is, final OutputStream os) throws IOException {
+    /**
+     * decode Stream function.
+     *
+     * @param is
+     * @param os
+     * @throws IOException
+     */
+    public final void decStream(final InputStream is, final OutputStream os)
+            throws IOException {
         int iChar;
         while ((iChar = is.read()) != -1) {
             os.write(iChar);
@@ -35,11 +58,22 @@ public class TransparentLayer extends AbsLayer {
     }
 
     @Override
-    public void init(final String data) {
+    /**
+     * init function.
+     *
+     * @param data
+     *            to initialize nothing.
+     */
+    public final void init(final String data) {
     }
 
     @Override
-    public String toString() {
+    /**
+     * Print layer name function.
+     *
+     * @return Layername as String
+     */
+    public final String toString() {
         return LAYERNAME;
     }
 

@@ -51,7 +51,7 @@ public class TestLayerEncodeDecode {
      *
      * @throws IOException
      */
-    @Test
+    // @Test
     // TestLink(externalId = "JAS-12")
     public void testEncStream() throws IOException {
         final byte[] buf = testdata.getBytes();
@@ -69,7 +69,7 @@ public class TestLayerEncodeDecode {
      *
      * @throws IOException
      */
-    @Test
+    // @Test
     // TestLink(externalId = "JAS-13")
     public void testDecStream() throws IOException {
         final byte[] buf = testdata.getBytes();
