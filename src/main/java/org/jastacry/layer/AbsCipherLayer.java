@@ -17,30 +17,72 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 
+/**
+ * Abstract base class for encryption.
+ *
+ * @author kai
+ *
+ */
 public abstract class AbsCipherLayer extends AbsLayer {
 
+    /**
+     * Block size.
+     */
+    private static final int ONEBLOCKSIZE = 1024;
+    /**
+     * PBEKeySpec.
+     */
     protected PBEKeySpec pbeKeySpec;
-    protected PBEParameterSpec pbeParamSpec;
-    protected SecretKeyFactory keyFac;
-    protected SecretKey pbeKey;
-    protected String ALG;
 
+    /**
+     * PBEParameterSpec.
+     */
+    protected PBEParameterSpec pbeParamSpec;
+
+    /**
+     * SecretKeyFactory.
+     */
+    protected SecretKeyFactory keyFac;
+
+    /**
+     * SecretKey.
+     */
+    protected SecretKey pbeKey;
+
+    /**
+     * ALG.
+     */
+    protected String sALG;
+
+    /**
+     * Constructor of abstract class.
+     *
+     * @param c class name of calling class
+     */
     public AbsCipherLayer(final Class<?> c) {
         super(c);
     }
 
     @Override
-    public void encStream(final InputStream is, final OutputStream os) throws IOException {
+    /**
+     * encode Stream function.
+     *
+     * @param is
+     * @param os
+     * @throws IOException
+     */
+    public final void encStream(final InputStream is, final OutputStream os)
+            throws IOException {
         // Create PBE Cipher
         Cipher pbeCipher;
         try {
-            pbeCipher = Cipher.getInstance(ALG);
+            pbeCipher = Cipher.getInstance(sALG);
             pbeCipher.init(Cipher.ENCRYPT_MODE, pbeKey, pbeParamSpec);
 
             final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
             int nRead;
-            final byte[] data = new byte[1024];
+            final byte[] data = new byte[ONEBLOCKSIZE];
 
             while ((nRead = is.read(data, 0, data.length)) != -1) {
                 buffer.write(data, 0, nRead);
@@ -53,25 +95,35 @@ public abstract class AbsCipherLayer extends AbsLayer {
             // Encrypt the cleartext
             final byte[] ciphertext = pbeCipher.doFinal(bInput);
             os.write(ciphertext);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
-                | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException
+                | InvalidKeyException
+                | InvalidAlgorithmParameterException
+                | IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
         }
 
     }
 
     @Override
-    public void decStream(final InputStream is, final OutputStream os) throws IOException {
+    /**
+     * decode Stream function.
+     *
+     * @param is
+     * @param os
+     * @throws IOException
+     */
+    public final void decStream(final InputStream is, final OutputStream os)
+            throws IOException {
         // Create PBE Cipher
         Cipher pbeCipher;
         try {
-            pbeCipher = Cipher.getInstance(ALG);
+            pbeCipher = Cipher.getInstance(sALG);
             pbeCipher.init(Cipher.DECRYPT_MODE, pbeKey, pbeParamSpec);
 
             final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
             int nRead;
-            final byte[] data = new byte[1024];
+            final byte[] data = new byte[ONEBLOCKSIZE];
 
             while ((nRead = is.read(data, 0, data.length)) != -1) {
                 buffer.write(data, 0, nRead);
@@ -84,8 +136,10 @@ public abstract class AbsCipherLayer extends AbsLayer {
             // Encrypt the cleartext
             final byte[] ciphertext = pbeCipher.doFinal(bInput);
             os.write(ciphertext);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
-                | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException
+                | InvalidKeyException
+                | InvalidAlgorithmParameterException
+                | IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
         }
     }
