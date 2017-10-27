@@ -3,7 +3,7 @@ package org.jastacry;
 /**
  * Class for constant values.
  *
- * @author kai
+ * @author Kai Kretschmann
  *
  */
 public final class Data {

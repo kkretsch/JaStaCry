@@ -8,7 +8,6 @@ import java.io.OutputStream;
  * Rotate every byte by an offset (either positiv or negativ).
  *
  * @author Kai Kretschmann
- * @version 0.1.20130818
  */
 
 public class RotateLayer extends AbsLayer {

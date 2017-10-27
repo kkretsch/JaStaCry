@@ -13,7 +13,6 @@ import java.io.OutputStream;
  * the beginning.
  *
  * @author Kai Kretschmann
- * @version 0.1.20130818
  */
 
 public class FilemergeLayer extends AbsLayer {

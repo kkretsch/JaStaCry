@@ -9,7 +9,6 @@ import javax.crypto.spec.PBEParameterSpec;
 
 /**
  * @author Kai Kretschmann
- * @version 0.1.20130818
  */
 
 public class Md5DesLayer extends AbsCipherLayer {

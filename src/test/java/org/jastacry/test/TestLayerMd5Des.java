@@ -17,7 +17,7 @@ import org.junit.Test;
 /**
  * Testclass for MD5DES Layer.
  *
- * @author kkre
+ * @author Kai Kretschmann
  *
  */
 public class TestLayerMd5Des {

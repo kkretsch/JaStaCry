@@ -9,7 +9,6 @@ import java.io.OutputStream;
  * framework to start with.
  *
  * @author Kai Kretschmann
- * @version 0.1.20130818
  */
 
 public class TransparentLayer extends AbsLayer {

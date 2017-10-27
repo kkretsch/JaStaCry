@@ -10,10 +10,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Abstract base class for the actual worker layers.
  *
- * TODO Version numbers in files
- *
  * @author Kai Kretschmann
- * @version 0.1.20171022
  */
 
 public abstract class AbsLayer {
