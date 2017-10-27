@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<findbugs.version>2.5.2</findbugs.version>
+		<findbugs.version>3.0.5</findbugs.version>
 		<checkstyle.version>2.17</checkstyle.version>
 		<surefire.reportplugin.version>2.20.1</surefire.reportplugin.version>
 		<cobertura.version>2.7</cobertura.version>
@@ -131,11 +131,11 @@
 				<configuration>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>${findbugs.version}</version>
-				</plugin> -->
+				</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
