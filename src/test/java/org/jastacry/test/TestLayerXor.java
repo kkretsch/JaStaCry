@@ -31,6 +31,11 @@ public class TestLayerXor {
     private XorLayer layer = null;
 
     /**
+     * Init value for xor layer.
+     */
+    private static final String INITVALUE = "123";
+
+    /**
      * Test before method.
      *
      * @throws Exception
@@ -39,7 +44,7 @@ public class TestLayerXor {
     @Before
     public void setUp() throws Exception {
         layer = new XorLayer();
-        layer.init("123");
+        layer.init(INITVALUE);
     }
 
     /**

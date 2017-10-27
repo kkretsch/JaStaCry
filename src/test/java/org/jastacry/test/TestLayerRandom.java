@@ -21,7 +21,7 @@ import org.junit.Test;
  */
 public class TestLayerRandom {
     /**
-     * Testdata to play with.
+     * Test data to play with.
      */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
 
@@ -29,6 +29,11 @@ public class TestLayerRandom {
      * The layer to test.
      */
     private RandomLayer layer = null;
+
+    /**
+     * Init value for random layer.
+     */
+    private static final String INITVALUE = "333";
 
     /**
      * Test Before method.
@@ -64,7 +69,7 @@ public class TestLayerRandom {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
-        layer.init("333");
+        layer.init(INITVALUE);
         layer.encStream(isEncode, osEncode);
         buf = osEncode.toByteArray();
 
@@ -72,7 +77,7 @@ public class TestLayerRandom {
         layer = new RandomLayer();
         final InputStream isDecode = new ByteArrayInputStream(buf);
         final OutputStream osDecode = new ByteArrayOutputStream();
-        layer.init("333");
+        layer.init(INITVALUE);
         layer.decStream(isDecode, osDecode);
         assertEquals("decoding differs", testdata, osDecode.toString());
 

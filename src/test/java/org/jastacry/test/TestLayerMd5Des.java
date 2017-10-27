@@ -22,7 +22,7 @@ import org.junit.Test;
  */
 public class TestLayerMd5Des {
     /**
-     * Testdata.
+     * Test data to play with.
      */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
 
@@ -30,6 +30,11 @@ public class TestLayerMd5Des {
      * Layer to test.
      */
     private AbsCipherLayer layer = null;
+
+    /**
+     * Init value for random layer.
+     */
+    private static final String INITVALUE = "Passwort";
 
     /**
      * Test Before method.
@@ -40,7 +45,7 @@ public class TestLayerMd5Des {
     @Before
     public void setUp() throws Exception {
         layer = new Md5DesLayer();
-        layer.init("Passwort");
+        layer.init(INITVALUE);
     }
 
     /**

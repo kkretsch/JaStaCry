@@ -33,12 +33,12 @@ public class TestLayerRotate {
     /**
      * Shift a small amount.
      */
-    private final String sShiftSmall = "2";
+    private static final String SHIFTSMALL = "2";
 
     /**
-     * Shit a wide amount.
+     * Shift a wide amount.
      */
-    private final String sShiftWide = "250";
+    private static final String SHIFTWIDE = "250";
 
     /**
      * Test Before method.
@@ -71,7 +71,7 @@ public class TestLayerRotate {
     @Test
     // TestLink(externalId = "JAS-8")
     public void testEncDecStream() throws IOException {
-        layer.init(sShiftSmall);
+        layer.init(SHIFTSMALL);
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
@@ -92,7 +92,7 @@ public class TestLayerRotate {
      */
     @Test
     public void testEncDecStreamWide() throws IOException {
-        layer.init(sShiftWide);
+        layer.init(SHIFTWIDE);
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();

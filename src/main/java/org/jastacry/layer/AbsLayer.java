@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
  */
 
 public abstract class AbsLayer {
-
     /**
      * Logger object.
      */
