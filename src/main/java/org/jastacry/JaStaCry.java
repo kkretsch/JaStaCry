@@ -36,6 +36,7 @@ import org.jastacry.layer.XorLayer;
 
 /**
  * Main JaStaCry class to start.
+ *
  * @author kai
  *
  */
@@ -91,6 +92,41 @@ public final class JaStaCry {
     private static final String P_LONG_OUTFILE = "outfile";
 
     /**
+     * log4j logger object.
+     */
+    private static Logger logger;
+
+    /**
+     * boolean status: do we encode?
+     */
+    private static boolean doEncode;
+
+    /**
+     * Filename of configuration file.
+     */
+    private static String confFilename;
+
+    /**
+     * Some input filename.
+     */
+    private static String inputFilename;
+
+    /**
+     * Some output filename.
+     */
+    private static String outputFilename;
+
+    /**
+     * Be verbose about every step?
+     */
+    private static boolean isVerbose;
+
+    /**
+     * action variable.
+     */
+    private static int action;
+
+    /**
      * Hidden constructor.
      */
     private JaStaCry() {
@@ -103,26 +139,170 @@ public final class JaStaCry {
      * @param args
      *            run as "[encode|decode] layers.conf infile outfile"
      */
-    @SuppressWarnings("static-access")
     public static void main(final String[] args) {
-        final Logger logger = LogManager.getLogger();
+        logger = LogManager.getLogger();
+        setup(args);
+
+        // Now go
+        final List<AbsLayer> layers = createLayers();
+
+        if (0 == layers.size()) {
+            logger.error("No layers defined!");
+            System.exit(org.jastacry.Data.RC_ERROR);
+            return;
+        } // if
+
+        if (1 == layers.size()) {
+            logger.warn("Warning: Only one layer defined!");
+        }
+
+        if (doEncode) {
+            final AbsLayer layerEncode = new EncodeDecodeLayer();
+            switch (action) {
+                case org.jastacry.Data.ENCODE:
+                    layers.add(layerEncode);
+                    break;
+                case org.jastacry.Data.DECODE: // reverse order
+                    layers.add(0, layerEncode);
+                    break;
+                default:
+                    logger.error("unknown action {}", action);
+                    break;
+            } // switch
+        }
+
+        AbsLayer l = null;
+
+        InputStream input = null;
+        final File fileIn = new File(inputFilename);
+
+        OutputStream output = null;
+        final File fileOut = new File(outputFilename);
+
+        // two temporary files for now
+        File tempIn = null;
+        File tempOut = null;
+        try {
+            tempIn = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
+            tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
+        } catch (final IOException e1) {
+            logger.catching(e1);
+            System.exit(org.jastacry.Data.RC_ERROR);
+        }
+
+        try {
+            input = new BufferedInputStream(new FileInputStream(fileIn));
+            output = new BufferedOutputStream(new FileOutputStream(fileOut));
+        } catch (final FileNotFoundException e) {
+            logger.catching(e);
+            System.exit(org.jastacry.Data.RC_ERROR);
+        }
+
+        try {
+            for (int i = 0; i < layers.size(); i++) {
+                l = layers.get(i);
+                InputStream layerInput = null;
+                OutputStream layerOutput = null;
+
+                // first step
+                if (i == 0) {
+                    layerInput = input;
+                    layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
+                    if (isVerbose) {
+                        logger.debug("layer 0 '" + l.toString() + "' from " + fileIn + " to " + tempOut);
+                    }
+                } else {
+                    // middle steps
+                    if (i < layers.size() - 1) {
+                        if (isVerbose) {
+                            logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + tempOut);
+                        }
+                        layerInput = new BufferedInputStream(new FileInputStream(tempIn));
+                        layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
+                    } else { // last step
+                        if (isVerbose) {
+                            logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + fileOut);
+                        }
+                        layerInput = new BufferedInputStream(new FileInputStream(tempIn));
+                        layerOutput = output;
+                    }
+                }
+
+                switch (action) {
+                    case org.jastacry.Data.ENCODE:
+                        l.encStream(layerInput, layerOutput);
+                        break;
+                    case org.jastacry.Data.DECODE:
+                        l.decStream(layerInput, layerOutput);
+                        break;
+                    default:
+                        logger.error("unknwon action '{}'", action);
+                        break;
+                }
+
+                // first step
+                if (i == 0) {
+                    layerOutput.close();
+                } else {
+                    // middle steps
+                    if (i < layers.size() - 1) {
+                        layerInput.close();
+                        layerOutput.close();
+                    } else { // last step
+                        layerInput.close();
+                    }
+                }
+
+                // transfer last temporary out to new temporary in
+                if (null != tempIn) {
+                    tempIn.delete();
+                }
+                tempIn = tempOut;
+                tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
+
+            } // for
+
+            if (null != tempIn) {
+                tempIn.delete();
+            }
+            if (null != tempOut) {
+                tempOut.delete();
+            }
+
+            if (null != input) {
+                input.close();
+            }
+            if (null != output) {
+                output.close();
+            }
+        } catch (final IOException e) {
+            logger.catching(e);
+        }
+
+        if (isVerbose) {
+            logger.info("JaStaCry finished");
+        }
+    }
+
+    /**
+     * Setup environment via command line arguments.
+     *
+     * @param args
+     *            array of Strings from commandline
+     */
+    @SuppressWarnings("static-access")
+    private static void setup(final String[] args) {
         // Command line parameters
         final Options options = new Options();
-        options.addOption(P_SHORT_ENCODE, P_LONG_ENCODE, false,
-                "encode input stream");
-        options.addOption(P_SHORT_DECODE, P_LONG_DECODE, false,
-                "decode input stream");
+        options.addOption(P_SHORT_ENCODE, P_LONG_ENCODE, false, "encode input stream");
+        options.addOption(P_SHORT_DECODE, P_LONG_DECODE, false, "decode input stream");
         options.addOption(P_SHORT_VERBOSE, false, "verbose");
-        options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false,
-                "text formatted output or input of encrypted data");
-        options.addOption(OptionBuilder.withLongOpt(P_LONG_CONFFILE)
-                .withDescription("use FILE as stack configuration")
+        options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, "text formatted output or input of encrypted data");
+        options.addOption(OptionBuilder.withLongOpt(P_LONG_CONFFILE).withDescription("use FILE as stack configuration")
                 .hasArg().withArgName("FILE").isRequired().create());
-        options.addOption(OptionBuilder.withLongOpt(P_LONG_INFILE)
-                .withDescription("use FILE as input stream").hasArg()
+        options.addOption(OptionBuilder.withLongOpt(P_LONG_INFILE).withDescription("use FILE as input stream").hasArg()
                 .withArgName("FILE").isRequired().create());
-        options.addOption(OptionBuilder.withLongOpt(P_LONG_OUTFILE)
-                .withDescription("use FILE as output stream")
+        options.addOption(OptionBuilder.withLongOpt(P_LONG_OUTFILE).withDescription("use FILE as output stream")
                 .hasArg().withArgName("FILE").isRequired().create());
 
         final CommandLineParser parser = new PosixParser();
@@ -143,35 +323,37 @@ public final class JaStaCry {
             return;
         }
         // Is verbose?
-        final boolean isVerbose = cmdLine.hasOption(P_SHORT_VERBOSE);
+        isVerbose = cmdLine.hasOption(P_SHORT_VERBOSE);
         if (isVerbose) {
             logger.info("JaStaCry starting");
         }
 
-        int action = 0;
+        action = 0;
 
         // is it called with all needed parameters?
-        if (cmdLine.hasOption(P_SHORT_ENCODE)
-                || cmdLine.hasOption(P_LONG_ENCODE)) {
+        if (cmdLine.hasOption(P_SHORT_ENCODE) || cmdLine.hasOption(P_LONG_ENCODE)) {
             action = org.jastacry.Data.ENCODE;
         } // if
-        if (cmdLine.hasOption(P_SHORT_DECODE)
-                || cmdLine.hasOption(P_LONG_DECODE)) {
+        if (cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE)) {
             action = org.jastacry.Data.DECODE;
         } // if
 
         // Use text format?
-        final boolean doEncode = cmdLine.hasOption(P_SHORT_ASCII)
-                || cmdLine.hasOption(P_LONG_ASCII);
+        doEncode = cmdLine.hasOption(P_SHORT_ASCII) || cmdLine.hasOption(P_LONG_ASCII);
 
         // Get file names for config, input and output
-        final String confFilename = cmdLine.getOptionValue(P_LONG_CONFFILE);
-        final String inputFilename = cmdLine.getOptionValue(P_LONG_INFILE);
-        final String outputFilename = cmdLine.getOptionValue(P_LONG_OUTFILE);
+        confFilename = cmdLine.getOptionValue(P_LONG_CONFFILE);
+        inputFilename = cmdLine.getOptionValue(P_LONG_INFILE);
+        outputFilename = cmdLine.getOptionValue(P_LONG_OUTFILE);
+    }
 
-        // Now go
+    /**
+     * Create Array of layoer objects.
+     *
+     * @return List of abstract layer objects
+     */
+    private static List<AbsLayer> createLayers() {
         final List<AbsLayer> layers = new ArrayList<AbsLayer>();
-
         FileInputStream fstream = null;
         BufferedReader br = null;
         try {
@@ -200,44 +382,41 @@ public final class JaStaCry {
                     sParams = strLine.substring(iPosSpace + 1);
 
                     // Optional interactive password entry
-                    if (sParams.equalsIgnoreCase(
-                            org.jastacry.Data.MACRO_PASSWORD)) {
+                    if (sParams.equalsIgnoreCase(org.jastacry.Data.MACRO_PASSWORD)) {
                         final Console console = System.console();
                         if (null == console) {
-                            logger.error(
-       "No interactive console available for password entry!");
+                            logger.error("No interactive console available for password entry!");
                             System.exit(org.jastacry.Data.RC_ERROR);
-                            return;
+                            return null;
                         }
-                        final char[] password = console.readPassword(
-                                "Layer " + sLayer + " Password: ");
+                        final char[] password = console.readPassword("Layer " + sLayer + " Password: ");
                         sParams = new String(password);
                     }
                 }
 
                 switch (sLayer.toLowerCase()) {
-                case "transparent":
-                    layer = new TransparentLayer();
-                    break;
-                case "xor":
-                    layer = new XorLayer();
-                    break;
-                case "rotate":
-                    layer = new RotateLayer();
-                    break;
-                case "random":
-                    layer = new RandomLayer();
-                    break;
-                case "filemerge":
-                    layer = new FilemergeLayer();
-                    break;
-                case "md5des":
-                    layer = new Md5DesLayer();
-                    break;
-                default:
-                    logger.error("unknown layer {}", sLayer);
-                    System.exit(org.jastacry.Data.RC_ERROR);
-                    return;
+                    case "transparent":
+                        layer = new TransparentLayer();
+                        break;
+                    case "xor":
+                        layer = new XorLayer();
+                        break;
+                    case "rotate":
+                        layer = new RotateLayer();
+                        break;
+                    case "random":
+                        layer = new RandomLayer();
+                        break;
+                    case "filemerge":
+                        layer = new FilemergeLayer();
+                        break;
+                    case "md5des":
+                        layer = new Md5DesLayer();
+                        break;
+                    default:
+                        logger.error("unknown layer {}", sLayer);
+                        System.exit(org.jastacry.Data.RC_ERROR);
+                        return null;
                 } // switch
 
                 if (isVerbose) {
@@ -246,15 +425,15 @@ public final class JaStaCry {
 
                 layer.init(sParams);
                 switch (action) {
-                case org.jastacry.Data.ENCODE:
-                    layers.add(layer);
-                    break;
-                case org.jastacry.Data.DECODE: // reverse order
-                    layers.add(0, layer);
-                    break;
-                default:
-                    logger.error("unkown action {}", action);
-                    break;
+                    case org.jastacry.Data.ENCODE:
+                        layers.add(layer);
+                        break;
+                    case org.jastacry.Data.DECODE: // reverse order
+                        layers.add(0, layer);
+                        break;
+                    default:
+                        logger.error("unkown action {}", action);
+                        break;
                 } // switch
             }
 
@@ -272,152 +451,6 @@ public final class JaStaCry {
             }
         }
 
-        if (0 == layers.size()) {
-            logger.error("No layers defined!");
-            System.exit(org.jastacry.Data.RC_ERROR);
-            return;
-        } // if
-
-        if (1 == layers.size()) {
-            logger.warn("Warning: Only one layer defined!");
-        }
-
-        if (doEncode) {
-            final AbsLayer layerEncode = new EncodeDecodeLayer();
-            switch (action) {
-            case org.jastacry.Data.ENCODE:
-                layers.add(layerEncode);
-                break;
-            case org.jastacry.Data.DECODE: // reverse order
-                layers.add(0, layerEncode);
-                break;
-            default:
-                logger.error("unknown action {}", action);
-                break;
-            } // switch
-        }
-
-        AbsLayer l = null;
-
-        InputStream input = null;
-        final File fileIn = new File(inputFilename);
-
-        OutputStream output = null;
-        final File fileOut = new File(outputFilename);
-
-        // two temporary files for now
-        File tempIn = null;
-        File tempOut = null;
-        try {
-            tempIn = File.createTempFile(org.jastacry.Data.TMPBASE,
-                    org.jastacry.Data.TMPEXT);
-            tempOut = File.createTempFile(org.jastacry.Data.TMPBASE,
-                    org.jastacry.Data.TMPEXT);
-        } catch (final IOException e1) {
-            logger.catching(e1);
-            System.exit(org.jastacry.Data.RC_ERROR);
-        }
-
-        try {
-            input = new BufferedInputStream(new FileInputStream(fileIn));
-            output = new BufferedOutputStream(new FileOutputStream(fileOut));
-        } catch (final FileNotFoundException e) {
-            logger.catching(e);
-            System.exit(org.jastacry.Data.RC_ERROR);
-        }
-
-        try {
-            for (int i = 0; i < layers.size(); i++) {
-                l = layers.get(i);
-                InputStream layerInput = null;
-                OutputStream layerOutput = null;
-
-                // first step
-                if (i == 0) {
-                    layerInput = input;
-                    layerOutput = new BufferedOutputStream(
-                            new FileOutputStream(tempOut));
-                    if (isVerbose) {
-                        logger.debug("layer 0 '" + l.toString() + "' from "
-                                + fileIn + " to " + tempOut);
-                    }
-                } else {
-                    // middle steps
-                    if (i < layers.size() - 1) {
-                        if (isVerbose) {
-                            logger.debug("layer " + i + " '" + l.toString()
-                                    + "' from " + tempIn + " to " + tempOut);
-                        }
-                        layerInput = new BufferedInputStream(
-                                new FileInputStream(tempIn));
-                        layerOutput = new BufferedOutputStream(
-                                new FileOutputStream(tempOut));
-                    } else { // last step
-                        if (isVerbose) {
-                            logger.debug("layer " + i + " '" + l.toString()
-                                    + "' from " + tempIn + " to " + fileOut);
-                        }
-                        layerInput = new BufferedInputStream(
-                                new FileInputStream(tempIn));
-                        layerOutput = output;
-                    }
-                }
-
-                switch (action) {
-                case org.jastacry.Data.ENCODE:
-                    l.encStream(layerInput, layerOutput);
-                    break;
-                case org.jastacry.Data.DECODE:
-                    l.decStream(layerInput, layerOutput);
-                    break;
-                default:
-                    logger.error("unknwon action '{}'", action);
-                    break;
-                }
-
-                // first step
-                if (i == 0) {
-                    layerOutput.close();
-                } else {
-                    // middle steps
-                    if (i < layers.size() - 1) {
-                        layerInput.close();
-                        layerOutput.close();
-                    } else { // last step
-                        layerInput.close();
-                    }
-                }
-
-                // transfer last temporary out to new temporary in
-                if (null != tempIn) {
-                    tempIn.delete();
-                }
-                tempIn = tempOut;
-                tempOut = File.createTempFile(org.jastacry.Data.TMPBASE,
-                        org.jastacry.Data.TMPEXT);
-
-            } // for
-
-            if (null != tempIn) {
-                tempIn.delete();
-            }
-            if (null != tempOut) {
-                tempOut.delete();
-            }
-
-            if (null != input) {
-                input.close();
-            }
-            if (null != output) {
-                output.close();
-            }
-        } catch (final IOException e) {
-            logger.catching(e);
-        }
-
-        if (isVerbose) {
-            logger.info("JaStaCry finished");
-        }
+        return layers;
     }
-
 }
