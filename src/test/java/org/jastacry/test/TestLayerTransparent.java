@@ -17,19 +17,40 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * Test of Layer Transparent.
+ *
  * @author Kai Kretschmann
  *
  */
 public class TestLayerTransparent {
+    /**
+     * Testdata to play with.
+     */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
+
+    /**
+     * The layer to test.
+     */
     private TransparentLayer layer = null;
 
+    /**
+     * Test Before method.
+     *
+     * @throws Exception
+     *             in case of error
+     */
     @Before
     public void setUp() throws Exception {
         layer = new TransparentLayer();
         layer.init("");
     }
 
+    /**
+     * Test After method.
+     *
+     * @throws Exception
+     *             in case of error
+     */
     @After
     public void tearDown() throws Exception {
         layer = null;

@@ -14,10 +14,10 @@
 		<Root level="ALL">
 			<AppenderRef ref="ConsoleLog" level="DEBUG" />
 		</Root>
-        <Logger additivity="FALSE" level="ALL" name="org.jastacry.layer">
-            <AppenderRef level="INFO" ref="ConsoleLog" />
-            <AppenderRef level="ALL" ref="Logfile" />
-        </Logger>
+		<Logger additivity="FALSE" level="ALL" name="org.jastacry.layer">
+			<AppenderRef level="INFO" ref="ConsoleLog" />
+			<AppenderRef level="ALL" ref="Logfile" />
+		</Logger>
 		<Logger additivity="FALSE" level="ALL" name="org.jastacry.test">
 			<AppenderRef level="INFO" ref="ConsoleLog" />
 			<AppenderRef level="ALL" ref="Logfile" />

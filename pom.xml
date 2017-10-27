@@ -56,9 +56,6 @@
 							<ignore>org.jastacry.test.*</ignore>
 						</ignores>
 					</instrumentation>
-					<!-- <formats>
-						<format>xml</format>
-						</formats> -->
 				</configuration>
 			</plugin>
 		</plugins>
@@ -146,11 +143,6 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>${cobertura.version}</version>
-				<!-- <configuration>
-					<formats>
-					<format>xml</format>
-					</formats>
-					</configuration> -->
 			</plugin>
 		</plugins>
 	</reporting>

@@ -14,21 +14,52 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Testclass for MD5DES Layer.
+ *
+ * @author kkre
+ *
+ */
 public class TestLayerMd5Des {
+    /**
+     * Testdata.
+     */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
+
+    /**
+     * Layer to test.
+     */
     private AbsCipherLayer layer = null;
 
+    /**
+     * Test Before method.
+     *
+     * @throws Exception
+     *             in case of error.
+     */
     @Before
     public void setUp() throws Exception {
         layer = new Md5DesLayer();
         layer.init("Passwort");
     }
 
+    /**
+     * Test After method.
+     *
+     * @throws Exception
+     *             in case off error
+     */
     @After
     public void tearDown() throws Exception {
         layer = null;
     }
 
+    /**
+     * Testcase testEncDecStream.
+     *
+     * @throws IOException
+     *             in case off error
+     */
     @Test
     // TestLink(externalId = "JAS-4")
     public void testEncDecStream() throws IOException {
@@ -45,6 +76,9 @@ public class TestLayerMd5Des {
 
     }
 
+    /**
+     * Testcase testToString.
+     */
     @Test
     // TestLink(externalId = "JAS-5")
     public void testToString() {

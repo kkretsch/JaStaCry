@@ -13,20 +13,51 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test of Layer Random.
+ *
+ * @author kkre
+ *
+ */
 public class TestLayerRandom {
+    /**
+     * Testdata to play with.
+     */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
+
+    /**
+     * The layer to test.
+     */
     private RandomLayer layer = null;
 
+    /**
+     * Test Before method.
+     *
+     * @throws Exception
+     *             in case of error
+     */
     @Before
     public void setUp() throws Exception {
         layer = new RandomLayer();
     }
 
+    /**
+     * Test After method.
+     *
+     * @throws Exception
+     *             in case of error
+     */
     @After
     public void tearDown() throws Exception {
         layer = null;
     }
 
+    /**
+     * Testcase testEncDecStream.
+     *
+     * @throws IOException
+     *             in case of error
+     */
     @Test
     // TestLink(externalId = "JAS-6")
     public void testEncDecStream() throws IOException {
@@ -47,6 +78,9 @@ public class TestLayerRandom {
 
     }
 
+    /**
+     * Testcase testToString.
+     */
     @Test
     // TestLink(externalId = "JAS-7")
     public void testToString() {
