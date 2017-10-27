@@ -8,7 +8,6 @@ import java.io.OutputStream;
  * Very simple algorithm just to infuse some more complex data rotation.
  *
  * @author Kai Kretschmann
- * @version 0.1.20130818
  */
 
 public class XorLayer extends AbsLayer {

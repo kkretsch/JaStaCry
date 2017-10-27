@@ -16,7 +16,7 @@ import org.junit.Test;
 /**
  * Test of Layer XOR.
  *
- * @author kkre
+ * @author Kai Kretschmann
  *
  */
 public class TestLayerXor {

@@ -10,7 +10,6 @@ import org.apache.commons.io.IOUtils;
 
 /**
  * @author Kai Kretschmann
- * @version 0.1.20130818
  */
 
 public class EncodeDecodeLayer extends AbsLayer {

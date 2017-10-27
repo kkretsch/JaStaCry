@@ -10,7 +10,6 @@ import java.io.OutputStream;
  * both sides (encription and description).
  *
  * @author Kai Kretschmann
- * @version 0.1.20130818
  */
 
 public class RandomLayer extends AbsLayer {

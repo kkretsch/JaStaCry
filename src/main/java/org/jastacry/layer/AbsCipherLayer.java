@@ -20,7 +20,7 @@ import javax.crypto.spec.PBEParameterSpec;
 /**
  * Abstract base class for encryption.
  *
- * @author kai
+ * @author Kai Kretschmann
  *
  */
 public abstract class AbsCipherLayer extends AbsLayer {

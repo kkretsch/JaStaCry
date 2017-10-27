@@ -38,7 +38,7 @@ import org.jastacry.layer.XorLayer;
 /**
  * Main JaStaCry class to start.
  *
- * @author kai
+ * @author Kai Kretschmann
  *
  */
 public final class JaStaCry {

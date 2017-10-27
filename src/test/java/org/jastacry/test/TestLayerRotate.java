@@ -16,7 +16,7 @@ import org.junit.Test;
 /**
  * Test of Rotate Layer.
  *
- * @author kkre
+ * @author Kai Kretschmann
  *
  */
 public class TestLayerRotate {

@@ -7,7 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 /**
  * All testcases in one suite.
  *
- * @author kkre
+ * @author Kai Kretschmann
  *
  */
 @RunWith(Suite.class)
