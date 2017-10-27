@@ -13,21 +13,52 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test of Layer XOR.
+ *
+ * @author kkre
+ *
+ */
 public class TestLayerXor {
+    /**
+     * Testdata to play with.
+     */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
+
+    /**
+     * The layer to test.
+     */
     private XorLayer layer = null;
 
+    /**
+     * Test before method.
+     *
+     * @throws Exception
+     *             in case of error
+     */
     @Before
     public void setUp() throws Exception {
         layer = new XorLayer();
         layer.init("123");
     }
 
+    /**
+     * Test After method.
+     *
+     * @throws Exception
+     *             in case of error
+     */
     @After
     public void tearDown() throws Exception {
         layer = null;
     }
 
+    /**
+     * Testcase testEncDecStream.
+     *
+     * @throws IOException
+     *             in case of error
+     */
     @Test
     // TestLink(externalId = "JAS-10")
     public void testEncDecStream() throws IOException {
@@ -44,6 +75,9 @@ public class TestLayerXor {
 
     }
 
+    /**
+     * Testcase testToString.
+     */
     @Test
     // TestLink(externalId = "JAS-11")
     public void testToString() {

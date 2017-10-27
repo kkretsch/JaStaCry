@@ -25,21 +25,49 @@ import org.junit.Test;
  *
  */
 public class TestLayerEncodeDecode {
-    private static Logger LOGGER = null;
+    /**
+     * log4j2 object.
+     */
+    private static Logger oLogger = null;
 
+    /**
+     * default data.
+     */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
+
+    /**
+     * The layer object to test.
+     */
     private EncodeDecodeLayer layer = null;
 
+    /**
+     * The BeforeClass method.
+     *
+     * @throws MalformedURLException
+     *             in case of error.
+     */
     @BeforeClass
     public static void setLogger() throws MalformedURLException {
-        LOGGER = LogManager.getLogger();
+        oLogger = LogManager.getLogger();
     }
 
+    /**
+     * The Before method.
+     *
+     * @throws Exception
+     *             in case of error.
+     */
     @Before
     public void setUp() throws Exception {
         layer = new EncodeDecodeLayer();
     }
 
+    /**
+     * The After method.
+     *
+     * @throws Exception
+     *             in case of error.
+     */
     @After
     public void tearDown() throws Exception {
         layer = null;
@@ -57,10 +85,10 @@ public class TestLayerEncodeDecode {
     public void testEncStream() throws IOException {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
-        LOGGER.debug("is='{}'", is.toString());
+        oLogger.debug("is='{}'", is.toString());
         final OutputStream os = new ByteArrayOutputStream();
         layer.encStream(is, os);
-        LOGGER.debug("os='{}'", os.toString());
+        oLogger.debug("os='{}'", os.toString());
         assertEquals("encoding differs", testdata, os.toString());
     }
 
