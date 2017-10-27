@@ -50,6 +50,7 @@ public class TestLayerEncodeDecode {
      * .
      *
      * @throws IOException
+     *             in case of error.
      */
     // @Test
     // TestLink(externalId = "JAS-12")
@@ -68,6 +69,7 @@ public class TestLayerEncodeDecode {
      * .
      *
      * @throws IOException
+     *             in case of error.
      */
     // @Test
     // TestLink(externalId = "JAS-13")
