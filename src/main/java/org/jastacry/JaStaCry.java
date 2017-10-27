@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -185,8 +186,6 @@ public final class JaStaCry {
             } // switch
         }
 
-        AbsLayer l = null;
-
         InputStream input = null;
         final File fileIn = new File(inputFilename);
 
@@ -213,82 +212,40 @@ public final class JaStaCry {
         }
 
         try {
-            for (int i = 0; i < layers.size(); i++) {
-                l = layers.get(i);
-                InputStream layerInput = null;
-                OutputStream layerOutput = null;
+            loopLayers(layers, input, output, tempIn, tempOut, fileIn, fileOut);
 
-                // first step
-                if (i == 0) {
-                    layerInput = input;
-                    layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
-                    if (isVerbose) {
-                        logger.debug("layer 0 '" + l.toString() + "' from " + fileIn + " to " + tempOut);
-                    }
-                } else {
-                    // middle steps
-                    if (i < layers.size() - 1) {
-                        if (isVerbose) {
-                            logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + tempOut);
-                        }
-                        layerInput = new BufferedInputStream(new FileInputStream(tempIn));
-                        layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
-                    } else { // last step
-                        if (isVerbose) {
-                            logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + fileOut);
-                        }
-                        layerInput = new BufferedInputStream(new FileInputStream(tempIn));
-                        layerOutput = output;
-                    }
-                }
-
-                switch (action) {
-                    case org.jastacry.Data.ENCODE:
-                        l.encStream(layerInput, layerOutput);
-                        break;
-                    case org.jastacry.Data.DECODE:
-                        l.decStream(layerInput, layerOutput);
-                        break;
-                    default:
-                        logger.error("unknwon action '{}'", action);
-                        break;
-                }
-
-                // first step
-                if (i == 0) {
-                    layerOutput.close();
-                } else {
-                    // middle steps
-                    if (i < layers.size() - 1) {
-                        layerInput.close();
-                        layerOutput.close();
-                    } else { // last step
-                        layerInput.close();
-                    }
-                }
-
-                // transfer last temporary out to new temporary in
-                if (null != tempIn) {
-                    tempIn.delete();
-                }
-                tempIn = tempOut;
-                tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
-
-            } // for
-
-            if (null != tempIn) {
-                tempIn.delete();
-            }
-            if (null != tempOut) {
-                tempOut.delete();
-            }
-
-            if (null != input) {
-                input.close();
-            }
-            if (null != output) {
-                output.close();
-            }
+            /*
+             * for (int i = 0; i < layers.size(); i++) { l = layers.get(i); InputStream layerInput = null; OutputStream
+             * layerOutput = null;
+             *
+             * // first step if (i == 0) { layerInput = input; layerOutput = new BufferedOutputStream(new
+             * FileOutputStream(tempOut)); if (isVerbose) { logger.debug("layer 0 '" + l.toString() + "' from " + fileIn
+             * + " to " + tempOut); } } else { // middle steps if (i < layers.size() - 1) { if (isVerbose) {
+             * logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + tempOut); } layerInput =
+             * new BufferedInputStream(new FileInputStream(tempIn)); layerOutput = new BufferedOutputStream(new
+             * FileOutputStream(tempOut)); } else { // last step if (isVerbose) { logger.debug("layer " + i + " '" +
+             * l.toString() + "' from " + tempIn + " to " + fileOut); } layerInput = new BufferedInputStream(new
+             * FileInputStream(tempIn)); layerOutput = output; } }
+             *
+             * switch (action) { case org.jastacry.Data.ENCODE: l.encStream(layerInput, layerOutput); break; case
+             * org.jastacry.Data.DECODE: l.decStream(layerInput, layerOutput); break; default: logger.error(
+             * "unknwon action '{}'", action); break; }
+             *
+             * // first step if (i == 0) { layerOutput.close(); } else { // middle steps if (i < layers.size() - 1) {
+             * layerInput.close(); layerOutput.close(); } else { // last step layerInput.close(); } }
+             *
+             * // transfer last temporary out to new temporary in if (null != tempIn) { final boolean bRC =
+             * tempIn.delete(); if (!bRC) { logger.warn("delete might have failed"); } } tempIn = tempOut; tempOut =
+             * File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
+             *
+             * } // for
+             *
+             * if (null != tempIn) { final boolean bRC = tempIn.delete(); if (!bRC) { logger.warn(
+             * "delete might have failed"); } } if (null != tempOut) { final boolean bRC = tempOut.delete(); if (!bRC) {
+             * logger.warn("delete might have failed"); } }
+             *
+             * if (null != input) { input.close(); } if (null != output) { output.close(); }
+             */
         } catch (final IOException e) {
             logger.catching(e);
         }
@@ -298,6 +255,119 @@ public final class JaStaCry {
         }
 
         return 0;
+    }
+
+    /**
+     * Loop through layers with data streams.
+     *
+     * @param layers
+     *            Array of layers
+     * @param input
+     *            input Stream
+     * @param output
+     *            output Stream
+     * @param tempInArg
+     *            temp file ingoing
+     * @param tempOutArg
+     *            temp file outgoing
+     * @param fileIn
+     *            input file
+     * @param fileOut
+     *            output file
+     * @throws IOException
+     *             in case of error
+     */
+    private static void loopLayers(final List<AbsLayer> layers, final InputStream input, final OutputStream output,
+            final File tempInArg, final File tempOutArg, final File fileIn, final File fileOut) throws IOException {
+        File tempIn = tempInArg;
+        File tempOut = tempOutArg;
+        AbsLayer l = null;
+
+        for (int i = 0; i < layers.size(); i++) {
+            l = layers.get(i);
+            InputStream layerInput = null;
+            OutputStream layerOutput = null;
+
+            // first step
+            if (i == 0) {
+                layerInput = input;
+                layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
+                if (isVerbose) {
+                    logger.debug("layer 0 '" + l.toString() + "' from " + fileIn + " to " + tempOut);
+                }
+            } else {
+                // middle steps
+                if (i < layers.size() - 1) {
+                    if (isVerbose) {
+                        logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + tempOut);
+                    }
+                    layerInput = new BufferedInputStream(new FileInputStream(tempIn));
+                    layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
+                } else { // last step
+                    if (isVerbose) {
+                        logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + fileOut);
+                    }
+                    layerInput = new BufferedInputStream(new FileInputStream(tempIn));
+                    layerOutput = output;
+                }
+            }
+
+            switch (action) {
+                case org.jastacry.Data.ENCODE:
+                    l.encStream(layerInput, layerOutput);
+                    break;
+                case org.jastacry.Data.DECODE:
+                    l.decStream(layerInput, layerOutput);
+                    break;
+                default:
+                    logger.error("unknwon action '{}'", action);
+                    break;
+            }
+
+            // first step
+            if (i == 0) {
+                layerOutput.close();
+            } else {
+                // middle steps
+                if (i < layers.size() - 1) {
+                    layerInput.close();
+                    layerOutput.close();
+                } else { // last step
+                    layerInput.close();
+                }
+            }
+
+            // transfer last temporary out to new temporary in
+            if (null != tempIn) {
+                final boolean bRC = tempIn.delete();
+                if (!bRC) {
+                    logger.warn("delete might have failed");
+                }
+            }
+            tempIn = tempOut;
+            tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
+
+        } // for
+
+        if (null != tempIn) {
+            final boolean bRC = tempIn.delete();
+            if (!bRC) {
+                logger.warn("delete might have failed");
+            }
+        }
+        if (null != tempOut) {
+            final boolean bRC = tempOut.delete();
+            if (!bRC) {
+                logger.warn("delete might have failed");
+            }
+        }
+
+        if (null != input) {
+            input.close();
+        }
+        if (null != output) {
+            output.close();
+        }
     }
 
     /**
@@ -406,17 +476,17 @@ public final class JaStaCry {
     }
 
     /**
-     * Create Array of layoer objects.
+     * Create Array of layer objects.
      *
      * @return List of abstract layer objects
      */
     private static List<AbsLayer> createLayers() {
         final List<AbsLayer> layers = new ArrayList<AbsLayer>();
-        FileInputStream fstream = null;
-        BufferedReader br = null;
-        try {
-            fstream = new FileInputStream(confFilename);
-            br = new BufferedReader(new InputStreamReader(fstream));
+
+        // try with resources
+        try (FileInputStream fstream = new FileInputStream(confFilename);
+                InputStreamReader isr = new InputStreamReader(fstream, StandardCharsets.UTF_8);
+                BufferedReader br = new BufferedReader(isr)) {
             String strLine;
 
             AbsLayer layer = null;
@@ -499,14 +569,6 @@ public final class JaStaCry {
             e1.printStackTrace();
         } catch (final IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (null != br) {
-                    br.close();
-                }
-            } catch (final IOException e) {
-                logger.catching(e);
-            }
         }
 
         return layers;
