@@ -63,6 +63,13 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+				<version>2.10</version>
+			</extension>
+		</extensions>
 	</build>
 	<dependencies>
 		<dependency>
@@ -149,6 +156,18 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<distributionManagement>
+		<!-- <repository>
+			<id>sitejastacry</id>
+			<name>Site JaStaCry Website</name>
+			<url>ftp://wp12173701.server-he.de/jastacry</url>
+			</repository> -->
+		<site>
+			<id>sitejastacry</id>
+			<name>Site JaStaCry Website</name>
+			<url>ftp://wp12173701.server-he.de/</url>
+		</site>
+	</distributionManagement>
 	<scm>
 		<url>https://github.com/kkretsch/JaStaCry</url>
 		<tag>HEAD</tag>
