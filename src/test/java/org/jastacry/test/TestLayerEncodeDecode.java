@@ -60,6 +60,7 @@ public class TestLayerEncodeDecode {
     @Before
     public void setUp() throws Exception {
         layer = new EncodeDecodeLayer();
+        layer.init("");
     }
 
     /**
