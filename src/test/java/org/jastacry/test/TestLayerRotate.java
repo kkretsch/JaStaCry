@@ -31,6 +31,16 @@ public class TestLayerRotate {
     private RotateLayer layer = null;
 
     /**
+     * Shift a small amount.
+     */
+    private final String sShiftSmall = "2";
+
+    /**
+     * Shit a wide amount.
+     */
+    private final String sShiftWide = "250";
+
+    /**
      * Test Before method.
      *
      * @throws Exception
@@ -39,7 +49,6 @@ public class TestLayerRotate {
     @Before
     public void setUp() throws Exception {
         layer = new RotateLayer();
-        layer.init("2");
     }
 
     /**
@@ -62,6 +71,7 @@ public class TestLayerRotate {
     @Test
     // TestLink(externalId = "JAS-8")
     public void testEncDecStream() throws IOException {
+        layer.init(sShiftSmall);
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
@@ -72,7 +82,27 @@ public class TestLayerRotate {
         final OutputStream osDecode = new ByteArrayOutputStream();
         layer.decStream(isDecode, osDecode);
         assertEquals("decoding differs", testdata, osDecode.toString());
+    }
 
+    /**
+     * Testcase testEncDecStreamWide.
+     *
+     * @throws IOException
+     *             in case of error
+     */
+    @Test
+    public void testEncDecStreamWide() throws IOException {
+        layer.init(sShiftWide);
+        byte[] buf = testdata.getBytes();
+        final InputStream isEncode = new ByteArrayInputStream(buf);
+        final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
+        layer.encStream(isEncode, osEncode);
+        buf = osEncode.toByteArray();
+
+        final InputStream isDecode = new ByteArrayInputStream(buf);
+        final OutputStream osDecode = new ByteArrayOutputStream();
+        layer.decStream(isDecode, osDecode);
+        assertEquals("decoding differs", testdata, osDecode.toString());
     }
 
     /**
