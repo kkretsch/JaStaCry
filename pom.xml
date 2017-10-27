@@ -206,6 +206,9 @@
 				<role>developer</role>
 			</roles>
 			<timezone>Europe/Berlin</timezone>
+			<properties>
+				<picUrl><![CDATA[https://avatars2.githubusercontent.com/u/1115638?s=64&v=4]]></picUrl>
+			</properties>
 		</developer>
 	</developers>
 	<scm>
