@@ -42,6 +42,16 @@ import org.jastacry.layer.XorLayer;
  */
 public final class JaStaCry {
     /**
+     * Parameter, short version, for "help".
+     */
+    private static final String P_SHORT_HELP = "h";
+
+    /**
+     * Parameter, long version, for "help".
+     */
+    private static final String P_LONG_HELP = "help";
+
+    /**
      * Parameter, short version, for "verbose".
      */
     private static final String P_SHORT_VERBOSE = "v";
@@ -138,18 +148,22 @@ public final class JaStaCry {
      *
      * @param args
      *            run as "[encode|decode] layers.conf infile outfile"
+     * @return int system return code to shell
      */
-    public static void main(final String[] args) {
+    public static int main(final String[] args) {
         logger = LogManager.getLogger();
-        setup(args);
+        final int iRC = setup(args);
+        if (0 != iRC) {
+            logger.error("Setup found errors {}", iRC);
+            return iRC;
+        } // if
 
         // Now go
         final List<AbsLayer> layers = createLayers();
 
         if (0 == layers.size()) {
             logger.error("No layers defined!");
-            System.exit(org.jastacry.Data.RC_ERROR);
-            return;
+            return org.jastacry.Data.RC_ERROR;
         } // if
 
         if (1 == layers.size()) {
@@ -282,6 +296,41 @@ public final class JaStaCry {
         if (isVerbose) {
             logger.info("JaStaCry finished");
         }
+
+        return 0;
+    }
+
+    /**
+     * Check for help argument and show it, so no other required arguments are in the way yet.
+     *
+     * @param args
+     *            the command line
+     * @return boolean of help requested/shown status
+     */
+    private static boolean checkForHelp(final String[] args) {
+        final Options options = new Options();
+        options.addOption(P_SHORT_HELP, P_LONG_HELP, false, "show some help");
+
+        final CommandLineParser parser = new PosixParser();
+        CommandLine cmdLine;
+        try {
+            cmdLine = parser.parse(options, args);
+        } catch (final MissingOptionException eOpt) {
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("jastacry", options);
+            return true;
+        } catch (final ParseException e2) {
+            e2.printStackTrace();
+            return false;
+        }
+
+        if (cmdLine.hasOption(P_SHORT_HELP)) {
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("jastacry", options);
+            return true;
+        } // if
+
+        return false;
     }
 
     /**
@@ -289,11 +338,17 @@ public final class JaStaCry {
      *
      * @param args
      *            array of Strings from commandline
+     * @return int error value
      */
     @SuppressWarnings("static-access")
-    private static void setup(final String[] args) {
+    private static int setup(final String[] args) {
+        if (checkForHelp(args)) {
+            return org.jastacry.Data.RC_HELP;
+        } // if
+
         // Command line parameters
         final Options options = new Options();
+        options.addOption(P_SHORT_HELP, P_LONG_HELP, false, "show some help");
         options.addOption(P_SHORT_ENCODE, P_LONG_ENCODE, false, "encode input stream");
         options.addOption(P_SHORT_DECODE, P_LONG_DECODE, false, "decode input stream");
         options.addOption(P_SHORT_VERBOSE, false, "verbose");
@@ -312,16 +367,17 @@ public final class JaStaCry {
         } catch (final MissingOptionException eOpt) {
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("jastacry", options);
-            System.exit(org.jastacry.Data.RC_ERROR);
+            return org.jastacry.Data.RC_ERROR;
         } catch (final ParseException e2) {
             e2.printStackTrace();
-            System.exit(org.jastacry.Data.RC_ERROR);
+            return org.jastacry.Data.RC_ERROR;
         }
 
         if (null == cmdLine) {
             logger.error("cmdLine null");
-            return;
+            return org.jastacry.Data.RC_ERROR;
         }
+
         // Is verbose?
         isVerbose = cmdLine.hasOption(P_SHORT_VERBOSE);
         if (isVerbose) {
@@ -345,6 +401,8 @@ public final class JaStaCry {
         confFilename = cmdLine.getOptionValue(P_LONG_CONFFILE);
         inputFilename = cmdLine.getOptionValue(P_LONG_INFILE);
         outputFilename = cmdLine.getOptionValue(P_LONG_OUTFILE);
+
+        return 0;
     }
 
     /**
