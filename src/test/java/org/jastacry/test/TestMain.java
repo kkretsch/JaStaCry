@@ -43,7 +43,7 @@ public class TestMain {
      */
     @Test
     public void testMainHelp() {
-        final String[] sArguments = { "-h" };
+        final String[] sArguments = {"-h"};
         final int iRC = JaStaCry.main(sArguments);
         assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_HELP);
     }
