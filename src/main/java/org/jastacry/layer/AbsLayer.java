@@ -17,10 +17,6 @@ import org.apache.logging.log4j.Logger;
  */
 
 public abstract class AbsLayer {
-    /**
-     * Name of Layer.
-     */
-    public static String sLAYERNAME = null;
 
     /**
      * Logger object.
@@ -30,15 +26,15 @@ public abstract class AbsLayer {
     /**
      * Constructor of Layer.
      *
-     * @param caller class object
+     * @param caller
+     *            class object
      */
     protected AbsLayer(final Class<?> caller) {
         logger = LogManager.getLogger(caller);
     }
 
     /**
-     * Optional method for setting encryption or
-     * decryption parameters like keys or passwords.
+     * Optional method for setting encryption or decryption parameters like keys or passwords.
      *
      * @param data
      *            a String containing everything the layer needs to know
@@ -46,8 +42,7 @@ public abstract class AbsLayer {
     public abstract void init(String data);
 
     /**
-     * Encodes either plain text or an encoded layer
-     * to the next encoding layer.
+     * Encodes either plain text or an encoded layer to the next encoding layer.
      *
      * @param is
      *            existing and opened input stream
@@ -56,12 +51,10 @@ public abstract class AbsLayer {
      * @throws IOException
      *             if one of the streams fail
      */
-    public abstract void encStream(InputStream is, OutputStream os)
-            throws IOException;
+    public abstract void encStream(InputStream is, OutputStream os) throws IOException;
 
     /**
-     * Decodes an encrypted stream to
-     * either plain text or the next encoded layer.
+     * Decodes an encrypted stream to either plain text or the next encoded layer.
      *
      * @param is
      *            existing and opened input stream
@@ -70,8 +63,7 @@ public abstract class AbsLayer {
      * @throws IOException
      *             if one of the streams fail
      */
-    public abstract void decStream(InputStream is, OutputStream os)
-            throws IOException;
+    public abstract void decStream(InputStream is, OutputStream os) throws IOException;
 
     @Override
     /**

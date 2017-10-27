@@ -38,6 +38,7 @@ public class TestLayerTransparent {
      * Test method for {@link org.jastacry.layer.TransparentLayer#encStream(java.io.InputStream, java.io.OutputStream)}.
      *
      * @throws IOException
+     *             in case of error.
      */
     @Test
     // TestLink(externalId = "JAS-1")
@@ -53,6 +54,7 @@ public class TestLayerTransparent {
      * Test method for {@link org.jastacry.layer.TransparentLayer#decStream(java.io.InputStream, java.io.OutputStream)}.
      *
      * @throws IOException
+     *             in case of error.
      */
     @Test
     // TestLink(externalId = "JAS-2")
