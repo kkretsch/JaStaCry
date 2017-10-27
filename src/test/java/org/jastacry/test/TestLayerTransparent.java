@@ -24,7 +24,7 @@ import org.junit.Test;
  */
 public class TestLayerTransparent {
     /**
-     * Testdata to play with.
+     * Test data to play with.
      */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
 

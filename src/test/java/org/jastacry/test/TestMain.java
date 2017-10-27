@@ -38,7 +38,7 @@ public class TestMain {
     }
 
     /**
-     * Test method for Main function.
+     * Test method help for Main function.
      *
      */
     @Test
@@ -46,5 +46,16 @@ public class TestMain {
         final String[] sArguments = {"-h"};
         final int iRC = JaStaCry.main(sArguments);
         assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_HELP);
+    }
+
+    /**
+     * Test method no parameters error for Main function.
+     *
+     */
+    @Test
+    public void testMainNoargs() {
+        final String[] sArguments = {};
+        final int iRC = JaStaCry.main(sArguments);
+        assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_ERROR);
     }
 }

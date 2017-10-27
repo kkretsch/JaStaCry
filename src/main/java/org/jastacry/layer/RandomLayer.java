@@ -7,7 +7,7 @@ import java.io.OutputStream;
 /**
  * Mask every byte with some random data. The random stream is initialized by
  * the init seed. Must be used the same on
- * both sides (encription and description).
+ * both sides (encryption and decryption).
  *
  * @author Kai Kretschmann
  */
@@ -88,7 +88,7 @@ public class RandomLayer extends AbsLayer {
     /**
      * Print layer name function.
      *
-     * @return Layername as String
+     * @return Layer name as String
      */
     public final String toString() {
         return LAYERNAME;
