@@ -16,23 +16,7 @@
     </bannerRight>
 
     <body>
-        <head>
-<![CDATA[<script type="text/javascript">
-  var _paq = _paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(["setCookieDomain", "*.jastacry.org"]);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//stat.myocastor.de/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '72']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<noscript><p><img src="//stat.myocastor.de/piwik.php?idsite=72&rec=1" style="border:0;" alt="" /></p></noscript>]]>
-        </head>
+
         <links>
             <item href="index.html" name="JaStaCry" />
             <item href="https://www.jastacry.org/" name="Website" />
