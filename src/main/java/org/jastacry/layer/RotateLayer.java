@@ -58,12 +58,11 @@ public class RotateLayer extends AbsLayer {
      * @param os
      * @throws IOException
      */
-    public final void encStream(final InputStream is, final OutputStream os)
-            throws IOException {
+    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
         int iChar;
         while ((iChar = is.read()) != -1) {
             iChar += this.iOffset;
-            rangeCheck(iChar);
+            iChar = rangeCheck(iChar);
             os.write(iChar);
         }
     }
@@ -76,12 +75,11 @@ public class RotateLayer extends AbsLayer {
      * @param os
      * @throws IOException
      */
-    public final void decStream(final InputStream is, final OutputStream os)
-            throws IOException {
+    public final void decStream(final InputStream is, final OutputStream os) throws IOException {
         int iChar;
         while ((iChar = is.read()) != -1) {
             iChar -= this.iOffset;
-            rangeCheck(iChar);
+            iChar = rangeCheck(iChar);
             os.write(iChar);
         }
     }
@@ -99,7 +97,8 @@ public class RotateLayer extends AbsLayer {
     /**
      * Private range check function for byte values.
      *
-     * @param i as input value
+     * @param i
+     *            as input value
      * @return range checked byte value
      */
     private int rangeCheck(final int i) {
