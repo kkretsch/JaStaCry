@@ -20,6 +20,7 @@ public class TestLayerRotate {
     @Before
     public void setUp() throws Exception {
         layer = new RotateLayer();
+        layer.init("2");
     }
 
     @After

@@ -27,6 +27,7 @@ public class TestLayerTransparent {
     @Before
     public void setUp() throws Exception {
         layer = new TransparentLayer();
+        layer.init("");
     }
 
     @After

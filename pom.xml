@@ -9,7 +9,7 @@
 		<findbugs.version>2.5.2</findbugs.version>
 		<checkstyle.version>2.17</checkstyle.version>
 		<surefire.reportplugin.version>2.20.1</surefire.reportplugin.version>
-		<cobertura.version>2.5.2</cobertura.version>
+		<cobertura.version>2.7</cobertura.version>
 	</properties>
 	<build>
 		<plugins>
@@ -46,16 +46,21 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>${findbugs.version}</version>
 			</plugin>
-<!-- 			<plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>${cobertura.version}</version>
 				<configuration>
-					<formats>
+					<instrumentation>
+						<ignores>
+							<ignore>org.jastacry.test.*</ignore>
+						</ignores>
+					</instrumentation>
+					<!-- <formats>
 						<format>xml</format>
-					</formats>
+						</formats> -->
 				</configuration>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -137,16 +142,16 @@
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>${surefire.reportplugin.version}</version>
 			</plugin>
-<!-- 			<plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>${cobertura.version}</version>
-				<configuration>
+				<!-- <configuration>
 					<formats>
-						<format>xml</format>
+					<format>xml</format>
 					</formats>
-				</configuration>
-			</plugin> -->
+					</configuration> -->
+			</plugin>
 		</plugins>
 	</reporting>
 	<scm>

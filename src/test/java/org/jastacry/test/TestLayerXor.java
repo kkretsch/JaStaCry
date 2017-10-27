@@ -20,6 +20,7 @@ public class TestLayerXor {
     @Before
     public void setUp() throws Exception {
         layer = new XorLayer();
+        layer.init("123");
     }
 
     @After
