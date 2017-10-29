@@ -14,7 +14,7 @@
 		<Root level="ALL">
 			<AppenderRef ref="ConsoleLog" level="INFO" />
 		</Root>
-		<Logger additivity="FALSE" level="ALL" name="org.jastacry.layer.EncodeDecodeLayer">
+		<Logger additivity="FALSE" level="ALL" name="org.jastacry">
 			<AppenderRef level="INFO" ref="ConsoleLog" />
 			<AppenderRef level="ALL" ref="Logfile" />
 		</Logger>
