@@ -156,6 +156,7 @@ public final class JaStaCry {
     /**
      * Hidden constructor.
      */
+    @CoverageIgnore
     private JaStaCry() {
         // not called
     }
