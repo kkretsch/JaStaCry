@@ -36,6 +36,16 @@ public class TestMain {
     public static final String CONF1 = "conf1.cfg";
 
     /**
+     * Test configuration file.
+     */
+    public static final String CONF2 = "conf2.cfg";
+
+    /**
+     * Test configuration file.
+     */
+    public static final String CONF3 = "conf3.cfg";
+
+    /**
      * Test input text file.
      */
     public static final String INPUTFILE = "plaintext.txt";
@@ -166,4 +176,37 @@ public class TestMain {
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main help returncode", iRC, 0);
     }
+
+    /**
+     * Test method one layer for Main function.
+     *
+     */
+    @Test
+    public void testMainOnelayer() {
+        String sInputFile = "src/test/resources/" + INPUTFILE;
+        String sOutputFile = tmpFile.getAbsolutePath();
+        String sConfigFile = "src/test/resources/" + CONF2;
+
+        final String[] sArguments = {"--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int iRC = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_ERROR);
+    }
+
+    /**
+     * Test method one layer for Main function.
+     *
+     */
+    @Test
+    public void testMainNolayer() {
+        String sInputFile = "src/test/resources/" + INPUTFILE;
+        String sOutputFile = tmpFile.getAbsolutePath();
+        String sConfigFile = "src/test/resources/" + CONF3;
+
+        final String[] sArguments = {"-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int iRC = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_ERROR);
+    }
+
 }
