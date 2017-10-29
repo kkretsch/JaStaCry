@@ -367,8 +367,6 @@ public final class JaStaCry {
     /**
      * Create command line Options object.
      *
-     * @param isRequired
-     *            do we have any required parameters?
      * @return Options object
      */
     private static Options createOptions() {
@@ -443,10 +441,10 @@ public final class JaStaCry {
             cmdLine = parser.parse(options, args);
         } catch (final MissingOptionException eOpt) {
             final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("jastacry", options);
+            formatter.printHelp(Data.HELP, options);
             return org.jastacry.Data.RC_ERROR;
         } catch (final ParseException e2) {
-            e2.printStackTrace();
+            logger.catching(e2);
             return org.jastacry.Data.RC_ERROR;
         }
 
@@ -458,7 +456,7 @@ public final class JaStaCry {
         if (cmdLine.hasOption(P_SHORT_HELP)) {
             logger.debug("Show help");
             final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("jastacry", options);
+            formatter.printHelp(Data.HELP, options);
             return org.jastacry.Data.RC_HELP;
         } // if
 
@@ -477,10 +475,10 @@ public final class JaStaCry {
         if (cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE)) {
             action = org.jastacry.Data.DECODE;
         } // if
-        if (0 == action) {
+        if (0 == action) { // TODO should have been solved by commons-cli required attribute, which collides to help parameter
             logger.debug("action required");
             final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("jastacry", options);
+            formatter.printHelp(Data.HELP, options);
             return org.jastacry.Data.RC_ERROR;
         }
 
@@ -495,7 +493,7 @@ public final class JaStaCry {
         if (null == confFilename || null == inputFilename || null == outputFilename) {
             logger.debug("argument to parameter required");
             final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("jastacry", options);
+            formatter.printHelp(Data.HELP, options);
             return org.jastacry.Data.RC_ERROR;
         }
 

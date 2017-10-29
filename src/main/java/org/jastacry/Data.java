@@ -18,7 +18,7 @@ public final class Data {
      * Help line reply.
      */
     public static final String
-        HELP = "JaStaCry [encode|decode] layers.conf infile outfile";
+        HELP = "JaStaCry -h | (-v) (-t) [--encode|--decode] --infile input.txt --outfile output.bin --conffile layers.conf";
 
     /**
      * Base name for temp files.
