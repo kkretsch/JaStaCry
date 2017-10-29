@@ -196,6 +196,7 @@ public final class JaStaCry {
 
         if (1 == layers.size()) {
             logger.warn("Warning: Only one layer defined!");
+            return org.jastacry.Data.RC_ERROR;
         }
 
         if (doEncode) {
