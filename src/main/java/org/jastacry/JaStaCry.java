@@ -165,13 +165,13 @@ public final class JaStaCry {
      *
      * @param args
      *            parsed by apache commons cli package
-     * @return int system return code to shell
-     */
+    */
     public static void main(final String[] args) {
         mainMethod(args);
     }
+
     /**
-     * Main class for running a command line interface.
+     * Main method for running a command line interface.
      *
      * @param args
      *            parsed by apache commons cli package
