@@ -33,7 +33,7 @@ public class TestMain {
     /**
      * Test configuration file.
      */
-    public static final String CONF1 = "conf1.cnf";
+    public static final String CONF1 = "conf1.cfg";
 
     /**
      * Test input text file.

@@ -208,7 +208,7 @@ public final class JaStaCry {
                     layers.add(0, layerEncode);
                     break;
                 default:
-                    logger.error("unknown action {}", action);
+                    logger.error("unknown action '{}'", action);
                     break;
             } // switch
         }
@@ -227,7 +227,7 @@ public final class JaStaCry {
             tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
         } catch (final IOException e1) {
             logger.catching(e1);
-            System.exit(org.jastacry.Data.RC_ERROR);
+            return org.jastacry.Data.RC_ERROR;
         }
 
         try {
@@ -235,7 +235,7 @@ public final class JaStaCry {
             output = new BufferedOutputStream(new FileOutputStream(fileOut));
         } catch (final FileNotFoundException e) {
             logger.catching(e);
-            System.exit(org.jastacry.Data.RC_ERROR);
+            return org.jastacry.Data.RC_ERROR;
         }
 
         try {
