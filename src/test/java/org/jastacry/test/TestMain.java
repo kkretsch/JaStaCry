@@ -3,11 +3,19 @@
  */
 package org.jastacry.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.Arrays;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jastacry.JaStaCry;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -18,6 +26,37 @@ import org.junit.Test;
  */
 public class TestMain {
     /**
+     * log4j2 object.
+     */
+    private static Logger oLogger = null;
+
+    /**
+     * Test configuration file.
+     */
+    public static final String CONF1 = "conf1.cnf";
+
+    /**
+     * Test input text file.
+     */
+    public static final String INPUTFILE = "plaintext.txt";
+
+    /**
+     * temporary file.
+     */
+    private File tmpFile;
+
+    /**
+     * The BeforeClass method.
+     *
+     * @throws MalformedURLException
+     *             in case of error.
+     */
+    @BeforeClass
+    public static void setLogger() throws MalformedURLException {
+        oLogger = LogManager.getLogger();
+    }
+
+    /**
      * Test Before method.
      *
      * @throws Exception
@@ -25,6 +64,11 @@ public class TestMain {
      */
     @Before
     public void setUp() throws Exception {
+        try {
+            tmpFile = File.createTempFile(org.jastacry.Data.TMPBASE, null);
+        } catch (final IOException e1) {
+            oLogger.catching(e1);
+        }
     }
 
     /**
@@ -44,7 +88,7 @@ public class TestMain {
     @Test
     public void testMainHelp() {
         final String[] sArguments = {"-h"};
-        final int iRC = JaStaCry.main(sArguments);
+        final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_HELP);
     }
 
@@ -55,7 +99,23 @@ public class TestMain {
     @Test
     public void testMainNoargs() {
         final String[] sArguments = {};
-        final int iRC = JaStaCry.main(sArguments);
+        final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_ERROR);
+    }
+
+    /**
+     * Test method standard call for Main function.
+     *
+     */
+    @Test
+    public void testMainNormal() {
+        String sInputFile = "src/test/resources/" + INPUTFILE;
+        String sOutputFile = tmpFile.getAbsolutePath();
+        String sConfigFile = "src/test/resources/" + CONF1;
+
+        final String[] sArguments = {"--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int iRC = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main help returncode", iRC, 0);
     }
 }

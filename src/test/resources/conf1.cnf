@@ -1,0 +1,6 @@
+; Comment line
+; encode line by line through the available layers
+xor 11
+;rotate -5
+random 3711
+md5des geheim
