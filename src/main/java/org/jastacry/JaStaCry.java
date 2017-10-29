@@ -22,9 +22,9 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.MissingOptionException;
 import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.UnrecognizedOptionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.layer.AbsLayer;
@@ -167,7 +167,8 @@ public final class JaStaCry {
      *            parsed by apache commons cli package
     */
     public static void main(final String[] args) {
-        mainMethod(args);
+        int iRC = mainMethod(args);
+        System.exit(iRC);
     }
 
     /**
@@ -370,19 +371,35 @@ public final class JaStaCry {
      *            do we have any required parameters?
      * @return Options object
      */
-    private static Options createOptions(final boolean isRequired) {
+    private static Options createOptions() {
         Options options = new Options();
+        Option option;
 
         // optional parameters
         options.addOption(P_SHORT_HELP, P_LONG_HELP, false, "show some help");
-        options.addOption(P_SHORT_ENCODE, P_LONG_ENCODE, false, "encode input stream");
-        options.addOption(P_SHORT_DECODE, P_LONG_DECODE, false, "decode input stream");
         options.addOption(P_SHORT_VERBOSE, false, "verbose");
         options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, "text formatted output or input of encrypted data");
 
+        // either/or arguments
+        OptionGroup ogAction = new OptionGroup();
+        option = Option.builder(P_SHORT_ENCODE)
+                .required(false)
+                .longOpt(P_LONG_ENCODE)
+                .desc("encode input stream")
+                .build();
+        ogAction.addOption(option);
+        option = Option.builder(P_SHORT_DECODE)
+                .required(false)
+                .longOpt(P_LONG_DECODE)
+                .desc("decode input stream")
+                .build();
+        ogAction.addOption(option);
+        //ogAction.setRequired(true);
+        options.addOptionGroup(ogAction);
+
         // potential mandatory parameters
-        Option option = Option.builder(P_SHORT_CONFFILE)
-                .required(isRequired).hasArg()
+        option = Option.builder(P_SHORT_CONFFILE)
+                .required(false).hasArg()
                 .longOpt(P_LONG_CONFFILE)
                 .argName("FILE")
                 .desc("use FILE as stack configuration")
@@ -390,7 +407,7 @@ public final class JaStaCry {
         options.addOption(option);
 
         option = Option.builder(P_SHORT_INFILE)
-                .required(isRequired).hasArg()
+                .required(false).hasArg()
                 .longOpt(P_LONG_INFILE)
                 .argName("FILE")
                 .desc("use FILE as input stream")
@@ -398,7 +415,7 @@ public final class JaStaCry {
         options.addOption(option);
 
         option = Option.builder(P_SHORT_OUTFILE)
-                .required(isRequired).hasArg()
+                .required(false).hasArg()
                 .longOpt(P_LONG_OUTFILE)
                 .argName("FILE")
                 .desc("use FILE as output stream")
@@ -408,47 +425,6 @@ public final class JaStaCry {
         return options;
     }
 
-    /**
-     * Check for help argument and show it, so no other required arguments are in the way yet.
-     *
-     * @param args
-     *            the command line
-     * @return boolean of help requested/shown status
-     */
-    private static boolean checkForHelp(final String[] args) {
-        final Options options = createOptions(false);
-
-        final CommandLineParser parser = new DefaultParser();
-        CommandLine cmdLine = null;
-        try {
-            cmdLine = parser.parse(options, args);
-        } catch (final MissingOptionException eOpt) {
-            logger.error("MissingOptionException {}", eOpt.getLocalizedMessage());
-            final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("jastacry", options);
-            return true;
-        } catch (UnrecognizedOptionException e) {
-            logger.info("Ignoring UnrecognizedOptionException {}", e.getLocalizedMessage());
-        } catch (final ParseException e2) {
-            logger.error("Unknown ParseException {}", e2.getLocalizedMessage());
-            return false;
-        }
-
-        if (null == cmdLine) {
-            logger.warn("cmdLine null");
-            final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("jastacry", options);
-            return true;
-        }
-        if (cmdLine.hasOption(P_SHORT_HELP)) {
-            logger.debug("Show help");
-            final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("jastacry", options);
-            return true;
-        } // if
-
-        return false;
-    }
 
     /**
      * Setup environment via command line arguments.
@@ -458,12 +434,8 @@ public final class JaStaCry {
      * @return int error value
      */
     private static int setup(final String[] args) {
-        if (checkForHelp(args)) {
-            return org.jastacry.Data.RC_HELP;
-        } // if
-
         // Command line parameters
-        final Options options = createOptions(true);
+        final Options options = createOptions();
 
         final CommandLineParser parser = new DefaultParser();
         CommandLine cmdLine = null;
@@ -483,6 +455,13 @@ public final class JaStaCry {
             return org.jastacry.Data.RC_ERROR;
         }
 
+        if (cmdLine.hasOption(P_SHORT_HELP)) {
+            logger.debug("Show help");
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("jastacry", options);
+            return org.jastacry.Data.RC_HELP;
+        } // if
+
         // Is verbose?
         isVerbose = cmdLine.hasOption(P_SHORT_VERBOSE);
         if (isVerbose) {
@@ -498,6 +477,12 @@ public final class JaStaCry {
         if (cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE)) {
             action = org.jastacry.Data.DECODE;
         } // if
+        if (0 == action) {
+            logger.debug("action required");
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("jastacry", options);
+            return org.jastacry.Data.RC_ERROR;
+        }
 
         // Use text format?
         doEncode = cmdLine.hasOption(P_SHORT_ASCII) || cmdLine.hasOption(P_LONG_ASCII);
@@ -506,6 +491,13 @@ public final class JaStaCry {
         confFilename = cmdLine.getOptionValue(P_LONG_CONFFILE);
         inputFilename = cmdLine.getOptionValue(P_LONG_INFILE);
         outputFilename = cmdLine.getOptionValue(P_LONG_OUTFILE);
+
+        if (null == confFilename || null == inputFilename || null == outputFilename) {
+            logger.debug("argument to parameter required");
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("jastacry", options);
+            return org.jastacry.Data.RC_ERROR;
+        }
 
         return 0;
     }
