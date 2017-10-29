@@ -520,19 +520,25 @@ public final class JaStaCry {
             while ((strLine = br.readLine()) != null) {
                 strLine = strLine.trim();
                 if (';' == strLine.charAt(0)) {
+                    if (isVerbose) {
+                        logger.debug("skip comment line '{}'", strLine);
+                    } // if
                     continue;
                 }
 
                 String sLayer = null;
                 String sParams = "";
 
-                final int iPosSpace = strLine.indexOf(' ');
+                String[] toks = strLine.split("\\s+");
                 // no parameter?
-                if (-1 == iPosSpace) {
+                if (1 == toks.length) {
                     sLayer = strLine;
                 } else {
-                    sLayer = strLine.substring(0, iPosSpace);
-                    sParams = strLine.substring(iPosSpace + 1);
+                    sLayer = toks[0];
+                    sParams = toks[1];
+                    if (isVerbose) {
+                        logger.debug("read config, layer={}, params={}", sLayer, sParams);
+                    } // if
 
                     // Optional interactive password entry
                     if (sParams.equalsIgnoreCase(org.jastacry.Data.MACRO_PASSWORD)) {
@@ -567,9 +573,8 @@ public final class JaStaCry {
                         layer = new Md5DesLayer();
                         break;
                     default:
-                        logger.error("unknown layer {}", sLayer);
-                        System.exit(org.jastacry.Data.RC_ERROR);
-                        return null;
+                        logger.error("unknown layer '{}'", sLayer);
+                        continue;
                 } // switch
 
                 if (isVerbose) {

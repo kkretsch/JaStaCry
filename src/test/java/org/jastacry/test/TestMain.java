@@ -104,6 +104,33 @@ public class TestMain {
     }
 
     /**
+     * Test method unknown parameters error for Main function.
+     *
+     */
+    @Test
+    public void testMainUnknownargs() {
+        final String[] sArguments = {"--unknown", "--arguments"};
+        final int iRC = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_ERROR);
+    }
+
+    /**
+     * Test method missing parameters for Main function.
+     *
+     */
+    @Test
+    public void testMainMissingArgs() {
+        String sInputFile = "src/test/resources/" + INPUTFILE;
+        String sOutputFile = tmpFile.getAbsolutePath();
+        String sConfigFile = "src/test/resources/" + CONF1;
+
+        final String[] sArguments = {"--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int iRC = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_ERROR);
+    }
+
+    /**
      * Test method standard call for Main function.
      *
      */
