@@ -36,6 +36,8 @@ import org.jastacry.layer.RotateLayer;
 import org.jastacry.layer.TransparentLayer;
 import org.jastacry.layer.XorLayer;
 
+import net.sourceforge.cobertura.CoverageIgnore;
+
 /**
  * Main JaStaCry class to start.
  *
@@ -167,6 +169,7 @@ public final class JaStaCry {
      * @param args
      *            parsed by apache commons cli package
     */
+    @CoverageIgnore
     public static void main(final String[] args) {
         int iRC = mainMethod(args);
         System.exit(iRC);
