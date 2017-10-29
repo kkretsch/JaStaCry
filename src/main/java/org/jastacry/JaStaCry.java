@@ -18,12 +18,13 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.MissingOptionException;
-import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
+import org.apache.commons.cli.UnrecognizedOptionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.layer.AbsLayer;
@@ -88,14 +89,29 @@ public final class JaStaCry {
     private static final String P_LONG_DECODE = "decode";
 
     /**
+     * Parameter, short version, for "config".
+     */
+    private static final String P_SHORT_CONFFILE = "c";
+
+    /**
      * Parameter, long version, for "config".
      */
     private static final String P_LONG_CONFFILE = "conffile";
 
     /**
+     * Parameter, short version, for "infile".
+     */
+    private static final String P_SHORT_INFILE = "i";
+
+    /**
      * Parameter, long version, for "infile".
      */
     private static final String P_LONG_INFILE = "infile";
+
+    /**
+     * Parameter, short version, for "outfile".
+     */
+    private static final String P_SHORT_OUTFILE = "o";
 
     /**
      * Parameter, long version, for "outfile".
@@ -148,10 +164,20 @@ public final class JaStaCry {
      * Main class for running a command line interface.
      *
      * @param args
-     *            run as "[encode|decode] layers.conf infile outfile"
+     *            parsed by apache commons cli package
      * @return int system return code to shell
      */
-    public static int main(final String[] args) {
+    public static void main(final String[] args) {
+        mainMethod(args);
+    }
+    /**
+     * Main class for running a command line interface.
+     *
+     * @param args
+     *            parsed by apache commons cli package
+     * @return int system return code to shell
+     */
+    public static int mainMethod(final String[] args) {
         logger = LogManager.getLogger();
         final int iRC = setup(args);
         if (0 != iRC) {
@@ -213,39 +239,6 @@ public final class JaStaCry {
 
         try {
             loopLayers(layers, input, output, tempIn, tempOut, fileIn, fileOut);
-
-            /*
-             * for (int i = 0; i < layers.size(); i++) { l = layers.get(i); InputStream layerInput = null; OutputStream
-             * layerOutput = null;
-             *
-             * // first step if (i == 0) { layerInput = input; layerOutput = new BufferedOutputStream(new
-             * FileOutputStream(tempOut)); if (isVerbose) { logger.debug("layer 0 '" + l.toString() + "' from " + fileIn
-             * + " to " + tempOut); } } else { // middle steps if (i < layers.size() - 1) { if (isVerbose) {
-             * logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + tempOut); } layerInput =
-             * new BufferedInputStream(new FileInputStream(tempIn)); layerOutput = new BufferedOutputStream(new
-             * FileOutputStream(tempOut)); } else { // last step if (isVerbose) { logger.debug("layer " + i + " '" +
-             * l.toString() + "' from " + tempIn + " to " + fileOut); } layerInput = new BufferedInputStream(new
-             * FileInputStream(tempIn)); layerOutput = output; } }
-             *
-             * switch (action) { case org.jastacry.Data.ENCODE: l.encStream(layerInput, layerOutput); break; case
-             * org.jastacry.Data.DECODE: l.decStream(layerInput, layerOutput); break; default: logger.error(
-             * "unknwon action '{}'", action); break; }
-             *
-             * // first step if (i == 0) { layerOutput.close(); } else { // middle steps if (i < layers.size() - 1) {
-             * layerInput.close(); layerOutput.close(); } else { // last step layerInput.close(); } }
-             *
-             * // transfer last temporary out to new temporary in if (null != tempIn) { final boolean bRC =
-             * tempIn.delete(); if (!bRC) { logger.warn("delete might have failed"); } } tempIn = tempOut; tempOut =
-             * File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
-             *
-             * } // for
-             *
-             * if (null != tempIn) { final boolean bRC = tempIn.delete(); if (!bRC) { logger.warn(
-             * "delete might have failed"); } } if (null != tempOut) { final boolean bRC = tempOut.delete(); if (!bRC) {
-             * logger.warn("delete might have failed"); } }
-             *
-             * if (null != input) { input.close(); } if (null != output) { output.close(); }
-             */
         } catch (final IOException e) {
             logger.catching(e);
         }
@@ -371,6 +364,51 @@ public final class JaStaCry {
     }
 
     /**
+     * Create command line Options object.
+     *
+     * @param isRequired
+     *            do we have any required parameters?
+     * @return Options object
+     */
+    private static Options createOptions(final boolean isRequired) {
+        Options options = new Options();
+
+        // optional parameters
+        options.addOption(P_SHORT_HELP, P_LONG_HELP, false, "show some help");
+        options.addOption(P_SHORT_ENCODE, P_LONG_ENCODE, false, "encode input stream");
+        options.addOption(P_SHORT_DECODE, P_LONG_DECODE, false, "decode input stream");
+        options.addOption(P_SHORT_VERBOSE, false, "verbose");
+        options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, "text formatted output or input of encrypted data");
+
+        // potential mandatory parameters
+        Option option = Option.builder(P_SHORT_CONFFILE)
+                .required(isRequired).hasArg()
+                .longOpt(P_LONG_CONFFILE)
+                .argName("FILE")
+                .desc("use FILE as stack configuration")
+                .build();
+        options.addOption(option);
+
+        option = Option.builder(P_SHORT_INFILE)
+                .required(isRequired).hasArg()
+                .longOpt(P_LONG_INFILE)
+                .argName("FILE")
+                .desc("use FILE as input stream")
+                .build();
+        options.addOption(option);
+
+        option = Option.builder(P_SHORT_OUTFILE)
+                .required(isRequired).hasArg()
+                .longOpt(P_LONG_OUTFILE)
+                .argName("FILE")
+                .desc("use FILE as output stream")
+                .build();
+        options.addOption(option);
+
+        return options;
+    }
+
+    /**
      * Check for help argument and show it, so no other required arguments are in the way yet.
      *
      * @param args
@@ -378,23 +416,32 @@ public final class JaStaCry {
      * @return boolean of help requested/shown status
      */
     private static boolean checkForHelp(final String[] args) {
-        final Options options = new Options();
-        options.addOption(P_SHORT_HELP, P_LONG_HELP, false, "show some help");
+        final Options options = createOptions(false);
 
-        final CommandLineParser parser = new PosixParser();
-        CommandLine cmdLine;
+        final CommandLineParser parser = new DefaultParser();
+        CommandLine cmdLine = null;
         try {
             cmdLine = parser.parse(options, args);
         } catch (final MissingOptionException eOpt) {
+            logger.error("MissingOptionException {}", eOpt.getLocalizedMessage());
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("jastacry", options);
             return true;
+        } catch (UnrecognizedOptionException e) {
+            logger.info("Ignoring UnrecognizedOptionException {}", e.getLocalizedMessage());
         } catch (final ParseException e2) {
-            e2.printStackTrace();
+            logger.error("Unknown ParseException {}", e2.getLocalizedMessage());
             return false;
         }
 
+        if (null == cmdLine) {
+            logger.warn("cmdLine null");
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("jastacry", options);
+            return true;
+        }
         if (cmdLine.hasOption(P_SHORT_HELP)) {
+            logger.debug("Show help");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("jastacry", options);
             return true;
@@ -407,30 +454,18 @@ public final class JaStaCry {
      * Setup environment via command line arguments.
      *
      * @param args
-     *            array of Strings from commandline
+     *            array of Strings from command line
      * @return int error value
      */
-    @SuppressWarnings("static-access")
     private static int setup(final String[] args) {
         if (checkForHelp(args)) {
             return org.jastacry.Data.RC_HELP;
         } // if
 
         // Command line parameters
-        final Options options = new Options();
-        options.addOption(P_SHORT_HELP, P_LONG_HELP, false, "show some help");
-        options.addOption(P_SHORT_ENCODE, P_LONG_ENCODE, false, "encode input stream");
-        options.addOption(P_SHORT_DECODE, P_LONG_DECODE, false, "decode input stream");
-        options.addOption(P_SHORT_VERBOSE, false, "verbose");
-        options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, "text formatted output or input of encrypted data");
-        options.addOption(OptionBuilder.withLongOpt(P_LONG_CONFFILE).withDescription("use FILE as stack configuration")
-                .hasArg().withArgName("FILE").isRequired().create());
-        options.addOption(OptionBuilder.withLongOpt(P_LONG_INFILE).withDescription("use FILE as input stream").hasArg()
-                .withArgName("FILE").isRequired().create());
-        options.addOption(OptionBuilder.withLongOpt(P_LONG_OUTFILE).withDescription("use FILE as output stream")
-                .hasArg().withArgName("FILE").isRequired().create());
+        final Options options = createOptions(true);
 
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         CommandLine cmdLine = null;
         try {
             cmdLine = parser.parse(options, args);
