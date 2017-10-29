@@ -41,6 +41,11 @@ public class TestMain {
     public static final String INPUTFILE = "plaintext.txt";
 
     /**
+     * Test input encoded file.
+     */
+    public static final String INPUTENCODED = "encoded.dat";
+
+    /**
      * temporary file.
      */
     private File tmpFile;
@@ -131,16 +136,32 @@ public class TestMain {
     }
 
     /**
-     * Test method standard call for Main function.
+     * Test method encode call for Main function.
      *
      */
     @Test
-    public void testMainNormal() {
+    public void testMainEncode() {
         String sInputFile = "src/test/resources/" + INPUTFILE;
         String sOutputFile = tmpFile.getAbsolutePath();
         String sConfigFile = "src/test/resources/" + CONF1;
 
-        final String[] sArguments = {"--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        final String[] sArguments = {"-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int iRC = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main help returncode", iRC, 0);
+    }
+
+    /**
+     * Test method decode call for Main function.
+     *
+     */
+    @Test
+    public void testMainDecode() {
+        String sInputFile = "src/test/resources/" + INPUTENCODED;
+        String sOutputFile = tmpFile.getAbsolutePath();
+        String sConfigFile = "src/test/resources/" + CONF1;
+
+        final String[] sArguments = {"-v", "--decode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main help returncode", iRC, 0);
