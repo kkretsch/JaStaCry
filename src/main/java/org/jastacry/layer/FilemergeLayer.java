@@ -17,12 +17,17 @@ import java.io.OutputStream;
 
 public class FilemergeLayer extends AbsLayer {
     /**
+     * static name of the layer.
+     */
+    public static final String LAYERNAME = "Filemerge Layer";
+
+    /**
      * File to merge with..
      */
     private File fileMerge;
 
     /**
-     * Input stream fo file to merge with.
+     * Input stream of file to merge with.
      */
     private InputStream merge = null;
 
