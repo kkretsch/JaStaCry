@@ -64,13 +64,15 @@ public class FilemergeLayer extends AbsLayer {
         byte bChar;
         byte bMerge;
 
-        merge = new BufferedInputStream(new FileInputStream(fileMerge));
-        merge.mark(0);
+        FileInputStream fIS = new FileInputStream(fileMerge);
+        merge = new BufferedInputStream(fIS);
 
         while ((iChar = is.read()) != -1) {
             iMerge = merge.read();
             if (-1 == iMerge) {
-                merge.reset();
+                logger.debug("EOF reached, reset to start");
+                fIS.getChannel().position(0);
+                merge = new BufferedInputStream(fIS);
                 iMerge = merge.read();
             }
             bChar = (byte) iChar;
@@ -97,13 +99,15 @@ public class FilemergeLayer extends AbsLayer {
         byte bChar;
         byte bMerge;
 
-        merge = new BufferedInputStream(new FileInputStream(fileMerge));
-        merge.mark(0);
+        FileInputStream fIS = new FileInputStream(fileMerge);
+        merge = new BufferedInputStream(fIS);
 
         while ((iChar = is.read()) != -1) {
             iMerge = merge.read();
             if (-1 == iMerge) {
-                merge.reset();
+                logger.debug("EOF reached, reset to start");
+                fIS.getChannel().position(0);
+                merge = new BufferedInputStream(fIS);
                 iMerge = merge.read();
             }
             bChar = (byte) iChar;
@@ -119,10 +123,10 @@ public class FilemergeLayer extends AbsLayer {
     /**
      * Print layer name function.
      *
-     * @return Layername as String
+     * @return Layer name as String
      */
     public final String toString() {
-        return "Filemerge Layer";
+        return LAYERNAME;
     }
 
 }
