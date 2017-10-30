@@ -82,6 +82,7 @@ public class FilemergeLayer extends AbsLayer {
         }
 
         merge.close();
+        fIS.close();
     }
 
     @Override
@@ -117,6 +118,7 @@ public class FilemergeLayer extends AbsLayer {
         }
 
         merge.close();
+        fIS.close();
     }
 
     @Override

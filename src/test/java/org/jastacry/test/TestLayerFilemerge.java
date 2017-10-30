@@ -100,6 +100,7 @@ public class TestLayerFilemerge {
     public void testEncDecStreamLong() throws IOException {
         InputStream is = new FileInputStream(LONGTEXTFILE);
         byte[] buf = IOUtils.toByteArray(is);
+        String sTextcontent = new String(buf, "ISO-8859-1");
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
         layer.init(INITVALUE);
@@ -112,7 +113,7 @@ public class TestLayerFilemerge {
         final OutputStream osDecode = new ByteArrayOutputStream();
         layer.init(INITVALUE);
         layer.decStream(isDecode, osDecode);
-        assertEquals("decoding differs", testdata, osDecode.toString());
+        assertEquals("decoding differs", sTextcontent, osDecode.toString());
     }
 
     /**
