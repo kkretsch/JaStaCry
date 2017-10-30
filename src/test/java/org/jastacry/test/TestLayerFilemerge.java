@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.jastacry.layer.FilemergeLayer;
 import org.junit.After;
 import org.junit.Before;
@@ -34,6 +36,11 @@ public class TestLayerFilemerge {
      * Init value for random layer.
      */
     private static final String INITVALUE = "src/test/resources/foto.jpg";
+
+    /**
+     * Init value for random layer.
+     */
+    private static final String LONGTEXTFILE = "src/test/resources/longtext.txt";
 
     /**
      * Test Before method.
@@ -80,7 +87,32 @@ public class TestLayerFilemerge {
         layer.init(INITVALUE);
         layer.decStream(isDecode, osDecode);
         assertEquals("decoding differs", testdata, osDecode.toString());
+    }
 
+    /**
+     * Testcase testEncDecStream.
+     *
+     * @throws IOException
+     *             in case of error
+     */
+    @Test
+    // TestLink(externalId = "JAS-6")
+    public void testEncDecStreamLong() throws IOException {
+        InputStream is = new FileInputStream(LONGTEXTFILE);
+        byte[] buf = IOUtils.toByteArray(is);
+        final InputStream isEncode = new ByteArrayInputStream(buf);
+        final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
+        layer.init(INITVALUE);
+        layer.encStream(isEncode, osEncode);
+        buf = osEncode.toByteArray();
+
+        layer = null;
+        layer = new FilemergeLayer();
+        final InputStream isDecode = new ByteArrayInputStream(buf);
+        final OutputStream osDecode = new ByteArrayOutputStream();
+        layer.init(INITVALUE);
+        layer.decStream(isDecode, osDecode);
+        assertEquals("decoding differs", testdata, osDecode.toString());
     }
 
     /**
