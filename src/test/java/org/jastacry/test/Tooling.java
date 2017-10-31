@@ -1,6 +1,9 @@
 package org.jastacry.test;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
@@ -19,6 +22,11 @@ public class Tooling {
     private static Logger logger = LogManager.getLogger();
 
     /**
+     * How big can a byte be.
+     */
+    private static final int MAXBYTE = 255;
+
+    /**
      * compare two files if they are equal.
      *
      * @param f1 file one
@@ -33,5 +41,24 @@ public class Tooling {
             logger.catching(e);
         }
         return b;
+    }
+
+    /**
+     * Create a binary input file with all byte values possible.
+     *
+     * @param f File to create
+     */
+    public void createBinaryTestfile(final File f) {
+        try {
+            DataOutputStream os = new DataOutputStream(new FileOutputStream(f));
+            for (int i = 0; i <= MAXBYTE; i++) {
+                os.writeByte(i);
+            }
+            os.close();
+        } catch (FileNotFoundException e) {
+            logger.catching(e);
+        } catch (IOException e) {
+            logger.catching(e);
+        }
     }
 }

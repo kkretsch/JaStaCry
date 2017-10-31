@@ -58,6 +58,11 @@ public class TestMain {
     public static final String INPUTFILE = "plaintext.txt";
 
     /**
+     * Test input binary file.
+     */
+    public static final String INPUTBYTEFILE = "allbytes.dat";
+
+    /**
      * Test input encoded file.
      */
     public static final String INPUTENCODED = "encoded.dat";
@@ -66,6 +71,11 @@ public class TestMain {
      * temporary file.
      */
     private File tmpFile;
+
+    /**
+     * temporary binary file.
+     */
+    private File binFile;
 
     /**
      * Encrypted file.
@@ -94,6 +104,7 @@ public class TestMain {
         tooling = new Tooling();
         try {
             tmpFile = File.createTempFile(org.jastacry.Data.TMPBASE, Data.TMPEXT);
+            binFile = File.createTempFile(org.jastacry.Data.TMPBASE, Data.TMPEXT);
             encFile = File.createTempFile(org.jastacry.Data.TMPBASE, Data.ENCEXT);
         } catch (final IOException e1) {
             oLogger.catching(e1);
@@ -109,6 +120,7 @@ public class TestMain {
     @After
     public void tearDown() throws Exception {
         encFile.delete();
+        binFile.delete();
         tmpFile.delete();
     }
 
@@ -232,6 +244,39 @@ public class TestMain {
     @Test
     public void testMainEncDec() {
         String sInputFile = "src/test/resources/" + INPUTFILE;
+        String sEncryptedFile = encFile.getAbsolutePath();
+        String sDecryptedFile = tmpFile.getAbsolutePath();
+        String sConfigFile = "src/test/resources/" + CONF1;
+        File fInputfile = new File(sInputFile);
+        File fEncryptedfile = new File(sEncryptedFile);
+        File fDecryptedfile = new File(sDecryptedFile);
+
+        final String[] sArgumentsEncrypt =
+            {"-v", "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile, "--conffile", sConfigFile};
+        oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
+        int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
+        assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_OK);
+
+        assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
+
+        final String[] sArgumentsDecrypt =
+            {"-v", "--decode", "--infile", sEncryptedFile, "--outfile", sDecryptedFile, "--conffile", sConfigFile};
+        oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
+        iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
+        assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_OK);
+
+        assertTrue("File results in equal content", tooling.compareFiles(fInputfile, fDecryptedfile));
+    }
+
+    /**
+     * Test method binary data for Main function.
+     *
+     */
+    @Test
+    public void testMainBinaryEncDec() {
+        tooling.createBinaryTestfile(binFile);
+
+        String sInputFile = binFile.getAbsolutePath();
         String sEncryptedFile = encFile.getAbsolutePath();
         String sDecryptedFile = tmpFile.getAbsolutePath();
         String sConfigFile = "src/test/resources/" + CONF1;
