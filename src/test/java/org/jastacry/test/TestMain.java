@@ -4,6 +4,7 @@
 package org.jastacry.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jastacry.Data;
 import org.jastacry.JaStaCry;
 import org.junit.After;
 import org.junit.Before;
@@ -29,6 +31,11 @@ public class TestMain {
      * log4j2 object.
      */
     private static Logger oLogger = null;
+
+    /**
+     * Tooling functions object.
+     */
+    private Tooling tooling;
 
     /**
      * Test configuration file.
@@ -61,6 +68,11 @@ public class TestMain {
     private File tmpFile;
 
     /**
+     * Encrypted file.
+     */
+    private File encFile;
+
+    /**
      * The BeforeClass method.
      *
      * @throws MalformedURLException
@@ -79,8 +91,10 @@ public class TestMain {
      */
     @Before
     public void setUp() throws Exception {
+        tooling = new Tooling();
         try {
-            tmpFile = File.createTempFile(org.jastacry.Data.TMPBASE, null);
+            tmpFile = File.createTempFile(org.jastacry.Data.TMPBASE, Data.TMPEXT);
+            encFile = File.createTempFile(org.jastacry.Data.TMPBASE, Data.ENCEXT);
         } catch (final IOException e1) {
             oLogger.catching(e1);
         }
@@ -94,6 +108,8 @@ public class TestMain {
      */
     @After
     public void tearDown() throws Exception {
+        encFile.delete();
+        tmpFile.delete();
     }
 
     /**
@@ -152,7 +168,7 @@ public class TestMain {
     @Test
     public void testMainEncode() {
         String sInputFile = "src/test/resources/" + INPUTFILE;
-        String sOutputFile = tmpFile.getAbsolutePath();
+        String sOutputFile = encFile.getAbsolutePath();
         String sConfigFile = "src/test/resources/" + CONF1;
 
         final String[] sArguments = {"-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
@@ -207,6 +223,37 @@ public class TestMain {
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_ERROR);
+    }
+
+    /**
+     * Test method one layer for Main function.
+     *
+     */
+    @Test
+    public void testMainEncDec() {
+        String sInputFile = "src/test/resources/" + INPUTFILE;
+        String sEncryptedFile = encFile.getAbsolutePath();
+        String sDecryptedFile = tmpFile.getAbsolutePath();
+        String sConfigFile = "src/test/resources/" + CONF1;
+        File fInputfile = new File(sInputFile);
+        File fEncryptedfile = new File(sEncryptedFile);
+        File fDecryptedfile = new File(sDecryptedFile);
+
+        final String[] sArgumentsEncrypt =
+            {"-v", "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile, "--conffile", sConfigFile};
+        oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
+        int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
+        assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_OK);
+
+        assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
+
+        final String[] sArgumentsDecrypt =
+            {"-v", "--decode", "--infile", sEncryptedFile, "--outfile", sDecryptedFile, "--conffile", sConfigFile};
+        oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
+        iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
+        assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_OK);
+
+        assertTrue("File results in equal content", tooling.compareFiles(fInputfile, fDecryptedfile));
     }
 
 }

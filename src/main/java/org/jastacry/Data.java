@@ -34,6 +34,11 @@ public final class Data {
     public static final String TMPEXT = ".tmp";
 
     /**
+     * Extension for encrypted files.
+     */
+    public static final String ENCEXT = ".jac";
+
+    /**
      * Parameter for encoding.
      */
     public static final String PARAM_ENCODE = "encode";
@@ -57,6 +62,11 @@ public final class Data {
      * Placeholder for passwords.
      */
     public static final String MACRO_PASSWORD = "#PASSWORD#";
+
+    /**
+     * Return code to shell for everything OK.
+     */
+    public static final int RC_OK = 0;
 
     /**
      * Return code to shell for warnings.
