@@ -72,13 +72,13 @@ public class Worker {
 
      * @return int system return code to shell
      */
-    public int mainWork() {
+    public final int mainWork() {
         logger = LogManager.getLogger();
 
         // Now go
         final List<AbsLayer> layers = createLayers();
 
-        if (0 == layers.size()) {
+        if (null == layers || 0 == layers.size()) {
             logger.error("No layers defined!");
             return org.jastacry.Data.RC_ERROR;
         } // if
@@ -186,7 +186,6 @@ public class Worker {
                         final Console console = System.console();
                         if (null == console) {
                             logger.error("No interactive console available for password entry!");
-                            System.exit(org.jastacry.Data.RC_ERROR);
                             return null;
                         }
                         final char[] password = console.readPassword("Layer " + sLayer + " Password: ");
@@ -361,84 +360,84 @@ public class Worker {
     /**
      * @return the doEncode
      */
-    public boolean isDoEncode() {
+    public final boolean isDoEncode() {
         return doEncode;
     }
 
     /**
      * @param b the doEncode to set
      */
-    public void setDoEncode(final boolean b) {
+    public final void setDoEncode(final boolean b) {
         doEncode = b;
     }
 
     /**
      * @return the confFilename
      */
-    public String getConfFilename() {
+    public final String getConfFilename() {
         return confFilename;
     }
 
     /**
      * @param s the confFilename to set
      */
-    public void setConfFilename(final String s) {
+    public final void setConfFilename(final String s) {
         confFilename = s;
     }
 
     /**
      * @return the inputFilename
      */
-    public String getInputFilename() {
+    public final String getInputFilename() {
         return inputFilename;
     }
 
     /**
      * @param s the inputFilename to set
      */
-    public void setInputFilename(final String s) {
+    public final void setInputFilename(final String s) {
         inputFilename = s;
     }
 
     /**
      * @return the outputFilename
      */
-    public String getOutputFilename() {
+    public final String getOutputFilename() {
         return outputFilename;
     }
 
     /**
      * @param s the outputFilename to set
      */
-    public void setOutputFilename(final String s) {
+    public final void setOutputFilename(final String s) {
         outputFilename = s;
     }
 
     /**
      * @return the isVerbose
      */
-    public boolean isVerbose() {
+    public final boolean isVerbose() {
         return isVerbose;
     }
 
     /**
      * @param b the isVerbose to set
      */
-    public void setVerbose(final boolean b) {
+    public final void setVerbose(final boolean b) {
         isVerbose = b;
     }
 
     /**
      * @return the action
      */
-    public int getAction() {
+    public final int getAction() {
         return action;
     }
 
     /**
      * @param i the action to set
      */
-    public void setAction(final int i) {
+    public final void setAction(final int i) {
         action = i;
     }
 
