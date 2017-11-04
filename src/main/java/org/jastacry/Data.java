@@ -1,6 +1,6 @@
 package org.jastacry;
 
-//import net.sourceforge.cobertura.CoverageIgnore;
+import net.sourceforge.cobertura.CoverageIgnore;
 
 /**
  * Class for constant values.
@@ -12,7 +12,7 @@ public final class Data {
     /**
      * Hidden constructor.
      */
-    //@CoverageIgnore
+    @CoverageIgnore
     private Data() {
         // not called
     }
