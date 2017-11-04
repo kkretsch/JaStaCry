@@ -199,7 +199,7 @@ public class TestMain {
         String sOutputFile = tmpFile.getAbsolutePath();
         String sConfigFile = "src/test/resources/" + CONF1;
 
-        final String[] sArguments = {"-v", "--decode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        final String[] sArguments = {"--decode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main help returncode", iRC, 0);
@@ -252,7 +252,7 @@ public class TestMain {
         File fDecryptedfile = new File(sDecryptedFile);
 
         final String[] sArgumentsEncrypt =
-            {"-v", "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile, "--conffile", sConfigFile};
+            {"--encode", "--infile", sInputFile, "--outfile", sEncryptedFile, "--conffile", sConfigFile};
         oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
         int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
         assertEquals("Main help returncode", iRC, org.jastacry.Data.RC_OK);
