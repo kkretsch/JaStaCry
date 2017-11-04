@@ -12,7 +12,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-//import net.sourceforge.cobertura.CoverageIgnore;
+import net.sourceforge.cobertura.CoverageIgnore;
 
 /**
  * Main JaStaCry class to start.
@@ -134,7 +134,7 @@ public final class JaStaCry {
     /**
      * Hidden constructor.
      */
-    //@CoverageIgnore
+    @CoverageIgnore
     private JaStaCry() {
         // not called
     }
@@ -145,9 +145,9 @@ public final class JaStaCry {
      * @param args
      *            parsed by apache commons cli package
     */
-    //@CoverageIgnore
+    @CoverageIgnore
     public static void main(final String[] args) {
-        int iRC = mainMethod(args);
+        final int iRC = mainMethod(args);
         System.exit(iRC);
     }
 
