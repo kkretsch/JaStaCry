@@ -22,6 +22,22 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>1.14</version>
+				<configuration>
+					<licenseName>mit</licenseName>
+				</configuration>
+				<executions>
+					<execution>
+						<id>download-licenses</id>
+						<goals>
+							<goal>download-licenses</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.1.0</version>
@@ -238,4 +254,9 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<organization>
+		<url>https://kai.kretschmann.consulting/</url>
+		<name>Kai Kretschmann</name>
+	</organization>
+	<inceptionYear>2017</inceptionYear>
 </project>
