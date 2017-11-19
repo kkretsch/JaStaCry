@@ -1,5 +1,6 @@
 package org.jastacry.layer;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -50,6 +51,9 @@ public class Md5DesLayer extends AbsCipherLayer {
      */
     private static final int KEYSIZE = 24;
 
+    /**
+     * local key storage implementation.
+     */
     private byte[] keyBytes;
 
     /**
@@ -70,7 +74,6 @@ public class Md5DesLayer extends AbsCipherLayer {
         logger.debug("in child setupPBE");
         pbeKey = new SecretKeySpec(keyBytes, "DESede");
         pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyALG);
-        //final IvParameterSpec iv=new IvParameterSpec(new byte[8]);
     }
 
     @Override
@@ -90,7 +93,7 @@ public class Md5DesLayer extends AbsCipherLayer {
         this.cPasswd = data.toCharArray();
         try {
             MessageDigest md = MessageDigest.getInstance("md5");
-            final byte[] digestOfPassword = md.digest(data.getBytes());
+            final byte[] digestOfPassword = md.digest(data.getBytes(StandardCharsets.UTF_8));
             keyBytes = Arrays.copyOf(digestOfPassword, KEYSIZE);
         } catch (NoSuchAlgorithmException e) {
             logger.catching(e);

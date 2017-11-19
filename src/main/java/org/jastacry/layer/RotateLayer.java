@@ -87,7 +87,7 @@ public class RotateLayer extends AbsLayer {
     /**
      * Print layer name function.
      *
-     * @return Layername as String
+     * @return Layer name as String
      */
     public final String toString() {
         return LAYERNAME;
