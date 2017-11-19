@@ -1,54 +1,53 @@
 package org.jastacry.layer;
 
 /**
- * MD5 DES Layer class.
+ * AES Layer class.
  *
  * @author Kai Kretschmann
  */
 
-public class Md5DesLayer extends AbsCipherLayer {
+public class AesLayer extends AbsCipherLayer {
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "MD5DES Layer";
+    public static final String LAYERNAME = "AES Layer";
 
     /**
      * Used algorithm name.
      */
-    private final String myALG = "RSA/ECB/PKCS1Padding";
+    private final String myALG = "AES/CBC/PKCS5Padding";
 
     /**
      * Used algorithm name for the key.
      */
-    private final String myKeyALG = "Blowfish";
+    private final String myKeyALG = "AES";
 
     /**
      * IV length.
      */
-    private static final int IVLEN = 8;
+    private static final int IVLEN = 16;
 
     /**
      * Salt length.
      */
-    private static final int SALTLEN = 8;
+    private static final int SALTLEN = 32;
 
 
     /**
      * Iteration count.
      */
-    private static final int COUNT = 20;
+    private static final int COUNT = 10000;
 
     /**
      * Size of key.
      */
-    private static final int KEYSIZE = 64;
-
+    private static final int KEYSIZE = 128;
 
     /**
-     * Constructor of Md5DesLayer.
+     * Constructor of AesLayer.
      */
-    public Md5DesLayer() {
-        super(Md5DesLayer.class);
+    public AesLayer() {
+        super(AesLayer.class);
     }
 
     @Override

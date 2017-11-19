@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Provider;
+import java.security.Security;
+import java.util.Enumeration;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -43,6 +46,18 @@ public class Tooling {
         return b;
     }
 
+    /**
+     * List all installed crypto providers.
+     */
+    public void listProviders() {
+        Provider[] p = Security.getProviders();
+        for (int i = 0; i < p.length; i++) {
+            logger.info("Provider #{} {}", i, p[i]);
+            for (Enumeration<Object> e = p[i].keys(); e.hasMoreElements();) {
+                logger.info("\t{}", e.nextElement());
+            }
+        }
+    }
     /**
      * Create a binary input file with all byte values possible.
      *
