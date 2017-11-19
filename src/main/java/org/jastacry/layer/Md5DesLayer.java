@@ -1,5 +1,12 @@
 package org.jastacry.layer;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
+
+import javax.crypto.spec.SecretKeySpec;
+
 /**
  * MD5 DES Layer class.
  *
@@ -15,12 +22,12 @@ public class Md5DesLayer extends AbsCipherLayer {
     /**
      * Used algorithm name.
      */
-    private final String myALG = "RSA/ECB/PKCS1Padding";
+    private final String myALG = "DESede/CBC/PKCS5Padding";
 
     /**
      * Used algorithm name for the key.
      */
-    private final String myKeyALG = "Blowfish";
+    private final String myKeyALG = "DESede";
 
     /**
      * IV length.
@@ -41,14 +48,29 @@ public class Md5DesLayer extends AbsCipherLayer {
     /**
      * Size of key.
      */
-    private static final int KEYSIZE = 64;
+    private static final int KEYSIZE = 24;
 
+    private byte[] keyBytes;
 
     /**
      * Constructor of Md5DesLayer.
      */
     public Md5DesLayer() {
         super(Md5DesLayer.class);
+    }
+
+    /**
+     * Generate Keys from plain password.
+     * @throws NoSuchAlgorithmException on error
+     * @throws InvalidKeySpecException on error
+     */
+    @Override
+    protected void setupPBE()
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
+        logger.debug("in child setupPBE");
+        pbeKey = new SecretKeySpec(keyBytes, "DESede");
+        pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyALG);
+        //final IvParameterSpec iv=new IvParameterSpec(new byte[8]);
     }
 
     @Override
@@ -66,6 +88,13 @@ public class Md5DesLayer extends AbsCipherLayer {
         this.iCount = COUNT;
         this.iKeysize = KEYSIZE;
         this.cPasswd = data.toCharArray();
+        try {
+            MessageDigest md = MessageDigest.getInstance("md5");
+            final byte[] digestOfPassword = md.digest(data.getBytes());
+            keyBytes = Arrays.copyOf(digestOfPassword, KEYSIZE);
+        } catch (NoSuchAlgorithmException e) {
+            logger.catching(e);
+        }
     }
 
     @Override

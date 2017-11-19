@@ -153,11 +153,16 @@ public abstract class AbsCipherLayer extends AbsLayer {
             throws IOException {
         Cipher pbeCipher;
         try {
+            logger.debug("encoding");
             getSalt();
+            logger.debug("got salt");
             setupPBE();
+            logger.debug("made key");
 
             pbeCipher = Cipher.getInstance(sALG);
+            logger.debug("cipher created");
             pbeCipher.init(Cipher.ENCRYPT_MODE, pbeSecretKeySpec);
+            logger.debug("cipher initialized");
 
             final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
@@ -178,6 +183,8 @@ public abstract class AbsCipherLayer extends AbsLayer {
 
             if (null != ivBytes) {
                 os.write(ivBytes, 0, iIVLen);
+            } else {
+                logger.error("IV empty");
             } // if
             os.write(salt, 0, iSaltLen);
             os.write(ciphertext);
