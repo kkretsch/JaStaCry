@@ -1,6 +1,6 @@
 package org.jastacry.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,21 +11,19 @@ import java.net.MalformedURLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jastacry.layer.AbsCipherLayer;
 import org.jastacry.layer.AesLayer;
-import org.jastacry.layer.Md5DesLayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Test class for MD5DES Layer.
+ * Test class for AES Layer.
  *
  * @author Kai Kretschmann
  *
  */
-public class TestLayerMd5Des {
+public class TestLayerAes {
     /**
      * log4j2 object.
      */
@@ -39,22 +37,17 @@ public class TestLayerMd5Des {
     /**
      * Layer to test.
      */
-    private Md5DesLayer layerEncrypt = null;
+    private AesLayer layerEncrypt = null;
 
     /**
      * Layer to test.
      */
-    private Md5DesLayer layerDecrypt = null;
+    private AesLayer layerDecrypt = null;
 
     /**
      * Init value for random layer.
      */
     private static final String INITVALUE = "Passwort";
-
-    /**
-     * Tooling functions object.
-     */
-    private Tooling tooling;
 
     /**
      * The BeforeClass method.
@@ -75,11 +68,10 @@ public class TestLayerMd5Des {
      */
     @Before
     public void setUp() throws Exception {
-        tooling = new Tooling();
-
-        layerEncrypt = new Md5DesLayer();
+        layerEncrypt = new AesLayer();
         layerEncrypt.init(INITVALUE);
-        layerDecrypt = new Md5DesLayer();
+
+        layerDecrypt = new AesLayer();
         layerDecrypt.init(INITVALUE);
     }
 
@@ -101,11 +93,9 @@ public class TestLayerMd5Des {
      * @throws IOException
      *             in case off error
      */
-    //@Test
+    @Test
     // TestLink(externalId = "JAS-4")
     public void testEncDecStream() throws IOException {
-        // tooling.listProviders();
-
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
@@ -116,15 +106,15 @@ public class TestLayerMd5Des {
         final OutputStream osDecode = new ByteArrayOutputStream();
         layerDecrypt.decStream(isDecode, osDecode);
         assertEquals("decoding differs", testdata, osDecode.toString());
+
     }
 
     /**
      * Testcase testToString.
      */
-    //@Test
-    // TestLink(externalId = "JAS-5")
+    @Test
     public void testToString() {
-        assertEquals("Layer name mismatch", Md5DesLayer.LAYERNAME, layerEncrypt.toString());
+        assertEquals("Layer name mismatch", AesLayer.LAYERNAME, layerEncrypt.toString());
     }
 
 }
