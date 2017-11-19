@@ -1,6 +1,6 @@
 package org.jastacry.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,8 +11,6 @@ import java.net.MalformedURLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jastacry.layer.AbsCipherLayer;
-import org.jastacry.layer.AesLayer;
 import org.jastacry.layer.Md5DesLayer;
 import org.junit.After;
 import org.junit.Before;
@@ -49,7 +47,7 @@ public class TestLayerMd5Des {
     /**
      * Init value for random layer.
      */
-    private static final String INITVALUE = "Passwort";
+    private static final String INITVALUE = "Passwort123";
 
     /**
      * Tooling functions object.
@@ -101,7 +99,7 @@ public class TestLayerMd5Des {
      * @throws IOException
      *             in case off error
      */
-    //@Test
+    @Test
     // TestLink(externalId = "JAS-4")
     public void testEncDecStream() throws IOException {
         // tooling.listProviders();
@@ -121,7 +119,7 @@ public class TestLayerMd5Des {
     /**
      * Testcase testToString.
      */
-    //@Test
+    @Test
     // TestLink(externalId = "JAS-5")
     public void testToString() {
         assertEquals("Layer name mismatch", Md5DesLayer.LAYERNAME, layerEncrypt.toString());
