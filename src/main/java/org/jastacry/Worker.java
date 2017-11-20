@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -194,7 +195,7 @@ public class Worker {
                     }
                 }
 
-                switch (sLayer.toLowerCase()) {
+                switch (sLayer.toLowerCase(Locale.getDefault())) {
                     case "transparent":
                         layer = new TransparentLayer();
                         break;
