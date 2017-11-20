@@ -18,7 +18,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.PBEParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -38,11 +37,6 @@ public abstract class AbsCipherLayer extends AbsLayer {
      * PBEKeySpec.
      */
     protected PBEKeySpec pbeKeySpec;
-
-    /**
-     * PBEParameterSpec.
-     */
-    protected PBEParameterSpec pbeParamSpec;
 
     /**
      * SecretKeyFactory.
@@ -137,12 +131,7 @@ public abstract class AbsCipherLayer extends AbsLayer {
      * @throws InvalidKeySpecException
      *             on error
      */
-    protected void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        keyFac = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        pbeKeySpec = new PBEKeySpec(cPasswd, salt, iCount, iKeysize);
-        pbeKey = keyFac.generateSecret(pbeKeySpec);
-        pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyALG);
-    }
+    protected abstract void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException;
 
     @Override
     /**
@@ -212,9 +201,18 @@ public abstract class AbsCipherLayer extends AbsLayer {
         Cipher pbeCipher;
         try {
             ivBytes = new byte[iIVLen];
-            is.read(ivBytes, 0, iIVLen);
+            int iReadBytes = is.read(ivBytes, 0, iIVLen);
+            if (iIVLen != iReadBytes) {
+                logger.error("read {} bytes of IV, expecting {}.", iReadBytes, iIVLen);
+            } // if
+
             salt = new byte[iSaltLen];
-            is.read(salt, 0, iSaltLen);
+            iReadBytes = is.read(salt, 0, iSaltLen);
+            if (iSaltLen != iReadBytes) {
+                logger.error("read {} bytes of salt, expecting {}.", iReadBytes, iSaltLen);
+            } // if
+
+            // call implementation of child class method.
             setupPBE();
 
             pbeCipher = Cipher.getInstance(sALG);
