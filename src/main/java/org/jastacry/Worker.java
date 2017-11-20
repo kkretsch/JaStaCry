@@ -105,12 +105,6 @@ public class Worker {
             } // switch
         }
 
-        InputStream input = null;
-        final File fileIn = new File(inputFilename);
-
-        OutputStream output = null;
-        final File fileOut = new File(outputFilename);
-
         // two temporary files for now
         File tempIn = null;
         File tempOut = null;
@@ -121,6 +115,11 @@ public class Worker {
             logger.catching(e1);
             return org.jastacry.Data.RC_ERROR;
         }
+
+        InputStream input = null;
+        final File fileIn = new File(inputFilename);
+        OutputStream output = null;
+        final File fileOut = new File(outputFilename);
 
         try {
             input = new BufferedInputStream(new FileInputStream(fileIn));
