@@ -1,5 +1,12 @@
 package org.jastacry.layer;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
+
 /**
  * AES Layer class.
  *
@@ -32,7 +39,6 @@ public class AesLayer extends AbsCipherLayer {
      */
     private static final int SALTLEN = 32;
 
-
     /**
      * Iteration count.
      */
@@ -48,6 +54,22 @@ public class AesLayer extends AbsCipherLayer {
      */
     public AesLayer() {
         super(AesLayer.class);
+    }
+
+    /**
+     * Generate Keys from plain password.
+     *
+     * @throws NoSuchAlgorithmException
+     *             on error
+     * @throws InvalidKeySpecException
+     *             on error
+     */
+    @Override
+    protected final void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        keyFac = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        pbeKeySpec = new PBEKeySpec(cPasswd, salt, iCount, iKeysize);
+        pbeKey = keyFac.generateSecret(pbeKeySpec);
+        pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyALG);
     }
 
     @Override
