@@ -158,7 +158,7 @@ public final class JaStaCry {
      *            for parsing
      * @return int result code
      */
-    public static int mainMethod(final String[] args) {
+    public static int mainMethod(final String... args) {
         logger = LogManager.getLogger();
         int iRC = setup(args);
         if (0 != iRC) {
@@ -226,7 +226,7 @@ public final class JaStaCry {
      *            array of Strings from command line
      * @return int error value
      */
-    private static int setup(final String[] args) {
+    private static int setup(final String... args) {
         // Command line parameters
         final Options options = createOptions();
 
