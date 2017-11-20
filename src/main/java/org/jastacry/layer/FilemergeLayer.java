@@ -1,11 +1,11 @@
 package org.jastacry.layer;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.channels.FileChannel;
 
 /**
  * Mask every byte with data of a given file. If the file is smaller than the data it will be used again and again from
@@ -24,11 +24,6 @@ public class FilemergeLayer extends AbsLayer {
      * File to merge with..
      */
     private File fileMerge;
-
-    /**
-     * Input stream of file to merge with.
-     */
-    private InputStream merge;
 
     /**
      * Constructor of FilemergeLayer.
@@ -63,26 +58,25 @@ public class FilemergeLayer extends AbsLayer {
         int iMerge;
         byte bChar;
         byte bMerge;
+        final FileChannel channel;
 
-        final FileInputStream fIS = new FileInputStream(fileMerge);
-        merge = new BufferedInputStream(fIS);
+        try (FileInputStream fIS = new FileInputStream(fileMerge)) {
+            channel = fIS.getChannel();
 
-        while ((iChar = is.read()) != -1) {
-            iMerge = merge.read();
-            if (-1 == iMerge) {
-                logger.debug("EOF reached, reset to start");
-                fIS.getChannel().position(0);
-                merge = new BufferedInputStream(fIS);
-                iMerge = merge.read();
+            while ((iChar = is.read()) != -1) {
+                iMerge = fIS.read();
+
+                if (-1 == iMerge) {
+                    logger.debug("EOF reached, reset to start");
+                    channel.position(0);
+                    iMerge = fIS.read();
+                }
+                bChar = (byte) iChar;
+                bMerge = (byte) iMerge;
+                bChar = (byte) (bChar ^ bMerge);
+                os.write(bChar);
             }
-            bChar = (byte) iChar;
-            bMerge = (byte) iMerge;
-            bChar = (byte) (bChar ^ bMerge);
-            os.write(bChar);
-        }
-
-        merge.close();
-        fIS.close();
+        } // try with resources
     }
 
     @Override
