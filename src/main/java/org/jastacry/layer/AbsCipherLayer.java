@@ -107,7 +107,8 @@ public abstract class AbsCipherLayer extends AbsLayer {
     /**
      * Constructor of abstract class.
      *
-     * @param c class name of calling class
+     * @param c
+     *            class name of calling class
      */
     public AbsCipherLayer(final Class<?> c) {
         super(c);
@@ -116,7 +117,7 @@ public abstract class AbsCipherLayer extends AbsLayer {
     /**
      * Generate random salt.
      */
-    protected void getSalt() {
+    protected final void getSalt() {
         salt = new byte[iSaltLen];
         new SecureRandom().nextBytes(salt);
     }
@@ -124,17 +125,19 @@ public abstract class AbsCipherLayer extends AbsLayer {
     /**
      * store IV bytes.
      */
-    protected void getIV() {
+    protected final void getIV() {
         ivBytes = new byte[iIVLen];
     }
 
     /**
      * Generate Keys from plain password.
-     * @throws NoSuchAlgorithmException on error
-     * @throws InvalidKeySpecException on error
+     *
+     * @throws NoSuchAlgorithmException
+     *             on error
+     * @throws InvalidKeySpecException
+     *             on error
      */
-    protected void setupPBE()
-            throws NoSuchAlgorithmException, InvalidKeySpecException {
+    protected void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException {
         keyFac = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         pbeKeySpec = new PBEKeySpec(cPasswd, salt, iCount, iKeysize);
         pbeKey = keyFac.generateSecret(pbeKeySpec);
@@ -149,8 +152,7 @@ public abstract class AbsCipherLayer extends AbsLayer {
      * @param os
      * @throws IOException
      */
-    public final void encStream(final InputStream is, final OutputStream os)
-            throws IOException {
+    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
         Cipher pbeCipher;
         try {
             logger.debug("encoding");
@@ -188,11 +190,10 @@ public abstract class AbsCipherLayer extends AbsLayer {
             } // if
             os.write(salt, 0, iSaltLen);
             os.write(ciphertext);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException
-                | InvalidKeyException
-                | IllegalBlockSizeException | BadPaddingException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
+                | BadPaddingException e) {
             logger.catching(e);
-        } catch (InvalidKeySpecException e) {
+        } catch (final InvalidKeySpecException e) {
             logger.catching(e);
         }
 
@@ -206,8 +207,7 @@ public abstract class AbsCipherLayer extends AbsLayer {
      * @param os
      * @throws IOException
      */
-    public final void decStream(final InputStream is, final OutputStream os)
-            throws IOException {
+    public final void decStream(final InputStream is, final OutputStream os) throws IOException {
         // Create PBE Cipher
         Cipher pbeCipher;
         try {
@@ -236,13 +236,12 @@ public abstract class AbsCipherLayer extends AbsLayer {
             // Encrypt the clear text
             final byte[] ciphertext = pbeCipher.doFinal(bInput);
             os.write(ciphertext);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException
-                | InvalidKeyException
-                | IllegalBlockSizeException | BadPaddingException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
+                | BadPaddingException e) {
             logger.catching(e);
-        } catch (InvalidAlgorithmParameterException e) {
+        } catch (final InvalidAlgorithmParameterException e) {
             logger.catching(e);
-        } catch (InvalidKeySpecException e) {
+        } catch (final InvalidKeySpecException e) {
             logger.catching(e);
         }
     }
