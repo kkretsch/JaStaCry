@@ -48,15 +48,17 @@ public class FilemergeLayer extends AbsLayer {
         this.fileMerge = new File(data);
     }
 
-    @Override
     /**
-     * encode Stream function.
+     * merge Stream function.
      *
      * @param is
+     *            input stream
      * @param os
+     *            output stream
      * @throws IOException
+     *             in case of error
      */
-    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
+    private void mergeStream(final InputStream is, final OutputStream os) throws IOException {
         int iChar;
         int iMerge;
         byte bChar;
@@ -85,37 +87,32 @@ public class FilemergeLayer extends AbsLayer {
 
     @Override
     /**
+     * encode Stream function.
+     *
+     * @param is
+     *            input stream
+     * @param os
+     *            output stream
+     * @throws IOException
+     *             in case of error
+     */
+    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
+        mergeStream(is, os);
+    }
+
+    @Override
+    /**
      * decode Stream function.
      *
      * @param is
+     *            input stream
      * @param os
+     *            output stream
      * @throws IOException
+     *             in case of error
      */
     public final void decStream(final InputStream is, final OutputStream os) throws IOException {
-        int iChar;
-        int iMerge;
-        byte bChar;
-        byte bMerge;
-
-        final FileInputStream fIS = new FileInputStream(fileMerge);
-        merge = new BufferedInputStream(fIS);
-
-        while ((iChar = is.read()) != -1) {
-            iMerge = merge.read();
-            if (-1 == iMerge) {
-                logger.debug("EOF reached, reset to start");
-                fIS.getChannel().position(0);
-                merge = new BufferedInputStream(fIS);
-                iMerge = merge.read();
-            }
-            bChar = (byte) iChar;
-            bMerge = (byte) iMerge;
-            bChar = (byte) (bChar ^ bMerge);
-            os.write(bChar);
-        }
-
-        merge.close();
-        fIS.close();
+        mergeStream(is, os);
     }
 
     @Override
