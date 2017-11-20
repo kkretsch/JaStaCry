@@ -23,12 +23,12 @@ public class Md5DesLayer extends AbsCipherLayer {
     /**
      * Used algorithm name.
      */
-    private final String myALG = "DESede/CBC/PKCS5Padding";
+    private static final String MYALG = "DESede/CBC/PKCS5Padding";
 
     /**
      * Used algorithm name for the key.
      */
-    private final String myKeyALG = "DESede";
+    private static final String MYKEYALG = "DESede";
 
     /**
      * IV length.
@@ -85,8 +85,8 @@ public class Md5DesLayer extends AbsCipherLayer {
      *            to initialize the crypt value.
      */
     public final void init(final String data) {
-        this.sALG = myALG;
-        this.sKeyALG = myKeyALG;
+        this.sALG = MYALG;
+        this.sKeyALG = MYKEYALG;
         this.iSaltLen = SALTLEN;
         this.iIVLen = IVLEN;
         this.iCount = COUNT;

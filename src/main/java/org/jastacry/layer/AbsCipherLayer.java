@@ -172,10 +172,10 @@ public abstract class AbsCipherLayer extends AbsLayer {
             final byte[] ciphertext = pbeCipher.doFinal(bInput);
             ivBytes = pbeCipher.getIV();
 
-            if (null != ivBytes) {
-                os.write(ivBytes, 0, iIVLen);
-            } else {
+            if (null == ivBytes) {
                 logger.error("IV empty");
+            } else {
+                os.write(ivBytes, 0, iIVLen);
             } // if
             os.write(salt, 0, iSaltLen);
             os.write(ciphertext);

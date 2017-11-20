@@ -8,8 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Mask every byte with data of a given file. If the file is smaller than the
- * data it will be used again and again from
+ * Mask every byte with data of a given file. If the file is smaller than the data it will be used again and again from
  * the beginning.
  *
  * @author Kai Kretschmann
@@ -29,7 +28,7 @@ public class FilemergeLayer extends AbsLayer {
     /**
      * Input stream of file to merge with.
      */
-    private InputStream merge = null;
+    private InputStream merge;
 
     /**
      * Constructor of FilemergeLayer.
@@ -57,14 +56,13 @@ public class FilemergeLayer extends AbsLayer {
      * @param os
      * @throws IOException
      */
-    public final void encStream(final InputStream is, final OutputStream os)
-            throws IOException {
+    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
         int iChar;
         int iMerge;
         byte bChar;
         byte bMerge;
 
-        FileInputStream fIS = new FileInputStream(fileMerge);
+        final FileInputStream fIS = new FileInputStream(fileMerge);
         merge = new BufferedInputStream(fIS);
 
         while ((iChar = is.read()) != -1) {
@@ -93,14 +91,13 @@ public class FilemergeLayer extends AbsLayer {
      * @param os
      * @throws IOException
      */
-    public final void decStream(final InputStream is, final OutputStream os)
-            throws IOException {
+    public final void decStream(final InputStream is, final OutputStream os) throws IOException {
         int iChar;
         int iMerge;
         byte bChar;
         byte bMerge;
 
-        FileInputStream fIS = new FileInputStream(fileMerge);
+        final FileInputStream fIS = new FileInputStream(fileMerge);
         merge = new BufferedInputStream(fIS);
 
         while ((iChar = is.read()) != -1) {

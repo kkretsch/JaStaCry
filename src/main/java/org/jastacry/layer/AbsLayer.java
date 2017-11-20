@@ -17,7 +17,7 @@ public abstract class AbsLayer {
     /**
      * Logger object.
      */
-    protected Logger logger = null;
+    protected Logger logger;
 
     /**
      * Constructor of Layer.

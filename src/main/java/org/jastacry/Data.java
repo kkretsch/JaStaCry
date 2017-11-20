@@ -10,18 +10,10 @@ import net.sourceforge.cobertura.CoverageIgnore;
  */
 public final class Data {
     /**
-     * Hidden constructor.
-     */
-    @CoverageIgnore
-    private Data() {
-        // not called
-    }
-
-    /**
      * Help line reply.
      */
-    public static final String
-        HELP = "JaStaCry -h | (-v) (-t) [--encode|--decode] --infile input.txt --outfile output.bin --conffile layers.conf";
+    public static final String HELP = "JaStaCry -h | (-v) (-t) [--encode|--decode] --infile input.txt "
+            + "--outfile output.bin --conffile layers.conf";
 
     /**
      * Base name for temporary files.
@@ -82,4 +74,12 @@ public final class Data {
      * Return code to shell for errors.
      */
     public static final int RC_ERROR = 3;
+
+    /**
+     * Hidden constructor.
+     */
+    @CoverageIgnore
+    private Data() {
+        // not called
+    }
 }
