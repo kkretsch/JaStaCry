@@ -40,7 +40,6 @@ public class Md5DesLayer extends AbsCipherLayer {
      */
     private static final int SALTLEN = 8;
 
-
     /**
      * Iteration count.
      */
@@ -65,12 +64,14 @@ public class Md5DesLayer extends AbsCipherLayer {
 
     /**
      * Generate Keys from plain password.
-     * @throws NoSuchAlgorithmException on error
-     * @throws InvalidKeySpecException on error
+     *
+     * @throws NoSuchAlgorithmException
+     *             on error
+     * @throws InvalidKeySpecException
+     *             on error
      */
     @Override
-    protected void setupPBE()
-            throws NoSuchAlgorithmException, InvalidKeySpecException {
+    protected final void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException {
         logger.debug("in child setupPBE");
         pbeKey = new SecretKeySpec(keyBytes, "DESede");
         pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyALG);
@@ -92,10 +93,10 @@ public class Md5DesLayer extends AbsCipherLayer {
         this.iKeysize = KEYSIZE;
         this.cPasswd = data.toCharArray();
         try {
-            MessageDigest md = MessageDigest.getInstance("md5");
+            final MessageDigest md = MessageDigest.getInstance("md5");
             final byte[] digestOfPassword = md.digest(data.getBytes(StandardCharsets.UTF_8));
             keyBytes = Arrays.copyOf(digestOfPassword, KEYSIZE);
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             logger.catching(e);
         }
     }
