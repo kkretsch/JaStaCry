@@ -33,6 +33,7 @@ public class EncodeDecodeLayer extends AbsLayer {
      *            to initialize nothing.
      */
     public final void init(final String data) {
+        // Empty at the moment
     }
 
     @Override
@@ -43,8 +44,7 @@ public class EncodeDecodeLayer extends AbsLayer {
      * @param os
      * @throws IOException
      */
-    public final void encStream(final InputStream is, final OutputStream os)
-            throws IOException {
+    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
         OutputStream osEncoded = null;
         try {
             osEncoded = javax.mail.internet.MimeUtility.encode(os, "uuencode");
@@ -63,8 +63,7 @@ public class EncodeDecodeLayer extends AbsLayer {
      * @param os
      * @throws IOException
      */
-    public final void decStream(final InputStream is, final OutputStream os)
-            throws IOException {
+    public final void decStream(final InputStream is, final OutputStream os) throws IOException {
         InputStream isDecoded = null;
         try {
             isDecoded = javax.mail.internet.MimeUtility.decode(is, "uuencode");

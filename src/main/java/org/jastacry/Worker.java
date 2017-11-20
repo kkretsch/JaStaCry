@@ -30,6 +30,7 @@ import org.jastacry.layer.XorLayer;
 
 /**
  * Real working class.
+ *
  * @author kai
  *
  */
@@ -70,7 +71,7 @@ public class Worker {
 
     /**
      * Main method for running a command line interface.
-
+     *
      * @return int system return code to shell
      */
     public final int mainWork() {
@@ -79,7 +80,7 @@ public class Worker {
         // Now go
         final List<AbsLayer> layers = createLayers();
 
-        if (null == layers || 0 == layers.size()) {
+        if (null == layers || layers.isEmpty()) {
             logger.error("No layers defined!");
             return org.jastacry.Data.RC_ERROR;
         } // if
@@ -171,7 +172,7 @@ public class Worker {
                 String sLayer = null;
                 String sParams = "";
 
-                String[] toks = strLine.split("\\s+");
+                final String[] toks = strLine.split("\\s+");
                 // no parameter?
                 if (1 == toks.length) {
                     sLayer = strLine;
@@ -369,7 +370,8 @@ public class Worker {
     }
 
     /**
-     * @param b the doEncode to set
+     * @param b
+     *            the doEncode to set
      */
     public final void setDoEncode(final boolean b) {
         doEncode = b;
@@ -383,7 +385,8 @@ public class Worker {
     }
 
     /**
-     * @param s the confFilename to set
+     * @param s
+     *            the confFilename to set
      */
     public final void setConfFilename(final String s) {
         confFilename = s;
@@ -397,7 +400,8 @@ public class Worker {
     }
 
     /**
-     * @param s the inputFilename to set
+     * @param s
+     *            the inputFilename to set
      */
     public final void setInputFilename(final String s) {
         inputFilename = s;
@@ -411,7 +415,8 @@ public class Worker {
     }
 
     /**
-     * @param s the outputFilename to set
+     * @param s
+     *            the outputFilename to set
      */
     public final void setOutputFilename(final String s) {
         outputFilename = s;
@@ -425,7 +430,8 @@ public class Worker {
     }
 
     /**
-     * @param b the isVerbose to set
+     * @param b
+     *            the isVerbose to set
      */
     public final void setVerbose(final boolean b) {
         isVerbose = b;
@@ -439,7 +445,8 @@ public class Worker {
     }
 
     /**
-     * @param i the action to set
+     * @param i
+     *            the action to set
      */
     public final void setAction(final int i) {
         action = i;

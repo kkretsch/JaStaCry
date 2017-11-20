@@ -144,7 +144,7 @@ public final class JaStaCry {
      *
      * @param args
      *            parsed by apache commons cli package
-    */
+     */
     @CoverageIgnore
     public static void main(final String[] args) {
         final int iRC = mainMethod(args);
@@ -153,7 +153,9 @@ public final class JaStaCry {
 
     /**
      * Main method.
-     * @param args for parsing
+     *
+     * @param args
+     *            for parsing
      * @return int result code
      */
     public static int mainMethod(final String[] args) {
@@ -164,7 +166,7 @@ public final class JaStaCry {
             return iRC;
         } // if
 
-        Worker worker = new Worker();
+        final Worker worker = new Worker();
         worker.setAction(action);
         worker.setConfFilename(confFilename);
         worker.setDoEncode(doEncode);
@@ -182,7 +184,7 @@ public final class JaStaCry {
      * @return Options object
      */
     private static Options createOptions() {
-        Options options = new Options();
+        final Options options = new Options();
         Option option;
 
         // optional parameters
@@ -191,50 +193,31 @@ public final class JaStaCry {
         options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, "text formatted output or input of encrypted data");
 
         // either/or arguments
-        OptionGroup ogAction = new OptionGroup();
-        option = Option.builder(P_SHORT_ENCODE)
-                .required(false)
-                .longOpt(P_LONG_ENCODE)
-                .desc("encode input stream")
+        final OptionGroup ogAction = new OptionGroup();
+        option = Option.builder(P_SHORT_ENCODE).required(false).longOpt(P_LONG_ENCODE).desc("encode input stream")
                 .build();
         ogAction.addOption(option);
-        option = Option.builder(P_SHORT_DECODE)
-                .required(false)
-                .longOpt(P_LONG_DECODE)
-                .desc("decode input stream")
+        option = Option.builder(P_SHORT_DECODE).required(false).longOpt(P_LONG_DECODE).desc("decode input stream")
                 .build();
         ogAction.addOption(option);
-        //ogAction.setRequired(true);
+        // ogAction.setRequired(true);
         options.addOptionGroup(ogAction);
 
         // potential mandatory parameters
-        option = Option.builder(P_SHORT_CONFFILE)
-                .required(false).hasArg()
-                .longOpt(P_LONG_CONFFILE)
-                .argName("FILE")
-                .desc("use FILE as stack configuration")
-                .build();
+        option = Option.builder(P_SHORT_CONFFILE).required(false).hasArg().longOpt(P_LONG_CONFFILE).argName("FILE")
+                .desc("use FILE as stack configuration").build();
         options.addOption(option);
 
-        option = Option.builder(P_SHORT_INFILE)
-                .required(false).hasArg()
-                .longOpt(P_LONG_INFILE)
-                .argName("FILE")
-                .desc("use FILE as input stream")
-                .build();
+        option = Option.builder(P_SHORT_INFILE).required(false).hasArg().longOpt(P_LONG_INFILE).argName("FILE")
+                .desc("use FILE as input stream").build();
         options.addOption(option);
 
-        option = Option.builder(P_SHORT_OUTFILE)
-                .required(false).hasArg()
-                .longOpt(P_LONG_OUTFILE)
-                .argName("FILE")
-                .desc("use FILE as output stream")
-                .build();
+        option = Option.builder(P_SHORT_OUTFILE).required(false).hasArg().longOpt(P_LONG_OUTFILE).argName("FILE")
+                .desc("use FILE as output stream").build();
         options.addOption(option);
 
         return options;
     }
-
 
     /**
      * Setup environment via command line arguments.
@@ -287,7 +270,8 @@ public final class JaStaCry {
         if (cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE)) {
             action = org.jastacry.Data.DECODE;
         } // if
-        if (0 == action) { // TODO should have been solved by commons-cli required attribute, which collides to help parameter
+        if (0 == action) { // TODO should have been solved by commons-cli required attribute, which collides to help
+                           // parameter
             logger.debug("action required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(Data.HELP, options);

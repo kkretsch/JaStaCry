@@ -5,8 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Mask every byte with some random data. The random stream is initialized by
- * the init seed. Must be used the same on
+ * Mask every byte with some random data. The random stream is initialized by the init seed. Must be used the same on
  * both sides (encryption and decryption).
  *
  * @author Kai Kretschmann
@@ -21,7 +20,7 @@ public class RandomLayer extends AbsLayer {
     /**
      * Random number generator.
      */
-    private java.util.Random rand = new java.util.Random();
+    private final java.util.Random rand = new java.util.Random();
 
     /**
      * Constructor of XorLayer.
@@ -50,8 +49,7 @@ public class RandomLayer extends AbsLayer {
      * @param os
      * @throws IOException
      */
-    public final void encStream(final InputStream is, final OutputStream os)
-            throws IOException {
+    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
         int iChar;
         byte bChar;
         final byte[] bRand = new byte[1];
@@ -71,8 +69,7 @@ public class RandomLayer extends AbsLayer {
      * @param os
      * @throws IOException
      */
-    public final void decStream(final InputStream is, final OutputStream os)
-            throws IOException {
+    public final void decStream(final InputStream is, final OutputStream os) throws IOException {
         int iChar;
         byte bChar;
         final byte[] bRand = new byte[1];
