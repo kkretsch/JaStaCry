@@ -51,12 +51,12 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
     /**
      * SecretKeySpec.
      */
-    protected SecretKeySpec pbeSecretKeySpec;
+    protected transient SecretKeySpec pbeSecretKeySpec;
 
     /**
      * ALG for the data.
      */
-    protected String sALG;
+    protected transient String sALG;
 
     /**
      * Algorithm for the key.
@@ -81,31 +81,30 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
     /**
      * IV length.
      */
-    protected int iIVLen;
+    protected transient int iIVLen;
 
     /**
      * IV bytes.
      */
-    protected byte[] ivBytes;
+    protected transient byte[] ivBytes;
 
     /**
      * Salt length.
      */
-    protected int iSaltLen;
+    protected transient int iSaltLen;
 
     /**
      * salt.
      */
-    protected byte[] salt;
+    protected transient byte[] salt;
 
     /**
      * Constructor of abstract class.
      *
-     * @param c
-     *            class name of calling class
+     * @param cClass class name of calling class
      */
-    public AbstractCipherLayer(final Class<?> c) {
-        super(c);
+    public AbstractCipherLayer(final Class<?> cClass) {
+        super(cClass);
     }
 
     /**
@@ -133,15 +132,15 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
      */
     protected abstract void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException;
 
-    @Override
     /**
      * encode Stream function.
      *
-     * @param is
-     * @param os
+     * @param inputStream
+     * @param outputStream
      * @throws IOException
      */
-    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
+    @Override
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         Cipher pbeCipher;
         try {
             logger.debug("encoding");
@@ -160,7 +159,7 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
             int nRead;
             final byte[] data = new byte[ONEBLOCKSIZE];
 
-            while ((nRead = is.read(data, 0, data.length)) != -1) {
+            while ((nRead = inputStream.read(data, 0, data.length)) != -1) { // NOPMD by kai on 21.11.17 17:34
                 buffer.write(data, 0, nRead);
             }
 
@@ -175,10 +174,10 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
             if (null == ivBytes) {
                 logger.error("IV empty");
             } else {
-                os.write(ivBytes, 0, iIVLen);
+                outputStream.write(ivBytes, 0, iIVLen);
             } // if
-            os.write(salt, 0, iSaltLen);
-            os.write(ciphertext);
+            outputStream.write(salt, 0, iSaltLen);
+            outputStream.write(ciphertext);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
                 | BadPaddingException e) {
             logger.catching(e);
@@ -188,26 +187,26 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
 
     }
 
-    @Override
     /**
      * decode Stream function.
      *
-     * @param is
-     * @param os
+     * @param inputStream
+     * @param outputStream
      * @throws IOException
      */
-    public final void decStream(final InputStream is, final OutputStream os) throws IOException {
+    @Override
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         // Create PBE Cipher
         Cipher pbeCipher;
         try {
             ivBytes = new byte[iIVLen];
-            int iReadBytes = is.read(ivBytes, 0, iIVLen);
+            int iReadBytes = inputStream.read(ivBytes, 0, iIVLen);
             if (iIVLen != iReadBytes) {
                 logger.error("read {} bytes of IV, expecting {}.", iReadBytes, iIVLen);
             } // if
 
             salt = new byte[iSaltLen];
-            iReadBytes = is.read(salt, 0, iSaltLen);
+            iReadBytes = inputStream.read(salt, 0, iSaltLen);
             if (iSaltLen != iReadBytes) {
                 logger.error("read {} bytes of salt, expecting {}.", iReadBytes, iSaltLen);
             } // if
@@ -223,7 +222,7 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
             int nRead;
             final byte[] data = new byte[ONEBLOCKSIZE];
 
-            while ((nRead = is.read(data, 0, data.length)) != -1) {
+            while ((nRead = inputStream.read(data, 0, data.length)) != -1) { // NOPMD by kai on 21.11.17 17:34
                 buffer.write(data, 0, nRead);
             }
 
@@ -233,7 +232,7 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
 
             // Encrypt the clear text
             final byte[] ciphertext = pbeCipher.doFinal(bInput);
-            os.write(ciphertext);
+            outputStream.write(ciphertext);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
                 | BadPaddingException e) {
             logger.catching(e);
