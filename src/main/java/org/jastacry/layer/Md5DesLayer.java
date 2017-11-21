@@ -53,7 +53,7 @@ public class Md5DesLayer extends AbsCipherLayer {
     /**
      * local key storage implementation.
      */
-    private byte[] keyBytes;
+    private transient byte[] keyBytes;
 
     /**
      * Constructor of Md5DesLayer.
@@ -93,8 +93,8 @@ public class Md5DesLayer extends AbsCipherLayer {
         this.iKeysize = KEYSIZE;
         this.cPasswd = data.toCharArray();
         try {
-            final MessageDigest md = MessageDigest.getInstance("md5");
-            final byte[] digestOfPassword = md.digest(data.getBytes(StandardCharsets.UTF_8));
+            final MessageDigest msgDigest = MessageDigest.getInstance("md5");
+            final byte[] digestOfPassword = msgDigest.digest(data.getBytes(StandardCharsets.UTF_8));
             keyBytes = Arrays.copyOf(digestOfPassword, KEYSIZE);
         } catch (final NoSuchAlgorithmException e) {
             logger.catching(e);

@@ -19,7 +19,7 @@ import java.util.Locale;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jastacry.layer.AbsLayer;
+import org.jastacry.layer.AbstractLayer;
 import org.jastacry.layer.AesLayer;
 import org.jastacry.layer.EncodeDecodeLayer;
 import org.jastacry.layer.FilemergeLayer;
@@ -79,20 +79,20 @@ public class Worker {
         logger = LogManager.getLogger();
 
         // Now go
-        final List<AbsLayer> layers = createLayers();
+        final List<AbstractLayer> layers = createLayers();
 
         if (null == layers || layers.isEmpty()) {
             logger.error("No layers defined!");
             return org.jastacry.Data.RC_ERROR;
         } // if
 
-        if (1 == layers.size()) {
+        if (layers.size() == 1) {
             logger.warn("Warning: Only one layer defined!");
             return org.jastacry.Data.RC_ERROR;
         }
 
         if (doEncode) {
-            final AbsLayer layerEncode = new EncodeDecodeLayer();
+            final AbstractLayer layerEncode = new EncodeDecodeLayer();
             switch (action) {
                 case org.jastacry.Data.ENCODE:
                     layers.add(layerEncode);
@@ -148,8 +148,8 @@ public class Worker {
      *
      * @return List of abstract layer objects
      */
-    private List<AbsLayer> createLayers() {
-        final List<AbsLayer> layers = new ArrayList<AbsLayer>();
+    private List<AbstractLayer> createLayers() {
+        final List<AbstractLayer> layers = new ArrayList<AbstractLayer>();
 
         // try with resources
         try (FileInputStream fstream = new FileInputStream(confFilename);
@@ -157,7 +157,7 @@ public class Worker {
                 BufferedReader br = new BufferedReader(isr)) {
             String strLine;
 
-            AbsLayer layer = null;
+            AbstractLayer layer = null;
 
             // Read File Line By Line
             while ((strLine = br.readLine()) != null) {
@@ -269,11 +269,11 @@ public class Worker {
      * @throws IOException
      *             in case of error
      */
-    private void loopLayers(final List<AbsLayer> layers, final InputStream input, final OutputStream output,
+    private void loopLayers(final List<AbstractLayer> layers, final InputStream input, final OutputStream output,
             final File tempInArg, final File tempOutArg, final File fileIn, final File fileOut) throws IOException {
         File tempIn = tempInArg;
         File tempOut = tempOutArg;
-        AbsLayer l = null;
+        AbstractLayer l = null;
 
         for (int i = 0; i < layers.size(); i++) {
             l = layers.get(i);
@@ -284,20 +284,20 @@ public class Worker {
             if (i == 0) {
                 layerInput = input;
                 layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
-                if (isVerbose) {
-                    logger.debug("layer 0 '" + l.toString() + "' from " + fileIn + " to " + tempOut);
+                if (isVerbose && logger.isDebugEnabled()) {
+                    logger.debug("layer 0 '{}' from {} to {}", l, fileIn, tempOut);
                 }
             } else {
                 // middle steps
                 if (i < layers.size() - 1) {
-                    if (isVerbose) {
-                        logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + tempOut);
+                    if (isVerbose && logger.isDebugEnabled()) {
+                        logger.debug("layer {} '{}' from {} to {}", i, l, tempIn, tempOut);
                     }
                     layerInput = new BufferedInputStream(new FileInputStream(tempIn));
                     layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
                 } else { // last step
-                    if (isVerbose) {
-                        logger.debug("layer " + i + " '" + l.toString() + "' from " + tempIn + " to " + fileOut);
+                    if (isVerbose && logger.isDebugEnabled()) {
+                        logger.debug("layer {} '{}' from {} to {}", i, l, tempIn, fileOut);
                     }
                     layerInput = new BufferedInputStream(new FileInputStream(tempIn));
                     layerOutput = output;

@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * @author Kai Kretschmann
  */
 
-public class XorLayer extends AbsLayer {
+public class XorLayer extends AbstractLayer {
     /**
      * static name of the layer.
      */

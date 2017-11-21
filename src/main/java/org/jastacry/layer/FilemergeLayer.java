@@ -14,7 +14,7 @@ import java.nio.channels.FileChannel;
  * @author Kai Kretschmann
  */
 
-public class FilemergeLayer extends AbsLayer {
+public class FilemergeLayer extends AbstractLayer {
     /**
      * static name of the layer.
      */

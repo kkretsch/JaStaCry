@@ -11,7 +11,7 @@ import java.io.OutputStream;
  * @author Kai Kretschmann
  */
 
-public class RandomLayer extends AbsLayer {
+public class RandomLayer extends AbstractLayer {
     /**
      * static name of the layer.
      */

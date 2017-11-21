@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * @author Kai Kretschmann
  */
 
-public class RotateLayer extends AbsLayer {
+public class RotateLayer extends AbstractLayer {
     /**
      * When a byte is too little.
      */
