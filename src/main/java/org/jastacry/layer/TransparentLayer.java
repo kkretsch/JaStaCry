@@ -5,7 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * A transparent layer just doing nothing with the data. Use it as an example framework to start with.
+ * A transparent layer just doing nothing with the data.
+ * Use it as an example framework to start with.
  *
  * @author Kai Kretschmann
  */
@@ -23,43 +24,43 @@ public class TransparentLayer extends AbstractLayer {
         super(TransparentLayer.class);
     }
 
-    @Override
     /**
      * encode Stream function.
      *
-     * @param is
-     * @param os
+     * @param inputStream
+     * @param outputStream
      * @throws IOException
      */
-    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
+    @Override
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
-        while ((iChar = is.read()) != -1) {
-            os.write(iChar);
+        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:13
+            outputStream.write(iChar);
         }
     }
 
-    @Override
     /**
      * decode Stream function.
      *
-     * @param is
-     * @param os
+     * @param inputStream
+     * @param outputStream
      * @throws IOException
      */
-    public final void decStream(final InputStream is, final OutputStream os) throws IOException {
+    @Override
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
-        while ((iChar = is.read()) != -1) {
-            os.write(iChar);
+        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:13
+            outputStream.write(iChar);
         }
     }
 
-    @Override
     /**
      * init function.
      *
      * @param data
      *            to initialize nothing.
      */
+    @Override
     public final void init(final String data) {
         // empty by intend
     }

@@ -8,7 +8,8 @@ import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 
 /**
- * Mask every byte with data of a given file. If the file is smaller than the data it will be used again and again from
+ * Mask every byte with data of a given file.
+ * If the file is smaller than the data it will be used again and again from
  * the beginning.
  *
  * @author Kai Kretschmann
@@ -23,7 +24,7 @@ public class FilemergeLayer extends AbstractLayer {
     /**
      * File to merge with..
      */
-    private File fileMerge;
+    private transient File fileMerge;
 
     /**
      * Constructor of FilemergeLayer.
@@ -32,38 +33,34 @@ public class FilemergeLayer extends AbstractLayer {
         super(FilemergeLayer.class);
     }
 
-    @Override
     /**
      * init function.
      *
      * @param data
      *            to initialize the file.
      */
+    @Override
     public final void init(final String data) {
         this.fileMerge = new File(data);
     }
 
     /**
      * merge Stream function.
-     *
-     * @param is
-     *            input stream
-     * @param os
-     *            output stream
-     * @throws IOException
-     *             in case of error
+     * @param inputStream input stream
+     * @param outputStream output stream
+     * @throws IOException in case of error
      */
-    private void mergeStream(final InputStream is, final OutputStream os) throws IOException {
+    private void mergeStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         int iMerge;
         byte bChar;
         byte bMerge;
-        final FileChannel channel;
+        FileChannel channel;
 
         try (FileInputStream fIS = new FileInputStream(fileMerge)) {
-            channel = fIS.getChannel();
+            channel = fIS.getChannel(); // NOPMD by kai on 21.11.17 17:24
 
-            while ((iChar = is.read()) != -1) {
+            while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:24
                 iMerge = fIS.read();
 
                 if (-1 == iMerge) {
@@ -71,50 +68,42 @@ public class FilemergeLayer extends AbstractLayer {
                     channel.position(0);
                     iMerge = fIS.read();
                 }
-                bChar = (byte) iChar;
+                bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:24
                 bMerge = (byte) iMerge;
                 bChar = (byte) (bChar ^ bMerge);
-                os.write(bChar);
+                outputStream.write(bChar);
             }
         } // try with resources
     }
 
-    @Override
     /**
      * encode Stream function.
-     *
-     * @param is
-     *            input stream
-     * @param os
-     *            output stream
-     * @throws IOException
-     *             in case of error
+     * @param inputStream input stream
+     * @param outputStream output stream
+     * @throws IOException in case of error
      */
-    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
-        mergeStream(is, os);
+    @Override
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        mergeStream(inputStream, outputStream);
     }
 
-    @Override
     /**
      * decode Stream function.
-     *
-     * @param is
-     *            input stream
-     * @param os
-     *            output stream
-     * @throws IOException
-     *             in case of error
+     * @param inputStream input stream
+     * @param outputStream output stream
+     * @throws IOException in case of error
      */
-    public final void decStream(final InputStream is, final OutputStream os) throws IOException {
-        mergeStream(is, os);
+    @Override
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        mergeStream(inputStream, outputStream);
     }
 
-    @Override
     /**
      * Print layer name function.
      *
      * @return Layer name as String
      */
+    @Override
     public final String toString() {
         return LAYERNAME;
     }
