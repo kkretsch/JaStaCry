@@ -236,23 +236,23 @@ public final class JaStaCry {
             cmdLine = parser.parse(options, args);
         } catch (final MissingOptionException eOpt) {
             final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp(Data.HELP, options);
-            return org.jastacry.Data.RC_ERROR;
+            formatter.printHelp(GlobalData.HELP, options);
+            return org.jastacry.GlobalData.RC_ERROR;
         } catch (final ParseException e2) {
             logger.catching(e2);
-            return org.jastacry.Data.RC_ERROR;
+            return org.jastacry.GlobalData.RC_ERROR;
         }
 
         if (null == cmdLine) {
             logger.error("cmdLine null");
-            return org.jastacry.Data.RC_ERROR;
+            return org.jastacry.GlobalData.RC_ERROR;
         }
 
         if (cmdLine.hasOption(P_SHORT_HELP)) {
             logger.debug("Show help");
             final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp(Data.HELP, options);
-            return org.jastacry.Data.RC_HELP;
+            formatter.printHelp(GlobalData.HELP, options);
+            return org.jastacry.GlobalData.RC_HELP;
         } // if
 
         // Is verbose?
@@ -265,17 +265,17 @@ public final class JaStaCry {
 
         // is it called with all needed parameters?
         if (cmdLine.hasOption(P_SHORT_ENCODE) || cmdLine.hasOption(P_LONG_ENCODE)) {
-            action = org.jastacry.Data.ENCODE;
+            action = org.jastacry.GlobalData.ENCODE;
         } // if
         if (cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE)) {
-            action = org.jastacry.Data.DECODE;
+            action = org.jastacry.GlobalData.DECODE;
         } // if
         if (0 == action) { // TODO should have been solved by commons-cli required attribute, which collides to help
                            // parameter
             logger.debug("action required");
             final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp(Data.HELP, options);
-            return org.jastacry.Data.RC_ERROR;
+            formatter.printHelp(GlobalData.HELP, options);
+            return org.jastacry.GlobalData.RC_ERROR;
         }
 
         // Use text format?
@@ -289,8 +289,8 @@ public final class JaStaCry {
         if (null == confFilename || null == inputFilename || null == outputFilename) {
             logger.debug("argument to parameter required");
             final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp(Data.HELP, options);
-            return org.jastacry.Data.RC_ERROR;
+            formatter.printHelp(GlobalData.HELP, options);
+            return org.jastacry.GlobalData.RC_ERROR;
         }
 
         return 0;

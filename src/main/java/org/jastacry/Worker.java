@@ -83,21 +83,21 @@ public class Worker {
 
         if (null == layers || layers.isEmpty()) {
             logger.error("No layers defined!");
-            return org.jastacry.Data.RC_ERROR;
+            return org.jastacry.GlobalData.RC_ERROR;
         } // if
 
         if (layers.size() == 1) {
             logger.warn("Warning: Only one layer defined!");
-            return org.jastacry.Data.RC_ERROR;
+            return org.jastacry.GlobalData.RC_ERROR;
         }
 
         if (doEncode) {
             final AbstractLayer layerEncode = new EncodeDecodeLayer();
             switch (action) {
-                case org.jastacry.Data.ENCODE:
+                case org.jastacry.GlobalData.ENCODE:
                     layers.add(layerEncode);
                     break;
-                case org.jastacry.Data.DECODE: // reverse order
+                case org.jastacry.GlobalData.DECODE: // reverse order
                     layers.add(0, layerEncode);
                     break;
                 default:
@@ -110,11 +110,11 @@ public class Worker {
         File tempIn = null;
         File tempOut = null;
         try {
-            tempIn = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
-            tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
+            tempIn = File.createTempFile(org.jastacry.GlobalData.TMPBASE, org.jastacry.GlobalData.TMPEXT);
+            tempOut = File.createTempFile(org.jastacry.GlobalData.TMPBASE, org.jastacry.GlobalData.TMPEXT);
         } catch (final IOException e1) {
             logger.catching(e1);
-            return org.jastacry.Data.RC_ERROR;
+            return org.jastacry.GlobalData.RC_ERROR;
         }
 
         InputStream input = null;
@@ -127,7 +127,7 @@ public class Worker {
             output = new BufferedOutputStream(new FileOutputStream(fileOut));
         } catch (final FileNotFoundException e) {
             logger.catching(e);
-            return org.jastacry.Data.RC_ERROR;
+            return org.jastacry.GlobalData.RC_ERROR;
         }
 
         try {
@@ -184,7 +184,7 @@ public class Worker {
                     } // if
 
                     // Optional interactive password entry
-                    if (sParams.equalsIgnoreCase(org.jastacry.Data.MACRO_PASSWORD)) {
+                    if (sParams.equalsIgnoreCase(org.jastacry.GlobalData.MACRO_PASSWORD)) {
                         final Console console = System.console();
                         if (null == console) {
                             logger.error("No interactive console available for password entry!");
@@ -228,10 +228,10 @@ public class Worker {
 
                 layer.init(sParams);
                 switch (action) {
-                    case org.jastacry.Data.ENCODE:
+                    case org.jastacry.GlobalData.ENCODE:
                         layers.add(layer);
                         break;
-                    case org.jastacry.Data.DECODE: // reverse order
+                    case org.jastacry.GlobalData.DECODE: // reverse order
                         layers.add(0, layer);
                         break;
                     default:
@@ -305,10 +305,10 @@ public class Worker {
             }
 
             switch (action) {
-                case org.jastacry.Data.ENCODE:
+                case org.jastacry.GlobalData.ENCODE:
                     l.encStream(layerInput, layerOutput);
                     break;
-                case org.jastacry.Data.DECODE:
+                case org.jastacry.GlobalData.DECODE:
                     l.decStream(layerInput, layerOutput);
                     break;
                 default:
@@ -337,7 +337,7 @@ public class Worker {
                 }
             }
             tempIn = tempOut;
-            tempOut = File.createTempFile(org.jastacry.Data.TMPBASE, org.jastacry.Data.TMPEXT);
+            tempOut = File.createTempFile(org.jastacry.GlobalData.TMPBASE, org.jastacry.GlobalData.TMPEXT);
 
         } // for
 

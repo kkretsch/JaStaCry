@@ -26,7 +26,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @author Kai Kretschmann
  *
  */
-public abstract class AbsCipherLayer extends AbstractLayer {
+public abstract class AbstractCipherLayer extends AbstractLayer {
 
     /**
      * Block size.
@@ -104,7 +104,7 @@ public abstract class AbsCipherLayer extends AbstractLayer {
      * @param c
      *            class name of calling class
      */
-    public AbsCipherLayer(final Class<?> c) {
+    public AbstractCipherLayer(final Class<?> c) {
         super(c);
     }
 

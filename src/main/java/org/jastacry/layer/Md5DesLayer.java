@@ -14,7 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @author Kai Kretschmann
  */
 
-public class Md5DesLayer extends AbsCipherLayer {
+public class Md5DesLayer extends AbstractCipherLayer {
     /**
      * static name of the layer.
      */

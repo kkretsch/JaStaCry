@@ -31,7 +31,6 @@ public abstract class AbstractLayer {
 
     /**
      * Optional method for setting encryption or decryption parameters like keys or passwords.
-     * 
      * @param data
      *            a String containing everything the layer needs to know
      */
@@ -39,7 +38,6 @@ public abstract class AbstractLayer {
 
     /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
-     *
      * @param inputStream
      *            existing and opened input stream
      * @param outputStream
