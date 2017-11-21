@@ -25,53 +25,53 @@ public class EncodeDecodeLayer extends AbstractLayer {
         super(EncodeDecodeLayer.class);
     }
 
-    @Override
     /**
      * init function.
      *
      * @param data
      *            to initialize nothing.
      */
+    @Override
     public final void init(final String data) {
         // Empty at the moment
     }
 
-    @Override
     /**
      * encode Stream function.
      *
-     * @param is
-     * @param os
+     * @param inputStream
+     * @param outputStream
      * @throws IOException
      */
-    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
-        OutputStream osEncoded = null;
+    @Override
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        OutputStream osEncoded = null; // NOPMD by kai on 21.11.17 17:26
         try {
-            osEncoded = javax.mail.internet.MimeUtility.encode(os, "uuencode");
+            osEncoded = javax.mail.internet.MimeUtility.encode(outputStream, "uuencode");
         } catch (final MessagingException e) {
             logger.catching(e);
         }
-        final int iCount = IOUtils.copy(is, osEncoded);
+        final int iCount = IOUtils.copy(inputStream, osEncoded);
         logger.debug("copied {} bytes", iCount);
     }
 
-    @Override
     /**
      * decode Stream function.
      *
-     * @param is
-     * @param os
+     * @param inputStream
+     * @param outputStream
      * @throws IOException
      */
-    public final void decStream(final InputStream is, final OutputStream os) throws IOException {
-        InputStream isDecoded = null;
+    @Override
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        InputStream isDecoded = null; // NOPMD by kai on 21.11.17 17:26
         try {
-            isDecoded = javax.mail.internet.MimeUtility.decode(is, "uuencode");
+            isDecoded = javax.mail.internet.MimeUtility.decode(inputStream, "uuencode"); // NOPMD by kai on 21.11.17 17:26
         } catch (final MessagingException e) {
             logger.catching(e);
-            throw new IOException(e.getLocalizedMessage());
+            throw new IOException(e.getLocalizedMessage()); // NOPMD by kai on 21.11.17 17:26
         }
-        IOUtils.copy(isDecoded, os);
+        IOUtils.copy(isDecoded, outputStream);
     }
 
     @Override

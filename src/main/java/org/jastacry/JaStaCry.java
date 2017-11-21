@@ -99,7 +99,7 @@ public final class JaStaCry {
     /**
      * log4j logger object.
      */
-    private static Logger logger;
+    private static final Logger LOGGER = LogManager.getLogger(JaStaCry.class.getName());
 
     /**
      * boolean status: do we encode?
@@ -148,7 +148,7 @@ public final class JaStaCry {
     @CoverageIgnore
     public static void main(final String[] args) {
         final int iRC = mainMethod(args);
-        System.exit(iRC);
+        System.exit(iRC); // NOPMD by kai on 21.11.17 17:04
     }
 
     /**
@@ -159,11 +159,10 @@ public final class JaStaCry {
      * @return int result code
      */
     public static int mainMethod(final String... args) {
-        logger = LogManager.getLogger();
         int iRC = setup(args);
         if (0 != iRC) {
-            logger.error("Setup found errors {}", iRC);
-            return iRC;
+            LOGGER.error("Setup found errors {}", iRC);
+            return iRC; // NOPMD by kai on 21.11.17 16:59
         } // if
 
         final Worker worker = new Worker();
@@ -231,34 +230,34 @@ public final class JaStaCry {
         final Options options = createOptions();
 
         final CommandLineParser parser = new DefaultParser();
-        CommandLine cmdLine = null;
+        CommandLine cmdLine;
         try {
-            cmdLine = parser.parse(options, args);
+            cmdLine = parser.parse(options, args); // NOPMD by kai on 21.11.17 17:02
         } catch (final MissingOptionException eOpt) {
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return org.jastacry.GlobalData.RC_ERROR;
+            return org.jastacry.GlobalData.RC_ERROR; // NOPMD by kai on 21.11.17 16:59
         } catch (final ParseException e2) {
-            logger.catching(e2);
-            return org.jastacry.GlobalData.RC_ERROR;
+            LOGGER.catching(e2);
+            return org.jastacry.GlobalData.RC_ERROR; // NOPMD by kai on 21.11.17 17:02
         }
 
         if (null == cmdLine) {
-            logger.error("cmdLine null");
-            return org.jastacry.GlobalData.RC_ERROR;
+            LOGGER.error("cmdLine null");
+            return org.jastacry.GlobalData.RC_ERROR; // NOPMD by kai on 21.11.17 16:59
         }
 
         if (cmdLine.hasOption(P_SHORT_HELP)) {
-            logger.debug("Show help");
+            LOGGER.debug("Show help");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return org.jastacry.GlobalData.RC_HELP;
+            return org.jastacry.GlobalData.RC_HELP; // NOPMD by kai on 21.11.17 17:00
         } // if
 
         // Is verbose?
         isVerbose = cmdLine.hasOption(P_SHORT_VERBOSE);
         if (isVerbose) {
-            logger.info("JaStaCry starting");
+            LOGGER.info("JaStaCry starting");
         }
 
         action = 0;
@@ -270,12 +269,16 @@ public final class JaStaCry {
         if (cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE)) {
             action = org.jastacry.GlobalData.DECODE;
         } // if
-        if (0 == action) { // TODO should have been solved by commons-cli required attribute, which collides to help
-                           // parameter
-            logger.debug("action required");
+
+        /*
+         * TODO should have been solved by commons-cli
+         * required attribute, which collides to help parameter
+         */
+        if (0 == action) {
+            LOGGER.debug("action required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return org.jastacry.GlobalData.RC_ERROR;
+            return org.jastacry.GlobalData.RC_ERROR; // NOPMD by kai on 21.11.17 16:59
         }
 
         // Use text format?
@@ -287,10 +290,10 @@ public final class JaStaCry {
         outputFilename = cmdLine.getOptionValue(P_LONG_OUTFILE);
 
         if (null == confFilename || null == inputFilename || null == outputFilename) {
-            logger.debug("argument to parameter required");
+            LOGGER.debug("argument to parameter required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return org.jastacry.GlobalData.RC_ERROR;
+            return org.jastacry.GlobalData.RC_ERROR; // NOPMD by kai on 21.11.17 16:59
         }
 
         return 0;

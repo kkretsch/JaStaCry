@@ -29,7 +29,7 @@ public class RotateLayer extends AbstractLayer {
     /**
      * private range to rate.
      */
-    private int iOffset;
+    private transient int iOffset;
 
     /**
      * Constructor of XorLayer.
@@ -38,57 +38,57 @@ public class RotateLayer extends AbstractLayer {
         super(RotateLayer.class);
     }
 
-    @Override
     /**
      * init function.
      *
      * @param data
      *            to initialize the offset value.
      */
+    @Override
     public final void init(final String data) {
         this.iOffset = Integer.parseInt(data);
     }
 
-    @Override
     /**
      * encode Stream function.
      *
-     * @param is
-     * @param os
+     * @param inputStream
+     * @param outputStream
      * @throws IOException
      */
-    public final void encStream(final InputStream is, final OutputStream os) throws IOException {
+    @Override
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
-        while ((iChar = is.read()) != -1) {
+        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:19
             iChar += this.iOffset;
             iChar = rangeCheck(iChar);
-            os.write(iChar);
+            outputStream.write(iChar);
         }
     }
 
-    @Override
     /**
      * decode Stream function.
      *
-     * @param is
-     * @param os
+     * @param inputStream
+     * @param outputStream
      * @throws IOException
      */
-    public final void decStream(final InputStream is, final OutputStream os) throws IOException {
+    @Override
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
-        while ((iChar = is.read()) != -1) {
+        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:19
             iChar -= this.iOffset;
             iChar = rangeCheck(iChar);
-            os.write(iChar);
+            outputStream.write(iChar);
         }
     }
 
-    @Override
     /**
      * Print layer name function.
      *
      * @return Layer name as String
      */
+    @Override
     public final String toString() {
         return LAYERNAME;
     }
@@ -96,12 +96,12 @@ public class RotateLayer extends AbstractLayer {
     /**
      * Private range check function for byte values.
      *
-     * @param i
+     * @param iInput
      *            as input value
      * @return range checked byte value
      */
-    private int rangeCheck(final int i) {
-        int iTmp = i;
+    private int rangeCheck(final int iInput) {
+        int iTmp = iInput;
         if (iTmp < 0) {
             iTmp += BYTE_VALUE_OVER;
         } else {

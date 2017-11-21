@@ -39,7 +39,7 @@ public class Worker {
     /**
      * log4j logger object.
      */
-    private Logger logger;
+    private static final Logger LOGGER = LogManager.getLogger();
     /**
      * boolean status: do we encode?
      */
@@ -76,18 +76,16 @@ public class Worker {
      * @return int system return code to shell
      */
     public final int mainWork() {
-        logger = LogManager.getLogger();
-
         // Now go
         final List<AbstractLayer> layers = createLayers();
 
         if (null == layers || layers.isEmpty()) {
-            logger.error("No layers defined!");
+            LOGGER.error("No layers defined!");
             return org.jastacry.GlobalData.RC_ERROR;
         } // if
 
         if (layers.size() == 1) {
-            logger.warn("Warning: Only one layer defined!");
+            LOGGER.warn("Warning: Only one layer defined!");
             return org.jastacry.GlobalData.RC_ERROR;
         }
 
@@ -101,7 +99,7 @@ public class Worker {
                     layers.add(0, layerEncode);
                     break;
                 default:
-                    logger.error("unknown action '{}'", action);
+                    LOGGER.error("unknown action '{}'", action);
                     break;
             } // switch
         }
@@ -113,7 +111,7 @@ public class Worker {
             tempIn = File.createTempFile(org.jastacry.GlobalData.TMPBASE, org.jastacry.GlobalData.TMPEXT);
             tempOut = File.createTempFile(org.jastacry.GlobalData.TMPBASE, org.jastacry.GlobalData.TMPEXT);
         } catch (final IOException e1) {
-            logger.catching(e1);
+            LOGGER.catching(e1);
             return org.jastacry.GlobalData.RC_ERROR;
         }
 
@@ -126,18 +124,18 @@ public class Worker {
             input = new BufferedInputStream(new FileInputStream(fileIn));
             output = new BufferedOutputStream(new FileOutputStream(fileOut));
         } catch (final FileNotFoundException e) {
-            logger.catching(e);
+            LOGGER.catching(e);
             return org.jastacry.GlobalData.RC_ERROR;
         }
 
         try {
             loopLayers(layers, input, output, tempIn, tempOut, fileIn, fileOut);
         } catch (final IOException e) {
-            logger.catching(e);
+            LOGGER.catching(e);
         }
 
         if (isVerbose) {
-            logger.info("JaStaCry finished");
+            LOGGER.info("JaStaCry finished");
         }
 
         return 0;
@@ -164,30 +162,31 @@ public class Worker {
                 strLine = strLine.trim();
                 if (';' == strLine.charAt(0)) {
                     if (isVerbose) {
-                        logger.debug("skip comment line '{}'", strLine);
+                        LOGGER.debug("skip comment line '{}'", strLine);
                     } // if
                     continue;
                 }
 
-                String sLayer = null;
-                String sParams = "";
+                String sLayer;
+                String sParams;
 
                 final String[] toks = strLine.split("\\s+");
                 // no parameter?
                 if (1 == toks.length) {
                     sLayer = strLine;
+                    sParams = "";
                 } else {
                     sLayer = toks[0];
                     sParams = toks[1];
-                    if (isVerbose) {
-                        logger.debug("read config, layer={}, params={}", sLayer, sParams);
+                    if (isVerbose && LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("read config, layer={}, params={}", sLayer, sParams);
                     } // if
 
                     // Optional interactive password entry
                     if (sParams.equalsIgnoreCase(org.jastacry.GlobalData.MACRO_PASSWORD)) {
                         final Console console = System.console();
                         if (null == console) {
-                            logger.error("No interactive console available for password entry!");
+                            LOGGER.error("No interactive console available for password entry!");
                             return null;
                         }
                         final char[] password = console.readPassword("Layer " + sLayer + " Password: ");
@@ -218,12 +217,12 @@ public class Worker {
                         layer = new AesLayer();
                         break;
                     default:
-                        logger.error("unknown layer '{}'", sLayer);
+                        LOGGER.error("unknown layer '{}'", sLayer);
                         continue;
                 } // switch
 
-                if (isVerbose) {
-                    logger.debug("adding layer {}", sLayer);
+                if (isVerbose && LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("adding layer {}", sLayer);
                 }
 
                 layer.init(sParams);
@@ -235,15 +234,15 @@ public class Worker {
                         layers.add(0, layer);
                         break;
                     default:
-                        logger.error("unkown action {}", action);
+                        LOGGER.error("unkown action {}", action);
                         break;
                 } // switch
             }
 
-        } catch (final FileNotFoundException e1) {
-            e1.printStackTrace();
+        } catch (final FileNotFoundException e) {
+            LOGGER.catching(e);
         } catch (final IOException e) {
-            e.printStackTrace();
+            LOGGER.catching(e);
         }
 
         return layers;
@@ -284,20 +283,20 @@ public class Worker {
             if (i == 0) {
                 layerInput = input;
                 layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
-                if (isVerbose && logger.isDebugEnabled()) {
-                    logger.debug("layer 0 '{}' from {} to {}", l, fileIn, tempOut);
+                if (isVerbose && LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("layer 0 '{}' from {} to {}", l, fileIn, tempOut);
                 }
             } else {
                 // middle steps
                 if (i < layers.size() - 1) {
-                    if (isVerbose && logger.isDebugEnabled()) {
-                        logger.debug("layer {} '{}' from {} to {}", i, l, tempIn, tempOut);
+                    if (isVerbose && LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("layer {} '{}' from {} to {}", i, l, tempIn, tempOut);
                     }
                     layerInput = new BufferedInputStream(new FileInputStream(tempIn));
                     layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
                 } else { // last step
-                    if (isVerbose && logger.isDebugEnabled()) {
-                        logger.debug("layer {} '{}' from {} to {}", i, l, tempIn, fileOut);
+                    if (isVerbose && LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("layer {} '{}' from {} to {}", i, l, tempIn, fileOut);
                     }
                     layerInput = new BufferedInputStream(new FileInputStream(tempIn));
                     layerOutput = output;
@@ -312,7 +311,7 @@ public class Worker {
                     l.decStream(layerInput, layerOutput);
                     break;
                 default:
-                    logger.error("unknwon action '{}'", action);
+                    LOGGER.error("unknwon action '{}'", action);
                     break;
             }
 
@@ -333,7 +332,7 @@ public class Worker {
             if (null != tempIn) {
                 final boolean bRC = tempIn.delete();
                 if (!bRC) {
-                    logger.warn("delete might have failed");
+                    LOGGER.warn("delete might have failed");
                 }
             }
             tempIn = tempOut;
@@ -344,13 +343,13 @@ public class Worker {
         if (null != tempIn) {
             final boolean bRC = tempIn.delete();
             if (!bRC) {
-                logger.warn("delete might have failed");
+                LOGGER.warn("delete might have failed");
             }
         }
         if (null != tempOut) {
             final boolean bRC = tempOut.delete();
             if (!bRC) {
-                logger.warn("delete might have failed");
+                LOGGER.warn("delete might have failed");
             }
         }
 
@@ -370,11 +369,11 @@ public class Worker {
     }
 
     /**
-     * @param b
+     * @param bStatus
      *            the doEncode to set
      */
-    public final void setDoEncode(final boolean b) {
-        doEncode = b;
+    public final void setDoEncode(final boolean bStatus) {
+        doEncode = bStatus;
     }
 
     /**
@@ -385,11 +384,11 @@ public class Worker {
     }
 
     /**
-     * @param s
+     * @param sFilename
      *            the confFilename to set
      */
-    public final void setConfFilename(final String s) {
-        confFilename = s;
+    public final void setConfFilename(final String sFilename) {
+        confFilename = sFilename;
     }
 
     /**
@@ -400,11 +399,11 @@ public class Worker {
     }
 
     /**
-     * @param s
+     * @param sFilename
      *            the inputFilename to set
      */
-    public final void setInputFilename(final String s) {
-        inputFilename = s;
+    public final void setInputFilename(final String sFilename) {
+        inputFilename = sFilename;
     }
 
     /**
@@ -415,11 +414,11 @@ public class Worker {
     }
 
     /**
-     * @param s
+     * @param sFilename
      *            the outputFilename to set
      */
-    public final void setOutputFilename(final String s) {
-        outputFilename = s;
+    public final void setOutputFilename(final String sFilename) {
+        outputFilename = sFilename;
     }
 
     /**
@@ -430,11 +429,11 @@ public class Worker {
     }
 
     /**
-     * @param b
+     * @param bStatus
      *            the isVerbose to set
      */
-    public final void setVerbose(final boolean b) {
-        isVerbose = b;
+    public final void setVerbose(final boolean bStatus) {
+        isVerbose = bStatus;
     }
 
     /**
@@ -445,11 +444,11 @@ public class Worker {
     }
 
     /**
-     * @param i
+     * @param iAction
      *            the action to set
      */
-    public final void setAction(final int i) {
-        action = i;
+    public final void setAction(final int iAction) {
+        action = iAction;
     }
 
 }

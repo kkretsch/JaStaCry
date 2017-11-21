@@ -18,7 +18,7 @@ public class XorLayer extends AbstractLayer {
     /**
      * private byte mask to xor with.
      */
-    private byte bMask;
+    private transient byte bMask;
 
     /**
      * Constructor of XorLayer.
@@ -27,61 +27,61 @@ public class XorLayer extends AbstractLayer {
         super(XorLayer.class);
     }
 
-    @Override
     /**
      * init function.
      *
      * @param data
      *            to initialize the xor value.
      */
+    @Override
     public final void init(final String data) {
         this.bMask = (byte) Integer.parseInt(data);
     }
 
-    @Override
     /**
      * encode Stream function.
      *
-     * @param is
-     * @param os
+     * @param inputStream
+     * @param outputStream
      * @throws IOException
      */
-    public final void encStream(final InputStream is, final OutputStream os)
+    @Override
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream)
             throws IOException {
         int iChar;
         byte bChar;
-        while ((iChar = is.read()) != -1) {
-            bChar = (byte) iChar;
+        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:18
+            bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:18
             bChar = (byte) (bChar ^ this.bMask);
-            os.write(bChar);
+            outputStream.write(bChar);
         }
     }
 
-    @Override
     /**
      * decode Stream function.
      *
-     * @param is
-     * @param os
+     * @param inputStream
+     * @param outputStream
      * @throws IOException
      */
-    public final void decStream(final InputStream is, final OutputStream os)
+    @Override
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream)
             throws IOException {
         int iChar;
         byte bChar;
-        while ((iChar = is.read()) != -1) {
-            bChar = (byte) iChar;
+        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:18
+            bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:17
             bChar = (byte) (bChar ^ this.bMask);
-            os.write(bChar);
+            outputStream.write(bChar);
         }
     }
 
-    @Override
     /**
      * Print layer name function.
      *
-     * @return Layername as String
+     * @return Layer name as String
      */
+    @Override
     public final String toString() {
         return LAYERNAME;
     }
