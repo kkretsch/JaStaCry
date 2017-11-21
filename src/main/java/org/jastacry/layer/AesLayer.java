@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @author Kai Kretschmann
  */
 
-public class AesLayer extends AbsCipherLayer {
+public class AesLayer extends AbstractCipherLayer {
     /**
      * static name of the layer.
      */

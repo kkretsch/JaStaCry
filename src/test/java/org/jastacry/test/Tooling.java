@@ -18,62 +18,63 @@ import org.apache.logging.log4j.Logger;
  * @author kai
  *
  */
-public class Tooling {
+public final class Tooling { // NOPMD by kai on 21.11.17 16:53
     /**
      * log4j2 object.
      */
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     /**
      * How big can a byte be.
      */
     private static final int MAXBYTE = 255;
 
+
     /**
      * compare two files if they are equal.
      *
-     * @param f1 file one
-     * @param f2 file two
+     * @param file1 file one
+     * @param file2 file two
      * @return true if equal
      */
-    public boolean compareFiles(final File f1, final File f2) {
-        boolean b = false;
+    public boolean compareFiles(final File file1, final File file2) {
+        boolean bResult = false; // NOPMD by kai on 21.11.17 16:54
         try {
-            b = FileUtils.contentEquals(f1, f2);
+            bResult = FileUtils.contentEquals(file1, file2);
         } catch (IOException e) {
-            logger.catching(e);
+            LOGGER.catching(e);
         }
-        return b;
+        return bResult;
     }
 
     /**
      * List all installed crypto providers.
      */
     public void listProviders() {
-        Provider[] p = Security.getProviders();
-        for (int i = 0; i < p.length; i++) {
-            logger.info("Provider #{} {}", i, p[i]);
-            for (Enumeration<Object> e = p[i].keys(); e.hasMoreElements();) {
-                logger.info("\t{}", e.nextElement());
+        final Provider[] providers = Security.getProviders();
+        for (int i = 0; i < providers.length; i++) {
+            LOGGER.info("Provider #{} {}", i, providers[i]);
+            for (final Enumeration<Object> e = providers[i].keys(); e.hasMoreElements();) {
+                LOGGER.info("\t{}", e.nextElement());
             }
         }
     }
     /**
      * Create a binary input file with all byte values possible.
      *
-     * @param f File to create
+     * @param file File to create
      */
-    public void createBinaryTestfile(final File f) {
+    public void createBinaryTestfile(final File file) {
         try {
-            DataOutputStream os = new DataOutputStream(new FileOutputStream(f));
-            for (int i = 0; i <= MAXBYTE; i++) {
-                os.writeByte(i);
+            try (DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(file))) {
+                for (int i = 0; i <= MAXBYTE; i++) {
+                    outputStream.writeByte(i);
+                }
             }
-            os.close();
         } catch (FileNotFoundException e) {
-            logger.catching(e);
+            LOGGER.catching(e);
         } catch (IOException e) {
-            logger.catching(e);
+            LOGGER.catching(e);
         }
     }
 }

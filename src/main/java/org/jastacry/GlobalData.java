@@ -8,7 +8,7 @@ import net.sourceforge.cobertura.CoverageIgnore;
  * @author Kai Kretschmann
  *
  */
-public final class Data {
+public final class GlobalData {
     /**
      * Help line reply.
      */
@@ -79,7 +79,7 @@ public final class Data {
      * Hidden constructor.
      */
     @CoverageIgnore
-    private Data() {
+    private GlobalData() {
         // not called
     }
 }
