@@ -12,7 +12,7 @@ import org.apache.commons.io.IOUtils;
  * @author Kai Kretschmann
  */
 
-public class EncodeDecodeLayer extends AbsLayer {
+public class EncodeDecodeLayer extends AbstractLayer {
     /**
      * static name of the layer.
      */

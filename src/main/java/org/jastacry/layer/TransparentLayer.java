@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * @author Kai Kretschmann
  */
 
-public class TransparentLayer extends AbsLayer {
+public class TransparentLayer extends AbstractLayer {
     /**
      * static name of the layer.
      */

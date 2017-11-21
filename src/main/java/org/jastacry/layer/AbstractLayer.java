@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
  * @author Kai Kretschmann
  */
 
-public abstract class AbsLayer {
+public abstract class AbstractLayer {
     /**
      * Logger object.
      */
@@ -25,7 +25,7 @@ public abstract class AbsLayer {
      * @param caller
      *            class object
      */
-    protected AbsLayer(final Class<?> caller) {
+    protected AbstractLayer(final Class<?> caller) {
         logger = LogManager.getLogger(caller);
     }
 
@@ -40,26 +40,26 @@ public abstract class AbsLayer {
     /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
      *
-     * @param is
+     * @param inputStream
      *            existing and opened input stream
-     * @param os
+     * @param outputStream
      *            existing and opened output stream
      * @throws IOException
      *             if one of the streams fail
      */
-    public abstract void encStream(InputStream is, OutputStream os) throws IOException;
+    public abstract void encStream(InputStream inputStream, OutputStream outputStream) throws IOException;
 
     /**
      * Decodes an encrypted stream to either plain text or the next encoded layer.
      *
-     * @param is
+     * @param inputStream
      *            existing and opened input stream
-     * @param os
+     * @param outputStream
      *            existing and opened output stream
      * @throws IOException
      *             if one of the streams fail
      */
-    public abstract void decStream(InputStream is, OutputStream os) throws IOException;
+    public abstract void decStream(InputStream inputStream, OutputStream outputStream) throws IOException;
 
     @Override
     /**
