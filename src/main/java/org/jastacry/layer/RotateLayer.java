@@ -64,6 +64,8 @@ public class RotateLayer extends AbstractLayer {
             iChar = rangeCheck(iChar);
             outputStream.write(iChar);
         }
+        logger.info("close pipe");
+        outputStream.close();
     }
 
     /**
@@ -81,6 +83,8 @@ public class RotateLayer extends AbstractLayer {
             iChar = rangeCheck(iChar);
             outputStream.write(iChar);
         }
+        logger.info("close pipe");
+        outputStream.close();
     }
 
     /**

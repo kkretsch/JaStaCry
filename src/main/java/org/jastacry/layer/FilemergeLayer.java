@@ -8,8 +8,7 @@ import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 
 /**
- * Mask every byte with data of a given file.
- * If the file is smaller than the data it will be used again and again from
+ * Mask every byte with data of a given file. If the file is smaller than the data it will be used again and again from
  * the beginning.
  *
  * @author Kai Kretschmann
@@ -46,9 +45,13 @@ public class FilemergeLayer extends AbstractLayer {
 
     /**
      * merge Stream function.
-     * @param inputStream input stream
-     * @param outputStream output stream
-     * @throws IOException in case of error
+     *
+     * @param inputStream
+     *            input stream
+     * @param outputStream
+     *            output stream
+     * @throws IOException
+     *             in case of error
      */
     private void mergeStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
@@ -73,14 +76,20 @@ public class FilemergeLayer extends AbstractLayer {
                 bChar = (byte) (bChar ^ bMerge);
                 outputStream.write(bChar);
             }
+            logger.info("close pipe");
+            outputStream.close();
         } // try with resources
     }
 
     /**
      * encode Stream function.
-     * @param inputStream input stream
-     * @param outputStream output stream
-     * @throws IOException in case of error
+     *
+     * @param inputStream
+     *            input stream
+     * @param outputStream
+     *            output stream
+     * @throws IOException
+     *             in case of error
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
@@ -89,9 +98,13 @@ public class FilemergeLayer extends AbstractLayer {
 
     /**
      * decode Stream function.
-     * @param inputStream input stream
-     * @param outputStream output stream
-     * @throws IOException in case of error
+     *
+     * @param inputStream
+     *            input stream
+     * @param outputStream
+     *            output stream
+     * @throws IOException
+     *             in case of error
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {

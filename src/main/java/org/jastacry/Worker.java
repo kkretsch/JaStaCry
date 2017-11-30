@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,7 @@ public class Worker {
      * log4j logger object.
      */
     private static final Logger LOGGER = LogManager.getLogger();
+
     /**
      * boolean status: do we encode?
      */
@@ -104,17 +107,6 @@ public class Worker {
             } // switch
         }
 
-        // two temporary files for now
-        File tempIn = null;
-        File tempOut = null;
-        try {
-            tempIn = File.createTempFile(org.jastacry.GlobalData.TMPBASE, org.jastacry.GlobalData.TMPEXT);
-            tempOut = File.createTempFile(org.jastacry.GlobalData.TMPBASE, org.jastacry.GlobalData.TMPEXT);
-        } catch (final IOException e1) {
-            LOGGER.catching(e1);
-            return org.jastacry.GlobalData.RC_ERROR;
-        }
-
         InputStream input = null;
         final File fileIn = new File(inputFilename);
         OutputStream output = null;
@@ -129,7 +121,7 @@ public class Worker {
         }
 
         try {
-            loopLayers(layers, input, output, tempIn, tempOut, fileIn, fileOut);
+            loopLayers(layers, input, output);
         } catch (final IOException e) {
             LOGGER.catching(e);
         }
@@ -249,6 +241,20 @@ public class Worker {
     }
 
     /**
+     * make nice name.
+     *
+     * @param iNumber
+     *            of layer
+     * @param layer
+     *            itself
+     * @return text name
+     */
+    private String makeThreadname(final int iNumber, final AbstractLayer layer) {
+        final String sTmp = Integer.toString(iNumber) + " " + layer.toString();
+        return sTmp;
+    }
+
+    /**
      * Loop through layers with data streams.
      *
      * @param layers
@@ -257,109 +263,83 @@ public class Worker {
      *            input Stream
      * @param output
      *            output Stream
-     * @param tempInArg
-     *            temp file ingoing
-     * @param tempOutArg
-     *            temp file outgoing
-     * @param fileIn
-     *            input file
-     * @param fileOut
-     *            output file
      * @throws IOException
      *             in case of error
      */
-    private void loopLayers(final List<AbstractLayer> layers, final InputStream input, final OutputStream output,
-            final File tempInArg, final File tempOutArg, final File fileIn, final File fileOut) throws IOException {
-        File tempIn = tempInArg;
-        File tempOut = tempOutArg;
+    private void loopLayers(final List<AbstractLayer> layers, final InputStream input, final OutputStream output)
+            throws IOException {
         AbstractLayer l = null;
+        final List<AbstractThread> threads = new ArrayList<AbstractThread>();
+        PipedOutputStream prevOutput = null;
 
-        for (int i = 0; i < layers.size(); i++) {
+        // Handle file input
+        final PipedOutputStream pipedOutputFromFile = new PipedOutputStream();
+        final ReaderThread readerThread = new ReaderThread(input, pipedOutputFromFile);
+        threads.add(readerThread);
+
+        // Handle very first layer
+        l = layers.get(0);
+        if (isVerbose && LOGGER.isDebugEnabled()) {
+            LOGGER.debug("layer FIRST '{}'", l);
+        } // if
+        PipedInputStream pipedInputStream = new PipedInputStream();
+        PipedOutputStream pipedOutputStream = new PipedOutputStream();
+        pipedInputStream.connect(pipedOutputFromFile);
+        prevOutput = pipedOutputStream;
+        LayerThread thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(0, l));
+        threads.add(thread);
+
+        // only inner layers are looped through
+        for (int i = 1; i < layers.size() - 1; i++) {
             l = layers.get(i);
-            InputStream layerInput = null;
-            OutputStream layerOutput = null;
 
-            // first step
-            if (i == 0) {
-                layerInput = input;
-                layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
-                if (isVerbose && LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("layer 0 '{}' from {} to {}", l, fileIn, tempOut);
-                }
-            } else {
-                // middle steps
-                if (i < layers.size() - 1) {
-                    if (isVerbose && LOGGER.isDebugEnabled()) {
-                        LOGGER.debug("layer {} '{}' from {} to {}", i, l, tempIn, tempOut);
-                    }
-                    layerInput = new BufferedInputStream(new FileInputStream(tempIn));
-                    layerOutput = new BufferedOutputStream(new FileOutputStream(tempOut));
-                } else { // last step
-                    if (isVerbose && LOGGER.isDebugEnabled()) {
-                        LOGGER.debug("layer {} '{}' from {} to {}", i, l, tempIn, fileOut);
-                    }
-                    layerInput = new BufferedInputStream(new FileInputStream(tempIn));
-                    layerOutput = output;
-                }
-            }
+            if (isVerbose && LOGGER.isDebugEnabled()) {
+                LOGGER.debug("layer {} '{}'", i, l);
+            } // if
 
-            switch (action) {
-                case org.jastacry.GlobalData.ENCODE:
-                    l.encStream(layerInput, layerOutput);
-                    break;
-                case org.jastacry.GlobalData.DECODE:
-                    l.decStream(layerInput, layerOutput);
-                    break;
-                default:
-                    LOGGER.error("unknwon action '{}'", action);
-                    break;
-            }
-
-            // first step
-            if (i == 0) {
-                layerOutput.close();
-            } else {
-                // middle steps
-                if (i < layers.size() - 1) {
-                    layerInput.close();
-                    layerOutput.close();
-                } else { // last step
-                    layerInput.close();
-                }
-            }
-
-            // transfer last temporary out to new temporary in
-            if (null != tempIn) {
-                final boolean bRC = tempIn.delete();
-                if (!bRC) {
-                    LOGGER.warn("delete might have failed");
-                }
-            }
-            tempIn = tempOut;
-            tempOut = File.createTempFile(org.jastacry.GlobalData.TMPBASE, org.jastacry.GlobalData.TMPEXT);
-
+            pipedInputStream = new PipedInputStream();
+            pipedOutputStream = new PipedOutputStream();
+            pipedInputStream.connect(prevOutput);
+            prevOutput = pipedOutputStream;
+            thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(i, l));
+            threads.add(thread);
         } // for
 
-        if (null != tempIn) {
-            final boolean bRC = tempIn.delete();
-            if (!bRC) {
-                LOGGER.warn("delete might have failed");
-            }
+        // Handle last layer
+        l = layers.get(layers.size() - 1);
+        if (isVerbose && LOGGER.isDebugEnabled()) {
+            LOGGER.debug("layer LAST '{}'", l);
+        } // if
+        pipedInputStream = new PipedInputStream();
+        pipedOutputStream = new PipedOutputStream();
+        pipedInputStream.connect(prevOutput);
+        prevOutput = pipedOutputStream;
+        thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(threads.size(), l));
+        threads.add(thread);
+
+        // Handle file output
+        final PipedInputStream pipedInputStreamToFile = new PipedInputStream();
+        pipedInputStreamToFile.connect(prevOutput);
+        final WriterThread writerThread = new WriterThread(pipedInputStreamToFile, output);
+        threads.add(writerThread);
+
+        // Start all threads
+        for (int i = 0; i < threads.size(); i++) {
+            if (isVerbose && LOGGER.isDebugEnabled()) {
+                LOGGER.debug("start thread {}", i);
+            } // if
+            threads.get(i).start();
         }
-        if (null != tempOut) {
-            final boolean bRC = tempOut.delete();
-            if (!bRC) {
-                LOGGER.warn("delete might have failed");
+        // TODO wait for all threads
+        for (int i = 0; i < threads.size(); i++) {
+            try {
+                threads.get(i).join();
+            } catch (final InterruptedException exception) {
+                exception.printStackTrace();
             }
         }
 
-        if (null != input) {
-            input.close();
-        }
-        if (null != output) {
-            output.close();
-        }
-    }
+    } // function
 
     /**
      * @return the doEncode

@@ -5,8 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Mask every byte with some random data.
- * The random stream is initialized by the init seed. Must be used the same on
+ * Mask every byte with some random data. The random stream is initialized by the init seed. Must be used the same on
  * both sides (encryption and decryption).
  *
  * @author Kai Kretschmann
@@ -60,6 +59,8 @@ public class RandomLayer extends AbstractLayer {
             bChar = (byte) (bChar ^ bRand[0]);
             outputStream.write(bChar);
         }
+        logger.info("close pipe");
+        outputStream.close();
     }
 
     /**
@@ -80,6 +81,8 @@ public class RandomLayer extends AbstractLayer {
             bChar = (byte) (bChar ^ bRand[0]);
             outputStream.write(bChar);
         }
+        logger.info("close pipe");
+        outputStream.close();
     }
 
     /**

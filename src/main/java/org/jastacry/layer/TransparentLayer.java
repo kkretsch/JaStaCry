@@ -5,8 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * A transparent layer just doing nothing with the data.
- * Use it as an example framework to start with.
+ * A transparent layer just doing nothing with the data. Use it as an example framework to start with.
  *
  * @author Kai Kretschmann
  */
@@ -37,6 +36,8 @@ public class TransparentLayer extends AbstractLayer {
         while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:13
             outputStream.write(iChar);
         }
+        logger.info("close pipe");
+        outputStream.close();
     }
 
     /**
@@ -52,6 +53,8 @@ public class TransparentLayer extends AbstractLayer {
         while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:13
             outputStream.write(iChar);
         }
+        logger.info("close pipe");
+        outputStream.close();
     }
 
     /**

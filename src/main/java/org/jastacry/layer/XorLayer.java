@@ -46,8 +46,7 @@ public class XorLayer extends AbstractLayer {
      * @throws IOException
      */
     @Override
-    public final void encStream(final InputStream inputStream, final OutputStream outputStream)
-            throws IOException {
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         byte bChar;
         while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:18
@@ -55,6 +54,8 @@ public class XorLayer extends AbstractLayer {
             bChar = (byte) (bChar ^ this.bMask);
             outputStream.write(bChar);
         }
+        logger.info("close pipe");
+        outputStream.close();
     }
 
     /**
@@ -65,8 +66,7 @@ public class XorLayer extends AbstractLayer {
      * @throws IOException
      */
     @Override
-    public final void decStream(final InputStream inputStream, final OutputStream outputStream)
-            throws IOException {
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         byte bChar;
         while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:18
@@ -74,6 +74,8 @@ public class XorLayer extends AbstractLayer {
             bChar = (byte) (bChar ^ this.bMask);
             outputStream.write(bChar);
         }
+        logger.info("close pipe");
+        outputStream.close();
     }
 
     /**

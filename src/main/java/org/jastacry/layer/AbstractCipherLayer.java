@@ -101,7 +101,8 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
     /**
      * Constructor of abstract class.
      *
-     * @param cClass class name of calling class
+     * @param cClass
+     *            class name of calling class
      */
     public AbstractCipherLayer(final Class<?> cClass) {
         super(cClass);
@@ -178,6 +179,8 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
             } // if
             outputStream.write(salt, 0, iSaltLen);
             outputStream.write(ciphertext);
+            logger.info("close pipe");
+            outputStream.close();
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
                 | BadPaddingException e) {
             logger.catching(e);
@@ -233,6 +236,8 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
             // Encrypt the clear text
             final byte[] ciphertext = pbeCipher.doFinal(bInput);
             outputStream.write(ciphertext);
+            logger.info("close pipe");
+            outputStream.close();
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
                 | BadPaddingException e) {
             logger.catching(e);
