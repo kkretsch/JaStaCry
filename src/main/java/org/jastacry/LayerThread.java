@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jastacry.layer.AbstractLayer;
 
 /**
@@ -14,22 +12,7 @@ import org.jastacry.layer.AbstractLayer;
  * @author kkre
  *
  */
-public class LayerThread extends Thread {
-    /**
-     * log4j logger object.
-     */
-    private static final Logger LOGGER = LogManager.getLogger();
-
-    /**
-     * Input stream.
-     */
-    private final PipedInputStream inputStream;
-
-    /**
-     * Output stream.
-     */
-    private final PipedOutputStream outputStream;
-
+public class LayerThread extends AbstractThread {
     /**
      * Layer to work with.
      */
@@ -87,24 +70,6 @@ public class LayerThread extends Thread {
             LOGGER.catching(exception);
         }
         LOGGER.info("finished thread");
-    }
-
-    /**
-     * get Stream for next or previous thread.
-     * 
-     * @return the stream
-     */
-    public PipedInputStream getInputStream() {
-        return this.inputStream;
-    }
-
-    /**
-     * get Stream for next or previous thread.
-     * 
-     * @return the stream
-     */
-    public PipedOutputStream getOutputStream() {
-        return this.outputStream;
     }
 
 }
