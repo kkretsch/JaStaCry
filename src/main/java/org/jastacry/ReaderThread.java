@@ -39,6 +39,8 @@ public class ReaderThread extends AbstractThread {
             while ((i = inputStream.read()) != -1) {
                 outputStream.write(i);
             }
+            LOGGER.info("close pipe");
+            outputStream.close();
         } catch (final IOException e) {
             LOGGER.catching(e);
         }

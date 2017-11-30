@@ -39,6 +39,8 @@ public class WriterThread extends AbstractThread {
             while ((i = inputStream.read()) != -1) {
                 outputStream.write(i);
             }
+            LOGGER.info("close file stream");
+            outputStream.close();
         } catch (final IOException e) {
             LOGGER.catching(e);
         }
