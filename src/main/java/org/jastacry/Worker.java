@@ -115,15 +115,19 @@ public class Worker {
         try {
             input = new BufferedInputStream(new FileInputStream(fileIn));
             output = new BufferedOutputStream(new FileOutputStream(fileOut));
+            loopLayers(layers, input, output);
         } catch (final FileNotFoundException e) {
             LOGGER.catching(e);
             return org.jastacry.GlobalData.RC_ERROR;
-        }
-
-        try {
-            loopLayers(layers, input, output);
         } catch (final IOException e) {
             LOGGER.catching(e);
+        } finally {
+            try {
+                output.close();
+                input.close();
+            } catch (IOException e) {
+                LOGGER.catching(e);
+            }
         }
 
         if (isVerbose) {
