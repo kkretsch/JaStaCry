@@ -152,7 +152,6 @@ public class Worker {
                     if (isVerbose) {
                         LOGGER.debug("skip comment line '{}'", strLine);
                     } // if
-                    continue;
                 } else {
 
                     String sLayer;
