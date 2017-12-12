@@ -23,7 +23,7 @@ public class FilemergeLayer extends AbstractLayer {
     /**
      * File to merge with..
      */
-    private transient File fileMerge;
+    private File fileMerge;
 
     /**
      * Constructor of FilemergeLayer.

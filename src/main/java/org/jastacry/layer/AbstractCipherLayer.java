@@ -182,9 +182,7 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
             logger.info("close pipe");
             outputStream.close();
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-                | BadPaddingException e) {
-            logger.catching(e);
-        } catch (final InvalidKeySpecException e) {
+                | InvalidKeySpecException | BadPaddingException e) {
             logger.catching(e);
         }
 
@@ -239,11 +237,7 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
             logger.info("close pipe");
             outputStream.close();
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-                | BadPaddingException e) {
-            logger.catching(e);
-        } catch (final InvalidAlgorithmParameterException e) {
-            logger.catching(e);
-        } catch (final InvalidKeySpecException e) {
+                | BadPaddingException | InvalidAlgorithmParameterException | InvalidKeySpecException e) {
             logger.catching(e);
         }
     }
