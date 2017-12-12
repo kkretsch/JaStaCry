@@ -39,6 +39,28 @@ public class XorLayer extends AbstractLayer {
     }
 
     /**
+     * encode Stream function which does the real thing.
+     *
+     * @param inputStream
+     *            incoming data
+     * @param outputStream
+     *            outgoing data
+     * @throws IOException
+     *             thrown on error
+     */
+    private final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        int iChar;
+        byte bChar;
+        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:18
+            bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:18
+            bChar = (byte) (bChar ^ this.bMask);
+            outputStream.write(bChar);
+        }
+        logger.info("close pipe");
+        outputStream.close();
+    }
+
+    /**
      * encode Stream function.
      *
      * @param inputStream
@@ -50,15 +72,7 @@ public class XorLayer extends AbstractLayer {
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        int iChar;
-        byte bChar;
-        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:18
-            bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:18
-            bChar = (byte) (bChar ^ this.bMask);
-            outputStream.write(bChar);
-        }
-        logger.info("close pipe");
-        outputStream.close();
+        encodeAndDecode(inputStream, outputStream);
     }
 
     /**
@@ -73,15 +87,7 @@ public class XorLayer extends AbstractLayer {
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        int iChar;
-        byte bChar;
-        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:18
-            bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:17
-            bChar = (byte) (bChar ^ this.bMask);
-            outputStream.write(bChar);
-        }
-        logger.info("close pipe");
-        outputStream.close();
+        encodeAndDecode(inputStream, outputStream);
     }
 
     /**

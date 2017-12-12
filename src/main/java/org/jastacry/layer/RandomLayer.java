@@ -63,8 +63,8 @@ public class RandomLayer extends AbstractLayer {
         }
         logger.info("close pipe");
         outputStream.close();
-
     }
+
     /**
      * encode Stream function.
      *
