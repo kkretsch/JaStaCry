@@ -153,79 +153,80 @@ public class Worker {
                         LOGGER.debug("skip comment line '{}'", strLine);
                     } // if
                     continue;
-                }
-
-                String sLayer;
-                String sParams;
-
-                final String[] toks = strLine.split("\\s+");
-                // no parameter?
-                if (1 == toks.length) {
-                    sLayer = strLine;
-                    sParams = "";
                 } else {
-                    sLayer = toks[0];
-                    sParams = toks[1];
-                    if (isVerbose && LOGGER.isDebugEnabled()) {
-                        LOGGER.debug("read config, layer={}, params={}", sLayer, sParams);
-                    } // if
 
-                    // Optional interactive password entry
-                    if (sParams.equalsIgnoreCase(org.jastacry.GlobalData.MACRO_PASSWORD)) {
-                        final Console console = System.console();
-                        if (null == console) {
-                            LOGGER.error("No interactive console available for password entry!");
-                            return layers;
+                    String sLayer;
+                    String sParams;
+
+                    final String[] toks = strLine.split("\\s+");
+                    // no parameter?
+                    if (1 == toks.length) {
+                        sLayer = strLine;
+                        sParams = "";
+                    } else {
+                        sLayer = toks[0];
+                        sParams = toks[1];
+                        if (isVerbose && LOGGER.isDebugEnabled()) {
+                            LOGGER.debug("read config, layer={}, params={}", sLayer, sParams);
+                        } // if
+
+                        // Optional interactive password entry
+                        if (sParams.equalsIgnoreCase(org.jastacry.GlobalData.MACRO_PASSWORD)) {
+                            final Console console = System.console();
+                            if (null == console) {
+                                LOGGER.error("No interactive console available for password entry!");
+                                return layers;
+                            }
+                            final char[] password = console.readPassword("Layer " + sLayer + " Password: ");
+                            sParams = new String(password);
                         }
-                        final char[] password = console.readPassword("Layer " + sLayer + " Password: ");
-                        sParams = new String(password);
                     }
-                }
 
-                switch (sLayer.toLowerCase(Locale.getDefault())) {
-                    case "transparent":
-                        layer = new TransparentLayer();
-                        break;
-                    case "xor":
-                        layer = new XorLayer();
-                        break;
-                    case "rotate":
-                        layer = new RotateLayer();
-                        break;
-                    case "random":
-                        layer = new RandomLayer();
-                        break;
-                    case "filemerge":
-                        layer = new FilemergeLayer();
-                        break;
-                    case "md5des":
-                        layer = new Md5DesLayer();
-                        break;
-                    case "aes":
-                        layer = new AesLayer();
-                        break;
-                    default:
-                        LOGGER.error("unknown layer '{}'", sLayer);
-                        continue;
-                } // switch
+                    switch (sLayer.toLowerCase(Locale.getDefault())) {
+                        case "transparent":
+                            layer = new TransparentLayer();
+                            break;
+                        case "xor":
+                            layer = new XorLayer();
+                            break;
+                        case "rotate":
+                            layer = new RotateLayer();
+                            break;
+                        case "random":
+                            layer = new RandomLayer();
+                            break;
+                        case "filemerge":
+                            layer = new FilemergeLayer();
+                            break;
+                        case "md5des":
+                            layer = new Md5DesLayer();
+                            break;
+                        case "aes":
+                            layer = new AesLayer();
+                            break;
+                        default:
+                            LOGGER.error("unknown layer '{}'", sLayer);
+                            continue;
+                    } // switch
 
-                if (isVerbose && LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("adding layer {}", sLayer);
-                }
+                    if (isVerbose && LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("adding layer {}", sLayer);
+                    }
 
-                layer.init(sParams);
-                switch (action) {
-                    case org.jastacry.GlobalData.ENCODE:
-                        layers.add(layer);
-                        break;
-                    case org.jastacry.GlobalData.DECODE: // reverse order
-                        layers.add(0, layer);
-                        break;
-                    default:
-                        LOGGER.error("unkown action {}", action);
-                        break;
-                } // switch
-            }
+                    layer.init(sParams);
+                    switch (action) {
+                        case org.jastacry.GlobalData.ENCODE:
+                            layers.add(layer);
+                            break;
+                        case org.jastacry.GlobalData.DECODE: // reverse order
+                            layers.add(0, layer);
+                            break;
+                        default:
+                            LOGGER.error("unkown action {}", action);
+                            break;
+                    } // switch
+                } // if comment
+            } // while
 
         } catch (final IOException e) {
             LOGGER.catching(e);
