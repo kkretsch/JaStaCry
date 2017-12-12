@@ -51,12 +51,12 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
     /**
      * SecretKeySpec.
      */
-    protected transient SecretKeySpec pbeSecretKeySpec;
+    protected SecretKeySpec pbeSecretKeySpec;
 
     /**
      * ALG for the data.
      */
-    protected transient String sALG;
+    protected String sALG;
 
     /**
      * Algorithm for the key.
@@ -81,22 +81,22 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
     /**
      * IV length.
      */
-    protected transient int iIVLen;
+    protected int iIVLen;
 
     /**
      * IV bytes.
      */
-    protected transient byte[] ivBytes;
+    protected byte[] ivBytes;
 
     /**
      * Salt length.
      */
-    protected transient int iSaltLen;
+    protected int iSaltLen;
 
     /**
      * salt.
      */
-    protected transient byte[] salt;
+    protected byte[] salt;
 
     /**
      * Constructor of abstract class.

@@ -262,7 +262,7 @@ public class Worker {
     private void loopLayers(final List<AbstractLayer> layers, final InputStream input, final OutputStream output)
             throws IOException {
         AbstractLayer l = null;
-        final List<AbstractThread> threads = new ArrayList<AbstractThread>();
+        final List<AbstractThread> threads = new ArrayList<>();
         PipedOutputStream prevOutput = null;
 
         // Handle file input
