@@ -135,7 +135,7 @@ public class Worker {
      * @return List of abstract layer objects
      */
     private List<AbstractLayer> createLayers() {
-        final List<AbstractLayer> layers = new ArrayList<AbstractLayer>();
+        final List<AbstractLayer> layers = new ArrayList<>();
 
         // try with resources
         try (FileInputStream fstream = new FileInputStream(confFilename);
