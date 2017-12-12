@@ -107,27 +107,19 @@ public class Worker {
             } // switch
         }
 
-        InputStream input = null;
         final File fileIn = new File(inputFilename);
-        OutputStream output = null;
         final File fileOut = new File(outputFilename);
 
         try {
-            input = new BufferedInputStream(new FileInputStream(fileIn));
-            output = new BufferedOutputStream(new FileOutputStream(fileOut));
-            loopLayers(layers, input, output);
+            try (InputStream input = new BufferedInputStream(new FileInputStream(fileIn));
+                    OutputStream output = new BufferedOutputStream(new FileOutputStream(fileOut))) {
+                loopLayers(layers, input, output);
+            }
         } catch (final FileNotFoundException e) {
             LOGGER.catching(e);
             return org.jastacry.GlobalData.RC_ERROR;
         } catch (final IOException e) {
             LOGGER.catching(e);
-        } finally {
-            try {
-                output.close();
-                input.close();
-            } catch (IOException e) {
-                LOGGER.catching(e);
-            }
         }
 
         if (isVerbose) {
