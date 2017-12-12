@@ -330,8 +330,9 @@ public class Worker {
         for (int i = 0; i < threads.size(); i++) {
             try {
                 threads.get(i).join();
-            } catch (final InterruptedException exception) {
-                exception.printStackTrace();
+            } catch (final InterruptedException e) {
+                LOGGER.catching(e);
+                Thread.currentThread().interrupt();
             }
         }
 

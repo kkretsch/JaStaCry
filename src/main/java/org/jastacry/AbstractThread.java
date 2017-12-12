@@ -29,6 +29,12 @@ public abstract class AbstractThread extends Thread {
     protected OutputStream outputStream = null;
 
     /**
+     * main run method.
+     */
+    @Override
+    public abstract void run();
+
+    /**
      * get Stream for next or previous thread.
      *
      * @return the stream
