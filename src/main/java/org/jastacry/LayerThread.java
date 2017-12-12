@@ -16,12 +16,12 @@ public class LayerThread extends AbstractThread {
     /**
      * Layer to work with.
      */
-    private final transient AbstractLayer layer;
+    private final AbstractLayer layer;
 
     /**
      * Action for encoding or decoding direction.
      */
-    private final transient int action;
+    private final int action;
 
     /**
      * Constructor of layers thread.

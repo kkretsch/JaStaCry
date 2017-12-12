@@ -20,7 +20,7 @@ public class RandomLayer extends AbstractLayer {
     /**
      * Random number generator.
      */
-    private final transient java.util.Random rand = new java.util.Random();
+    private final java.util.Random rand = new java.util.Random();
 
     /**
      * Constructor of XorLayer.

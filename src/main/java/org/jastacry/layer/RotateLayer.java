@@ -29,7 +29,7 @@ public class RotateLayer extends AbstractLayer {
     /**
      * private range to rate.
      */
-    private transient int iOffset;
+    private int iOffset;
 
     /**
      * Constructor of XorLayer.

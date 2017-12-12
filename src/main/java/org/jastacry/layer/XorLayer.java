@@ -18,7 +18,7 @@ public class XorLayer extends AbstractLayer {
     /**
      * private byte mask to xor with.
      */
-    private transient byte bMask;
+    private byte bMask;
 
     /**
      * Constructor of XorLayer.
