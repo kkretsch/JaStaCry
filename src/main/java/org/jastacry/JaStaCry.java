@@ -199,7 +199,6 @@ public final class JaStaCry {
         option = Option.builder(P_SHORT_DECODE).required(false).longOpt(P_LONG_DECODE).desc("decode input stream")
                 .build();
         ogAction.addOption(option);
-        // ogAction.setRequired(true);
         options.addOptionGroup(ogAction);
 
         // potential mandatory parameters
@@ -271,8 +270,7 @@ public final class JaStaCry {
         } // if
 
         /*
-         * TODO should have been solved by commons-cli
-         * required attribute, which collides to help parameter
+         * should have been solved by commons-cli required attribute, which collides to help parameter
          */
         if (0 == action) {
             LOGGER.debug("action required");
