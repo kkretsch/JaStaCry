@@ -175,7 +175,7 @@ public class Worker {
                         final Console console = System.console();
                         if (null == console) {
                             LOGGER.error("No interactive console available for password entry!");
-                            return null;
+                            return layers;
                         }
                         final char[] password = console.readPassword("Layer " + sLayer + " Password: ");
                         sParams = new String(password);
@@ -227,8 +227,6 @@ public class Worker {
                 } // switch
             }
 
-        } catch (final FileNotFoundException e) {
-            LOGGER.catching(e);
         } catch (final IOException e) {
             LOGGER.catching(e);
         }
@@ -246,8 +244,7 @@ public class Worker {
      * @return text name
      */
     private String makeThreadname(final int iNumber, final AbstractLayer layer) {
-        final String sTmp = Integer.toString(iNumber) + " " + layer.toString();
-        return sTmp;
+        return Integer.toString(iNumber) + " " + layer.toString();
     }
 
     /**
@@ -326,7 +323,7 @@ public class Worker {
             } // if
             threads.get(i).start();
         }
-        // TODO wait for all threads
+        // wait for all threads
         for (int i = 0; i < threads.size(); i++) {
             try {
                 threads.get(i).join();
