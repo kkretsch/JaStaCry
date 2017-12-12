@@ -53,8 +53,11 @@ public class RotateLayer extends AbstractLayer {
      * encode Stream function.
      *
      * @param inputStream
+     *            incoming data
      * @param outputStream
+     *            outgoing data
      * @throws IOException
+     *             thrown on error
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
@@ -72,8 +75,11 @@ public class RotateLayer extends AbstractLayer {
      * decode Stream function.
      *
      * @param inputStream
+     *            incoming data
      * @param outputStream
+     *            outgoging data
      * @throws IOException
+     *             thrown on error
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {

@@ -40,8 +40,11 @@ public class EncodeDecodeLayer extends AbstractLayer {
      * encode Stream function.
      *
      * @param inputStream
+     *            incoming data
      * @param outputStream
+     *            outgoing data
      * @throws IOException
+     *             thrown on error
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
@@ -59,14 +62,18 @@ public class EncodeDecodeLayer extends AbstractLayer {
      * decode Stream function.
      *
      * @param inputStream
+     *            incoming data
      * @param outputStream
+     *            outgoing data
      * @throws IOException
+     *             thrown on error
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         InputStream isDecoded = null; // NOPMD by kai on 21.11.17 17:26
         try {
-            isDecoded = javax.mail.internet.MimeUtility.decode(inputStream, "uuencode"); // NOPMD by kai on 21.11.17 17:26
+            isDecoded = javax.mail.internet.MimeUtility.decode(inputStream, "uuencode"); // NOPMD by kai on 21.11.17
+                                                                                         // 17:26
         } catch (final MessagingException e) {
             logger.catching(e);
             throw new IOException(e.getLocalizedMessage()); // NOPMD by kai on 21.11.17 17:26

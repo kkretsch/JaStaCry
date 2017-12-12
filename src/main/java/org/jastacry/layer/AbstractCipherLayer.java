@@ -137,8 +137,11 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
      * encode Stream function.
      *
      * @param inputStream
+     *            incoming data
      * @param outputStream
+     *            outgoing data
      * @throws IOException
+     *             thrown on error
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
@@ -192,8 +195,11 @@ public abstract class AbstractCipherLayer extends AbstractLayer {
      * decode Stream function.
      *
      * @param inputStream
+     *            incoming data
      * @param outputStream
+     *            outgoing data
      * @throws IOException
+     *             thrown on error
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {

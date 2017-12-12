@@ -23,7 +23,7 @@ public class RandomLayer extends AbstractLayer {
     private final java.util.Random rand = new java.util.Random();
 
     /**
-     * Constructor of XorLayer.
+     * Constructor of RandomLayer.
      */
     public RandomLayer() {
         super(RandomLayer.class);
@@ -45,8 +45,11 @@ public class RandomLayer extends AbstractLayer {
      * encode Stream function.
      *
      * @param inputStream
+     *            incoming data
      * @param outputStream
+     *            outgoing data
      * @throws IOException
+     *             thrown on error
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
@@ -67,8 +70,11 @@ public class RandomLayer extends AbstractLayer {
      * decode Stream function.
      *
      * @param inputStream
+     *            incoming data
      * @param outputStream
+     *            outgoing data
      * @throws IOException
+     *             thrown on error
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
