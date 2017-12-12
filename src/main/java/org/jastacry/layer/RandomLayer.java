@@ -42,6 +42,30 @@ public class RandomLayer extends AbstractLayer {
     }
 
     /**
+     * encode Stream function which does the real thing.
+     *
+     * @param inputStream
+     *            incoming data
+     * @param outputStream
+     *            outgoing data
+     * @throws IOException
+     *             thrown on error
+     */
+    private final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        int iChar;
+        byte bChar;
+        final byte[] bRand = new byte[1];
+        while ((iChar = inputStream.read()) != -1) {
+            bChar = (byte) iChar;
+            this.rand.nextBytes(bRand);
+            bChar = (byte) (bChar ^ bRand[0]);
+            outputStream.write(bChar);
+        }
+        logger.info("close pipe");
+        outputStream.close();
+
+    }
+    /**
      * encode Stream function.
      *
      * @param inputStream
@@ -53,17 +77,7 @@ public class RandomLayer extends AbstractLayer {
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        int iChar;
-        byte bChar;
-        final byte[] bRand = new byte[1]; // NOPMD by kai on 21.11.17 17:22
-        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:22
-            bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:21
-            this.rand.nextBytes(bRand);
-            bChar = (byte) (bChar ^ bRand[0]);
-            outputStream.write(bChar);
-        }
-        logger.info("close pipe");
-        outputStream.close();
+        encodeAndDecode(inputStream, outputStream);
     }
 
     /**
@@ -78,17 +92,7 @@ public class RandomLayer extends AbstractLayer {
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        int iChar;
-        byte bChar;
-        final byte[] bRand = new byte[1]; // NOPMD by kai on 21.11.17 17:22
-        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:22
-            bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:22
-            this.rand.nextBytes(bRand);
-            bChar = (byte) (bChar ^ bRand[0]);
-            outputStream.write(bChar);
-        }
-        logger.info("close pipe");
-        outputStream.close();
+        encodeAndDecode(inputStream, outputStream);
     }
 
     /**
