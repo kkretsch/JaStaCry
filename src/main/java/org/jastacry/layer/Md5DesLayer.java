@@ -31,6 +31,11 @@ public class Md5DesLayer extends AbstractCipherLayer {
     private static final String MYKEYALG = "DESede";
 
     /**
+     * Used algorithm name for the hash.
+     */
+    private static final String MYHASHALG = "md5";
+
+    /**
      * IV length.
      */
     private static final int IVLEN = 8;
@@ -73,7 +78,7 @@ public class Md5DesLayer extends AbstractCipherLayer {
     @Override
     protected final void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException {
         logger.debug("in child setupPBE");
-        pbeKey = new SecretKeySpec(keyBytes, "DESede");
+        pbeKey = new SecretKeySpec(keyBytes, MYKEYALG);
         pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyALG);
     }
 
@@ -93,7 +98,7 @@ public class Md5DesLayer extends AbstractCipherLayer {
         this.iKeysize = KEYSIZE;
         this.cPasswd = data.toCharArray();
         try {
-            final MessageDigest msgDigest = MessageDigest.getInstance("md5");
+            final MessageDigest msgDigest = MessageDigest.getInstance(MYHASHALG);
             final byte[] digestOfPassword = msgDigest.digest(data.getBytes(StandardCharsets.UTF_8));
             keyBytes = Arrays.copyOf(digestOfPassword, KEYSIZE);
         } catch (final NoSuchAlgorithmException e) {
