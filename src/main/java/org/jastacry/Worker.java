@@ -281,8 +281,8 @@ public class Worker {
             // Handle very first layer
             l = layers.get(0);
             GlobalFunctions.logDebug(isVerbose, LOGGER, "layer FIRST '{}'", l);
-            pipedInputStream = new PipedInputStream();
-            pipedOutputStream = new PipedOutputStream();
+            pipedInputStream = new PipedInputStream(); // NOSONAR
+            pipedOutputStream = new PipedOutputStream(); // NOSONAR
             pipedInputStream.connect(pipedOutputFromFile);
             prevOutput = pipedOutputStream;
             LayerThread thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(0, l));
