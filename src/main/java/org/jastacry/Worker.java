@@ -134,6 +134,7 @@ public class Worker {
      *
      * @return List of abstract layer objects
      */
+    @java.lang.SuppressWarnings("squid:S3776")
     private List<AbstractLayer> createLayers() {
         final List<AbstractLayer> layers = new ArrayList<>();
 
