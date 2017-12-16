@@ -336,25 +336,11 @@ public class Worker {
     } // function
 
     /**
-     * @return the doEncode
-     */
-    public final boolean isDoEncode() {
-        return doEncode;
-    }
-
-    /**
      * @param bStatus
      *            the doEncode to set
      */
     public final void setDoEncode(final boolean bStatus) {
         doEncode = bStatus;
-    }
-
-    /**
-     * @return the confFilename
-     */
-    public final String getConfFilename() {
-        return confFilename;
     }
 
     /**
@@ -366,25 +352,11 @@ public class Worker {
     }
 
     /**
-     * @return the inputFilename
-     */
-    public final String getInputFilename() {
-        return inputFilename;
-    }
-
-    /**
      * @param sFilename
      *            the inputFilename to set
      */
     public final void setInputFilename(final String sFilename) {
         inputFilename = sFilename;
-    }
-
-    /**
-     * @return the outputFilename
-     */
-    public final String getOutputFilename() {
-        return outputFilename;
     }
 
     /**
@@ -396,25 +368,11 @@ public class Worker {
     }
 
     /**
-     * @return the isVerbose
-     */
-    public final boolean isVerbose() {
-        return isVerbose;
-    }
-
-    /**
      * @param bStatus
      *            the isVerbose to set
      */
     public final void setVerbose(final boolean bStatus) {
         isVerbose = bStatus;
-    }
-
-    /**
-     * @return the action
-     */
-    public final int getAction() {
-        return action;
     }
 
     /**
