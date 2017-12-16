@@ -2,6 +2,8 @@ package org.jastacry;
 
 import org.apache.logging.log4j.Logger;
 
+import net.sourceforge.cobertura.CoverageIgnore;
+
 /**
  * Global static functions are stored here.
  *
@@ -13,21 +15,29 @@ public class GlobalFunctions {
 
     /**
      * Log debugging only if switched on via command line and log4j
-     * 
+     *
      * @param isVerbose
      *            boolean
-     * @param LOGGER
+     * @param logger
      *            log4j Logger object
      * @param sFormat
      *            Formatting string
      * @param arguments
      *            variable arguments
      */
-    public static final void logDebug(final boolean isVerbose, final Logger LOGGER, final String sFormat,
+    public static final void logDebug(final boolean isVerbose, final Logger logger, final String sFormat,
             final Object... arguments) {
-        if (isVerbose && LOGGER.isDebugEnabled()) {
-            LOGGER.debug(sFormat, arguments);
+        if (isVerbose && logger.isDebugEnabled()) {
+            logger.debug(sFormat, arguments);
         } // if
     } // function
+
+    /**
+     * Hidden constructor.
+     */
+    @CoverageIgnore
+    private GlobalFunctions() {
+        // not called
+    }
 
 } // class
