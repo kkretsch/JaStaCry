@@ -263,6 +263,7 @@ public class Worker {
      * @throws IOException
      *             in case of error
      */
+    @java.lang.SuppressWarnings("squid:S2093")
     private void loopLayers(final List<AbstractLayer> layers, final InputStream input, final OutputStream output) {
         AbstractLayer l = null;
         final List<AbstractThread> threads = new ArrayList<>();
