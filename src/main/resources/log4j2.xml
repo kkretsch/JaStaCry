@@ -12,7 +12,7 @@
 	</Appenders>
 	<Loggers>
 		<Root level="ALL">
-			<AppenderRef ref="ConsoleLog" level="INFO" />
+			<AppenderRef ref="ConsoleLog" level="DEBUG" />
 		</Root>
 		<Logger additivity="FALSE" level="ALL" name="org.jastacry">
 			<AppenderRef level="INFO" ref="ConsoleLog" />
