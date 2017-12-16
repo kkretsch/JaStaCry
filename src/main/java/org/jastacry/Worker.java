@@ -254,71 +254,95 @@ public class Worker {
      * @throws IOException
      *             in case of error
      */
-    private void loopLayers(final List<AbstractLayer> layers, final InputStream input, final OutputStream output)
-            throws IOException {
+    private void loopLayers(final List<AbstractLayer> layers, final InputStream input, final OutputStream output) {
         AbstractLayer l = null;
         final List<AbstractThread> threads = new ArrayList<>();
         PipedOutputStream prevOutput = null;
+        PipedOutputStream pipedOutputFromFile = null;
+        PipedInputStream pipedInputStream = null;
+        PipedOutputStream pipedOutputStream = null;
+        PipedInputStream pipedInputStreamToFile = null;
 
-        // Handle file input
-        final PipedOutputStream pipedOutputFromFile = new PipedOutputStream();
-        final ReaderThread readerThread = new ReaderThread(input, pipedOutputFromFile);
-        threads.add(readerThread);
+        try {
+            // Handle file input
+            pipedOutputFromFile = new PipedOutputStream();
+            final ReaderThread readerThread = new ReaderThread(input, pipedOutputFromFile);
+            threads.add(readerThread);
 
-        // Handle very first layer
-        l = layers.get(0);
-        GlobalFunctions.logDebug(isVerbose, LOGGER, "layer FIRST '{}'", l);
-        PipedInputStream pipedInputStream = new PipedInputStream();
-        PipedOutputStream pipedOutputStream = new PipedOutputStream();
-        pipedInputStream.connect(pipedOutputFromFile);
-        prevOutput = pipedOutputStream;
-        LayerThread thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(0, l));
-        threads.add(thread);
+            // Handle very first layer
+            l = layers.get(0);
+            GlobalFunctions.logDebug(isVerbose, LOGGER, "layer FIRST '{}'", l);
+            pipedInputStream = new PipedInputStream();
+            pipedOutputStream = new PipedOutputStream();
+            pipedInputStream.connect(pipedOutputFromFile);
+            prevOutput = pipedOutputStream;
+            LayerThread thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(0, l));
+            threads.add(thread);
 
-        // only inner layers are looped through
-        for (int i = 1; i < layers.size() - 1; i++) {
-            l = layers.get(i);
+            // only inner layers are looped through
+            for (int i = 1; i < layers.size() - 1; i++) {
+                l = layers.get(i);
 
-            GlobalFunctions.logDebug(isVerbose, LOGGER, "layer {} '{}'", i, l);
+                GlobalFunctions.logDebug(isVerbose, LOGGER, "layer {} '{}'", i, l);
+
+                pipedInputStream = new PipedInputStream();
+                pipedOutputStream = new PipedOutputStream();
+                pipedInputStream.connect(prevOutput);
+                prevOutput = pipedOutputStream;
+                thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(i, l));
+                threads.add(thread);
+            } // for
+
+            // Handle last layer
+            l = layers.get(layers.size() - 1);
+
+            GlobalFunctions.logDebug(isVerbose, LOGGER, "layer LAST '{}'", l);
 
             pipedInputStream = new PipedInputStream();
             pipedOutputStream = new PipedOutputStream();
             pipedInputStream.connect(prevOutput);
             prevOutput = pipedOutputStream;
-            thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(i, l));
+            thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(threads.size(), l));
             threads.add(thread);
-        } // for
 
-        // Handle last layer
-        l = layers.get(layers.size() - 1);
+            // Handle file output
+            pipedInputStreamToFile = new PipedInputStream();
+            pipedInputStreamToFile.connect(prevOutput);
+            final WriterThread writerThread = new WriterThread(pipedInputStreamToFile, output);
+            threads.add(writerThread);
 
-        GlobalFunctions.logDebug(isVerbose, LOGGER, "layer LAST '{}'", l);
-
-        pipedInputStream = new PipedInputStream();
-        pipedOutputStream = new PipedOutputStream();
-        pipedInputStream.connect(prevOutput);
-        prevOutput = pipedOutputStream;
-        thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(threads.size(), l));
-        threads.add(thread);
-
-        // Handle file output
-        final PipedInputStream pipedInputStreamToFile = new PipedInputStream();
-        pipedInputStreamToFile.connect(prevOutput);
-        final WriterThread writerThread = new WriterThread(pipedInputStreamToFile, output);
-        threads.add(writerThread);
-
-        // Start all threads
-        for (int i = 0; i < threads.size(); i++) {
-            GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
-            threads.get(i).start();
-        }
-        // wait for all threads
-        for (int i = 0; i < threads.size(); i++) {
+            // Start all threads
+            for (int i = 0; i < threads.size(); i++) {
+                GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
+                threads.get(i).start();
+            }
+            // wait for all threads
+            for (int i = 0; i < threads.size(); i++) {
+                try {
+                    threads.get(i).join();
+                } catch (final InterruptedException e) {
+                    LOGGER.catching(e);
+                    Thread.currentThread().interrupt();
+                }
+            } // for
+        } catch (final IOException e) {
+            LOGGER.catching(e);
+        } finally {
             try {
-                threads.get(i).join();
-            } catch (final InterruptedException e) {
+                if (null != pipedOutputFromFile) {
+                    pipedOutputFromFile.close();
+                } // if
+                if (null != pipedInputStream) {
+                    pipedInputStream.close();
+                } // if
+                if (null != pipedOutputStream) {
+                    pipedOutputStream.close();
+                } // if
+                if (null != pipedInputStreamToFile) {
+                    pipedInputStreamToFile.close();
+                } // if
+            } catch (final IOException e) {
                 LOGGER.catching(e);
-                Thread.currentThread().interrupt();
             }
         }
 
