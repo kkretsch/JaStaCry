@@ -149,9 +149,7 @@ public class Worker {
             while ((strLine = br.readLine()) != null) {
                 strLine = strLine.trim();
                 if (';' == strLine.charAt(0)) {
-                    if (isVerbose) {
-                        LOGGER.debug("skip comment line '{}'", strLine);
-                    } // if
+                    GlobalFunctions.logDebug(isVerbose, LOGGER, "skip comment line '{}'", strLine);
                 } else {
 
                     String sLayer;
@@ -165,9 +163,8 @@ public class Worker {
                     } else {
                         sLayer = toks[0];
                         sParams = toks[1];
-                        if (isVerbose && LOGGER.isDebugEnabled()) {
-                            LOGGER.debug("read config, layer={}, params={}", sLayer, sParams);
-                        } // if
+                        GlobalFunctions.logDebug(isVerbose, LOGGER, "read config, layer={}, params={}", sLayer,
+                                sParams);
 
                         // Optional interactive password entry
                         if (sParams.equalsIgnoreCase(org.jastacry.GlobalData.MACRO_PASSWORD)) {
@@ -208,9 +205,7 @@ public class Worker {
                             continue;
                     } // switch
 
-                    if (isVerbose && LOGGER.isDebugEnabled()) {
-                        LOGGER.debug("adding layer {}", sLayer);
-                    }
+                    GlobalFunctions.logDebug(isVerbose, LOGGER, "adding layer {}", sLayer);
 
                     layer.init(sParams);
                     switch (action) {
@@ -272,9 +267,7 @@ public class Worker {
 
         // Handle very first layer
         l = layers.get(0);
-        if (isVerbose && LOGGER.isDebugEnabled()) {
-            LOGGER.debug("layer FIRST '{}'", l);
-        } // if
+        GlobalFunctions.logDebug(isVerbose, LOGGER, "layer FIRST '{}'", l);
         PipedInputStream pipedInputStream = new PipedInputStream();
         PipedOutputStream pipedOutputStream = new PipedOutputStream();
         pipedInputStream.connect(pipedOutputFromFile);
@@ -286,9 +279,7 @@ public class Worker {
         for (int i = 1; i < layers.size() - 1; i++) {
             l = layers.get(i);
 
-            if (isVerbose && LOGGER.isDebugEnabled()) {
-                LOGGER.debug("layer {} '{}'", i, l);
-            } // if
+            GlobalFunctions.logDebug(isVerbose, LOGGER, "layer {} '{}'", i, l);
 
             pipedInputStream = new PipedInputStream();
             pipedOutputStream = new PipedOutputStream();
@@ -300,9 +291,9 @@ public class Worker {
 
         // Handle last layer
         l = layers.get(layers.size() - 1);
-        if (isVerbose && LOGGER.isDebugEnabled()) {
-            LOGGER.debug("layer LAST '{}'", l);
-        } // if
+
+        GlobalFunctions.logDebug(isVerbose, LOGGER, "layer LAST '{}'", l);
+
         pipedInputStream = new PipedInputStream();
         pipedOutputStream = new PipedOutputStream();
         pipedInputStream.connect(prevOutput);
@@ -318,9 +309,7 @@ public class Worker {
 
         // Start all threads
         for (int i = 0; i < threads.size(); i++) {
-            if (isVerbose && LOGGER.isDebugEnabled()) {
-                LOGGER.debug("start thread {}", i);
-            } // if
+            GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
             threads.get(i).start();
         }
         // wait for all threads
