@@ -178,33 +178,10 @@ public class Worker {
                         }
                     }
 
-                    switch (sLayer.toLowerCase(Locale.getDefault())) {
-                        case "transparent":
-                            layer = new TransparentLayer();
-                            break;
-                        case "xor":
-                            layer = new XorLayer();
-                            break;
-                        case "rotate":
-                            layer = new RotateLayer();
-                            break;
-                        case "random":
-                            layer = new RandomLayer();
-                            break;
-                        case "filemerge":
-                            layer = new FilemergeLayer();
-                            break;
-                        case "md5des":
-                            layer = new Md5DesLayer();
-                            break;
-                        case "aes":
-                            layer = new AesLayer();
-                            break;
-                        default:
-                            LOGGER.error("unknown layer '{}'", sLayer);
-                            continue;
-                    } // switch
-
+                    layer = createLayer(sLayer);
+                    if (null == layer) {
+                        continue;
+                    }
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "adding layer {}", sLayer);
 
                     layer.init(sParams);
@@ -228,6 +205,38 @@ public class Worker {
 
         return layers;
     }
+
+    private final AbstractLayer createLayer(final String sName) {
+        AbstractLayer layer = null;
+
+        switch (sName.toLowerCase(Locale.getDefault())) {
+            case "transparent":
+                layer = new TransparentLayer();
+                break;
+            case "xor":
+                layer = new XorLayer();
+                break;
+            case "rotate":
+                layer = new RotateLayer();
+                break;
+            case "random":
+                layer = new RandomLayer();
+                break;
+            case "filemerge":
+                layer = new FilemergeLayer();
+                break;
+            case "md5des":
+                layer = new Md5DesLayer();
+                break;
+            case "aes":
+                layer = new AesLayer();
+                break;
+            default:
+                LOGGER.error("unknown layer '{}'", sName);
+        } // switch
+
+        return layer;
+    } // function
 
     /**
      * make nice name.
@@ -316,15 +325,9 @@ public class Worker {
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
                 threads.get(i).start();
             }
+
             // wait for all threads
-            for (int i = 0; i < threads.size(); i++) {
-                try {
-                    threads.get(i).join();
-                } catch (final InterruptedException e) {
-                    LOGGER.catching(e);
-                    Thread.currentThread().interrupt();
-                }
-            } // for
+            waitThreads(threads);
         } catch (final IOException e) {
             LOGGER.catching(e);
         } finally {
@@ -345,6 +348,18 @@ public class Worker {
                 LOGGER.catching(e);
             }
         }
+
+    } // function
+
+    private void waitThreads(final List<AbstractThread> threads) {
+        for (int i = 0; i < threads.size(); i++) {
+            try {
+                threads.get(i).join();
+            } catch (final InterruptedException e) {
+                LOGGER.catching(e);
+                Thread.currentThread().interrupt();
+            }
+        } // for
 
     } // function
 
