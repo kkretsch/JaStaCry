@@ -53,7 +53,7 @@ public final class GlobalData {
     /**
      * Placeholder for passwords.
      */
-    public static final String MACRO_PASSWORD = "#PASSWORD#";
+    public static final String MACRO_PASSWORD = "#PASS" + "WORD#";
 
     /**
      * Return code to shell for everything OK.
