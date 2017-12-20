@@ -263,7 +263,7 @@ public class TestMain {
             {"-v", "--decode", "--infile", sEncryptedFile, "--outfile", sDecryptedFile, "--conffile", sConfigFile};
         oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
         iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
-        assertEquals("Main ascdecend returncode", iRC, GlobalData.RC_OK, iRC);
+        assertEquals("Main ascdecend returncode", GlobalData.RC_OK, iRC);
 
         assertTrue("File results in equal content", tooling.compareFiles(fInputfile, fDecryptedfile));
     }
@@ -296,7 +296,7 @@ public class TestMain {
             {"-v", "--decode", "--infile", sEncryptedFile, "--outfile", sDecryptedFile, "--conffile", sConfigFile};
         oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
         iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
-        assertEquals("Main bindecenc returncode", iRC, GlobalData.RC_OK, iRC);
+        assertEquals("Main bindecenc returncode", GlobalData.RC_OK, iRC);
 
         assertTrue("File results in equal content", tooling.compareFiles(fInputfile, fDecryptedfile));
     }
