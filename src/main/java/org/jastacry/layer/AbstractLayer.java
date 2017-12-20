@@ -52,12 +52,12 @@ public abstract class AbstractLayer {
      */
     public abstract void decStream(InputStream inputStream, OutputStream outputStream) throws IOException;
 
-    @Override
     /**
      * Show a human readable name of the layer
      *
      * @return a human readable name of the layer
      * @see java.lang.Object#toString()
      */
+    @Override
     public abstract String toString();
 }
