@@ -41,6 +41,21 @@ public class ReverseLayer extends AbstractLayer {
      */
     @Override
     public final void init(final String data) {
+        // not used
+    }
+
+    private final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
+            throws IOException {
+        int iChar;
+        while ((iChar = inputStream.read()) != -1) {
+            iChar = rangeCheck(iChar);
+            iChar = Integer.reverse(iChar);
+            iChar >>= 24;
+            iChar &= 0x000000FF;
+            outputStream.write(iChar);
+        }
+        logger.info("close pipe");
+        outputStream.close();
     }
 
     /**
@@ -55,16 +70,7 @@ public class ReverseLayer extends AbstractLayer {
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        int iChar;
-        while ((iChar = inputStream.read()) != -1) {
-            iChar = rangeCheck(iChar);
-            iChar = Integer.reverse(iChar);
-            iChar >>= 24;
-            iChar &= 0x000000FF;
-            outputStream.write(iChar);
-        }
-        logger.info("close pipe");
-        outputStream.close();
+        encodeAndDecode(inputStream, outputStream);
     }
 
     /**
@@ -79,16 +85,7 @@ public class ReverseLayer extends AbstractLayer {
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        int iChar;
-        while ((iChar = inputStream.read()) != -1) {
-            iChar = rangeCheck(iChar);
-            iChar = Integer.reverse(iChar);
-            iChar >>= 24;
-            iChar &= 0x000000FF;
-            outputStream.write(iChar);
-        }
-        logger.info("close pipe");
-        outputStream.close();
+        encodeAndDecode(inputStream, outputStream);
     }
 
     /**
