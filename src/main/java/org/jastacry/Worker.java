@@ -96,9 +96,11 @@ public class Worker {
             final AbstractLayer layerEncode = new EncodeDecodeLayer();
             switch (action) {
                 case org.jastacry.GlobalData.ENCODE:
+                    GlobalFunctions.logDebug(isVerbose, LOGGER, "add text encoding to end");
                     layers.add(layerEncode);
                     break;
                 case org.jastacry.GlobalData.DECODE: // reverse order
+                    GlobalFunctions.logDebug(isVerbose, LOGGER, "add text encoding to beginning");
                     layers.add(0, layerEncode);
                     break;
                 default:
