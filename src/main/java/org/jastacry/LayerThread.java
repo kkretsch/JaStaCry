@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
+import org.jastacry.GlobalData.Action;
 import org.jastacry.layer.AbstractLayer;
 
 /**
@@ -21,7 +22,7 @@ public class LayerThread extends AbstractThread {
     /**
      * Action for encoding or decoding direction.
      */
-    private final int action;
+    private final Action action;
 
     /**
      * Constructor of layers thread.
@@ -38,7 +39,7 @@ public class LayerThread extends AbstractThread {
      *            verbose name
      */
     public LayerThread(final PipedInputStream oInputStream, final PipedOutputStream oOutputStream,
-            final AbstractLayer oLayer, final int iAction, final String sName) {
+            final AbstractLayer oLayer, final Action iAction, final String sName) {
         super();
 
         this.inputStream = oInputStream;
@@ -56,12 +57,13 @@ public class LayerThread extends AbstractThread {
         LOGGER.info("started thread");
         try {
             switch (action) {
-                case org.jastacry.GlobalData.ENCODE:
+                case ENCODE:
                     layer.encStream(inputStream, outputStream);
                     break;
-                case org.jastacry.GlobalData.DECODE:
+                case DECODE:
                     layer.decStream(inputStream, outputStream);
                     break;
+                case UNKOWN:
                 default:
                     LOGGER.error("unknown action '{}'", action);
                     break;

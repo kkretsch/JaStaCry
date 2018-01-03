@@ -11,6 +11,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jastacry.GlobalData.Action;
 
 import net.sourceforge.cobertura.CoverageIgnore;
 
@@ -129,7 +130,7 @@ public final class JaStaCry {
     /**
      * action variable.
      */
-    private static int action;
+    private static Action action;
 
     /**
      * Hidden constructor.
@@ -259,20 +260,20 @@ public final class JaStaCry {
             LOGGER.info("JaStaCry starting");
         }
 
-        action = 0;
+        action = Action.UNKOWN;
 
         // is it called with all needed parameters?
         if (cmdLine.hasOption(P_SHORT_ENCODE) || cmdLine.hasOption(P_LONG_ENCODE)) {
-            action = org.jastacry.GlobalData.ENCODE;
+            action = Action.ENCODE;
         } // if
         if (cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE)) {
-            action = org.jastacry.GlobalData.DECODE;
+            action = Action.DECODE;
         } // if
 
         /*
          * should have been solved by commons-cli required attribute, which collides to help parameter
          */
-        if (0 == action) {
+        if (Action.UNKOWN == action) {
             LOGGER.debug("action required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);

@@ -21,6 +21,7 @@ import java.util.Locale;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jastacry.GlobalData.Action;
 import org.jastacry.layer.AbstractLayer;
 import org.jastacry.layer.AesLayer;
 import org.jastacry.layer.EncodeDecodeLayer;
@@ -72,7 +73,7 @@ public class Worker {
     /**
      * action variable.
      */
-    private int action;
+    private Action action;
 
     /**
      * Main method for running a command line interface.
@@ -96,14 +97,15 @@ public class Worker {
         if (doEncode) {
             final AbstractLayer layerEncode = new EncodeDecodeLayer();
             switch (action) {
-                case org.jastacry.GlobalData.ENCODE:
+                case ENCODE:
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "add text encoding to end");
                     layers.add(layerEncode);
                     break;
-                case org.jastacry.GlobalData.DECODE: // reverse order
+                case DECODE: // reverse order
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "add text encoding to beginning");
                     layers.add(0, layerEncode);
                     break;
+                case UNKOWN:
                 default:
                     LOGGER.error("unknown action '{}'", action);
                     break;
@@ -190,12 +192,13 @@ public class Worker {
 
                     layer.init(sParams);
                     switch (action) {
-                        case org.jastacry.GlobalData.ENCODE:
+                        case ENCODE:
                             layers.add(layer);
                             break;
-                        case org.jastacry.GlobalData.DECODE: // reverse order
+                        case DECODE: // reverse order
                             layers.add(0, layer);
                             break;
+                        case UNKOWN:
                         default:
                             LOGGER.error("unkown action {}", action);
                             break;
@@ -428,8 +431,8 @@ public class Worker {
      * @param iAction
      *            the action to set
      */
-    public final void setAction(final int iAction) {
-        action = iAction;
+    public final void setAction(final Action action) {
+        this.action = action;
     }
 
 }
