@@ -27,6 +27,7 @@ import org.jastacry.layer.EncodeDecodeLayer;
 import org.jastacry.layer.FilemergeLayer;
 import org.jastacry.layer.Md5DesLayer;
 import org.jastacry.layer.RandomLayer;
+import org.jastacry.layer.ReverseLayer;
 import org.jastacry.layer.RotateLayer;
 import org.jastacry.layer.TransparentLayer;
 import org.jastacry.layer.XorLayer;
@@ -221,6 +222,9 @@ public class Worker {
                 break;
             case "rotate":
                 layer = new RotateLayer();
+                break;
+            case "reverse":
+                layer = new ReverseLayer();
                 break;
             case "random":
                 layer = new RandomLayer();
