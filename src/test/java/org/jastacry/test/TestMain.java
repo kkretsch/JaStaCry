@@ -3,8 +3,7 @@
  */
 package org.jastacry.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -130,7 +129,7 @@ public class TestMain {
      */
     @Test
     public void testMainHelp() {
-        final String[] sArguments = {"-h"};
+        final String[] sArguments = { "-h" };
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main help returncode", GlobalData.RC_HELP, iRC);
     }
@@ -152,7 +151,7 @@ public class TestMain {
      */
     @Test
     public void testMainUnknownargs() {
-        final String[] sArguments = {"--unknown", "--arguments"};
+        final String[] sArguments = { "--unknown", "--arguments" };
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main unknown args returncode", GlobalData.RC_ERROR, iRC);
     }
@@ -163,11 +162,11 @@ public class TestMain {
      */
     @Test
     public void testMainMissingArgs() {
-        String sInputFile = "src/test/resources/" + INPUTFILE;
-        String sOutputFile = tmpFile.getAbsolutePath();
-        String sConfigFile = "src/test/resources/" + CONF1;
+        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sOutputFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = "src/test/resources/" + CONF1;
 
-        final String[] sArguments = {"--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        final String[] sArguments = { "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main missing args returncode", GlobalData.RC_ERROR, iRC);
@@ -179,11 +178,12 @@ public class TestMain {
      */
     @Test
     public void testMainEncode() {
-        String sInputFile = "src/test/resources/" + INPUTFILE;
-        String sOutputFile = encFile.getAbsolutePath();
-        String sConfigFile = "src/test/resources/" + CONF1;
+        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sOutputFile = encFile.getAbsolutePath();
+        final String sConfigFile = "src/test/resources/" + CONF1;
 
-        final String[] sArguments = {"-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        final String[] sArguments = { "-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
+                sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main encode returncode", 0, iRC);
@@ -195,11 +195,12 @@ public class TestMain {
      */
     @Test
     public void testMainDecode() {
-        String sInputFile = "src/test/resources/" + INPUTENCODED;
-        String sOutputFile = tmpFile.getAbsolutePath();
-        String sConfigFile = "src/test/resources/" + CONF1;
+        final String sInputFile = "src/test/resources/" + INPUTENCODED;
+        final String sOutputFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = "src/test/resources/" + CONF1;
 
-        final String[] sArguments = {"--decode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        final String[] sArguments = { "--decode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
+                sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main decode returncode", 0, iRC);
@@ -211,56 +212,92 @@ public class TestMain {
      */
     @Test
     public void testMainOnelayer() {
-        String sInputFile = "src/test/resources/" + INPUTFILE;
-        String sOutputFile = tmpFile.getAbsolutePath();
-        String sConfigFile = "src/test/resources/" + CONF2;
+        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sOutputFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = "src/test/resources/" + CONF2;
 
-        final String[] sArguments = {"--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        final String[] sArguments = { "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
+                sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main one layer returncode", GlobalData.RC_ERROR, iRC);
     }
 
     /**
-     * Test method one layer for Main function.
+     * Test method no layer for Main function.
      *
      */
     @Test
     public void testMainNolayer() {
-        String sInputFile = "src/test/resources/" + INPUTFILE;
-        String sOutputFile = tmpFile.getAbsolutePath();
-        String sConfigFile = "src/test/resources/" + CONF3;
+        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sOutputFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = "src/test/resources/" + CONF3;
 
-        final String[] sArguments = {"-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile};
+        final String[] sArguments = { "-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
+                sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main no layer returncode", GlobalData.RC_ERROR, iRC);
     }
 
     /**
-     * Test method one layer for Main function.
+     * Test method missing input file for Main function.
+     *
+     */
+    @Test
+    public void testMainMissingInputFile() {
+        final String sInputFile = "src/test/resources/NotExistingFile.txt";
+        final String sEncryptedFile = encFile.getAbsolutePath();
+        final String sConfigFile = "src/test/resources/" + CONF1;
+
+        final String[] sArgumentsEncrypt = { "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile,
+                "--conffile", sConfigFile };
+        oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
+        final int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
+        assertEquals("Main testMainMissingInputFile returncode", GlobalData.RC_ERROR, iRC);
+    }
+
+    /**
+     * Test method missing config file for Main function.
+     *
+     */
+    @Test
+    public void testMainMissingConfigFile() {
+        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sEncryptedFile = encFile.getAbsolutePath();
+        final String sConfigFile = "src/test/resources/NotExistingConfig.txt";
+
+        final String[] sArgumentsEncrypt = { "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile,
+                "--conffile", sConfigFile };
+        oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
+        final int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
+        assertEquals("Main testMainMissingConfigFile returncode", GlobalData.RC_ERROR, iRC);
+    }
+
+    /**
+     * Test method normal for Main function.
      *
      */
     @Test
     public void testMainEncDec() {
-        String sInputFile = "src/test/resources/" + INPUTFILE;
-        String sEncryptedFile = encFile.getAbsolutePath();
-        String sDecryptedFile = tmpFile.getAbsolutePath();
-        String sConfigFile = "src/test/resources/" + CONF1;
-        File fInputfile = new File(sInputFile);
-        File fEncryptedfile = new File(sEncryptedFile);
-        File fDecryptedfile = new File(sDecryptedFile);
+        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sEncryptedFile = encFile.getAbsolutePath();
+        final String sDecryptedFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = "src/test/resources/" + CONF1;
+        final File fInputfile = new File(sInputFile);
+        final File fEncryptedfile = new File(sEncryptedFile);
+        final File fDecryptedfile = new File(sDecryptedFile);
 
-        final String[] sArgumentsEncrypt =
-            {"--encode", "--infile", sInputFile, "--outfile", sEncryptedFile, "--conffile", sConfigFile};
+        final String[] sArgumentsEncrypt = { "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile,
+                "--conffile", sConfigFile };
         oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
         int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
         assertEquals("Main ascencdec returncode", GlobalData.RC_OK, iRC);
 
         assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
 
-        final String[] sArgumentsDecrypt =
-            {"-v", "--decode", "--infile", sEncryptedFile, "--outfile", sDecryptedFile, "--conffile", sConfigFile};
+        final String[] sArgumentsDecrypt = { "-v", "--decode", "--infile", sEncryptedFile, "--outfile", sDecryptedFile,
+                "--conffile", sConfigFile };
         oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
         iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
         assertEquals("Main ascdecend returncode", GlobalData.RC_OK, iRC);
@@ -276,24 +313,24 @@ public class TestMain {
     public void testMainBinaryEncDec() {
         tooling.createBinaryTestfile(binFile);
 
-        String sInputFile = binFile.getAbsolutePath();
-        String sEncryptedFile = encFile.getAbsolutePath();
-        String sDecryptedFile = tmpFile.getAbsolutePath();
-        String sConfigFile = "src/test/resources/" + CONF1;
-        File fInputfile = new File(sInputFile);
-        File fEncryptedfile = new File(sEncryptedFile);
-        File fDecryptedfile = new File(sDecryptedFile);
+        final String sInputFile = binFile.getAbsolutePath();
+        final String sEncryptedFile = encFile.getAbsolutePath();
+        final String sDecryptedFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = "src/test/resources/" + CONF1;
+        final File fInputfile = new File(sInputFile);
+        final File fEncryptedfile = new File(sEncryptedFile);
+        final File fDecryptedfile = new File(sDecryptedFile);
 
-        final String[] sArgumentsEncrypt =
-            {"-v", "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile, "--conffile", sConfigFile};
+        final String[] sArgumentsEncrypt = { "-v", "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile,
+                "--conffile", sConfigFile };
         oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
         int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
         assertEquals("Main binencdec returncode", GlobalData.RC_OK, iRC);
 
         assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
 
-        final String[] sArgumentsDecrypt =
-            {"-v", "--decode", "--infile", sEncryptedFile, "--outfile", sDecryptedFile, "--conffile", sConfigFile};
+        final String[] sArgumentsDecrypt = { "-v", "--decode", "--infile", sEncryptedFile, "--outfile", sDecryptedFile,
+                "--conffile", sConfigFile };
         oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
         iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
         assertEquals("Main bindecenc returncode", GlobalData.RC_OK, iRC);
