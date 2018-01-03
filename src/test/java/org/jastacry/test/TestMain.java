@@ -27,6 +27,11 @@ import org.junit.Test;
  */
 public class TestMain {
     /**
+     * Maven test resources path
+     */
+    private final static String RESOURCES = "src/test/resources/";
+
+    /**
      * log4j2 object.
      */
     private static Logger oLogger = null;
@@ -37,19 +42,29 @@ public class TestMain {
     private Tooling tooling;
 
     /**
-     * Test configuration file.
+     * Test configuration file, contains broad range of running layers. used for "OK" tests.
      */
     public static final String CONF1 = "conf1.cfg";
 
     /**
-     * Test configuration file.
+     * Test configuration file, contains unknown tag for tests.
      */
     public static final String CONF2 = "conf2.cfg";
 
     /**
-     * Test configuration file.
+     * Test configuration file, contains no layer at all.
      */
     public static final String CONF3 = "conf3.cfg";
+
+    /**
+     * Test configuration file, contains two layers.
+     */
+    public static final String CONF4 = "conf4.cfg";
+
+    /**
+     * Test configuration file, contains only one layers.
+     */
+    public static final String CONF5 = "conf5.cfg";
 
     /**
      * Test input text file.
@@ -162,9 +177,9 @@ public class TestMain {
      */
     @Test
     public void testMainMissingArgs() {
-        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = tmpFile.getAbsolutePath();
-        final String sConfigFile = "src/test/resources/" + CONF1;
+        final String sConfigFile = RESOURCES + CONF1;
 
         final String[] sArguments = { "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
@@ -178,9 +193,9 @@ public class TestMain {
      */
     @Test
     public void testMainEncode() {
-        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = encFile.getAbsolutePath();
-        final String sConfigFile = "src/test/resources/" + CONF1;
+        final String sConfigFile = RESOURCES + CONF1;
 
         final String[] sArguments = { "-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
                 sConfigFile };
@@ -195,9 +210,9 @@ public class TestMain {
      */
     @Test
     public void testMainDecode() {
-        final String sInputFile = "src/test/resources/" + INPUTENCODED;
+        final String sInputFile = RESOURCES + INPUTENCODED;
         final String sOutputFile = tmpFile.getAbsolutePath();
-        final String sConfigFile = "src/test/resources/" + CONF1;
+        final String sConfigFile = RESOURCES + CONF1;
 
         final String[] sArguments = { "--decode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
                 sConfigFile };
@@ -212,9 +227,9 @@ public class TestMain {
      */
     @Test
     public void testMainOnelayer() {
-        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = tmpFile.getAbsolutePath();
-        final String sConfigFile = "src/test/resources/" + CONF2;
+        final String sConfigFile = RESOURCES + CONF5;
 
         final String[] sArguments = { "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
                 sConfigFile };
@@ -224,14 +239,31 @@ public class TestMain {
     }
 
     /**
+     * Test method two layer for Main function.
+     *
+     */
+    @Test
+    public void testMainTwolayer() {
+        final String sInputFile = RESOURCES + INPUTFILE;
+        final String sOutputFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = RESOURCES + CONF4;
+
+        final String[] sArguments = { "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
+                sConfigFile };
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int iRC = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main two layer returncode", GlobalData.RC_OK, iRC);
+    }
+
+    /**
      * Test method no layer for Main function.
      *
      */
     @Test
     public void testMainNolayer() {
-        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = tmpFile.getAbsolutePath();
-        final String sConfigFile = "src/test/resources/" + CONF3;
+        final String sConfigFile = RESOURCES + CONF3;
 
         final String[] sArguments = { "-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
                 sConfigFile };
@@ -246,9 +278,9 @@ public class TestMain {
      */
     @Test
     public void testMainMissingInputFile() {
-        final String sInputFile = "src/test/resources/NotExistingFile.txt";
+        final String sInputFile = RESOURCES + "NotExistingFile.txt";
         final String sEncryptedFile = encFile.getAbsolutePath();
-        final String sConfigFile = "src/test/resources/" + CONF1;
+        final String sConfigFile = RESOURCES + CONF1;
 
         final String[] sArgumentsEncrypt = { "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile,
                 "--conffile", sConfigFile };
@@ -263,9 +295,9 @@ public class TestMain {
      */
     @Test
     public void testMainMissingConfigFile() {
-        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sInputFile = RESOURCES + INPUTFILE;
         final String sEncryptedFile = encFile.getAbsolutePath();
-        final String sConfigFile = "src/test/resources/NotExistingConfig.txt";
+        final String sConfigFile = RESOURCES + "NotExistingConfig.txt";
 
         final String[] sArgumentsEncrypt = { "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile,
                 "--conffile", sConfigFile };
@@ -280,10 +312,10 @@ public class TestMain {
      */
     @Test
     public void testMainEncDec() {
-        final String sInputFile = "src/test/resources/" + INPUTFILE;
+        final String sInputFile = RESOURCES + INPUTFILE;
         final String sEncryptedFile = encFile.getAbsolutePath();
         final String sDecryptedFile = tmpFile.getAbsolutePath();
-        final String sConfigFile = "src/test/resources/" + CONF1;
+        final String sConfigFile = RESOURCES + CONF1;
         final File fInputfile = new File(sInputFile);
         final File fEncryptedfile = new File(sEncryptedFile);
         final File fDecryptedfile = new File(sDecryptedFile);
@@ -316,7 +348,7 @@ public class TestMain {
         final String sInputFile = binFile.getAbsolutePath();
         final String sEncryptedFile = encFile.getAbsolutePath();
         final String sDecryptedFile = tmpFile.getAbsolutePath();
-        final String sConfigFile = "src/test/resources/" + CONF1;
+        final String sConfigFile = RESOURCES + CONF1;
         final File fInputfile = new File(sInputFile);
         final File fEncryptedfile = new File(sEncryptedFile);
         final File fDecryptedfile = new File(sDecryptedFile);
