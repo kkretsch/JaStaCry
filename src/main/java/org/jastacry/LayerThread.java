@@ -63,9 +63,10 @@ public class LayerThread extends AbstractThread {
                     layer.decStream(inputStream, outputStream);
                     break;
                 default:
-                    LOGGER.error("unknwon action '{}'", action);
+                    LOGGER.error("unknown action '{}'", action);
                     break;
             }
+            outputStream.close();
         } catch (final IOException exception) {
             LOGGER.catching(exception);
         }

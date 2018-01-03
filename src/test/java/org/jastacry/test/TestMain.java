@@ -368,7 +368,7 @@ public class TestMain {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sEncryptedFile = encFile.getAbsolutePath();
         final String sDecryptedFile = tmpFile.getAbsolutePath();
-        final String sConfigFile = RESOURCES + CONF1;
+        final String sConfigFile = RESOURCES + CONF4;
         final File fInputfile = new File(sInputFile);
         final File fEncryptedfile = new File(sEncryptedFile);
         final File fDecryptedfile = new File(sDecryptedFile);

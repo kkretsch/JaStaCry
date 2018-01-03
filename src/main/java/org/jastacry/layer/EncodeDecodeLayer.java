@@ -1,5 +1,6 @@
 package org.jastacry.layer;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -48,9 +49,10 @@ public class EncodeDecodeLayer extends AbstractLayer {
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         final Base64.Encoder encoder = Base64.getEncoder();
-        final OutputStream osEncoded = encoder.wrap(outputStream);
-        final int iCount = IOUtils.copy(inputStream, osEncoded);
-        osEncoded.close();
+        final byte[] bytes = IOUtils.toByteArray(inputStream);
+        final byte[] bytesEncoded = encoder.encode(bytes);
+        final ByteArrayInputStream in = new ByteArrayInputStream(bytesEncoded);
+        final int iCount = IOUtils.copy(in, outputStream);
         logger.debug("encStream copied {} bytes", iCount);
     }
 
