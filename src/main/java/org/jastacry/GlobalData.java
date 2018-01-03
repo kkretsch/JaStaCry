@@ -40,15 +40,9 @@ public final class GlobalData {
      */
     public static final String PARAM_DECODE = "decode";
 
-    /**
-     * ID for encoding.
-     */
-    public static final int ENCODE = 1;
-
-    /**
-     * ID for decoding.
-     */
-    public static final int DECODE = 2;
+    public enum Action {
+        UNKOWN, ENCODE, DECODE;
+    }
 
     /**
      * Placeholder for passwords.
