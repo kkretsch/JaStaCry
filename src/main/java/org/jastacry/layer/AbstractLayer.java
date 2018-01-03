@@ -41,7 +41,7 @@ public abstract class AbstractLayer {
 
     /**
      * Optional method for setting encryption or decryption parameters like keys or passwords.
-     * 
+     *
      * @param data
      *            a String containing everything the layer needs to know
      */
@@ -49,7 +49,7 @@ public abstract class AbstractLayer {
 
     /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
-     * 
+     *
      * @param inputStream
      *            existing and opened input stream
      * @param outputStream
@@ -61,7 +61,7 @@ public abstract class AbstractLayer {
 
     /**
      * Decodes an encrypted stream to either plain text or the next encoded layer.
-     * 
+     *
      * @param inputStream
      *            existing and opened input stream
      * @param outputStream
@@ -72,7 +72,7 @@ public abstract class AbstractLayer {
     public abstract void decStream(InputStream inputStream, OutputStream outputStream) throws IOException;
 
     /**
-     * Show a human readable name of the layer
+     * Show a human readable name of the layer.
      *
      * @return a human readable name of the layer
      * @see java.lang.Object#toString()
@@ -87,7 +87,7 @@ public abstract class AbstractLayer {
      *            as input value
      * @return range checked byte value
      */
-    protected int rangeCheck(final int iInput) {
+    protected final int rangeCheck(final int iInput) {
         int iTmp = iInput;
         if (iTmp < 0) {
             iTmp += BYTE_VALUE_OVER;

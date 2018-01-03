@@ -51,7 +51,7 @@ public class RandomLayer extends AbstractLayer {
      * @throws IOException
      *             thrown on error
      */
-    private final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    private void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         byte bChar;
         final byte[] bRand = new byte[1];

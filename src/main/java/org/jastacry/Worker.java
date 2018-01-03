@@ -210,7 +210,14 @@ public class Worker {
         return layers;
     }
 
-    private final AbstractLayer createLayer(final String sName) {
+    /**
+     * Create layer objects by given String name.
+     *
+     * @param sName
+     *            name of layer
+     * @return Layer object
+     */
+    private AbstractLayer createLayer(final String sName) {
         AbstractLayer layer = null;
 
         switch (sName.toLowerCase(Locale.getDefault())) {
@@ -359,6 +366,12 @@ public class Worker {
 
     } // function
 
+    /**
+     * Wait for threads looping through them.
+     *
+     * @param threads
+     *            a list of threads
+     */
     private void waitThreads(final List<AbstractThread> threads) {
         for (int i = 0; i < threads.size(); i++) {
             try {
