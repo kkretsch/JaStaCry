@@ -11,10 +11,10 @@ import net.sourceforge.cobertura.CoverageIgnore;
  *
  */
 
-public class GlobalFunctions {
+public final class GlobalFunctions {
 
     /**
-     * Log debugging only if switched on via command line and log4j
+     * Log debugging only if switched on via command line and log4j.
      *
      * @param isVerbose
      *            boolean
@@ -25,7 +25,7 @@ public class GlobalFunctions {
      * @param arguments
      *            variable arguments
      */
-    public static final void logDebug(final boolean isVerbose, final Logger logger, final String sFormat,
+    public static void logDebug(final boolean isVerbose, final Logger logger, final String sFormat,
             final Object... arguments) {
         if (isVerbose && logger.isDebugEnabled()) {
             logger.debug(sFormat, arguments);

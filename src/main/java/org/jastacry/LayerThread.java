@@ -52,7 +52,7 @@ public class LayerThread extends AbstractThread {
      * main run method.
      */
     @Override
-    public void run() {
+    public final void run() {
         LOGGER.info("started thread");
         try {
             switch (action) {

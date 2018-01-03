@@ -11,6 +11,15 @@ import java.io.OutputStream;
  */
 
 public class ReverseLayer extends AbstractLayer {
+    /**
+     * Number of bits to shift back to byte form.
+     */
+    private static final int SHIFTBITS = 24;
+
+    /**
+     * Bit mask to remove anything above one byte.
+     */
+    private static final int MASKBITS = 0x00000FF;
 
     /**
      * static name of the layer.
@@ -35,14 +44,23 @@ public class ReverseLayer extends AbstractLayer {
         // not used
     }
 
-    private final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
-            throws IOException {
+    /**
+     * Local function for encode and decode.
+     *
+     * @param inputStream
+     *            input data stream
+     * @param outputStream
+     *            output data stream
+     * @throws IOException
+     *             in case of error
+     */
+    private void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         while ((iChar = inputStream.read()) != -1) {
             iChar = rangeCheck(iChar);
             iChar = Integer.reverse(iChar);
-            iChar >>= 24;
-            iChar &= 0x000000FF;
+            iChar >>= SHIFTBITS;
+            iChar &= MASKBITS;
             outputStream.write(iChar);
         }
         logger.info("close pipe");

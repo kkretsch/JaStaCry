@@ -48,7 +48,7 @@ public class XorLayer extends AbstractLayer {
      * @throws IOException
      *             thrown on error
      */
-    private final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    private void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         byte bChar;
         while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:18
