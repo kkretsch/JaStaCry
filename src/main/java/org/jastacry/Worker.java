@@ -22,6 +22,7 @@ import java.util.Locale;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalData.Action;
+import org.jastacry.GlobalData.Returncode;
 import org.jastacry.layer.AbstractLayer;
 import org.jastacry.layer.AesLayer;
 import org.jastacry.layer.EncodeDecodeLayer;
@@ -86,12 +87,12 @@ public class Worker {
 
         if (null == layers || layers.isEmpty()) {
             LOGGER.error("No layers defined!");
-            return org.jastacry.GlobalData.RC_ERROR;
+            return Returncode.RC_ERROR.getNumVal();
         } // if
 
         if (layers.size() == 1) {
             LOGGER.warn("Warning: Only one layer defined!");
-            return org.jastacry.GlobalData.RC_ERROR;
+            return Returncode.RC_ERROR.getNumVal();
         }
 
         if (doEncode) {
@@ -122,7 +123,7 @@ public class Worker {
             }
         } catch (final FileNotFoundException e) {
             LOGGER.catching(e);
-            return org.jastacry.GlobalData.RC_ERROR;
+            return Returncode.RC_ERROR.getNumVal();
         } catch (final IOException e) {
             LOGGER.catching(e);
         }

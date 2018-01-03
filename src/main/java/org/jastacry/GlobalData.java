@@ -40,34 +40,39 @@ public final class GlobalData {
      */
     public static final String PARAM_DECODE = "decode";
 
+    /**
+     * enum range for Actions
+     *
+     * @author kkre
+     *
+     */
     public enum Action {
         UNKOWN, ENCODE, DECODE;
+    }
+
+    /**
+     * enum range for Returncodes
+     *
+     * @author kkre
+     *
+     */
+    public enum Returncode {
+        RC_OK(0), RC_WARNING(1), RC_HELP(2), RC_ERROR(3);
+        private int numVal;
+
+        Returncode(final int numVal) {
+            this.numVal = numVal;
+        }
+
+        public int getNumVal() {
+            return numVal;
+        }
     }
 
     /**
      * Placeholder for passwords.
      */
     public static final String MACRO_PASSWORD = "#PASS" + "WORD#";
-
-    /**
-     * Return code to shell for everything OK.
-     */
-    public static final int RC_OK = 0;
-
-    /**
-     * Return code to shell for warnings.
-     */
-    public static final int RC_WARNING = 1;
-
-    /**
-     * Return code to shell for help.
-     */
-    public static final int RC_HELP = 2;
-
-    /**
-     * Return code to shell for errors.
-     */
-    public static final int RC_ERROR = 3;
 
     /**
      * Hidden constructor.
