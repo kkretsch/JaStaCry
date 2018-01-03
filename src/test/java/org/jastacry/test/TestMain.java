@@ -67,6 +67,11 @@ public class TestMain {
     public static final String CONF5 = "conf5.cfg";
 
     /**
+     * Test configuration file, contains interactive password macro.
+     */
+    public static final String CONF6 = "conf6.cfg";
+
+    /**
      * Test input text file.
      */
     public static final String INPUTFILE = "plaintext.txt";
@@ -253,6 +258,23 @@ public class TestMain {
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main two layer returncode", GlobalData.RC_OK, iRC);
+    }
+
+    /**
+     * Test method two layer for Main function.
+     *
+     */
+    @Test
+    public void testMainPassword() {
+        final String sInputFile = RESOURCES + INPUTFILE;
+        final String sOutputFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = RESOURCES + CONF6;
+
+        final String[] sArguments = { "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
+                sConfigFile };
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int iRC = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main two layer returncode", GlobalData.RC_ERROR, iRC);
     }
 
     /**
