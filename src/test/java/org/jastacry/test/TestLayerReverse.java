@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.logging.log4j.Logger;
+import org.jastacry.layer.AbstractLayer;
 import org.jastacry.layer.ReverseLayer;
 import org.junit.After;
 import org.junit.Before;
@@ -34,7 +35,7 @@ public class TestLayerReverse {
     /**
      * The layer to test.
      */
-    private ReverseLayer layer = null;
+    private AbstractLayer layer = null;
 
     /**
      * Test Before method.

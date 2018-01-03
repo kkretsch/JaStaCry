@@ -11,15 +11,6 @@ import java.io.OutputStream;
  */
 
 public class RotateLayer extends AbstractLayer {
-    /**
-     * When a byte is too little.
-     */
-    private static final int BYTE_VALUE_OVER = 256;
-
-    /**
-     * Maximum value for a byte value.
-     */
-    private static final int BYTE_VALUE_MAX = 255;
 
     /**
      * static name of the layer.
@@ -101,26 +92,6 @@ public class RotateLayer extends AbstractLayer {
     @Override
     public final String toString() {
         return LAYERNAME;
-    }
-
-    /**
-     * Private range check function for byte values.
-     *
-     * @param iInput
-     *            as input value
-     * @return range checked byte value
-     */
-    private int rangeCheck(final int iInput) {
-        int iTmp = iInput;
-        if (iTmp < 0) {
-            iTmp += BYTE_VALUE_OVER;
-        } else {
-            if (iTmp > BYTE_VALUE_MAX) {
-                iTmp -= BYTE_VALUE_OVER;
-            }
-        }
-
-        return iTmp;
     }
 
 }
