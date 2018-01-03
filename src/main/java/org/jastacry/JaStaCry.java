@@ -12,6 +12,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalData.Action;
+import org.jastacry.GlobalData.Returncode;
 
 import net.sourceforge.cobertura.CoverageIgnore;
 
@@ -236,22 +237,22 @@ public final class JaStaCry {
         } catch (final MissingOptionException eOpt) {
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return org.jastacry.GlobalData.RC_ERROR; // NOPMD by kai on 21.11.17 16:59
+            return Returncode.RC_ERROR.getNumVal();
         } catch (final ParseException e2) {
             LOGGER.catching(e2);
-            return org.jastacry.GlobalData.RC_ERROR; // NOPMD by kai on 21.11.17 17:02
+            return Returncode.RC_ERROR.getNumVal(); // NOPMD by kai on 21.11.17 17:02
         }
 
         if (null == cmdLine) {
             LOGGER.error("cmdLine null");
-            return org.jastacry.GlobalData.RC_ERROR; // NOPMD by kai on 21.11.17 16:59
+            return Returncode.RC_ERROR.getNumVal(); // NOPMD by kai on 21.11.17 16:59
         }
 
         if (cmdLine.hasOption(P_SHORT_HELP)) {
             LOGGER.debug("Show help");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return org.jastacry.GlobalData.RC_HELP; // NOPMD by kai on 21.11.17 17:00
+            return Returncode.RC_HELP.getNumVal(); // NOPMD by kai on 21.11.17 17:00
         } // if
 
         // Is verbose?
@@ -277,7 +278,7 @@ public final class JaStaCry {
             LOGGER.debug("action required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return org.jastacry.GlobalData.RC_ERROR; // NOPMD by kai on 21.11.17 16:59
+            return Returncode.RC_ERROR.getNumVal(); // NOPMD by kai on 21.11.17 16:59
         }
 
         // Use text format?
@@ -292,7 +293,7 @@ public final class JaStaCry {
             LOGGER.debug("argument to parameter required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return org.jastacry.GlobalData.RC_ERROR; // NOPMD by kai on 21.11.17 16:59
+            return Returncode.RC_ERROR.getNumVal(); // NOPMD by kai on 21.11.17 16:59
         }
 
         return 0;

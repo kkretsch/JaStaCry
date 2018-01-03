@@ -13,6 +13,7 @@ import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalData;
+import org.jastacry.GlobalData.Returncode;
 import org.jastacry.JaStaCry;
 import org.junit.After;
 import org.junit.Before;
@@ -151,7 +152,7 @@ public class TestMain {
     public void testMainHelp() {
         final String[] sArguments = { "-h" };
         final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main help returncode", GlobalData.RC_HELP, iRC);
+        assertEquals("Main help returncode", Returncode.RC_HELP.getNumVal(), iRC);
     }
 
     /**
@@ -162,7 +163,7 @@ public class TestMain {
     public void testMainNoargs() {
         final String[] sArguments = {};
         final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main noargs returncode", GlobalData.RC_ERROR, iRC);
+        assertEquals("Main noargs returncode", Returncode.RC_ERROR.getNumVal(), iRC);
     }
 
     /**
@@ -173,7 +174,7 @@ public class TestMain {
     public void testMainUnknownargs() {
         final String[] sArguments = { "--unknown", "--arguments" };
         final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main unknown args returncode", GlobalData.RC_ERROR, iRC);
+        assertEquals("Main unknown args returncode", Returncode.RC_ERROR.getNumVal(), iRC);
     }
 
     /**
@@ -189,7 +190,7 @@ public class TestMain {
         final String[] sArguments = { "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main missing args returncode", GlobalData.RC_ERROR, iRC);
+        assertEquals("Main missing args returncode", Returncode.RC_ERROR.getNumVal(), iRC);
     }
 
     /**
@@ -204,7 +205,7 @@ public class TestMain {
         final String[] sArguments = { "--infile", sInputFile, "--outfile", sOutputFile, "--conffile" };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main missing args returncode", GlobalData.RC_ERROR, iRC);
+        assertEquals("Main missing args returncode", Returncode.RC_ERROR.getNumVal(), iRC);
     }
 
     /**
@@ -255,7 +256,7 @@ public class TestMain {
                 sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main one layer returncode", GlobalData.RC_ERROR, iRC);
+        assertEquals("Main one layer returncode", Returncode.RC_ERROR.getNumVal(), iRC);
     }
 
     /**
@@ -272,7 +273,7 @@ public class TestMain {
                 sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main one layer returncode", GlobalData.RC_ERROR, iRC);
+        assertEquals("Main one layer returncode", Returncode.RC_ERROR.getNumVal(), iRC);
     }
 
     /**
@@ -289,7 +290,7 @@ public class TestMain {
                 sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main two layer returncode", GlobalData.RC_OK, iRC);
+        assertEquals("Main two layer returncode", Returncode.RC_OK.getNumVal(), iRC);
     }
 
     /**
@@ -306,7 +307,7 @@ public class TestMain {
                 sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main two layer returncode", GlobalData.RC_ERROR, iRC);
+        assertEquals("Main two layer returncode", Returncode.RC_ERROR.getNumVal(), iRC);
     }
 
     /**
@@ -323,7 +324,7 @@ public class TestMain {
                 sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main no layer returncode", GlobalData.RC_ERROR, iRC);
+        assertEquals("Main no layer returncode", Returncode.RC_ERROR.getNumVal(), iRC);
     }
 
     /**
@@ -340,7 +341,7 @@ public class TestMain {
                 "--conffile", sConfigFile };
         oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
         final int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
-        assertEquals("Main testMainMissingInputFile returncode", GlobalData.RC_ERROR, iRC);
+        assertEquals("Main testMainMissingInputFile returncode", Returncode.RC_ERROR.getNumVal(), iRC);
     }
 
     /**
@@ -357,7 +358,7 @@ public class TestMain {
                 "--conffile", sConfigFile };
         oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
         final int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
-        assertEquals("Main testMainMissingConfigFile returncode", GlobalData.RC_ERROR, iRC);
+        assertEquals("Main testMainMissingConfigFile returncode", Returncode.RC_ERROR.getNumVal(), iRC);
     }
 
     /**
@@ -378,7 +379,7 @@ public class TestMain {
                 "--conffile", sConfigFile };
         oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
         int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
-        assertEquals("Main ascencdec returncode", GlobalData.RC_OK, iRC);
+        assertEquals("Main ascencdec returncode", Returncode.RC_OK.getNumVal(), iRC);
 
         assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
 
@@ -386,7 +387,7 @@ public class TestMain {
                 "--conffile", sConfigFile };
         oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
         iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
-        assertEquals("Main ascdecend returncode", GlobalData.RC_OK, iRC);
+        assertEquals("Main ascdecend returncode", Returncode.RC_OK.getNumVal(), iRC);
 
         assertTrue("File results in equal content", tooling.compareFiles(fInputfile, fDecryptedfile));
     }
@@ -409,7 +410,7 @@ public class TestMain {
                 "--conffile", sConfigFile };
         oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
         int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
-        assertEquals("Main ascencdec returncode", GlobalData.RC_OK, iRC);
+        assertEquals("Main ascencdec returncode", Returncode.RC_OK.getNumVal(), iRC);
 
         assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
 
@@ -417,7 +418,7 @@ public class TestMain {
                 sDecryptedFile, "--conffile", sConfigFile };
         oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
         iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
-        assertEquals("Main ascdecend returncode", GlobalData.RC_OK, iRC);
+        assertEquals("Main ascdecend returncode", Returncode.RC_OK.getNumVal(), iRC);
 
         assertTrue("File results in equal content", tooling.compareFiles(fInputfile, fDecryptedfile));
     }
@@ -442,7 +443,7 @@ public class TestMain {
                 "--conffile", sConfigFile };
         oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
         int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
-        assertEquals("Main binencdec returncode", GlobalData.RC_OK, iRC);
+        assertEquals("Main binencdec returncode", Returncode.RC_OK.getNumVal(), iRC);
 
         assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
 
@@ -450,7 +451,7 @@ public class TestMain {
                 "--conffile", sConfigFile };
         oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
         iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
-        assertEquals("Main bindecenc returncode", GlobalData.RC_OK, iRC);
+        assertEquals("Main bindecenc returncode", Returncode.RC_OK.getNumVal(), iRC);
 
         assertTrue("File results in equal content", tooling.compareFiles(fInputfile, fDecryptedfile));
     }
