@@ -1,0 +1,124 @@
+package org.jastacry.layer;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+/**
+ * Reverse every bits per byte. 0101 gives 1010 i.e.
+ *
+ * @author Kai Kretschmann
+ */
+
+public class ReverseLayer extends AbstractLayer {
+    /**
+     * When a byte is too little.
+     */
+    private static final int BYTE_VALUE_OVER = 256;
+
+    /**
+     * Maximum value for a byte value.
+     */
+    private static final int BYTE_VALUE_MAX = 255;
+
+    /**
+     * static name of the layer.
+     */
+    public static final String LAYERNAME = "Reverse Layer";
+
+    /**
+     * Constructor of XorLayer.
+     */
+    public ReverseLayer() {
+        super(ReverseLayer.class);
+    }
+
+    /**
+     * init function.
+     *
+     * @param data
+     *            to initialize the offset value.
+     */
+    @Override
+    public final void init(final String data) {
+    }
+
+    /**
+     * encode Stream function.
+     *
+     * @param inputStream
+     *            incoming data
+     * @param outputStream
+     *            outgoing data
+     * @throws IOException
+     *             thrown on error
+     */
+    @Override
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        int iChar;
+        while ((iChar = inputStream.read()) != -1) {
+            iChar = rangeCheck(iChar);
+            iChar = Integer.reverse(iChar);
+            iChar >>= 24;
+            iChar &= 0x000000FF;
+            outputStream.write(iChar);
+        }
+        logger.info("close pipe");
+        outputStream.close();
+    }
+
+    /**
+     * decode Stream function.
+     *
+     * @param inputStream
+     *            incoming data
+     * @param outputStream
+     *            outgoging data
+     * @throws IOException
+     *             thrown on error
+     */
+    @Override
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        int iChar;
+        while ((iChar = inputStream.read()) != -1) {
+            iChar = rangeCheck(iChar);
+            iChar = Integer.reverse(iChar);
+            iChar >>= 24;
+            iChar &= 0x000000FF;
+            outputStream.write(iChar);
+        }
+        logger.info("close pipe");
+        outputStream.close();
+    }
+
+    /**
+     * Print layer name function.
+     *
+     * @return Layer name as String
+     */
+    @Override
+    public final String toString() {
+        return LAYERNAME;
+    }
+
+    /**
+     * Private range check function for byte values.
+     *
+     * @param iInput
+     *            as input value
+     * @return range checked byte value
+     */
+    private int rangeCheck(final int iInput) {
+        int iTmp = iInput;
+        if (iTmp < 0) {
+            iTmp += BYTE_VALUE_OVER;
+        } else {
+            if (iTmp > BYTE_VALUE_MAX) {
+                iTmp -= BYTE_VALUE_OVER;
+            }
+        }
+
+        return iTmp;
+    }
+
+}
