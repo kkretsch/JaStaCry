@@ -193,6 +193,21 @@ public class TestMain {
     }
 
     /**
+     * Test method missing parameters for Main function.
+     *
+     */
+    @Test
+    public void testMainMissingParams() {
+        final String sInputFile = RESOURCES + INPUTFILE;
+        final String sOutputFile = tmpFile.getAbsolutePath();
+
+        final String[] sArguments = { "--infile", sInputFile, "--outfile", sOutputFile, "--conffile" };
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int iRC = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main missing args returncode", GlobalData.RC_ERROR, iRC);
+    }
+
+    /**
      * Test method encode call for Main function.
      *
      */
