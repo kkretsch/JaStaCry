@@ -428,7 +428,7 @@ public class Worker {
     }
 
     /**
-     * @param iAction
+     * @param action
      *            the action to set
      */
     public final void setAction(final Action action) {
