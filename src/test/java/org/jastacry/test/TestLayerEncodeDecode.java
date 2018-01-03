@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.layer.EncodeDecodeLayer;
@@ -31,9 +33,14 @@ public class TestLayerEncodeDecode {
     private static Logger oLogger = null;
 
     /**
-     * default data.
+     * default data plain.
      */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
+
+    /**
+     * default data encoded
+     */
+    private final String testdataEncoded = "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4=";
 
     /**
      * The layer object to test.
@@ -81,16 +88,21 @@ public class TestLayerEncodeDecode {
      * @throws IOException
      *             in case of error.
      */
-    // @Test
+    @Test
     // TestLink(externalId = "JAS-12")
     public void testEncStream() throws IOException {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
-        oLogger.debug("is='{}'", is.toString());
+        is.mark(0);
+        final String text = IOUtils.toString(is, StandardCharsets.UTF_8.name());
+        is.reset();
+        oLogger.debug("testEncStream is='{}'", text);
+        oLogger.debug("size of input text is {}", testdata.length());
         final OutputStream os = new ByteArrayOutputStream();
         layer.encStream(is, os);
-        oLogger.debug("os='{}'", os.toString());
-        assertEquals("encoding differs", testdata, os.toString());
+        os.flush();
+        oLogger.debug("testEncStream os='{}'", os.toString());
+        assertEquals("encoding differs", testdataEncoded, os.toString());
     }
 
     /**
@@ -100,13 +112,19 @@ public class TestLayerEncodeDecode {
      * @throws IOException
      *             in case of error.
      */
-    // @Test
+    @Test
     // TestLink(externalId = "JAS-13")
     public void testDecStream() throws IOException {
-        final byte[] buf = testdata.getBytes();
+        final byte[] buf = testdataEncoded.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
+        is.mark(0);
+        final String text = IOUtils.toString(is, StandardCharsets.UTF_8.name());
+        is.reset();
+        oLogger.debug("testDecStream is='{}'", text);
+        oLogger.debug("size of encoded text is {}", testdataEncoded.length());
         final OutputStream os = new ByteArrayOutputStream();
         layer.decStream(is, os);
+        oLogger.debug("testDecStream os='{}'", os.toString());
         assertEquals("decoding differs", testdata, os.toString());
     }
 
