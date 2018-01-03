@@ -242,6 +242,23 @@ public class TestMain {
     }
 
     /**
+     * Test method unknown layer for Main function.
+     *
+     */
+    @Test
+    public void testMainUnknownLayer() {
+        final String sInputFile = RESOURCES + INPUTFILE;
+        final String sOutputFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = RESOURCES + CONF2;
+
+        final String[] sArguments = { "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
+                sConfigFile };
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int iRC = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main one layer returncode", GlobalData.RC_ERROR, iRC);
+    }
+
+    /**
      * Test method one layer for Main function.
      *
      */
