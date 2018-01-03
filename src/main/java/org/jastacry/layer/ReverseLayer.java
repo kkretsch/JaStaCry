@@ -10,6 +10,7 @@ import java.io.OutputStream;
  * @author Kai Kretschmann
  */
 
+@java.lang.SuppressWarnings("common-java:DuplicatedBlocks")
 public class ReverseLayer extends AbstractLayer {
     /**
      * Number of bits to shift back to byte form.

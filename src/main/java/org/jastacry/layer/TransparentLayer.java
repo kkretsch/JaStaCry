@@ -10,6 +10,7 @@ import java.io.OutputStream;
  * @author Kai Kretschmann
  */
 
+@java.lang.SuppressWarnings("common-java:DuplicatedBlocks")
 public class TransparentLayer extends AbstractLayer {
     /**
      * static name of the layer.
