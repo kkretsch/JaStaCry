@@ -360,6 +360,37 @@ public class TestMain {
     }
 
     /**
+     * Test method normal for Main function including base64 encoding
+     *
+     */
+    @Test
+    public void testMainBase64EncDec() {
+        final String sInputFile = RESOURCES + INPUTFILE;
+        final String sEncryptedFile = encFile.getAbsolutePath();
+        final String sDecryptedFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = RESOURCES + CONF1;
+        final File fInputfile = new File(sInputFile);
+        final File fEncryptedfile = new File(sEncryptedFile);
+        final File fDecryptedfile = new File(sDecryptedFile);
+
+        final String[] sArgumentsEncrypt = { "--encode", "--text", "--infile", sInputFile, "--outfile", sEncryptedFile,
+                "--conffile", sConfigFile };
+        oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
+        int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
+        assertEquals("Main ascencdec returncode", GlobalData.RC_OK, iRC);
+
+        assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
+
+        final String[] sArgumentsDecrypt = { "-v", "--decode", "--text", "--infile", sEncryptedFile, "--outfile",
+                sDecryptedFile, "--conffile", sConfigFile };
+        oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
+        iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
+        assertEquals("Main ascdecend returncode", GlobalData.RC_OK, iRC);
+
+        assertTrue("File results in equal content", tooling.compareFiles(fInputfile, fDecryptedfile));
+    }
+
+    /**
      * Test method binary data for Main function.
      *
      */

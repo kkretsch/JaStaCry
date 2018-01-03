@@ -3,8 +3,7 @@ package org.jastacry.layer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import javax.mail.MessagingException;
+import java.util.Base64;
 
 import org.apache.commons.io.IOUtils;
 
@@ -48,14 +47,11 @@ public class EncodeDecodeLayer extends AbstractLayer {
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        OutputStream osEncoded = null; // NOPMD by kai on 21.11.17 17:26
-        try {
-            osEncoded = javax.mail.internet.MimeUtility.encode(outputStream, "uuencode");
-        } catch (final MessagingException e) {
-            logger.catching(e);
-        }
+        final Base64.Encoder encoder = Base64.getEncoder();
+        final OutputStream osEncoded = encoder.wrap(outputStream);
         final int iCount = IOUtils.copy(inputStream, osEncoded);
-        logger.debug("copied {} bytes", iCount);
+        osEncoded.close();
+        logger.debug("encStream copied {} bytes", iCount);
     }
 
     /**
@@ -70,15 +66,10 @@ public class EncodeDecodeLayer extends AbstractLayer {
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        InputStream isDecoded = null; // NOPMD by kai on 21.11.17 17:26
-        try {
-            isDecoded = javax.mail.internet.MimeUtility.decode(inputStream, "uuencode"); // NOPMD by kai on 21.11.17
-                                                                                         // 17:26
-        } catch (final MessagingException e) {
-            logger.catching(e);
-            throw new IOException(e.getLocalizedMessage()); // NOPMD by kai on 21.11.17 17:26
-        }
-        IOUtils.copy(isDecoded, outputStream);
+        final Base64.Decoder decoder = Base64.getDecoder();
+        final InputStream isDecoded = decoder.wrap(inputStream);
+        final int iCount = IOUtils.copy(isDecoded, outputStream);
+        logger.debug("decStream copied {} bytes", iCount);
     }
 
     @Override
