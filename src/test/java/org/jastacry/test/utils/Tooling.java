@@ -1,4 +1,4 @@
-package org.jastacry.test;
+package org.jastacry.test.utils;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -59,6 +59,7 @@ public final class Tooling { // NOPMD by kai on 21.11.17 16:53
             }
         }
     }
+
     /**
      * Create a binary input file with all byte values possible.
      *
@@ -69,6 +70,25 @@ public final class Tooling { // NOPMD by kai on 21.11.17 16:53
             try (DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(file))) {
                 for (int i = 0; i <= MAXBYTE; i++) {
                     outputStream.writeByte(i);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            LOGGER.catching(e);
+        } catch (IOException e) {
+            LOGGER.catching(e);
+        }
+    }
+
+    /**
+     * Create a binary input file with only one byte values used.
+     *
+     * @param file File to create
+     */
+    public void createBinaryTestfile(final File file, final long length, final byte bValue) {
+        try {
+            try (DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(file))) {
+                for (int i = 0; i <= length; i++) {
+                    outputStream.writeByte(bValue);
                 }
             }
         } catch (FileNotFoundException e) {
