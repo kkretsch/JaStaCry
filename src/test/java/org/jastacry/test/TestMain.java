@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalData;
 import org.jastacry.GlobalData.Returncode;
+import org.jastacry.test.utils.Tooling;
 import org.jastacry.JaStaCry;
 import org.junit.After;
 import org.junit.Before;
