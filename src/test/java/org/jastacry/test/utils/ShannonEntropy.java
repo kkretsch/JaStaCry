@@ -80,6 +80,10 @@ public final class ShannonEntropy {
         public final byte b;
         public int count = 1;
 
+        /**
+         * inner constructor
+         * @param in byte to count
+         */
         public byteFreq(byte in) {
             this.b = in;
         } // constructor
