@@ -33,6 +33,11 @@ import org.junit.Test;
  */
 public class TestEntropy {
     /**
+     * Maven temp resources path
+     */
+    private final static String TMPRESOURCES = "target/";
+
+    /**
      * Maven test resources path
      */
     private final static String RESOURCES = "src/test/resources/";
@@ -109,10 +114,10 @@ public class TestEntropy {
         oLogger = LogManager.getLogger();
         tooling = new Tooling();
 
-        allbinFile = new File(INPUTBYTEFILE);
+        allbinFile = new File(TMPRESOURCES + INPUTBYTEFILE);
         tooling.createBinaryTestfile(allbinFile, 1024, (byte)0x20);
 
-        onebinFile = new File(INPUTREPEATFILE);
+        onebinFile = new File(TMPRESOURCES + INPUTREPEATFILE);
         tooling.createBinaryTestfile(onebinFile);
     }
 
