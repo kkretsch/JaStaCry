@@ -15,42 +15,26 @@ public final class ShannonEntropy {
 
     /**
      * Constructor of class.
-     * @param in String to check
      */
-    public ShannonEntropy(String in) {
-        ArrayList<charFreq> freqs = new ArrayList<>();
-        String split[] = in.split("");
-        for (String s : split) {
-            boolean flag = true;
-            for (charFreq cf : freqs) {
-                if (cf.s.equals(s)) {
-                    flag = false;
-                    cf.count++;
-                    break;
-                } // if
-                flag = true;
-            } // for
-            if (flag) {
-                freqs.add(new charFreq(s));
-            } // if
-        } // for
-
-        for (charFreq cf : freqs) {
-            int freq = cf.count;
-            if (freq == 0) {
-                continue;
-            } // if
-
-            double c = (double) freq / in.length();
-            entropy -= log2(Math.pow(c, c));
-        } // for
-    } // function constructor
+    public ShannonEntropy() {
+        entropy = 0.0;
+    }
 
     /**
-     * Constructor of class.
+     * Calculate entropy.
+     * @param in String to analyze
+     */
+    public void calculate(final String in) {
+        byte[] bArray = in.getBytes();
+        calculate(bArray);
+    } // function
+
+    /**
+     * Calculate entropy.
      * @param bArray byte array to analyze
      */
-    public ShannonEntropy(final byte[] bArray) {
+    public void calculate(final byte[] bArray) {
+        entropy = 0.0;
         ArrayList<byteFreq> freqs = new ArrayList<>();
         for (int i = 0; i<bArray.length; i++) {
             byte b = bArray[i];
@@ -77,7 +61,7 @@ public final class ShannonEntropy {
             double c = (double) freq / bArray.length;
             entropy -= log2(Math.pow(c, c));
         } // for
-    } // function constructor
+    } // function
 
     private final double log2(double x) {
         return Math.log(x) / Math.log(2);
@@ -87,16 +71,6 @@ public final class ShannonEntropy {
     public String toString() {
         return "Entropy: " + this.entropy;
     } // function
-
-    class charFreq {
-        public final String s;
-        public int count = 1;
-
-        public charFreq(String in) {
-            this.s = in;
-        } // constructor
-
-    } // inner class
 
     class byteFreq {
         public final byte b;
