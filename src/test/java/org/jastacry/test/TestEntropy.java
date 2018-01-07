@@ -55,7 +55,7 @@ public class TestEntropy {
     /**
      * Tooling functions object.
      */
-    private ShannonEntropy shannon = null;
+    private static ShannonEntropy shannon = null;
 
     /**
      * Test configuration file, contains broad range of running layers. used for "OK" tests.
@@ -113,6 +113,7 @@ public class TestEntropy {
     public static void setupData() throws MalformedURLException {
         oLogger = LogManager.getLogger();
         tooling = new Tooling();
+        shannon = new ShannonEntropy();
 
         allbinFile = new File(TMPRESOURCES + INPUTBYTEFILE);
         tooling.createBinaryTestfile(allbinFile, 1024, (byte)0x20);
@@ -157,7 +158,7 @@ public class TestEntropy {
     @Test
     public void testEntropyZero() {
         String sSimple = "aaaaaaaaaa";
-        shannon = new ShannonEntropy(sSimple);
+        shannon.calculate(sSimple);
         double entropy = shannon.getEntropy();
         oLogger.info("testEntropyZero Entropy: {}",  entropy);
         assertTrue("Entropy", entropy == 0);
@@ -170,7 +171,7 @@ public class TestEntropy {
     @Test
     public void testEntropyNonzero() {
         String sSimple = "abcdefgh";
-        shannon = new ShannonEntropy(sSimple);
+        shannon.calculate(sSimple);
         double entropy = shannon.getEntropy();
         oLogger.info("testEntropyNonzero Entropy: {}",  entropy);
         assertTrue("Entropy", entropy > 0);
@@ -184,7 +185,7 @@ public class TestEntropy {
     public void testEntropyBytes() {
         String sSimple = "abcdefgh";
         byte[] byteArr = sSimple.getBytes();
-        shannon = new ShannonEntropy(byteArr);
+        shannon.calculate(byteArr);
         double entropy = shannon.getEntropy();
         oLogger.info("testEntropyBytes Entropy: {}",  entropy);
         assertTrue("Entropy", entropy > 0);
@@ -198,11 +199,11 @@ public class TestEntropy {
     public void testEntropyStringEqualsBytes() {
         String sSimple = "abcdefgh";
 
-        shannon = new ShannonEntropy(sSimple);
+        shannon.calculate(sSimple);
         double entropyString = shannon.getEntropy();
 
         byte[] byteArr = sSimple.getBytes();
-        shannon = new ShannonEntropy(byteArr);
+        shannon.calculate(byteArr);
         double entropyBytes = shannon.getEntropy();
         oLogger.info("testEntropyStringEqualsBytes Entropy: {} & {}",  entropyString, entropyBytes);
         assertTrue("Entropy equals", entropyString == entropyBytes);
@@ -228,12 +229,12 @@ public class TestEntropy {
         try {
             Path pathInput = Paths.get(sInputFile);
             byte[] dataInput = Files.readAllBytes(pathInput);
-            shannon = new ShannonEntropy(dataInput);
+            shannon.calculate(dataInput);
             double entropyInput = shannon.getEntropy();
 
             Path pathOutput = Paths.get(sOutputFile);
             byte[] dataOutput = Files.readAllBytes(pathOutput);
-            shannon = new ShannonEntropy(dataOutput);
+            shannon.calculate(dataOutput);
             double entropyOutput = shannon.getEntropy();
 
             oLogger.info("testMainEncode Entropy: {} to {}",  entropyInput, entropyOutput);
