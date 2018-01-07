@@ -72,6 +72,10 @@ public final class ShannonEntropy {
         return "Entropy: " + this.entropy;
     } // function
 
+    /**
+     * inner class for array use.
+     *
+     */
     class byteFreq {
         public final byte b;
         public int count = 1;
