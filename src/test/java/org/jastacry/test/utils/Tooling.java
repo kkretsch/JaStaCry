@@ -83,6 +83,8 @@ public final class Tooling { // NOPMD by kai on 21.11.17 16:53
      * Create a binary input file with only one byte values used.
      *
      * @param file File to create
+     * @param length how many bytes to write
+     * @param bValue the byte to write
      */
     public void createBinaryTestfile(final File file, final long length, final byte bValue) {
         try {
