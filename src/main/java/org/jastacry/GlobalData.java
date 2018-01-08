@@ -41,9 +41,9 @@ public final class GlobalData {
     public static final String PARAM_DECODE = "decode";
 
     /**
-     * enum range for Actions
+     * enum range for Actions.
      *
-     * @author kkre
+     * @author Kai Kretschmann
      *
      */
     public enum Action {
@@ -51,19 +51,30 @@ public final class GlobalData {
     }
 
     /**
-     * enum range for Returncodes
+     * enum range for Returncodes.
      *
-     * @author kkre
+     * @author Kai Kretschmann
      *
      */
     public enum Returncode {
         RC_OK(0), RC_WARNING(1), RC_HELP(2), RC_ERROR(3);
         private int numVal;
 
+        /**
+         * Contructor of enum object.
+         *
+         * @param numVal
+         *            gives initial value
+         */
         Returncode(final int numVal) {
             this.numVal = numVal;
         }
 
+        /**
+         * get numeric value of enum.
+         *
+         * @return integer value
+         */
         public int getNumVal() {
             return numVal;
         }
