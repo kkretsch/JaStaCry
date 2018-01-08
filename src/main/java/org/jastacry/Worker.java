@@ -429,11 +429,11 @@ public class Worker {
     }
 
     /**
-     * @param action
+     * @param oAction
      *            the action to set
      */
-    public final void setAction(final Action action) {
-        this.action = action;
+    public final void setAction(final Action oAction) {
+        this.action = oAction;
     }
 
 }
