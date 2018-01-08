@@ -47,7 +47,20 @@ public final class GlobalData {
      *
      */
     public enum Action {
-        UNKOWN, ENCODE, DECODE;
+        /**
+         * Unknown action.
+         */
+        UNKOWN,
+
+        /**
+         * Encode action.
+         */
+        ENCODE,
+
+        /**
+         * Decode action.
+         */
+        DECODE;
     }
 
     /**
@@ -57,17 +70,39 @@ public final class GlobalData {
      *
      */
     public enum Returncode {
-        RC_OK(0), RC_WARNING(1), RC_HELP(2), RC_ERROR(3);
+        /**
+         * Everything is OK.
+         */
+        RC_OK(0),
+
+        /**
+         * We had a warning.
+         */
+        RC_WARNING(1),
+
+        /**
+         * Showing help and quit.
+         */
+        RC_HELP(2),
+
+        /**
+         * Some major error happened.
+         */
+        RC_ERROR(3);
+
+        /**
+         * Private int value storage.
+         */
         private int numVal;
 
         /**
-         * Contructor of enum object.
+         * Constructor of enum object.
          *
-         * @param numVal
+         * @param iNumVal
          *            gives initial value
          */
-        Returncode(final int numVal) {
-            this.numVal = numVal;
+        Returncode(final int iNumVal) {
+            this.numVal = iNumVal;
         }
 
         /**
