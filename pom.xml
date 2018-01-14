@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacrygui</artifactId>
-	<version>0.0.5</version>
+	<version>0.0.6</version>
 	<description>Java Stacked Crypto</description>
 	<url>https://jastacry.org/</url>
 	<name>JaStaCry</name>
@@ -115,7 +115,7 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>${findbugs.version}</version>
 			</plugin>
-			<plugin>
+			<!--  plugin>
 				<groupId>org.spdx</groupId>
 				<artifactId>spdx-maven-plugin</artifactId>
 				<version>0.4.0</version>
@@ -131,9 +131,8 @@
 					<excludedFilePatterns>
 						<param>*.spdx</param>
 					</excludedFilePatterns>
-					<!-- See documentation below for additional configuration -->
 				</configuration>
-			</plugin>
+			</plugin -->
 		</plugins>
 		<pluginManagement>
 			<plugins>
