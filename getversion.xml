@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="getVersion" name="GetVersion">
+	<description>Reads version from pom.xml and outputs to sonarqube.properties file</description>
+
+	<property name="pom" value="pom.xml" />
+	<property name="sonar" value="sonar-project.properties" />
+
+	<target name="getVersion" description="Generates sonarqube properties file">
+		<xmlproperty file="${pom}" prefix="jastacry" />
+		<echo message="VERSION=${jastacry.project.version}" />
+		<echo file="${sonar}">sonar.projectVersion=${jastacry.project.version}</echo>
+	</target>
+
+</project>
