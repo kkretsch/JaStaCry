@@ -4,7 +4,7 @@
     <skin>
         <groupId>org.apache.maven.skins</groupId>
         <artifactId>maven-fluido-skin</artifactId>
-        <version>1.5</version>
+        <version>1.7</version>
     </skin>
 
     <bannerLeft>
@@ -17,6 +17,9 @@
 
     <body>
 
+		<head>
+			<![CDATA[]]>
+		</head>
         <links>
             <item href="index.html" name="JaStaCry" />
             <item href="https://www.jastacry.org/" name="Website" />
@@ -44,6 +47,10 @@
             <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
             <topBarEnabled>true</topBarEnabled>
             <sideBarEnabled>true</sideBarEnabled>
+            <piwik>
+            	<piwikUrl>stat.myocastor.de</piwikUrl>
+            	<idsite>72</idsite>
+        	</piwik>
         </fluidoSkin>
     </custom>
 </project>
