@@ -11,8 +11,9 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({ TestLayerMd5Des.class, TestLayerRandom.class, TestLayerRotate.class, TestLayerReverse.class,
-        TestLayerTransparent.class, TestLayerXor.class, TestLayerFilemerge.class, TestMain.class, TestConfig.class, TestEntropy.class })
+@SuiteClasses({ TestConfig.class, TestEntropy.class, TestLayerAes.class, TestLayerEncodeDecode.class,
+    TestLayerFilemerge.class, TestLayerMd5Des.class, TestLayerRandom.class, TestLayerReverse.class, TestLayerRotate.class, 
+        TestLayerTransparent.class, TestLayerXor.class, TestMain.class })
 public class AllTests {
 
 }
