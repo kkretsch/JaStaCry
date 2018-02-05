@@ -18,6 +18,7 @@
 		<checkstyle.version>2.17</checkstyle.version>
 		<surefire.reportplugin.version>2.20.1</surefire.reportplugin.version>
 		<cobertura.version>2.7</cobertura.version>
+		<jacoco.version>0.8.0</jacoco.version>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
 	</properties>
 	<build>
@@ -25,24 +26,42 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.0</version>
-				<configuration>
-					<destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-					<dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-				</configuration>
+				<version>${jacoco.version}</version>
 				<executions>
 					<execution>
-						<id>jacoco-initialize</id>
+						<id>default-prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
 					<execution>
-						<id>jacoco-site</id>
-						<phase>package</phase>
+						<id>default-report</id>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
+					</execution>
+					<execution>
+						<id>default-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<!-- implementation is needed only for Maven 2 -->
+								<rule implementation="org.jacoco.maven.RuleConfiguration">
+									<element>BUNDLE</element>
+									<limits>
+										<!-- implementation is needed only for Maven 2 -->
+										<limit implementation="org.jacoco.report.check.Limit">
+											<counter>COMPLEXITY</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.20</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -101,8 +120,7 @@
 						</goals>
 						<configuration>
 							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>org.jastacry.JaStaCry</mainClass>
 								</transformer>
 							</transformers>
@@ -115,24 +133,24 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>${findbugs.version}</version>
 			</plugin>
-			<!--  plugin>
+			<!-- plugin>
 				<groupId>org.spdx</groupId>
 				<artifactId>spdx-maven-plugin</artifactId>
 				<version>0.4.0</version>
 				<executions>
-					<execution>
-						<id>build-spdx</id>
-						<goals>
-							<goal>createSPDX</goal>
-						</goals>
-					</execution>
+				<execution>
+				<id>build-spdx</id>
+				<goals>
+				<goal>createSPDX</goal>
+				</goals>
+				</execution>
 				</executions>
 				<configuration>
-					<excludedFilePatterns>
-						<param>*.spdx</param>
-					</excludedFilePatterns>
+				<excludedFilePatterns>
+				<param>*.spdx</param>
+				</excludedFilePatterns>
 				</configuration>
-			</plugin -->
+				</plugin -->
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -202,6 +220,18 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>2.5</version>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
