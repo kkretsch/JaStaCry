@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacrygui</artifactId>
-	<version>0.0.7</version>
+	<version>0.0.8</version>
 	<description>Java Stacked Crypto</description>
 	<url>https://jastacry.org/</url>
 	<name>JaStaCry</name>
@@ -315,6 +315,16 @@
 			<name>Site JaStaCry Website</name>
 			<url>ftp://wp12173701.server-he.de/</url>
 		</site>
+		<!-- <repository>
+			<id>nexussnapshots</id>
+			<name>Nexus local snapshots</name>
+			<url>https://nexus.myocastor.de/repository/maven-snapshots/</url>
+		</repository> -->
+		<repository>
+			<id>nexusreleases</id>
+			<name>Nexus local releases</name>
+			<url>https://nexus.myocastor.de/repository/maven-releases/</url>
+		</repository>
 	</distributionManagement>
 	<developers>
 		<developer>
