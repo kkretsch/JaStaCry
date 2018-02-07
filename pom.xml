@@ -158,6 +158,12 @@
 			</extension>
 		</extensions>
 	</build>
+	<repositories>
+		<repository>
+			<id>rdfa-bintray</id>
+			<url>https://dl.bintray.com/yevster/maven</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>commons-cli</groupId>
