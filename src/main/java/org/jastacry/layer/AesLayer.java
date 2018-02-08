@@ -10,9 +10,9 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * AES Layer class.
  *
+ * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-
 public class AesLayer extends AbstractCipherLayer {
     /**
      * static name of the layer.
