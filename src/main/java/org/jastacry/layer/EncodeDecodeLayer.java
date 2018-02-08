@@ -9,9 +9,11 @@ import java.util.Base64;
 import org.apache.commons.io.IOUtils;
 
 /**
+ * Helper class for encode decode.
+ *
+ * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-
 public class EncodeDecodeLayer extends AbstractLayer {
     /**
      * static name of the layer.

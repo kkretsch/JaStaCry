@@ -37,8 +37,8 @@ import org.jastacry.layer.XorLayer;
 /**
  * Real working class.
  *
- * @author kai
- *
+ * SPDX-License-Identifier: MIT
+ * @author Kai Kretschmann
  */
 public class Worker {
     /**

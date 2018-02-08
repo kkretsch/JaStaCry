@@ -6,8 +6,10 @@ package org.jastacry;
 import java.io.IOException;
 
 /**
- * @author kkre
+ * Own thread class.
  *
+ * SPDX-License-Identifier: MIT
+ * @author Kai Kretschmann
  */
 public class ReadWriteThread extends AbstractThread {
 

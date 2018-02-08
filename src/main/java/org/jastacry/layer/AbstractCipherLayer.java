@@ -23,8 +23,8 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * Abstract base class for encryption.
  *
+ * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
- *
  */
 public abstract class AbstractCipherLayer extends AbstractLayer {
 

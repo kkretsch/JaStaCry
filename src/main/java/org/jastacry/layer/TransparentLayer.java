@@ -7,6 +7,7 @@ import java.io.OutputStream;
 /**
  * A transparent layer just doing nothing with the data. Use it as an example framework to start with.
  *
+ * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
 public class TransparentLayer extends AbstractLayer {

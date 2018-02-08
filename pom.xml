@@ -111,24 +111,24 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>${findbugs.version}</version>
 			</plugin>
-			<!-- plugin>
+			<plugin>
 				<groupId>org.spdx</groupId>
 				<artifactId>spdx-maven-plugin</artifactId>
 				<version>0.4.0</version>
 				<executions>
-				<execution>
-				<id>build-spdx</id>
-				<goals>
-				<goal>createSPDX</goal>
-				</goals>
-				</execution>
+					<execution>
+						<id>build-spdx</id>
+						<goals>
+							<goal>createSPDX</goal>
+						</goals>
+					</execution>
 				</executions>
 				<configuration>
-				<excludedFilePatterns>
-				<param>*.spdx</param>
-				</excludedFilePatterns>
+					<excludedFilePatterns>
+						<param>*.spdx</param>
+					</excludedFilePatterns>
 				</configuration>
-				</plugin -->
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -158,6 +158,12 @@
 			</extension>
 		</extensions>
 	</build>
+	<repositories>
+		<repository>
+			<id>rdfa-bintray</id>
+			<url>https://dl.bintray.com/yevster/maven</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>commons-cli</groupId>
@@ -319,7 +325,7 @@
 			<id>nexussnapshots</id>
 			<name>Nexus local snapshots</name>
 			<url>https://nexus.myocastor.de/repository/maven-snapshots/</url>
-		</repository> -->
+			</repository> -->
 		<repository>
 			<id>nexusreleases</id>
 			<name>Nexus local releases</name>
