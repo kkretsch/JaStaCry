@@ -10,9 +10,9 @@ import org.apache.logging.log4j.Logger;
 /**
  * Abstract base class for the actual worker layers.
  *
+ * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-
 public abstract class AbstractLayer {
     /**
      * When a byte is too little.

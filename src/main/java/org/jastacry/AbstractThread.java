@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Abstract Thread class for running layers.
  *
+ * SPDX-License-Identifier: MIT
  * @author kkre
- *
  */
 public abstract class AbstractThread extends Thread {
     /**

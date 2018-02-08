@@ -6,8 +6,8 @@ import java.io.PipedOutputStream;
 /**
  * Thread class for running layers.
  *
- * @author kkre
- *
+ * SPDX-License-Identifier: MIT
+ * @author Kai Kretschmann
  */
 public class ReaderThread extends ReadWriteThread {
 

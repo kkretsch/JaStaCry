@@ -11,9 +11,9 @@ import java.nio.channels.FileChannel;
  * Mask every byte with data of a given file. If the file is smaller than the data it will be used again and again from
  * the beginning.
  *
+ * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-
 public class FilemergeLayer extends AbstractLayer {
     /**
      * static name of the layer.

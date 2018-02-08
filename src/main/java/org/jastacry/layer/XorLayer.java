@@ -7,9 +7,9 @@ import java.io.OutputStream;
 /**
  * Very simple algorithm just to infuse some more complex data rotation.
  *
+ * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-
 public class XorLayer extends AbstractLayer {
     /**
      * static name of the layer.

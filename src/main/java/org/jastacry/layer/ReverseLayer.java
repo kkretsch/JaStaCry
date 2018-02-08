@@ -7,6 +7,7 @@ import java.io.OutputStream;
 /**
  * Reverse every bits per byte. 0101 gives 1010 i.e.
  *
+ * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
 public class ReverseLayer extends AbstractLayer {

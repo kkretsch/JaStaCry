@@ -8,9 +8,9 @@ import java.io.OutputStream;
  * Mask every byte with some random data. The random stream is initialized by the init seed. Must be used the same on
  * both sides (encryption and decryption).
  *
+ * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-
 public class RandomLayer extends AbstractLayer {
     /**
      * static name of the layer.

@@ -10,8 +10,8 @@ import org.jastacry.layer.AbstractLayer;
 /**
  * Thread class for running layers.
  *
- * @author kkre
- *
+ * SPDX-License-Identifier: MIT
+ * @author Kai Kretschmann
  */
 public class LayerThread extends AbstractThread {
     /**
