@@ -82,6 +82,7 @@
 						<id>download-licenses</id>
 						<goals>
 							<goal>download-licenses</goal>
+							<goal>add-third-party</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -106,6 +107,10 @@
 									<file>LICENSE.txt</file>
 								</transformer>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+									<resource>META-INF/THIRD-PARTY</resource>
+									<file>target/generated-sources/license/THIRD-PARTY.txt</file>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
 									<resource>META-INF/licenses.xml</resource>
 									<file>target/generated-resources/licenses.xml</file>
 								</transformer>
@@ -121,6 +126,7 @@
 										<exclude>META-INF/LICENSE.*</exclude>
 										<exclude>META-INF/NOTICE</exclude>
 										<exclude>META-INF/NOTICE.*</exclude>
+										<exclude>THIRD-PARTY</exclude>
 										<exclude>THIRD-PARTY.txt</exclude>
 										<exclude>cobertura.properties</exclude>
 									</excludes>
