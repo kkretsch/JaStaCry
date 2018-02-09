@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacrygui</artifactId>
-	<version>0.0.8</version>
+	<version>0.0.9</version>
 	<description>Java Stacked Crypto</description>
 	<url>https://jastacry.org/</url>
 	<name>JaStaCry</name>
@@ -126,6 +126,7 @@
 										<exclude>META-INF/LICENSE.*</exclude>
 										<exclude>META-INF/NOTICE</exclude>
 										<exclude>META-INF/NOTICE.*</exclude>
+										<exclude>THIRD-PARTY</exclude>
 										<exclude>THIRD-PARTY.txt</exclude>
 										<exclude>cobertura.properties</exclude>
 									</excludes>
