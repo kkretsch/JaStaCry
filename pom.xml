@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacrygui</artifactId>
-	<version>0.0.9</version>
+	<version>0.0.10</version>
 	<description>Java Stacked Crypto</description>
 	<url>https://jastacry.org/</url>
 	<name>JaStaCry</name>
@@ -54,10 +54,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.0.2</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
-						<phase>prepare-package</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>copy-dependencies</goal>
 						</goals>
