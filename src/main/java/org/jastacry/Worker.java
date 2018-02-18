@@ -83,9 +83,8 @@ public class Worker {
 
     private ThreadPoolExecutor executor;
     private LayerThreadFactory threadFactory;
-    private CountDownLatch endController;
 
-    private List<BasicLayer> layers;
+    
     
     
     /**
@@ -104,7 +103,7 @@ public class Worker {
      * @return int system return code to shell
      */
     public final int mainWork() {
-        this.layers = createLayers();
+        List<BasicLayer> layers = createLayers();
 
         if (null == layers || layers.isEmpty()) {
             LOGGER.error("No layers defined!");
@@ -309,8 +308,9 @@ public class Worker {
      */
     @java.lang.SuppressWarnings("squid:S2093")
     private void loopLayers(final List<BasicLayer> layers, final InputStream input, final OutputStream output) {
+        CountDownLatch endController= new CountDownLatch(layers.size()+2);
         List<BasicLayer> layersWithIO = new ArrayList<>();
-        this.endController = new CountDownLatch(layers.size()+2);
+
         BasicLayer l = null;
         PipedOutputStream prevOutput = null;
         PipedOutputStream pipedOutputFromFile = null;

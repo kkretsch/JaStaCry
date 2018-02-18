@@ -64,7 +64,9 @@ public class BasicLayer implements Runnable {
      * @param data
      *            a String containing everything the layer needs to know
      */
-    public void init(String data) {}
+    public void init(String data) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
@@ -76,7 +78,9 @@ public class BasicLayer implements Runnable {
      * @throws IOException
      *             if one of the streams fail
      */
-    public void encStream(InputStream inputStream, OutputStream outputStream) throws IOException {}
+    public void encStream(InputStream inputStream, OutputStream outputStream) throws IOException {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Decodes an encrypted stream to either plain text or the next encoded layer.
@@ -88,7 +92,9 @@ public class BasicLayer implements Runnable {
      * @throws IOException
      *             if one of the streams fail
      */
-    public void decStream(InputStream inputStream, OutputStream outputStream) throws IOException {}
+    public void decStream(InputStream inputStream, OutputStream outputStream) throws IOException {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Show a human readable name of the layer.
@@ -97,7 +103,9 @@ public class BasicLayer implements Runnable {
      * @see java.lang.Object#toString()
      */
     @Override
-    public String toString() {return null;}
+    public String toString() {
+        return "";
+    }
 
     /**
      * Private range check function for byte values.
