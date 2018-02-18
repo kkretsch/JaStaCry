@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -91,11 +92,10 @@ public class Worker {
      * Constructor of Worker class.
      */
     public Worker() {
-        int numThreads = 10; //Runtime.getRuntime().availableProcessors();
+        int numThreads = 4; //Runtime.getRuntime().availableProcessors();
         this.threadFactory = new LayerThreadFactory();
         this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(numThreads);
         this.executor.setThreadFactory(threadFactory);
-        this.endController = new CountDownLatch(numThreads);
     }
 
     /**
@@ -310,7 +310,7 @@ public class Worker {
     @java.lang.SuppressWarnings("squid:S2093")
     private void loopLayers(final List<BasicLayer> layers, final InputStream input, final OutputStream output) {
         List<BasicLayer> layersWithIO = new ArrayList<>();
-        
+        this.endController = new CountDownLatch(layers.size()+2);
         BasicLayer l = null;
         PipedOutputStream prevOutput = null;
         PipedOutputStream pipedOutputFromFile = null;
@@ -394,7 +394,12 @@ public class Worker {
 
             // wait for all threads
             try {
-                endController.await();
+                boolean bClean = endController.await(5, TimeUnit.SECONDS);
+                if(bClean) {
+                    LOGGER.trace("all threads are gone.");
+                } else {
+                    LOGGER.warn("some threads seem stuck! #{}", endController.getCount());
+                }
             } catch (InterruptedException e) {
                 LOGGER.catching(e);
             }
