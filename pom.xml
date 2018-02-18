@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jastacry</groupId>
-	<artifactId>jastacrygui</artifactId>
-	<version>0.0.10</version>
+	<artifactId>jastacry</artifactId>
+	<version>0.1.0</version>
 	<description>Java Stacked Crypto</description>
 	<url>https://jastacry.org/</url>
 	<name>JaStaCry</name>
@@ -395,7 +395,7 @@
 	</scm>
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/kkretsch/alibIP/issues</url>
+		<url>https://github.com/kkretsch/JaStaCry/issues</url>
 	</issueManagement>
 	<ciManagement>
 		<system>Jenkins</system>
