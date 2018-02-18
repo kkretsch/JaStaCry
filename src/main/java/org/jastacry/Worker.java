@@ -18,17 +18,21 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalData.Action;
 import org.jastacry.GlobalData.Returncode;
-import org.jastacry.layer.AbstractLayer;
 import org.jastacry.layer.AesLayer;
+import org.jastacry.layer.BasicLayer;
 import org.jastacry.layer.EncodeDecodeLayer;
 import org.jastacry.layer.FilemergeLayer;
 import org.jastacry.layer.Md5DesLayer;
 import org.jastacry.layer.RandomLayer;
+import org.jastacry.layer.ReadWriteLayer;
 import org.jastacry.layer.ReverseLayer;
 import org.jastacry.layer.RotateLayer;
 import org.jastacry.layer.TransparentLayer;
@@ -76,14 +80,31 @@ public class Worker {
      */
     private Action action;
 
+    private ThreadPoolExecutor executor;
+    private LayerThreadFactory threadFactory;
+    private CountDownLatch endController;
+
+    private List<BasicLayer> layers;
+    
+    
+    /**
+     * Constructor of Worker class.
+     */
+    public Worker() {
+        int numThreads = 10; //Runtime.getRuntime().availableProcessors();
+        this.threadFactory = new LayerThreadFactory();
+        this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(numThreads);
+        this.executor.setThreadFactory(threadFactory);
+        this.endController = new CountDownLatch(numThreads);
+    }
+
     /**
      * Main method for running a command line interface.
      *
      * @return int system return code to shell
      */
     public final int mainWork() {
-        // Now go
-        final List<AbstractLayer> layers = createLayers();
+        this.layers = createLayers();
 
         if (null == layers || layers.isEmpty()) {
             LOGGER.error("No layers defined!");
@@ -96,7 +117,7 @@ public class Worker {
         }
 
         if (doEncode) {
-            final AbstractLayer layerEncode = new EncodeDecodeLayer();
+            final BasicLayer layerEncode = new EncodeDecodeLayer();
             switch (action) {
                 case ENCODE:
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "add text encoding to end");
@@ -141,8 +162,8 @@ public class Worker {
      * @return List of abstract layer objects
      */
     @java.lang.SuppressWarnings("squid:S3776")
-    private List<AbstractLayer> createLayers() {
-        final List<AbstractLayer> layers = new ArrayList<>();
+    private List<BasicLayer> createLayers() {
+        final List<BasicLayer> layers = new ArrayList<>();
 
         // try with resources
         try (FileInputStream fstream = new FileInputStream(confFilename);
@@ -150,7 +171,7 @@ public class Worker {
                 BufferedReader br = new BufferedReader(isr)) {
             String strLine;
 
-            AbstractLayer layer = null;
+            BasicLayer layer = null;
 
             // Read File Line By Line
             while ((strLine = br.readLine()) != null) {
@@ -221,8 +242,8 @@ public class Worker {
      *            name of layer
      * @return Layer object
      */
-    private AbstractLayer createLayer(final String sName) {
-        AbstractLayer layer = null;
+    private BasicLayer createLayer(final String sName) {
+        BasicLayer layer = null;
 
         switch (sName.toLowerCase(Locale.getDefault())) {
             case "transparent":
@@ -265,7 +286,7 @@ public class Worker {
      *            itself
      * @return text name
      */
-    private String makeThreadname(final int iNumber, final AbstractLayer layer) {
+    private String makeThreadname(final int iNumber, final BasicLayer layer) {
         return Integer.toString(iNumber) + " " + layer.toString();
     }
 
@@ -281,10 +302,16 @@ public class Worker {
      * @throws IOException
      *             in case of error
      */
+    /**
+     * @param layers
+     * @param input
+     * @param output
+     */
     @java.lang.SuppressWarnings("squid:S2093")
-    private void loopLayers(final List<AbstractLayer> layers, final InputStream input, final OutputStream output) {
-        AbstractLayer l = null;
-        final List<AbstractThread> threads = new ArrayList<>();
+    private void loopLayers(final List<BasicLayer> layers, final InputStream input, final OutputStream output) {
+        List<BasicLayer> layersWithIO = new ArrayList<>();
+        
+        BasicLayer l = null;
         PipedOutputStream prevOutput = null;
         PipedOutputStream pipedOutputFromFile = null;
         PipedInputStream pipedInputStream = null;
@@ -294,8 +321,12 @@ public class Worker {
         try {
             // Handle file input
             pipedOutputFromFile = new PipedOutputStream();
-            final ReaderThread readerThread = new ReaderThread(input, pipedOutputFromFile);
-            threads.add(readerThread);
+            l = new ReadWriteLayer();
+            l.setInputStream(input);
+            l.setOutputStream(pipedOutputFromFile);
+            l.setAction(action);
+            l.setEndController(endController);
+            layersWithIO.add(l);
 
             // Handle very first layer
             l = layers.get(0);
@@ -304,8 +335,11 @@ public class Worker {
             pipedOutputStream = new PipedOutputStream(); // NOSONAR
             pipedInputStream.connect(pipedOutputFromFile);
             prevOutput = pipedOutputStream;
-            LayerThread thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(0, l));
-            threads.add(thread);
+            l.setInputStream(pipedInputStream);
+            l.setOutputStream(pipedOutputStream);
+            l.setAction(action);
+            l.setEndController(endController);
+            layersWithIO.add(l);
 
             // only inner layers are looped through
             for (int i = 1; i < layers.size() - 1; i++) {
@@ -317,8 +351,11 @@ public class Worker {
                 pipedOutputStream = new PipedOutputStream();
                 pipedInputStream.connect(prevOutput);
                 prevOutput = pipedOutputStream;
-                thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(i, l));
-                threads.add(thread);
+                l.setInputStream(pipedInputStream);
+                l.setOutputStream(pipedOutputStream);
+                l.setAction(action);
+                l.setEndController(endController);
+                layersWithIO.add(l);
             } // for
 
             // Handle last layer
@@ -330,23 +367,38 @@ public class Worker {
             pipedOutputStream = new PipedOutputStream();
             pipedInputStream.connect(prevOutput);
             prevOutput = pipedOutputStream;
-            thread = new LayerThread(pipedInputStream, pipedOutputStream, l, action, makeThreadname(threads.size(), l));
-            threads.add(thread);
+            l.setInputStream(pipedInputStream);
+            l.setOutputStream(pipedOutputStream);
+            l.setAction(action);
+            l.setEndController(endController);
+            layersWithIO.add(l);
 
             // Handle file output
             pipedInputStreamToFile = new PipedInputStream();
             pipedInputStreamToFile.connect(prevOutput);
-            final WriterThread writerThread = new WriterThread(pipedInputStreamToFile, output);
-            threads.add(writerThread);
+            l = new ReadWriteLayer();
+            l.setInputStream(pipedInputStreamToFile);
+            l.setOutputStream(output);
+            l.setAction(action);
+            l.setEndController(endController);
+            layersWithIO.add(l);
 
             // Start all threads
-            for (int i = 0; i < threads.size(); i++) {
+            for (int i = 0; i < layersWithIO.size(); i++) {
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
-                threads.get(i).start();
+                BasicLayer layer = layersWithIO.get(i);
+                String sName = makeThreadname(i, layer);
+                threadFactory.setName(sName);
+                executor.execute(layer);
             }
 
             // wait for all threads
-            waitThreads(threads);
+            try {
+                endController.await();
+            } catch (InterruptedException e) {
+                LOGGER.catching(e);
+            }
+
         } catch (final IOException e) {
             LOGGER.catching(e);
         } finally {
@@ -370,23 +422,9 @@ public class Worker {
 
     } // function
 
-    /**
-     * Wait for threads looping through them.
-     *
-     * @param threads
-     *            a list of threads
-     */
-    private void waitThreads(final List<AbstractThread> threads) {
-        for (int i = 0; i < threads.size(); i++) {
-            try {
-                threads.get(i).join();
-            } catch (final InterruptedException e) {
-                LOGGER.catching(e);
-                Thread.currentThread().interrupt();
-            }
-        } // for
-
-    } // function
+    public void destroy() {
+        executor.shutdown();
+    }
 
     /**
      * @param bStatus

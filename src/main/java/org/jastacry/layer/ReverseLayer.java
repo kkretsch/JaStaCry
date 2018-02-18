@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class ReverseLayer extends AbstractLayer {
+public class ReverseLayer extends BasicLayer {
     /**
      * Number of bits to shift back to byte form.
      */

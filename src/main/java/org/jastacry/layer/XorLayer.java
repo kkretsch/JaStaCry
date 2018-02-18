@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class XorLayer extends AbstractLayer {
+public class XorLayer extends BasicLayer {
     /**
      * static name of the layer.
      */

@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class TransparentLayer extends AbstractLayer {
+public class TransparentLayer extends BasicLayer {
     /**
      * static name of the layer.
      */

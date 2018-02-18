@@ -14,7 +14,7 @@ import java.nio.channels.FileChannel;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class FilemergeLayer extends AbstractLayer {
+public class FilemergeLayer extends BasicLayer {
     /**
      * static name of the layer.
      */
