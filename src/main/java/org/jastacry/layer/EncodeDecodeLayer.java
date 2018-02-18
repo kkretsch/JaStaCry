@@ -14,7 +14,7 @@ import org.apache.commons.io.IOUtils;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class EncodeDecodeLayer extends AbstractLayer {
+public class EncodeDecodeLayer extends BasicLayer {
     /**
      * static name of the layer.
      */

@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * @author Kai Kretschmann
  * SPDX-License-Identifier: MIT
  */
-public class RotateLayer extends AbstractLayer {
+public class RotateLayer extends BasicLayer {
 
     /**
      * static name of the layer.

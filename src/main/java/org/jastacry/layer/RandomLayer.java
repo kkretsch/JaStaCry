@@ -11,7 +11,7 @@ import java.io.OutputStream;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class RandomLayer extends AbstractLayer {
+public class RandomLayer extends BasicLayer {
     /**
      * static name of the layer.
      */

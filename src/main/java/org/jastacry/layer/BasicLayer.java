@@ -3,9 +3,11 @@ package org.jastacry.layer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.concurrent.CountDownLatch;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jastacry.GlobalData.Action;
 
 /**
  * Abstract base class for the actual worker layers.
@@ -13,7 +15,7 @@ import org.apache.logging.log4j.Logger;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public abstract class AbstractLayer {
+public class BasicLayer implements Runnable {
     /**
      * When a byte is too little.
      */
@@ -25,9 +27,26 @@ public abstract class AbstractLayer {
     private static final int BYTE_VALUE_MAX = 255;
 
     /**
+     * Action for encoding or decoding direction.
+     */
+    private Action action = null;
+
+    /**
+     * Input stream.
+     */
+    protected InputStream inputStream = null;
+
+    /**
+     * Output stream.
+     */
+    protected OutputStream outputStream = null;
+
+    /**
      * Logger object.
      */
-    protected Logger logger; // NOPMD by kai on 21.11.17 17:33
+    protected Logger logger;
+
+    protected CountDownLatch endController;
 
     /**
      * Constructor of Layer.
@@ -35,7 +54,7 @@ public abstract class AbstractLayer {
      * @param caller
      *            class object
      */
-    protected AbstractLayer(final Class<?> caller) {
+    protected BasicLayer(final Class<?> caller) {
         logger = LogManager.getLogger(caller);
     }
 
@@ -45,7 +64,7 @@ public abstract class AbstractLayer {
      * @param data
      *            a String containing everything the layer needs to know
      */
-    public abstract void init(String data);
+    public void init(String data) {}
 
     /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
@@ -57,7 +76,7 @@ public abstract class AbstractLayer {
      * @throws IOException
      *             if one of the streams fail
      */
-    public abstract void encStream(InputStream inputStream, OutputStream outputStream) throws IOException;
+    public void encStream(InputStream inputStream, OutputStream outputStream) throws IOException {}
 
     /**
      * Decodes an encrypted stream to either plain text or the next encoded layer.
@@ -69,7 +88,7 @@ public abstract class AbstractLayer {
      * @throws IOException
      *             if one of the streams fail
      */
-    public abstract void decStream(InputStream inputStream, OutputStream outputStream) throws IOException;
+    public void decStream(InputStream inputStream, OutputStream outputStream) throws IOException {}
 
     /**
      * Show a human readable name of the layer.
@@ -78,7 +97,7 @@ public abstract class AbstractLayer {
      * @see java.lang.Object#toString()
      */
     @Override
-    public abstract String toString();
+    public String toString() {return null;}
 
     /**
      * Private range check function for byte values.
@@ -98,5 +117,46 @@ public abstract class AbstractLayer {
         }
 
         return iTmp;
+    }
+
+    public void setInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
+    }
+
+    public void setOutputStream(OutputStream outputStream) {
+        this.outputStream = outputStream;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    public void setEndController(CountDownLatch endController) {
+        this.endController = endController;
+    }
+
+    @Override
+    public void run() {
+        logger.info("started thread");
+        try {
+            switch (action) {
+                case ENCODE:
+                    this.encStream(inputStream, outputStream);
+                    break;
+                case DECODE:
+                    this.decStream(inputStream, outputStream);
+                    break;
+                case UNKOWN:
+                default:
+                    logger.error("unknown action '{}'", action);
+                    break;
+            }
+            outputStream.close();
+        } catch (final IOException exception) {
+            logger.catching(exception);
+        } finally {
+            endController.countDown();
+        }
+        logger.info("finished thread");
     }
 }
