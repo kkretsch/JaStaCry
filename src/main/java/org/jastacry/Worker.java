@@ -91,7 +91,7 @@ public class Worker {
      * Constructor of Worker class.
      */
     public Worker() {
-        int numThreads = 4; //Runtime.getRuntime().availableProcessors();
+        int numThreads = 4; // get Runtime and check availableProcessors?
         this.threadFactory = new LayerThreadFactory();
         this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(numThreads);
         this.executor.setThreadFactory(threadFactory);
@@ -393,16 +393,7 @@ public class Worker {
             }
 
             // wait for all threads
-            try {
-                boolean bClean = endController.await(5, TimeUnit.SECONDS);
-                if(bClean) {
-                    LOGGER.trace("all threads are gone.");
-                } else {
-                    LOGGER.warn("some threads seem stuck! #{}", endController.getCount());
-                }
-            } catch (InterruptedException e) {
-                LOGGER.catching(e);
-            }
+            waitForThreads(endController);
 
         } catch (final IOException e) {
             LOGGER.catching(e);
@@ -426,6 +417,20 @@ public class Worker {
         }
 
     } // function
+
+    private void waitForThreads(final CountDownLatch endController) {
+        try {
+            boolean bClean = endController.await(5, TimeUnit.SECONDS);
+            if(bClean) {
+                LOGGER.trace("all threads are gone.");
+            } else {
+                LOGGER.warn("some threads seem stuck! #{}", endController.getCount());
+            }
+        } catch (InterruptedException e) {
+            LOGGER.catching(e);
+            Thread.currentThread().interrupt();
+        }
+    }
 
     public void destroy() {
         executor.shutdown();
