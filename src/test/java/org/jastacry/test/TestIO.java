@@ -8,9 +8,7 @@ import java.util.concurrent.CountDownLatch;
 import org.jastacry.layer.ReadWriteLayer;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * Test of IOException.
@@ -19,16 +17,15 @@ import org.junit.rules.ExpectedException;
  *
  */
 public class TestIO {
-    /**
-     * Testdata to play with.
-     */
-    private final String testdata = "The quick brown fox jumps over the lazy dog.";
 
     /**
      * The layer to test.
      */
     private ReadWriteLayer layer = null;
 
+    /**
+     * Needed for the thread countdown.
+     */
     private CountDownLatch endController;
 
     /**
