@@ -420,12 +420,7 @@ public class Worker {
 
     private void waitForThreads(final CountDownLatch endController) {
         try {
-            boolean bClean = endController.await(5, TimeUnit.SECONDS);
-            if(bClean) {
-                LOGGER.trace("all threads are gone.");
-            } else {
-                LOGGER.warn("some threads seem stuck! #{}", endController.getCount());
-            }
+            endController.await();
         } catch (InterruptedException e) {
             LOGGER.catching(e);
             Thread.currentThread().interrupt();
