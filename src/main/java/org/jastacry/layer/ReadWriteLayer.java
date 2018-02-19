@@ -12,7 +12,7 @@ public class ReadWriteLayer extends BasicLayer {
     public void run() {
         logger.info("started thread");
         try {
-            int i = 0;
+            int i;
             while ((i = inputStream.read()) != -1) {
                 outputStream.write(i);
             }
