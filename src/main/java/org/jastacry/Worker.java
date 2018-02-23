@@ -309,6 +309,8 @@ public class Worker {
     private void loopLayers(final List<BasicLayer> layers, final InputStream input, final OutputStream output) {
         CountDownLatch endController= new CountDownLatch(layers.size()+2);
         List<BasicLayer> layersWithIO = new ArrayList<>();
+        List<InputStream> inputStreams = new ArrayList<>();
+        List<OutputStream> outputStreams = new ArrayList<>();
 
         BasicLayer l = null;
         PipedOutputStream prevOutput = null;
@@ -320,6 +322,7 @@ public class Worker {
         try {
             // Handle file input
             pipedOutputFromFile = new PipedOutputStream();
+            outputStreams.add(pipedOutputFromFile);
             l = new ReadWriteLayer();
             l.setInputStream(input);
             l.setOutputStream(pipedOutputFromFile);
@@ -330,8 +333,10 @@ public class Worker {
             // Handle very first layer
             l = layers.get(0);
             GlobalFunctions.logDebug(isVerbose, LOGGER, "layer FIRST '{}'", l);
-            pipedInputStream = new PipedInputStream(); // NOSONAR
-            pipedOutputStream = new PipedOutputStream(); // NOSONAR
+            pipedInputStream = new PipedInputStream();
+            pipedOutputStream = new PipedOutputStream();
+            inputStreams.add(pipedInputStream);
+            outputStreams.add(pipedOutputStream);
             pipedInputStream.connect(pipedOutputFromFile);
             prevOutput = pipedOutputStream;
             l.setInputStream(pipedInputStream);
@@ -346,8 +351,10 @@ public class Worker {
 
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "layer {} '{}'", i, l);
 
-                pipedInputStream = new PipedInputStream();
+                pipedInputStream = new PipedInputStream(); // NOSONAR
                 pipedOutputStream = new PipedOutputStream();
+                inputStreams.add(pipedInputStream);
+                outputStreams.add(pipedOutputStream);
                 pipedInputStream.connect(prevOutput);
                 prevOutput = pipedOutputStream;
                 l.setInputStream(pipedInputStream);
@@ -362,8 +369,10 @@ public class Worker {
 
             GlobalFunctions.logDebug(isVerbose, LOGGER, "layer LAST '{}'", l);
 
-            pipedInputStream = new PipedInputStream();
+            pipedInputStream = new PipedInputStream(); // NOSONAR
             pipedOutputStream = new PipedOutputStream();
+            inputStreams.add(pipedInputStream);
+            outputStreams.add(pipedOutputStream);
             pipedInputStream.connect(prevOutput);
             prevOutput = pipedOutputStream;
             l.setInputStream(pipedInputStream);
@@ -373,7 +382,8 @@ public class Worker {
             layersWithIO.add(l);
 
             // Handle file output
-            pipedInputStreamToFile = new PipedInputStream();
+            pipedInputStreamToFile = new PipedInputStream(); // NOSONAR
+            inputStreams.add(pipedInputStreamToFile);
             pipedInputStreamToFile.connect(prevOutput);
             l = new ReadWriteLayer();
             l.setInputStream(pipedInputStreamToFile);
@@ -398,18 +408,14 @@ public class Worker {
             LOGGER.catching(e);
         } finally {
             try {
-                if (null != pipedOutputFromFile) {
-                    pipedOutputFromFile.close();
-                } // if
-                if (null != pipedInputStream) {
-                    pipedInputStream.close();
-                } // if
-                if (null != pipedOutputStream) {
-                    pipedOutputStream.close();
-                } // if
-                if (null != pipedInputStreamToFile) {
-                    pipedInputStreamToFile.close();
-                } // if
+                for (InputStream inputStream : inputStreams) {
+                    inputStream.close();
+                } // for
+                for (OutputStream outputStream : outputStreams) {
+                    outputStream.close();
+                } // for
+                inputStreams.clear();
+                outputStreams.clear();
             } catch (final IOException e) {
                 LOGGER.catching(e);
             }
