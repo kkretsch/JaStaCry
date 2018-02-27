@@ -39,12 +39,12 @@ public final class JaStaCry {
     private static final String P_SHORT_VERBOSE = "v";
 
     /**
-     * Parameter, short version, for "ascii".
+     * Parameter, short version, for "ASCII".
      */
     private static final String P_SHORT_ASCII = "t";
 
     /**
-     * Parameter, long version, for "ascii".
+     * Parameter, long version, for "ASCII".
      */
     private static final String P_LONG_ASCII = "text";
 
@@ -145,7 +145,7 @@ public final class JaStaCry {
      * Main class for running a command line interface.
      *
      * @param args
-     *            parsed by apache commons cli package
+     *            parsed by Apache commons CLI package
      */
     @CoverageIgnore
     public static void main(final String[] args) {
@@ -272,7 +272,8 @@ public final class JaStaCry {
         } // if
 
         /*
-         * should have been solved by commons-cli required attribute, which collides to help parameter
+         * Should have been solved by commons-CLI required attribute,
+         * which collides to help parameter.
          */
         if (Action.UNKOWN == action) {
             LOGGER.debug("action required");
