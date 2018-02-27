@@ -64,7 +64,7 @@ public final class GlobalData {
     }
 
     /**
-     * enum range for Returncodes.
+     * enum range for return codes.
      *
      * @author Kai Kretschmann
      *

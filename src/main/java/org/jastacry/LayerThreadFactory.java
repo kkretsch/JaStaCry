@@ -9,14 +9,21 @@ import java.util.concurrent.ThreadFactory;
  */
 public class LayerThreadFactory implements ThreadFactory {
 
+    /**
+     * Default thread name prefix.
+     */
     private static final String PFX = "layer-";
+
+    /**
+     * No suffix needed.
+     */
     private String suffix="";
 
     @Override
     public Thread newThread(Runnable r) {
-        Thread t = new Thread(r, PFX+suffix);
-        t.setDaemon(true);
-        return t;
+        final Thread thread = new Thread(r, PFX+suffix);
+        thread.setDaemon(true);
+        return thread;
     }
 
     /**

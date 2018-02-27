@@ -80,7 +80,14 @@ public class Worker {
      */
     private Action action;
 
+    /**
+     * Thread pool object.
+     */
     private ThreadPoolExecutor executor;
+
+    /**
+     * Layer thread factory.
+     */
     private LayerThreadFactory threadFactory;
 
     
@@ -90,7 +97,7 @@ public class Worker {
      * Constructor of Worker class.
      */
     public Worker() {
-        int numThreads = 4; // get Runtime and check availableProcessors?
+        final int numThreads = 4; // get Runtime and check availableProcessors?
         this.threadFactory = new LayerThreadFactory();
         this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(numThreads);
         this.executor.setThreadFactory(threadFactory);
@@ -102,7 +109,7 @@ public class Worker {
      * @return int system return code to shell
      */
     public final int mainWork() {
-        List<BasicLayer> layers = createLayers();
+        final List<BasicLayer> layers = createLayers();
 
         if (null == layers || layers.isEmpty()) {
             LOGGER.error("No layers defined!");
@@ -166,13 +173,13 @@ public class Worker {
         // try with resources
         try (FileInputStream fstream = new FileInputStream(confFilename);
                 InputStreamReader isr = new InputStreamReader(fstream, StandardCharsets.UTF_8);
-                BufferedReader br = new BufferedReader(isr)) {
+                BufferedReader breader = new BufferedReader(isr)) {
             String strLine;
 
             BasicLayer layer = null;
 
             // Read File Line By Line
-            while ((strLine = br.readLine()) != null) {
+            while ((strLine = breader.readLine()) != null) {
                 strLine = strLine.trim();
                 if (';' == strLine.charAt(0)) {
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "skip comment line '{}'", strLine);
@@ -241,7 +248,7 @@ public class Worker {
      * @return Layer object
      */
     private BasicLayer createLayer(final String sName) {
-        BasicLayer layer = null;
+        BasicLayer layer;
 
         switch (sName.toLowerCase(Locale.getDefault())) {
             case "transparent":
@@ -270,6 +277,8 @@ public class Worker {
                 break;
             default:
                 LOGGER.error("unknown layer '{}'", sName);
+                layer = null;
+                break;
         } // switch
 
         return layer;
@@ -278,10 +287,8 @@ public class Worker {
     /**
      * make nice name.
      *
-     * @param iNumber
-     *            of layer
-     * @param layer
-     *            itself
+     * @param iNumber of layer
+     * @param layer itself
      * @return text name
      */
     private String makeThreadname(final int iNumber, final BasicLayer layer) {
@@ -291,24 +298,15 @@ public class Worker {
     /**
      * Loop through layers with data streams.
      *
-     * @param layers
-     *            Array of layers
-     * @param input
-     *            input Stream
-     * @param output
-     *            output Stream
-     * @throws IOException
-     *             in case of error
-     */
-    /**
-     * @param layers
-     * @param input
-     * @param output
+     * @param layers Array of layers
+     * @param input input Stream
+     * @param output output Stream
+     * @throws IOException in case of error
      */
     @java.lang.SuppressWarnings("squid:S2093")
     private void loopLayers(final List<BasicLayer> layers, final InputStream input, final OutputStream output) {
-        CountDownLatch endController= new CountDownLatch(layers.size()+2);
-        List<BasicLayer> layersWithIO = new ArrayList<>();
+        final CountDownLatch endController= new CountDownLatch(layers.size()+2);
+        final List<BasicLayer> layersWithIO = new ArrayList<>();
 
         BasicLayer l = null;
         PipedOutputStream prevOutput = null;
@@ -385,8 +383,8 @@ public class Worker {
             // Start all threads
             for (int i = 0; i < layersWithIO.size(); i++) {
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
-                BasicLayer layer = layersWithIO.get(i);
-                String sName = makeThreadname(i, layer);
+                final BasicLayer layer = layersWithIO.get(i);
+                final String sName = makeThreadname(i, layer);
                 threadFactory.setName(sName);
                 executor.execute(layer);
             }
@@ -426,21 +424,22 @@ public class Worker {
         }
     }
 
+    /**
+     * Destroy just like a inverted constructor function.
+     */
     public void destroy() {
         executor.shutdown();
     }
 
     /**
-     * @param bStatus
-     *            the doEncode to set
+     * @param bStatus the doEncode to set
      */
     public final void setDoEncode(final boolean bStatus) {
         doEncode = bStatus;
     }
 
     /**
-     * @param sFilename
-     *            the confFilename to set
+     * @param sFilename the confFilename to set
      */
     public final void setConfFilename(final String sFilename) {
         confFilename = sFilename;
