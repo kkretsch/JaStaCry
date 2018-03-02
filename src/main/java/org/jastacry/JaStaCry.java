@@ -104,9 +104,9 @@ public final class JaStaCry {
     private static final Logger LOGGER = LogManager.getLogger(JaStaCry.class.getName());
 
     /**
-     * boolean status: do we encode?
+     * boolean status: do we encode to plain text transport format?
      */
-    private static boolean doEncode;
+    private static boolean doASCIItransport;
 
     /**
      * Filename of configuration file.
@@ -170,7 +170,7 @@ public final class JaStaCry {
         final Worker worker = new Worker();
         worker.setAction(action);
         worker.setConfFilename(confFilename);
-        worker.setDoEncode(doEncode);
+        worker.setDoASCIItransport(doASCIItransport);
         worker.setInputFilename(inputFilename);
         worker.setOutputFilename(outputFilename);
         worker.setVerbose(isVerbose);
@@ -283,7 +283,7 @@ public final class JaStaCry {
         }
 
         // Use text format?
-        doEncode = cmdLine.hasOption(P_SHORT_ASCII) || cmdLine.hasOption(P_LONG_ASCII);
+        doASCIItransport = cmdLine.hasOption(P_SHORT_ASCII) || cmdLine.hasOption(P_LONG_ASCII);
 
         // Get file names for config, input and output
         confFilename = cmdLine.getOptionValue(P_LONG_CONFFILE);

@@ -14,17 +14,17 @@ import org.apache.commons.io.IOUtils;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class EncodeDecodeLayer extends BasicLayer {
+public class AsciiTransportLayer extends BasicLayer {
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "Encode Layer";
+    public static final String LAYERNAME = "ASCII Layer";
 
     /**
      * Constructor of EncodeDecodeLayer.
      */
-    public EncodeDecodeLayer() {
-        super(EncodeDecodeLayer.class);
+    public AsciiTransportLayer() {
+        super(AsciiTransportLayer.class);
     }
 
     /**
