@@ -168,6 +168,7 @@ public class Worker {
      */
     @java.lang.SuppressWarnings("squid:S3776")
     private List<BasicLayer> createLayers() {
+        final int TOKENCOUNT_ONE = 1;
         final List<BasicLayer> layers = new ArrayList<>();
 
         // try with resources
@@ -190,7 +191,7 @@ public class Worker {
 
                     final String[] toks = strLine.split("\\s+");
                     // no parameter?
-                    if (1 == toks.length) {
+                    if (TOKENCOUNT_ONE == toks.length) {
                         sLayer = strLine;
                         sParams = "";
                     } else {
@@ -251,28 +252,28 @@ public class Worker {
         BasicLayer layer;
 
         switch (sName.toLowerCase(Locale.getDefault())) {
-            case "transparent":
+            case GlobalData.LAYER_TRANSPARENT:
                 layer = new TransparentLayer();
                 break;
-            case "xor":
+            case GlobalData.LAYER_XOR:
                 layer = new XorLayer();
                 break;
-            case "rotate":
+            case GlobalData.LAYER_ROTATE:
                 layer = new RotateLayer();
                 break;
-            case "reverse":
+            case GlobalData.LAYER_REVERSE:
                 layer = new ReverseLayer();
                 break;
-            case "random":
+            case GlobalData.LAYER_RANDOM:
                 layer = new RandomLayer();
                 break;
-            case "filemerge":
+            case GlobalData.LAYER_FILEMERGE:
                 layer = new FilemergeLayer();
                 break;
-            case "md5des":
+            case GlobalData.LAYER_MD5DES:
                 layer = new Md5DesLayer();
                 break;
-            case "aes":
+            case GlobalData.LAYER_AES:
                 layer = new AesLayer();
                 break;
             default:
