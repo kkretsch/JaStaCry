@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jastacry.layer.EncodeDecodeLayer;
+import org.jastacry.layer.AsciiTransportLayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -26,7 +26,7 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerEncodeDecode {
+public class TestLayerASCIITransport {
     /**
      * log4j2 object.
      */
@@ -45,7 +45,7 @@ public class TestLayerEncodeDecode {
     /**
      * The layer object to test.
      */
-    private EncodeDecodeLayer layer = null;
+    private AsciiTransportLayer layer = null;
 
     /**
      * The BeforeClass method.
@@ -66,7 +66,7 @@ public class TestLayerEncodeDecode {
      */
     @Before
     public void setUp() throws Exception {
-        layer = new EncodeDecodeLayer();
+        layer = new AsciiTransportLayer();
         layer.init("");
     }
 
@@ -82,7 +82,7 @@ public class TestLayerEncodeDecode {
     }
 
     /**
-     * Test method for {@link org.jastacry.layer.EncodeDecodeLayer#encStream(java.io.InputStream, java.io.OutputStream)}
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#encStream(java.io.InputStream, java.io.OutputStream)}
      * .
      *
      * @throws IOException
@@ -106,7 +106,7 @@ public class TestLayerEncodeDecode {
     }
 
     /**
-     * Test method for {@link org.jastacry.layer.EncodeDecodeLayer#decStream(java.io.InputStream, java.io.OutputStream)}
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)}
      * .
      *
      * @throws IOException
@@ -129,12 +129,12 @@ public class TestLayerEncodeDecode {
     }
 
     /**
-     * Test method for {@link org.jastacry.layer.EncodeDecodeLayer#toString()}.
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#toString()}.
      */
     @Test
     // TestLink(externalId = "JAS-14")
     public void testToString() {
-        assertEquals("Layer name mismatch", EncodeDecodeLayer.LAYERNAME, layer.toString());
+        assertEquals("Layer name mismatch", AsciiTransportLayer.LAYERNAME, layer.toString());
     }
 
 }

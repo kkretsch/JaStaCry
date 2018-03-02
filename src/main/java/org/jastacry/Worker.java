@@ -28,7 +28,7 @@ import org.jastacry.GlobalData.Action;
 import org.jastacry.GlobalData.Returncode;
 import org.jastacry.layer.AesLayer;
 import org.jastacry.layer.BasicLayer;
-import org.jastacry.layer.EncodeDecodeLayer;
+import org.jastacry.layer.AsciiTransportLayer;
 import org.jastacry.layer.FilemergeLayer;
 import org.jastacry.layer.Md5DesLayer;
 import org.jastacry.layer.RandomLayer;
@@ -51,9 +51,9 @@ public class Worker {
     private static final Logger LOGGER = LogManager.getLogger();
 
     /**
-     * boolean status: do we encode?
+     * boolean status: do we encode to text transport format?
      */
-    private boolean doEncode;
+    private boolean doASCIItransport;
 
     /**
      * Filename of configuration file.
@@ -121,8 +121,9 @@ public class Worker {
             return Returncode.RC_ERROR.getNumVal();
         }
 
-        if (doEncode) {
-            final BasicLayer layerEncode = new EncodeDecodeLayer();
+        // In case of plain text, either encode after layers or decode before them.
+        if (doASCIItransport) {
+            final BasicLayer layerEncode = new AsciiTransportLayer();
             switch (action) {
                 case ENCODE:
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "add text encoding to end");
@@ -134,6 +135,7 @@ public class Worker {
                     break;
                 case UNKOWN:
                 default:
+                    // will never be reached if main setup function works correctly
                     LOGGER.error("unknown action '{}'", action);
                     break;
             } // switch
@@ -442,8 +444,8 @@ public class Worker {
     /**
      * @param bStatus the doEncode to set
      */
-    public final void setDoEncode(final boolean bStatus) {
-        doEncode = bStatus;
+    public final void setDoASCIItransport(final boolean bStatus) {
+        doASCIItransport = bStatus;
     }
 
     /**
