@@ -40,6 +40,48 @@ public final class GlobalData {
      */
     public static final String PARAM_DECODE = "decode";
 
+
+    /**
+     * Configuration value for layer "transparent" (lower case)
+     */
+    public static final String LAYER_TRANSPARENT = "transparent";
+    
+    /**
+     * Configuration value for layer "xor" (lower case)
+     */
+    public static final String LAYER_XOR = "xor";
+    
+    /**
+     * Configuration value for layer "rotate" (lower case)
+     */
+    public static final String LAYER_ROTATE = "rotate";
+    
+    /**
+     * Configuration value for layer "reverse" (lower case)
+     */
+    public static final String LAYER_REVERSE = "reverse";
+    
+    /**
+     * Configuration value for layer "random" (lower case)
+     */
+    public static final String LAYER_RANDOM = "random";
+    
+    /**
+     * Configuration value for layer "filemerge" (lower case)
+     */
+    public static final String LAYER_FILEMERGE = "filemerge";
+    
+    /**
+     * Configuration value for layer "md5des" (lower case)
+     */
+    public static final String LAYER_MD5DES = "md5des";
+    
+    /**
+     * Configuration value for layer "aes" (lower case)
+     */
+    public static final String LAYER_AES = "aes";
+
+
     /**
      * enum range for Actions.
      *
