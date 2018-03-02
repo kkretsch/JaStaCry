@@ -168,6 +168,7 @@ public class Worker {
      */
     @java.lang.SuppressWarnings("squid:S3776")
     private List<BasicLayer> createLayers() {
+        final char TOKEN_COMMENT = ';';
         final int TOKENCOUNT_ONE = 1;
         final List<BasicLayer> layers = new ArrayList<>();
 
@@ -182,7 +183,7 @@ public class Worker {
             // Read File Line By Line
             while ((strLine = breader.readLine()) != null) {
                 strLine = strLine.trim();
-                if (';' == strLine.charAt(0)) {
+                if (TOKEN_COMMENT == strLine.charAt(0)) {
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "skip comment line '{}'", strLine);
                 } else {
 
@@ -398,7 +399,7 @@ public class Worker {
                 final String sName = makeThreadname(i, layer);
                 threadFactory.setName(sName);
                 executor.execute(layer);
-            }
+            } // for
 
             // wait for all threads
             waitForThreads(endController);
@@ -407,10 +408,10 @@ public class Worker {
             LOGGER.catching(e);
         } finally {
             try {
-                for (InputStream inputStream : inputStreams) {
+                for (final InputStream inputStream : inputStreams) {
                     inputStream.close();
                 } // for
-                for (OutputStream outputStream : outputStreams) {
+                for (final OutputStream outputStream : outputStreams) {
                     outputStream.close();
                 } // for
                 inputStreams.clear();
@@ -425,7 +426,7 @@ public class Worker {
     private void waitForThreads(final CountDownLatch endController) {
         try {
             endController.await();
-        } catch (InterruptedException e) {
+        } catch (final InterruptedException e) {
             LOGGER.catching(e);
             Thread.currentThread().interrupt();
         }
