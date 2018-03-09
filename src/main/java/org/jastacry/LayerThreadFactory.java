@@ -17,11 +17,11 @@ public class LayerThreadFactory implements ThreadFactory {
     /**
      * No suffix needed.
      */
-    private String suffix="";
+    private String suffix = "";
 
     @Override
-    public Thread newThread(final Runnable r) {
-        final Thread thread = new Thread(r, PFX+suffix);
+    public final Thread newThread(final Runnable r) {
+        final Thread thread = new Thread(r, PFX + suffix);
         thread.setDaemon(true);
         return thread;
     }
@@ -30,8 +30,8 @@ public class LayerThreadFactory implements ThreadFactory {
      * Set name suffix for thread.
      * @param sSuffix String as suffix.
      */
-    public void setName(final String sSuffix) {
+    public final void setName(final String sSuffix) {
         this.suffix = sSuffix;
     }
-    
+
 }
