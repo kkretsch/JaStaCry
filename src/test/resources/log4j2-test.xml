@@ -9,18 +9,24 @@
 		<File name="Logfile" fileName="logs/TestLogfile.log">
 			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %msg%n" />
 		</File>
+		<File name="TraceLog" fileName="logs/Trace.log">
+			<PatternLayout pattern="%d [%p]\t[%t] (%c) - %m%n" />
+		</File>
 	</Appenders>
 	<Loggers>
 		<Root level="ALL">
-			<AppenderRef ref="ConsoleLog" level="DEBUG" />
+			<AppenderRef ref="ConsoleLog" level="TRACE" />
+			<AppenderRef ref="TraceLog" level="TRACE" />
 		</Root>
 		<Logger additivity="FALSE" level="ALL" name="org.jastacry.layer">
-			<AppenderRef level="DEBUG" ref="ConsoleLog" />
-			<AppenderRef level="ALL" ref="Logfile" />
+			<AppenderRef ref="ConsoleLog" level="TRACE" />
+			<AppenderRef ref="TraceLog" level="TRACE" />
+			<AppenderRef ref="Logfile" level="ALL" />
 		</Logger>
 		<Logger additivity="FALSE" level="ALL" name="org.jastacry.test">
-			<AppenderRef level="DEBUG" ref="ConsoleLog" />
-			<AppenderRef level="ALL" ref="Logfile" />
+			<AppenderRef ref="ConsoleLog" level="TRACE" />
+			<AppenderRef ref="TraceLog" level="TRACE" />
+			<AppenderRef ref="Logfile" level="ALL" />
 		</Logger>
 	</Loggers>
 </Configuration>
