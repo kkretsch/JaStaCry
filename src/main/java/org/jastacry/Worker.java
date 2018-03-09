@@ -51,6 +51,11 @@ public class Worker {
     private static final Logger LOGGER = LogManager.getLogger();
 
     /**
+     * Minimal number of threads needed. Better use all cores.
+     */
+    private static final int MINUMUM_THREADS = 2;
+
+    /**
      * boolean status: do we encode to text transport format?
      */
     private boolean doASCIItransport;
@@ -90,14 +95,16 @@ public class Worker {
      */
     private LayerThreadFactory threadFactory;
 
-    
-    
-    
+
     /**
      * Constructor of Worker class.
      */
     public Worker() {
-        final int numThreads = 4; // get Runtime and check availableProcessors?
+        final int numCores = Runtime.getRuntime().availableProcessors();
+        LOGGER.trace("CPU cores available: {}", numCores);
+        final int numThreads = Math.max(numCores, MINUMUM_THREADS);
+        LOGGER.trace("Using {} threads in pool", numThreads);
+
         this.threadFactory = new LayerThreadFactory();
         this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(numThreads);
         this.executor.setThreadFactory(threadFactory);
