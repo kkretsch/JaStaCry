@@ -29,17 +29,17 @@ public class BasicLayer implements Runnable {
     /**
      * Action for encoding or decoding direction.
      */
-    private Action action = null;
+    private Action action;
 
     /**
      * Input stream.
      */
-    protected InputStream inputStream = null;
+    protected InputStream inputStream;
 
     /**
      * Output stream.
      */
-    protected OutputStream outputStream = null;
+    protected OutputStream outputStream;
 
     /**
      * Logger object.
@@ -56,6 +56,9 @@ public class BasicLayer implements Runnable {
      */
     protected BasicLayer(final Class<?> caller) {
         logger = LogManager.getLogger(caller);
+        setAction(null);
+        setInputStream(null);
+        setOutputStream(null);
     }
 
     /**
@@ -64,7 +67,7 @@ public class BasicLayer implements Runnable {
      * @param data
      *            a String containing everything the layer needs to know
      */
-    public void init(String data) {
+    public void init(final String data) {
         throw new UnsupportedOperationException();
     }
 
@@ -78,7 +81,7 @@ public class BasicLayer implements Runnable {
      * @throws IOException
      *             if one of the streams fail
      */
-    public void encStream(InputStream inputStream, OutputStream outputStream) throws IOException {
+    public void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         throw new UnsupportedOperationException();
     }
 
@@ -92,7 +95,7 @@ public class BasicLayer implements Runnable {
      * @throws IOException
      *             if one of the streams fail
      */
-    public void decStream(InputStream inputStream, OutputStream outputStream) throws IOException {
+    public void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         throw new UnsupportedOperationException();
     }
 
@@ -127,19 +130,19 @@ public class BasicLayer implements Runnable {
         return iTmp;
     }
 
-    public void setInputStream(InputStream inputStream) {
+    public void setInputStream(final InputStream inputStream) {
         this.inputStream = inputStream;
     }
 
-    public void setOutputStream(OutputStream outputStream) {
+    public void setOutputStream(final OutputStream outputStream) {
         this.outputStream = outputStream;
     }
 
-    public void setAction(Action action) {
+    public void setAction(final Action action) {
         this.action = action;
     }
 
-    public void setEndController(CountDownLatch endController) {
+    public void setEndController(final CountDownLatch endController) {
         this.endController = endController;
     }
 
