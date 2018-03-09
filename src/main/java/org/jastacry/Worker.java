@@ -413,8 +413,7 @@ public class Worker {
             for (int i = 0; i < layersWithIO.size(); i++) {
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
                 final BasicLayer layer = layersWithIO.get(i);
-                final String sName = makeThreadname(i, layer);
-                threadFactory.setName(sName);
+                threadFactory.setNumber(i);
                 executor.execute(layer);
             } // for
 
