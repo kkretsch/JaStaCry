@@ -88,12 +88,12 @@ public class Worker {
     /**
      * Thread pool object.
      */
-    private ThreadPoolExecutor executor;
+    private final ThreadPoolExecutor executor;
 
     /**
      * Layer thread factory.
      */
-    private LayerThreadFactory threadFactory;
+    private final LayerThreadFactory threadFactory;
 
 
     /**

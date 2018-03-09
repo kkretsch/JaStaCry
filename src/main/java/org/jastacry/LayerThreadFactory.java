@@ -20,7 +20,7 @@ public class LayerThreadFactory implements ThreadFactory {
     private String suffix="";
 
     @Override
-    public Thread newThread(Runnable r) {
+    public Thread newThread(final Runnable r) {
         final Thread thread = new Thread(r, PFX+suffix);
         thread.setDaemon(true);
         return thread;
