@@ -2,14 +2,22 @@ package org.jastacry.layer;
 
 import java.io.IOException;
 
+/**
+ * Read write layer for IO purpose.
+ * @author kkretsch
+ *
+ */
 public class ReadWriteLayer extends BasicLayer {
 
+    /**
+     * Constructor of class, calling super.
+     */
     public ReadWriteLayer() {
         super(ReadWriteLayer.class);
     }
 
     @Override
-    public void run() {
+    public final void run() {
         logger.info("started thread");
         try {
             int i;
@@ -27,7 +35,7 @@ public class ReadWriteLayer extends BasicLayer {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "ReadWrite";
     }
 }

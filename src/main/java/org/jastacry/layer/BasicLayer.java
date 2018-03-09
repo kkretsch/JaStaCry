@@ -46,6 +46,9 @@ public class BasicLayer implements Runnable {
      */
     protected Logger logger;
 
+    /**
+     * Countdown for managing threads running.
+     */
     protected CountDownLatch endController;
 
     /**
@@ -68,35 +71,35 @@ public class BasicLayer implements Runnable {
      *            a String containing everything the layer needs to know
      */
     public void init(final String data) {
-        throw new UnsupportedOperationException();
+        // empty by design, was throwing new UnsupportedOperationException
     }
 
     /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
      *
-     * @param inputStream
+     * @param newInputStream
      *            existing and opened input stream
-     * @param outputStream
+     * @param newOutputStream
      *            existing and opened output stream
      * @throws IOException
      *             if one of the streams fail
      */
-    public void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        throw new UnsupportedOperationException();
+    public void encStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException {
+        // empty by design
     }
 
     /**
      * Decodes an encrypted stream to either plain text or the next encoded layer.
      *
-     * @param inputStream
+     * @param newInputStream
      *            existing and opened input stream
-     * @param outputStream
+     * @param newOutputStream
      *            existing and opened output stream
      * @throws IOException
      *             if one of the streams fail
      */
-    public void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        throw new UnsupportedOperationException();
+    public void decStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException {
+        // empty by design
     }
 
     /**
@@ -130,20 +133,36 @@ public class BasicLayer implements Runnable {
         return iTmp;
     }
 
-    public void setInputStream(final InputStream inputStream) {
-        this.inputStream = inputStream;
+    /**
+     * Property setter for input stream.
+     * @param newInputStream the new stream
+     */
+    public final void setInputStream(final InputStream newInputStream) {
+        this.inputStream = newInputStream;
     }
 
-    public void setOutputStream(final OutputStream outputStream) {
-        this.outputStream = outputStream;
+    /**
+     * property setter for output stream.
+     * @param newOutputStream the new output stream
+     */
+    public final void setOutputStream(final OutputStream newOutputStream) {
+        this.outputStream = newOutputStream;
     }
 
-    public void setAction(final Action action) {
-        this.action = action;
+    /**
+     * Property setter for action.
+     * @param newAction the new action
+     */
+    public final void setAction(final Action newAction) {
+        this.action = newAction;
     }
 
-    public void setEndController(final CountDownLatch endController) {
-        this.endController = endController;
+    /**
+     * Property setter for endcontroller.
+     * @param newEndController the new endcontroller
+     */
+    public final void setEndController(final CountDownLatch newEndController) {
+        this.endController = newEndController;
     }
 
     @Override

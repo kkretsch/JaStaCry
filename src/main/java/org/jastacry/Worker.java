@@ -56,6 +56,16 @@ public class Worker {
     private static final int MINUMUM_THREADS = 2;
 
     /**
+     * Char to mark comments.
+     */
+    private static final char TOKEN_COMMENT = ';';
+
+    /**
+     * Token count comparator, means no argument to command.
+     */
+    private static final int TOKENCOUNT_ONE = 1;
+
+    /**
      * boolean status: do we encode to text transport format?
      */
     private boolean doASCIItransport;
@@ -177,8 +187,6 @@ public class Worker {
      */
     @java.lang.SuppressWarnings("squid:S3776")
     private List<BasicLayer> createLayers() {
-        final char TOKEN_COMMENT = ';';
-        final int TOKENCOUNT_ONE = 1;
         final List<BasicLayer> layers = new ArrayList<>();
 
         // try with resources
@@ -316,7 +324,7 @@ public class Worker {
      */
     @java.lang.SuppressWarnings("squid:S2093")
     private void loopLayers(final List<BasicLayer> layers, final InputStream input, final OutputStream output) {
-        final CountDownLatch endController= new CountDownLatch(layers.size()+2);
+        final CountDownLatch endController = new CountDownLatch(layers.size() + 2);
         final List<BasicLayer> layersWithIO = new ArrayList<>();
         final List<InputStream> inputStreams = new ArrayList<>();
         final List<OutputStream> outputStreams = new ArrayList<>();
@@ -432,6 +440,10 @@ public class Worker {
 
     } // function
 
+    /**
+     * Wait for all threads to end.
+     * @param endController the controller which counts the threads
+     */
     private void waitForThreads(final CountDownLatch endController) {
         try {
             endController.await();
@@ -444,7 +456,7 @@ public class Worker {
     /**
      * Destroy just like a inverted constructor function.
      */
-    public void destroy() {
+    public final void destroy() {
         executor.shutdown();
     }
 
