@@ -304,17 +304,6 @@ public class Worker {
     } // function
 
     /**
-     * make nice name.
-     *
-     * @param iNumber of layer
-     * @param layer itself
-     * @return text name
-     */
-    private String makeThreadname(final int iNumber, final BasicLayer layer) {
-        return Integer.toString(iNumber) + " " + layer.toString();
-    }
-
-    /**
      * Loop through layers with data streams.
      *
      * @param layers Array of layers
