@@ -34,4 +34,12 @@ public class LayerThreadFactory implements ThreadFactory {
         this.suffix = sSuffix;
     }
 
+    /**
+     * Set name suffix for thread.
+     * @param iSuffix Number as suffix.
+     */
+    public final void setNumber(final int iSuffix) {
+        this.suffix = Integer.toString(iSuffix);
+    }
+
 }
