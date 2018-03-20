@@ -9,16 +9,13 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
-import java.security.spec.KeySpec;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.junit.Test;
@@ -34,9 +31,6 @@ public class TestExportEncryption {
      * Testdata to play with.
      */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
-    private final char[] password = "myPassword".toCharArray();
-    private final byte[] salt = {0x01, 0x02, 0x03};
-
 
     /**
      * Testcase get java version.
@@ -67,11 +61,11 @@ public class TestExportEncryption {
     @Test
     public void testAes128() {
         try {
-            helperEncryptDecrypt(65536, 128);
+            helperEncryptDecrypt(128);
         } catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException
                 | InvalidParameterSpecException | IllegalBlockSizeException | BadPaddingException
                 | UnsupportedEncodingException | InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
+            org.junit.Assert.fail("exception " + e.getLocalizedMessage());
         }
     }
 
@@ -82,11 +76,11 @@ public class TestExportEncryption {
     @Test
     public void testAes256() {
         try {
-            helperEncryptDecrypt(65536, 256);
+            helperEncryptDecrypt(256);
         } catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException
                 | InvalidParameterSpecException | IllegalBlockSizeException | BadPaddingException
                 | UnsupportedEncodingException | InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
+            org.junit.Assert.fail("exception " + e.getLocalizedMessage());
         }
     }
 
@@ -103,12 +97,14 @@ public class TestExportEncryption {
      * @throws IllegalBlockSizeException 
      * @throws InvalidAlgorithmParameterException 
      */
-    private void helperEncryptDecrypt(final int iterations, final int bitsize) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
-        /* Derive the key, given password and salt. */
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(password, salt, iterations, bitsize);
-        SecretKey tmp = factory.generateSecret(spec);
-        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), "AES");
+    private void helperEncryptDecrypt(final int bitsize) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
+        int bytesize = bitsize / 8;
+        System.out.println("key size " + bytesize);
+        byte[] aesKey = new byte[bytesize];
+        for (int i = 0; i < aesKey.length; ++i) {
+            aesKey[i] = (byte)i;
+        }
+        SecretKey secret = new SecretKeySpec(aesKey, "AES");
 
         /* Encrypt the message. */
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
