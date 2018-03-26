@@ -2,12 +2,20 @@ package org.jastacry;
 
 import java.util.concurrent.ThreadFactory;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Thread factory for better thread naming.
  * @author kai
  *
  */
 public class LayerThreadFactory implements ThreadFactory {
+
+    /**
+     * log4j logger object.
+     */
+    private static final Logger LOGGER = LogManager.getLogger();
 
     /**
      * Default thread name prefix.
@@ -21,9 +29,10 @@ public class LayerThreadFactory implements ThreadFactory {
 
     @Override
     public final Thread newThread(final Runnable r) {
+        LOGGER.traceEntry();
         final Thread thread = new Thread(r, PFX + suffix);
         thread.setDaemon(true);
-        return thread;
+        return LOGGER.traceExit(thread);
     }
 
     /**
