@@ -10,7 +10,7 @@
 			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %msg%n" />
 		</File>
 		<File name="TraceLog" fileName="logs/Trace.log">
-			<PatternLayout pattern="%d [%p]\t[%t] (%c) - %m%n" />
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n" />
 		</File>
 	</Appenders>
 	<Loggers>

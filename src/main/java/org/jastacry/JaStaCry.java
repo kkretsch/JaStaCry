@@ -161,6 +161,7 @@ public final class JaStaCry {
      * @return int result code
      */
     public static int mainMethod(final String... args) {
+        LOGGER.traceEntry();
         int iRC = setup(args);
         if (0 != iRC) {
             LOGGER.error("Setup found errors {}", iRC);
@@ -176,7 +177,7 @@ public final class JaStaCry {
         worker.setVerbose(isVerbose);
 
         iRC = worker.mainWork();
-        return iRC;
+        return LOGGER.traceExit(iRC);
     }
 
     /**
@@ -185,6 +186,7 @@ public final class JaStaCry {
      * @return Options object
      */
     private static Options createOptions() {
+        LOGGER.traceEntry();
         final Options options = new Options();
         Option option;
 
@@ -216,7 +218,7 @@ public final class JaStaCry {
                 .desc("use FILE as output stream").build();
         options.addOption(option);
 
-        return options;
+        return LOGGER.traceExit(options);
     }
 
     /**
@@ -227,6 +229,7 @@ public final class JaStaCry {
      * @return int error value
      */
     private static int setup(final String... args) {
+        LOGGER.traceEntry();
         // Command line parameters
         final Options options = createOptions();
 
@@ -240,19 +243,19 @@ public final class JaStaCry {
             return Returncode.RC_ERROR.getNumVal();
         } catch (final ParseException e2) {
             LOGGER.catching(e2);
-            return Returncode.RC_ERROR.getNumVal(); // NOPMD by kai on 21.11.17 17:02
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD by kai on 21.11.17 17:02
         }
 
         if (null == cmdLine) {
             LOGGER.error("cmdLine null");
-            return Returncode.RC_ERROR.getNumVal(); // NOPMD by kai on 21.11.17 16:59
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD by kai on 21.11.17 16:59
         }
 
         if (cmdLine.hasOption(P_SHORT_HELP)) {
             LOGGER.debug("Show help");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return Returncode.RC_HELP.getNumVal(); // NOPMD by kai on 21.11.17 17:00
+            return LOGGER.traceExit(Returncode.RC_HELP.getNumVal()); // NOPMD by kai on 21.11.17 17:00
         } // if
 
         // Is verbose?
@@ -279,7 +282,7 @@ public final class JaStaCry {
             LOGGER.debug("action required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return Returncode.RC_ERROR.getNumVal(); // NOPMD by kai on 21.11.17 16:59
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD by kai on 21.11.17 16:59
         }
 
         // Use text format?
@@ -294,10 +297,10 @@ public final class JaStaCry {
             LOGGER.debug("argument to parameter required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return Returncode.RC_ERROR.getNumVal(); // NOPMD by kai on 21.11.17 16:59
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD by kai on 21.11.17 16:59
         }
 
-        return 0;
+        return LOGGER.traceExit(0);
     }
 
 }

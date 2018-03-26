@@ -110,6 +110,7 @@ public class Worker {
      * Constructor of Worker class.
      */
     public Worker() {
+        LOGGER.traceEntry();
         final int numCores = Runtime.getRuntime().availableProcessors();
         LOGGER.trace("CPU cores available: {}", numCores);
         final int numThreads = Math.max(numCores, MINUMUM_THREADS);
@@ -118,6 +119,7 @@ public class Worker {
         this.threadFactory = new LayerThreadFactory();
         this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(numThreads);
         this.executor.setThreadFactory(threadFactory);
+        LOGGER.traceExit();
     }
 
     /**
@@ -126,16 +128,17 @@ public class Worker {
      * @return int system return code to shell
      */
     public final int mainWork() {
+        LOGGER.traceEntry();
         final List<BasicLayer> layers = createLayers();
 
         if (null == layers || layers.isEmpty()) {
             LOGGER.error("No layers defined!");
-            return Returncode.RC_ERROR.getNumVal();
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
         } // if
 
         if (layers.size() == 1) {
             LOGGER.warn("Warning: Only one layer defined!");
-            return Returncode.RC_ERROR.getNumVal();
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
         }
 
         // In case of plain text, either encode after layers or decode before them.
@@ -168,7 +171,7 @@ public class Worker {
             }
         } catch (final FileNotFoundException e) {
             LOGGER.catching(e);
-            return Returncode.RC_ERROR.getNumVal();
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
         } catch (final IOException e) {
             LOGGER.catching(e);
         }
@@ -177,6 +180,7 @@ public class Worker {
             LOGGER.info("JaStaCry finished");
         }
 
+        LOGGER.traceExit();
         return 0;
     }
 
@@ -187,6 +191,7 @@ public class Worker {
      */
     @java.lang.SuppressWarnings("squid:S3776")
     private List<BasicLayer> createLayers() {
+        LOGGER.traceEntry();
         final List<BasicLayer> layers = new ArrayList<>();
 
         // try with resources
@@ -223,7 +228,7 @@ public class Worker {
                             final Console console = System.console();
                             if (null == console) {
                                 LOGGER.error("No interactive console available for password entry!");
-                                return layers;
+                                return LOGGER.traceExit(layers);
                             }
                             final char[] password = console.readPassword("Layer " + sLayer + " Password: ");
                             sParams = new String(password);
@@ -256,7 +261,7 @@ public class Worker {
             LOGGER.catching(e);
         }
 
-        return layers;
+        return LOGGER.traceExit(layers);
     }
 
     /**
@@ -267,6 +272,7 @@ public class Worker {
      * @return Layer object
      */
     private BasicLayer createLayer(final String sName) {
+        LOGGER.traceEntry(sName);
         BasicLayer layer;
 
         switch (sName.toLowerCase(Locale.getDefault())) {
@@ -300,7 +306,7 @@ public class Worker {
                 break;
         } // switch
 
-        return layer;
+        return LOGGER.traceExit(layer);
     } // function
 
     /**
@@ -313,6 +319,8 @@ public class Worker {
      */
     @java.lang.SuppressWarnings("squid:S2093")
     private void loopLayers(final List<BasicLayer> layers, final InputStream input, final OutputStream output) {
+        LOGGER.traceEntry();
+
         final CountDownLatch endController = new CountDownLatch(layers.size() + 2);
         final List<BasicLayer> layersWithIO = new ArrayList<>();
         final List<InputStream> inputStreams = new ArrayList<>();
@@ -426,6 +434,7 @@ public class Worker {
             }
         }
 
+        LOGGER.traceExit();
     } // function
 
     /**
