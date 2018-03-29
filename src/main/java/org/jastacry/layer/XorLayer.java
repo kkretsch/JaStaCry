@@ -18,7 +18,7 @@ public class XorLayer extends BasicLayer {
     /**
      * private byte mask to xor with.
      */
-    private byte bMask;
+    private byte bMask; // NOPMD by kkretsch on 29.03.18 14:53
 
     /**
      * Constructor of XorLayer.

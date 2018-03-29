@@ -28,7 +28,7 @@ public class TestLayerRotate {
     /**
      * The layer to test.
      */
-    private RotateLayer layer = null;
+    private RotateLayer layer = null; // NOPMD by kkretsch on 29.03.18 14:54
 
     /**
      * Shift a small amount.

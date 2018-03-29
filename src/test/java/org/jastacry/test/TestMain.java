@@ -91,17 +91,17 @@ public class TestMain {
     /**
      * temporary file.
      */
-    private File tmpFile;
+    private File tmpFile; // NOPMD by kkretsch on 29.03.18 14:53
 
     /**
      * temporary binary file.
      */
-    private File binFile;
+    private File binFile; // NOPMD by kkretsch on 29.03.18 14:53
 
     /**
      * Encrypted file.
      */
-    private File encFile;
+    private File encFile; // NOPMD by kkretsch on 29.03.18 14:53
 
     /**
      * The BeforeClass method.

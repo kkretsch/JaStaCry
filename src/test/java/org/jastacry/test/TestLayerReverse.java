@@ -35,7 +35,7 @@ public class TestLayerReverse {
     /**
      * The layer to test.
      */
-    private BasicLayer layer = null;
+    private BasicLayer layer = null; // NOPMD by kkretsch on 29.03.18 14:55
 
     /**
      * Test Before method.

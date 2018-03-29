@@ -28,7 +28,7 @@ public class TestLayerXor {
     /**
      * The layer to test.
      */
-    private XorLayer layer = null;
+    private XorLayer layer = null; // NOPMD by kkretsch on 29.03.18 14:54
 
     /**
      * Init value for xor layer.
