@@ -1,5 +1,7 @@
 package org.jastacry.test;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -17,4 +19,16 @@ import org.junit.runners.Suite.SuiteClasses;
     TestLayerTransparent.class, TestLayerXor.class, TestIO.class, TestMain.class })
 public class AllTests {
 
+    /**
+     * log4j logger object.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(AllTests.class.getName());
+
+    /**
+     * All tests, initial test suite starting point.
+     */
+    public AllTests() {
+        // empty constructor
+        LOGGER.info("running AllTests");
+    }
 }
