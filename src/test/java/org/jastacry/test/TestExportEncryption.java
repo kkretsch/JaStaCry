@@ -44,7 +44,7 @@ public class TestExportEncryption {
 
     /**
      * Testcase get max key length.
-     * @throws NoSuchAlgorithmException 
+     * @throws NoSuchAlgorithmException in case of export restrictions
      *
      */
     @Test
