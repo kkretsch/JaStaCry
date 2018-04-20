@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacry</artifactId>
-	<version>0.2.4</version>
+	<version>0.2.5-SNAPSHOT</version>
 	<description>Java Stacked Crypto</description>
 	<url>https://jastacry.org/</url>
 	<name>JaStaCry</name>
@@ -153,7 +153,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
@@ -374,11 +373,11 @@
 			<name>Site JaStaCry Website</name>
 			<url>ftp://wp12173701.server-he.de/</url>
 		</site>
-		<!-- <repository>
+		<snapshotRepository>
 			<id>nexussnapshots</id>
 			<name>Nexus local snapshots</name>
 			<url>https://nexus.myocastor.de/repository/maven-snapshots/</url>
-			</repository> -->
+		</snapshotRepository>
 		<repository>
 			<id>nexusreleases</id>
 			<name>Nexus local releases</name>
