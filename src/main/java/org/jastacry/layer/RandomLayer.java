@@ -42,7 +42,7 @@ public class RandomLayer extends BasicLayer {
     }
 
     /**
-     * encode Stream function which does the real thing.
+     * Local encode Stream function which does the real thing for Random Layer.
      *
      * @param inputStream
      *            incoming data
@@ -66,7 +66,7 @@ public class RandomLayer extends BasicLayer {
     }
 
     /**
-     * encode Stream function.
+     * encode Stream function for Random Layer.
      *
      * @param inputStream
      *            incoming data
@@ -81,7 +81,7 @@ public class RandomLayer extends BasicLayer {
     }
 
     /**
-     * decode Stream function.
+     * decode Stream function for Random Layer.
      *
      * @param inputStream
      *            incoming data
@@ -96,7 +96,7 @@ public class RandomLayer extends BasicLayer {
     }
 
     /**
-     * Print layer name function.
+     * Print layer name function for Random Layer.
      *
      * @return Layer name as String
      */

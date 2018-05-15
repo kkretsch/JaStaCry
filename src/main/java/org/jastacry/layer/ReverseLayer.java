@@ -45,7 +45,7 @@ public class ReverseLayer extends BasicLayer {
     }
 
     /**
-     * Local function for encode and decode.
+     * Local encode Stream function which does the real thing for Reverse Layer.
      *
      * @param inputStream
      *            input data stream
@@ -68,7 +68,7 @@ public class ReverseLayer extends BasicLayer {
     }
 
     /**
-     * encode Stream function.
+     * Encode Stream function for Reverse Layer.
      *
      * @param inputStream
      *            incoming data
@@ -83,7 +83,7 @@ public class ReverseLayer extends BasicLayer {
     }
 
     /**
-     * decode Stream function.
+     * Decode Stream function for Reverse Layer.
      *
      * @param inputStream
      *            incoming data
@@ -98,7 +98,7 @@ public class ReverseLayer extends BasicLayer {
     }
 
     /**
-     * Print layer name function.
+     * Print layer name function for Reverse Layer.
      *
      * @return Layer name as String
      */

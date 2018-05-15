@@ -39,7 +39,7 @@ public class XorLayer extends BasicLayer {
     }
 
     /**
-     * encode Stream function which does the real thing.
+     * Local encode Stream function which does the real thing for Xor Layer.
      *
      * @param inputStream
      *            incoming data
@@ -61,7 +61,7 @@ public class XorLayer extends BasicLayer {
     }
 
     /**
-     * encode Stream function.
+     * Encode Stream function for Xor Layer.
      *
      * @param inputStream
      *            incoming data
@@ -76,7 +76,7 @@ public class XorLayer extends BasicLayer {
     }
 
     /**
-     * decode Stream function.
+     * Decode Stream function for Xor Layer.
      *
      * @param inputStream
      *            incoming data
@@ -91,7 +91,7 @@ public class XorLayer extends BasicLayer {
     }
 
     /**
-     * Print layer name function.
+     * Print layer name function for Xor Layer.
      *
      * @return Layer name as String
      */
