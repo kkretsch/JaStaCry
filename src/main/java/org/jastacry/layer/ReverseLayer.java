@@ -54,7 +54,7 @@ public class ReverseLayer extends BasicLayer {
      * @throws IOException
      *             in case of error
      */
-    private void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         while ((iChar = inputStream.read()) != -1) {
             iChar = rangeCheck(iChar);
@@ -65,36 +65,6 @@ public class ReverseLayer extends BasicLayer {
         }
         logger.info("close pipe");
         outputStream.close();
-    }
-
-    /**
-     * Encode Stream function for Reverse Layer.
-     *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
-     */
-    @Override
-    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        encodeAndDecode(inputStream, outputStream);
-    }
-
-    /**
-     * Decode Stream function for Reverse Layer.
-     *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoging data
-     * @throws IOException
-     *             thrown on error
-     */
-    @Override
-    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        encodeAndDecode(inputStream, outputStream);
     }
 
     /**
