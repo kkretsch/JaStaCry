@@ -359,8 +359,8 @@ public class Worker {
             l.setEndController(endController);
             layersWithIO.add(l);
 
-            // only inner layers are looped through
-            for (int i = 1; i < layers.size() - 1; i++) {
+            // only second and further layers are looped through
+            for (int i = 1; i < layers.size(); i++) {
                 l = layers.get(i);
 
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "layer {} '{}'", i, l);
@@ -378,24 +378,7 @@ public class Worker {
                 layersWithIO.add(l);
             } // for
 
-            // Handle last layer
-            l = layers.get(layers.size() - 1);
-
-            GlobalFunctions.logDebug(isVerbose, LOGGER, "layer LAST '{}'", l);
-
-            pipedInputStream = new PipedInputStream(); // NOSONAR
-            pipedOutputStream = new PipedOutputStream();
-            inputStreams.add(pipedInputStream);
-            outputStreams.add(pipedOutputStream);
-            pipedInputStream.connect(prevOutput);
-            prevOutput = pipedOutputStream;
-            l.setInputStream(pipedInputStream);
-            l.setOutputStream(pipedOutputStream);
-            l.setAction(action);
-            l.setEndController(endController);
-            layersWithIO.add(l);
-
-            // Handle file output
+            // Handle file output as very last layer
             pipedInputStreamToFile = new PipedInputStream(); // NOSONAR
             inputStreams.add(pipedInputStreamToFile);
             pipedInputStreamToFile.connect(prevOutput);
@@ -405,6 +388,7 @@ public class Worker {
             l.setAction(action);
             l.setEndController(endController);
             layersWithIO.add(l);
+
 
             // Start all threads
             for (int i = 0; i < layersWithIO.size(); i++) {
