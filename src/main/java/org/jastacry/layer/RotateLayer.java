@@ -95,8 +95,8 @@ public class RotateLayer extends BasicLayer {
     }
 
     @Override
-    protected void encodeAndDecode(InputStream inputStream, OutputStream outputStream) throws IOException {
-        // not used by class
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        throw new UnsupportedOperationException();
     }
 
 }

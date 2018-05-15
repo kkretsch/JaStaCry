@@ -43,6 +43,6 @@ public class ReadWriteLayer extends BasicLayer {
 
     @Override
     protected void encodeAndDecode(InputStream inputStream, OutputStream outputStream) throws IOException {
-        // not used
+        throw new UnsupportedOperationException();
     }
 }
