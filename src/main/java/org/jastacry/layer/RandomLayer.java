@@ -11,7 +11,7 @@ import java.io.OutputStream;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class RandomLayer extends BasicLayer {
+public class RandomLayer extends AbstractBasicLayer {
     /**
      * static name of the layer.
      */
@@ -26,7 +26,7 @@ public class RandomLayer extends BasicLayer {
      * Constructor of RandomLayer.
      */
     public RandomLayer() {
-        super(RandomLayer.class);
+        super(RandomLayer.class, LAYERNAME);
     }
 
     /**
@@ -63,16 +63,6 @@ public class RandomLayer extends BasicLayer {
         }
         logger.info("close pipe");
         outputStream.close();
-    }
-
-    /**
-     * Print layer name function for Random Layer.
-     *
-     * @return Layer name as String
-     */
-    @Override
-    public final String toString() {
-        return LAYERNAME;
     }
 
 }

@@ -64,7 +64,7 @@ public class Md5DesLayer extends AbstractCipherLayer {
      * Constructor of Md5DesLayer.
      */
     public Md5DesLayer() {
-        super(Md5DesLayer.class);
+        super(Md5DesLayer.class, LAYERNAME);
     }
 
     /**
@@ -104,16 +104,6 @@ public class Md5DesLayer extends AbstractCipherLayer {
         } catch (final NoSuchAlgorithmException e) {
             logger.catching(e);
         }
-    }
-
-    @Override
-    /**
-     * Print layer name function.
-     *
-     * @return Layer name as String
-     */
-    public final String toString() {
-        return LAYERNAME;
     }
 
 }

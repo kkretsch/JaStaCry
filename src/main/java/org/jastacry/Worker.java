@@ -27,7 +27,7 @@ import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalData.Action;
 import org.jastacry.GlobalData.Returncode;
 import org.jastacry.layer.AesLayer;
-import org.jastacry.layer.BasicLayer;
+import org.jastacry.layer.AbstractBasicLayer;
 import org.jastacry.layer.AsciiTransportLayer;
 import org.jastacry.layer.FilemergeLayer;
 import org.jastacry.layer.Md5DesLayer;
@@ -129,7 +129,7 @@ public class Worker {
      */
     public final int mainWork() {
         LOGGER.traceEntry();
-        final List<BasicLayer> layers = createLayers();
+        final List<AbstractBasicLayer> layers = createLayers();
 
         if (null == layers || layers.isEmpty()) {
             LOGGER.error("No layers defined!");
@@ -143,7 +143,7 @@ public class Worker {
 
         // In case of plain text, either encode after layers or decode before them.
         if (doASCIItransport) {
-            final BasicLayer layerEncode = new AsciiTransportLayer();
+            final AbstractBasicLayer layerEncode = new AsciiTransportLayer();
             switch (action) {
                 case ENCODE:
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "add text encoding to end");
@@ -190,9 +190,9 @@ public class Worker {
      * @return List of abstract layer objects
      */
     @java.lang.SuppressWarnings("squid:S3776")
-    private List<BasicLayer> createLayers() {
+    private List<AbstractBasicLayer> createLayers() {
         LOGGER.traceEntry();
-        final List<BasicLayer> layers = new ArrayList<>();
+        final List<AbstractBasicLayer> layers = new ArrayList<>();
 
         // try with resources
         try (FileInputStream fstream = new FileInputStream(confFilename);
@@ -200,7 +200,7 @@ public class Worker {
                 BufferedReader breader = new BufferedReader(isr)) {
             String strLine;
 
-            BasicLayer layer = null;
+            AbstractBasicLayer layer = null;
 
             // Read File Line By Line
             while ((strLine = breader.readLine()) != null) {
@@ -271,9 +271,9 @@ public class Worker {
      *            name of layer
      * @return Layer object
      */
-    private BasicLayer createLayer(final String sName) {
+    private AbstractBasicLayer createLayer(final String sName) {
         LOGGER.traceEntry(sName);
-        BasicLayer layer;
+        AbstractBasicLayer layer;
 
         switch (sName.toLowerCase(Locale.getDefault())) {
             case GlobalData.LAYER_TRANSPARENT:
@@ -318,15 +318,15 @@ public class Worker {
      * @throws IOException in case of error
      */
     @java.lang.SuppressWarnings("squid:S2093")
-    private void loopLayers(final List<BasicLayer> layers, final InputStream input, final OutputStream output) {
+    private void loopLayers(final List<AbstractBasicLayer> layers, final InputStream input, final OutputStream output) {
         LOGGER.traceEntry();
 
         final CountDownLatch endController = new CountDownLatch(layers.size() + 2);
-        final List<BasicLayer> layersWithIO = new ArrayList<>();
+        final List<AbstractBasicLayer> layersWithIO = new ArrayList<>();
         final List<InputStream> inputStreams = new ArrayList<>();
         final List<OutputStream> outputStreams = new ArrayList<>();
 
-        BasicLayer l = null;
+        AbstractBasicLayer l = null;
         PipedOutputStream prevOutput = null;
         PipedOutputStream pipedOutputFromFile = null;
         PipedInputStream pipedInputStream = null;
@@ -409,7 +409,7 @@ public class Worker {
             // Start all threads
             for (int i = 0; i < layersWithIO.size(); i++) {
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
-                final BasicLayer layer = layersWithIO.get(i);
+                final AbstractBasicLayer layer = layersWithIO.get(i);
                 threadFactory.setNumber(i);
                 executor.execute(layer);
             } // for

@@ -15,7 +15,7 @@ import org.jastacry.GlobalData.Action;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public abstract class BasicLayer implements Runnable {
+public abstract class AbstractBasicLayer implements Runnable {
     /**
      * When a byte is too little.
      */
@@ -25,6 +25,11 @@ public abstract class BasicLayer implements Runnable {
      * Maximum value for a byte value.
      */
     private static final int BYTE_VALUE_MAX = 255;
+
+    /**
+     * Name of the childs layer implementation.
+     */
+    private String realLayerName;
 
     /**
      * Action for encoding or decoding direction.
@@ -57,11 +62,12 @@ public abstract class BasicLayer implements Runnable {
      * @param caller
      *            class object
      */
-    protected BasicLayer(final Class<?> caller) {
+    protected AbstractBasicLayer(final Class<?> caller, final String layerName) {
         logger = LogManager.getLogger(caller);
         setAction(null);
         setInputStream(null);
         setOutputStream(null);
+        setRealLayerName(layerName);
     }
 
     /**
@@ -70,9 +76,7 @@ public abstract class BasicLayer implements Runnable {
      * @param data
      *            a String containing everything the layer needs to know
      */
-    public void init(final String data) {
-        // empty by design, was throwing new UnsupportedOperationException
-    }
+    public abstract void init(final String data);
 
     /**
      * Local encode Stream function which does the real thing for Random Layer.
@@ -120,9 +124,8 @@ public abstract class BasicLayer implements Runnable {
      * @return a human readable name of the layer
      * @see java.lang.Object#toString()
      */
-    @Override
-    public String toString() {
-        return "";
+    public final String toString() {
+        return realLayerName;
     }
 
     /**
@@ -175,6 +178,14 @@ public abstract class BasicLayer implements Runnable {
      */
     public final void setEndController(final CountDownLatch newEndController) {
         this.endController = newEndController;
+    }
+
+    public final String getRealLayerName() {
+        return realLayerName;
+    }
+
+    public final void setRealLayerName(String realLayerName) {
+        this.realLayerName = realLayerName;
     }
 
     @Override

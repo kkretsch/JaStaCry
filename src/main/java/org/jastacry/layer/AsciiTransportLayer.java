@@ -14,7 +14,7 @@ import org.apache.commons.io.IOUtils;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class AsciiTransportLayer extends BasicLayer {
+public class AsciiTransportLayer extends AbstractBasicLayer {
     /**
      * static name of the layer.
      */
@@ -24,7 +24,7 @@ public class AsciiTransportLayer extends BasicLayer {
      * Constructor of EncodeDecodeLayer.
      */
     public AsciiTransportLayer() {
-        super(AsciiTransportLayer.class);
+        super(AsciiTransportLayer.class, LAYERNAME);
     }
 
     /**
@@ -74,16 +74,6 @@ public class AsciiTransportLayer extends BasicLayer {
         final InputStream isDecoded = decoder.wrap(inputStream);
         final int iCount = IOUtils.copy(isDecoded, outputStream);
         logger.debug("decStream copied {} bytes", iCount);
-    }
-
-    @Override
-    /**
-     * Print layer name function.
-     *
-     * @return Layer name as String
-     */
-    public final String toString() {
-        return LAYERNAME;
     }
 
     @Override
