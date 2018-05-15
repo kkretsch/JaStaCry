@@ -33,7 +33,7 @@ public class TransparentLayer extends BasicLayer {
      * @throws IOException
      *             thrown on error
      */
-    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:13
             outputStream.write(iChar);
