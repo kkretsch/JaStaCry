@@ -53,7 +53,7 @@ public class FilemergeLayer extends BasicLayer {
      * @throws IOException
      *             in case of error
      */
-    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         int iMerge;
         byte bChar;

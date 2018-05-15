@@ -84,7 +84,7 @@ public abstract class BasicLayer implements Runnable {
      * @throws IOException
      *             thrown on error
      */
-    protected abstract void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException;
+    protected abstract void encodeAndDecode(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException;
 
     /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
