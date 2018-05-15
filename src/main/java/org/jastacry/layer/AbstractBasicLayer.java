@@ -61,6 +61,7 @@ public abstract class AbstractBasicLayer implements Runnable {
      *
      * @param caller
      *            class object
+     * @param layerName name of real layer
      */
     protected AbstractBasicLayer(final Class<?> caller, final String layerName) {
         logger = LogManager.getLogger(caller);
@@ -180,14 +181,17 @@ public abstract class AbstractBasicLayer implements Runnable {
         this.endController = newEndController;
     }
 
-    public final String getRealLayerName() {
-        return realLayerName;
-    }
-
+    /**
+     * Property setter for realLayerName.
+     * @param realLayerName the new layer name
+     */
     public final void setRealLayerName(String realLayerName) {
         this.realLayerName = realLayerName;
     }
 
+    /**
+     * Thread entry function for layer work.
+     */
     @Override
     public void run() {
         logger.info("started thread");

@@ -103,6 +103,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer {
      *
      * @param cClass
      *            class name of calling class
+     * @param layerName name of real layer
      */
     public AbstractCipherLayer(final Class<?> cClass, final String layerName) {
         super(cClass, layerName);
