@@ -248,4 +248,9 @@ public abstract class AbstractCipherLayer extends BasicLayer {
         }
     }
 
+    @Override
+    protected void encodeAndDecode(InputStream inputStream, OutputStream outputStream) throws IOException {
+        // not used
+    }
+
 }

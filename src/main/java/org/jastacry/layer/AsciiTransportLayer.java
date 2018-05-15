@@ -86,4 +86,9 @@ public class AsciiTransportLayer extends BasicLayer {
         return LAYERNAME;
     }
 
+    @Override
+    protected void encodeAndDecode(InputStream inputStream, OutputStream outputStream) throws IOException {
+        // not used
+    }
+
 }

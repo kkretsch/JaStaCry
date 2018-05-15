@@ -15,7 +15,7 @@ import org.jastacry.GlobalData.Action;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class BasicLayer implements Runnable {
+public abstract class BasicLayer implements Runnable {
     /**
      * When a byte is too little.
      */
@@ -75,6 +75,18 @@ public class BasicLayer implements Runnable {
     }
 
     /**
+     * Local encode Stream function which does the real thing for Random Layer.
+     *
+     * @param inputStream
+     *            incoming data
+     * @param outputStream
+     *            outgoing data
+     * @throws IOException
+     *             thrown on error
+     */
+    protected abstract void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException;
+
+    /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
      *
      * @param newInputStream
@@ -85,7 +97,7 @@ public class BasicLayer implements Runnable {
      *             if one of the streams fail
      */
     public void encStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException {
-        // empty by design
+        encodeAndDecode(newInputStream, newOutputStream);
     }
 
     /**
@@ -99,7 +111,7 @@ public class BasicLayer implements Runnable {
      *             if one of the streams fail
      */
     public void decStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException {
-        // empty by design
+        encodeAndDecode(newInputStream, newOutputStream);
     }
 
     /**

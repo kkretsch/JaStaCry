@@ -48,7 +48,7 @@ public class XorLayer extends BasicLayer {
      * @throws IOException
      *             thrown on error
      */
-    private void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         byte bChar;
         while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:18
@@ -58,36 +58,6 @@ public class XorLayer extends BasicLayer {
         }
         logger.info("close pipe");
         outputStream.close();
-    }
-
-    /**
-     * Encode Stream function for Xor Layer.
-     *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
-     */
-    @Override
-    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        encodeAndDecode(inputStream, outputStream);
-    }
-
-    /**
-     * Decode Stream function for Xor Layer.
-     *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
-     */
-    @Override
-    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        encodeAndDecode(inputStream, outputStream);
     }
 
     /**

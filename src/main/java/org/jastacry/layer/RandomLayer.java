@@ -51,7 +51,7 @@ public class RandomLayer extends BasicLayer {
      * @throws IOException
      *             thrown on error
      */
-    private void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         byte bChar;
         final byte[] bRand = new byte[1];
@@ -63,36 +63,6 @@ public class RandomLayer extends BasicLayer {
         }
         logger.info("close pipe");
         outputStream.close();
-    }
-
-    /**
-     * encode Stream function for Random Layer.
-     *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
-     */
-    @Override
-    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        encodeAndDecode(inputStream, outputStream);
-    }
-
-    /**
-     * decode Stream function for Random Layer.
-     *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
-     */
-    @Override
-    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        encodeAndDecode(inputStream, outputStream);
     }
 
     /**

@@ -1,6 +1,8 @@
 package org.jastacry.layer;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Read write layer for IO purpose.
@@ -37,5 +39,10 @@ public class ReadWriteLayer extends BasicLayer {
     @Override
     public final String toString() {
         return "ReadWrite";
+    }
+
+    @Override
+    protected void encodeAndDecode(InputStream inputStream, OutputStream outputStream) throws IOException {
+        // not used
     }
 }

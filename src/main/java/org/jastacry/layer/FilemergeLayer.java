@@ -53,7 +53,7 @@ public class FilemergeLayer extends BasicLayer {
      * @throws IOException
      *             in case of error
      */
-    private void mergeStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         int iChar;
         int iMerge;
         byte bChar;
@@ -79,36 +79,6 @@ public class FilemergeLayer extends BasicLayer {
             logger.info("close pipe");
             outputStream.close();
         } // try with resources
-    }
-
-    /**
-     * encode Stream function.
-     *
-     * @param inputStream
-     *            input stream
-     * @param outputStream
-     *            output stream
-     * @throws IOException
-     *             in case of error
-     */
-    @Override
-    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        mergeStream(inputStream, outputStream);
-    }
-
-    /**
-     * decode Stream function.
-     *
-     * @param inputStream
-     *            input stream
-     * @param outputStream
-     *            output stream
-     * @throws IOException
-     *             in case of error
-     */
-    @Override
-    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        mergeStream(inputStream, outputStream);
     }
 
     /**
