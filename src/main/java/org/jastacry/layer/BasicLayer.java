@@ -77,9 +77,9 @@ public abstract class BasicLayer implements Runnable {
     /**
      * Local encode Stream function which does the real thing for Random Layer.
      *
-     * @param inputStream
+     * @param newInputStream
      *            incoming data
-     * @param outputStream
+     * @param newOutputStream
      *            outgoing data
      * @throws IOException
      *             thrown on error
