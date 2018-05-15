@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * @author Kai Kretschmann
  * SPDX-License-Identifier: MIT
  */
-public class RotateLayer extends BasicLayer {
+public class RotateLayer extends AbstractBasicLayer {
 
     /**
      * static name of the layer.
@@ -26,7 +26,7 @@ public class RotateLayer extends BasicLayer {
      * Constructor of XorLayer.
      */
     public RotateLayer() {
-        super(RotateLayer.class);
+        super(RotateLayer.class, LAYERNAME);
     }
 
     /**
@@ -82,16 +82,6 @@ public class RotateLayer extends BasicLayer {
         }
         logger.info("close pipe");
         outputStream.close();
-    }
-
-    /**
-     * Print layer name function.
-     *
-     * @return Layer name as String
-     */
-    @Override
-    public final String toString() {
-        return LAYERNAME;
     }
 
     @Override

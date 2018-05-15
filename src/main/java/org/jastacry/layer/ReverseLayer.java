@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class ReverseLayer extends BasicLayer {
+public class ReverseLayer extends AbstractBasicLayer {
     /**
      * Number of bits to shift back to byte form.
      */
@@ -30,7 +30,7 @@ public class ReverseLayer extends BasicLayer {
      * Constructor of XorLayer.
      */
     public ReverseLayer() {
-        super(ReverseLayer.class);
+        super(ReverseLayer.class, LAYERNAME);
     }
 
     /**
@@ -65,16 +65,6 @@ public class ReverseLayer extends BasicLayer {
         }
         logger.info("close pipe");
         outputStream.close();
-    }
-
-    /**
-     * Print layer name function for Reverse Layer.
-     *
-     * @return Layer name as String
-     */
-    @Override
-    public final String toString() {
-        return LAYERNAME;
     }
 
 }

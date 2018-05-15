@@ -14,7 +14,7 @@ import java.nio.channels.FileChannel;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class FilemergeLayer extends BasicLayer {
+public class FilemergeLayer extends AbstractBasicLayer {
     /**
      * static name of the layer.
      */
@@ -29,7 +29,7 @@ public class FilemergeLayer extends BasicLayer {
      * Constructor of FilemergeLayer.
      */
     public FilemergeLayer() {
-        super(FilemergeLayer.class);
+        super(FilemergeLayer.class, LAYERNAME);
     }
 
     /**
@@ -79,16 +79,6 @@ public class FilemergeLayer extends BasicLayer {
             logger.info("close pipe");
             outputStream.close();
         } // try with resources
-    }
-
-    /**
-     * Print layer name function.
-     *
-     * @return Layer name as String
-     */
-    @Override
-    public final String toString() {
-        return LAYERNAME;
     }
 
 }

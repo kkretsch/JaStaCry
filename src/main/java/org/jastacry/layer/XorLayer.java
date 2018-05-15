@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class XorLayer extends BasicLayer {
+public class XorLayer extends AbstractBasicLayer {
     /**
      * static name of the layer.
      */
@@ -24,7 +24,7 @@ public class XorLayer extends BasicLayer {
      * Constructor of XorLayer.
      */
     public XorLayer() {
-        super(XorLayer.class);
+        super(XorLayer.class, LAYERNAME);
     }
 
     /**
@@ -58,16 +58,6 @@ public class XorLayer extends BasicLayer {
         }
         logger.info("close pipe");
         outputStream.close();
-    }
-
-    /**
-     * Print layer name function for Xor Layer.
-     *
-     * @return Layer name as String
-     */
-    @Override
-    public final String toString() {
-        return LAYERNAME;
     }
 
 }

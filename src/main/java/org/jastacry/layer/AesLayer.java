@@ -53,7 +53,7 @@ public class AesLayer extends AbstractCipherLayer {
      * Constructor of AesLayer.
      */
     public AesLayer() {
-        super(AesLayer.class);
+        super(AesLayer.class, LAYERNAME);
     }
 
     /**
@@ -87,16 +87,6 @@ public class AesLayer extends AbstractCipherLayer {
         this.iCount = COUNT;
         this.iKeysize = KEYSIZE;
         this.cPasswd = data.toCharArray();
-    }
-
-    @Override
-    /**
-     * Print layer name function.
-     *
-     * @return Layer name as String
-     */
-    public final String toString() {
-        return LAYERNAME;
     }
 
 }

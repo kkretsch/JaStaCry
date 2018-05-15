@@ -26,7 +26,7 @@ import javax.crypto.spec.SecretKeySpec;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public abstract class AbstractCipherLayer extends BasicLayer {
+public abstract class AbstractCipherLayer extends AbstractBasicLayer {
 
     /**
      * Block size.
@@ -104,8 +104,8 @@ public abstract class AbstractCipherLayer extends BasicLayer {
      * @param cClass
      *            class name of calling class
      */
-    public AbstractCipherLayer(final Class<?> cClass) {
-        super(cClass);
+    public AbstractCipherLayer(final Class<?> cClass, final String layerName) {
+        super(cClass, layerName);
     }
 
     /**

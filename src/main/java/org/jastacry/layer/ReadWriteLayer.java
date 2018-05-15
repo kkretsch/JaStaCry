@@ -9,13 +9,17 @@ import java.io.OutputStream;
  * @author kkretsch
  *
  */
-public class ReadWriteLayer extends BasicLayer {
+public class ReadWriteLayer extends AbstractBasicLayer {
+    /**
+     * static name of the layer.
+     */
+    public static final String LAYERNAME = "ReadWrite Layer";
 
     /**
      * Constructor of class, calling super.
      */
     public ReadWriteLayer() {
-        super(ReadWriteLayer.class);
+        super(ReadWriteLayer.class, LAYERNAME);
     }
 
     @Override
@@ -37,12 +41,18 @@ public class ReadWriteLayer extends BasicLayer {
     }
 
     @Override
-    public final String toString() {
-        return "ReadWrite";
-    }
-
-    @Override
     protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * init function.
+     *
+     * @param data
+     *            to initialize nothing.
+     */
+    @Override
+    public final void init(final String data) {
+        // empty by intend
     }
 }

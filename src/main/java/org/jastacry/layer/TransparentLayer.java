@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class TransparentLayer extends BasicLayer {
+public class TransparentLayer extends AbstractBasicLayer {
     /**
      * static name of the layer.
      */
@@ -20,7 +20,7 @@ public class TransparentLayer extends BasicLayer {
      * Constructor of TransparentLayer.
      */
     public TransparentLayer() {
-        super(TransparentLayer.class);
+        super(TransparentLayer.class, LAYERNAME);
     }
 
     /**
@@ -51,16 +51,6 @@ public class TransparentLayer extends BasicLayer {
     @Override
     public final void init(final String data) {
         // empty by intend
-    }
-
-    @Override
-    /**
-     * Print layer name function.
-     *
-     * @return Layer name as String
-     */
-    public final String toString() {
-        return LAYERNAME;
     }
 
 }
