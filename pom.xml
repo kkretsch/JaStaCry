@@ -3,7 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacry</artifactId>
+
 	<version>0.2.11</version>
+	<!-- 'mvn scm:tag' will create a new git tag with above value -->
+
 	<description>Java Stacked Crypto</description>
 	<url>https://jastacry.org/</url>
 	<name>JaStaCry</name>
