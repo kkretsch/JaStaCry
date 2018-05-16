@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacry</artifactId>
-	<version>0.2.7</version>
+	<version>0.2.10</version>
 	<description>Java Stacked Crypto</description>
 	<url>https://jastacry.org/</url>
 	<name>JaStaCry</name>
@@ -128,6 +128,14 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.9.5</version>
+				<configuration>
+					<tag>${project.version}</tag>
+				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -401,7 +409,7 @@
 	<scm>
 		<url>https://github.com/kkretsch/JaStaCry</url>
 		<tag>HEAD</tag>
-		<connection>scm:git:git://github.com/kkretsch/JaStaCry.git</connection>
+		<connection>scm:git:https://github.com/kkretsch/JaStaCry.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/kkretsch/JaStaCry.git</developerConnection>
 	</scm>
 	<issueManagement>
