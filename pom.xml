@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacry</artifactId>
-	<version>0.2.10</version>
+	<version>0.2.11</version>
 	<description>Java Stacked Crypto</description>
 	<url>https://jastacry.org/</url>
 	<name>JaStaCry</name>
@@ -134,7 +134,7 @@
 				<artifactId>maven-scm-plugin</artifactId>
 				<version>1.9.5</version>
 				<configuration>
-					<tag>${project.version}</tag>
+					<tag>version/${project.version}</tag>
 				</configuration>
 			</plugin>
 			<plugin>
