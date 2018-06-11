@@ -89,7 +89,8 @@ public abstract class AbstractBasicLayer implements Runnable {
      * @throws IOException
      *             thrown on error
      */
-    protected abstract void encodeAndDecode(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException;
+    protected abstract void encodeAndDecode(final InputStream newInputStream, final OutputStream newOutputStream)
+            throws IOException;
 
     /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
@@ -183,10 +184,10 @@ public abstract class AbstractBasicLayer implements Runnable {
 
     /**
      * Property setter for realLayerName.
-     * @param realLayerName the new layer name
+     * @param newRealLayerName the new layer name
      */
-    public final void setRealLayerName(String realLayerName) {
-        this.realLayerName = realLayerName;
+    public final void setRealLayerName(final String newRealLayerName) {
+        this.realLayerName = newRealLayerName;
     }
 
     /**
