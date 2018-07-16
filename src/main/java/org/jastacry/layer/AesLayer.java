@@ -13,7 +13,6 @@ import javax.crypto.spec.SecretKeySpec;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class AesLayer extends AbstractCipherLayer {
     /**
      * static name of the layer.
@@ -92,31 +91,37 @@ public class AesLayer extends AbstractCipherLayer {
     }
 
     @Override
+    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected final String getMyAlg() {
         return MYALG;
     }
 
     @Override
+    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected final String getMyKeyAlg() {
         return MYKEYALG;
     }
 
     @Override
+    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMySaltLen() {
         return SALTLEN;
     }
 
     @Override
+    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMyIVLen() {
         return IVLEN;
     }
 
     @Override
+    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMyCount() {
         return COUNT;
     }
 
     @Override
+    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMyKeysize() {
         return KEYSIZE;
     }
