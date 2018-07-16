@@ -4,7 +4,7 @@
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacry</artifactId>
 
-	<version>0.3.0</version>
+	<version>0.3.1</version>
 	<!-- 'mvn scm:tag' will create a new git tag with above value -->
 
 	<description>Java Stacked Crypto</description>
@@ -226,6 +226,7 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
+					<test>org.jastacry.test.AllTests</test>
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
 				</configuration>
 			</plugin>
