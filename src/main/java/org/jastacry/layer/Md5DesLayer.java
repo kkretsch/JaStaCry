@@ -89,14 +89,9 @@ public class Md5DesLayer extends AbstractCipherLayer {
      *            to initialize the crypt value.
      */
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     public final void init(final String data) {
-        this.sALG = MYALG;
-        this.sKeyALG = MYKEYALG;
-        this.iSaltLen = SALTLEN;
-        this.iIVLen = IVLEN;
-        this.iCount = COUNT;
-        this.iKeysize = KEYSIZE;
+        super.init();
+
         this.cPasswd = data.toCharArray();
         try {
             final MessageDigest msgDigest = MessageDigest.getInstance(MYHASHALG);
@@ -107,4 +102,34 @@ public class Md5DesLayer extends AbstractCipherLayer {
         }
     }
 
+
+    @Override
+    protected final String getMyAlg() {
+        return MYALG;
+    }
+
+    @Override
+    protected final String getMyKeyAlg() {
+        return MYKEYALG;
+    }
+
+    @Override
+    protected int getMySaltLen() {
+        return SALTLEN;
+    }
+
+    @Override
+    protected int getMyIVLen() {
+        return IVLEN;
+    }
+
+    @Override
+    protected int getMyCount() {
+        return COUNT;
+    }
+
+    @Override
+    protected int getMyKeysize() {
+        return KEYSIZE;
+    }
 }
