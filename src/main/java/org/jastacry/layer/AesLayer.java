@@ -30,6 +30,11 @@ public class AesLayer extends AbstractCipherLayer {
     private static final String MYKEYALG = "AES";
 
     /**
+     * Used algorithm name for the key factory.
+     */
+    private static final String MYKEYFACT = "PBKDF2WithHmacSHA1";
+
+    /**
      * IV length.
      */
     private static final int IVLEN = 16;
@@ -66,19 +71,20 @@ public class AesLayer extends AbstractCipherLayer {
      */
     @Override
     protected final void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        keyFac = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        keyFac = SecretKeyFactory.getInstance(MYKEYFACT);
         pbeKeySpec = new PBEKeySpec(cPasswd, salt, iCount, iKeysize);
         pbeKey = keyFac.generateSecret(pbeKeySpec);
         pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyALG);
     }
 
-    @Override
     /**
      * init function.
      *
      * @param data
      *            to initialize the crypt value.
      */
+    @Override
+    @SuppressWarnings("common-java:DuplicatedBlocks")
     public final void init(final String data) {
         this.sALG = MYALG;
         this.sKeyALG = MYKEYALG;

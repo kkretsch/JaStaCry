@@ -82,13 +82,14 @@ public class Md5DesLayer extends AbstractCipherLayer {
         pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyALG);
     }
 
-    @Override
     /**
      * init function.
      *
      * @param data
      *            to initialize the crypt value.
      */
+    @Override
+    @SuppressWarnings("common-java:DuplicatedBlocks")
     public final void init(final String data) {
         this.sALG = MYALG;
         this.sKeyALG = MYKEYALG;
