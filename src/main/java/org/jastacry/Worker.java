@@ -26,8 +26,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalData.Action;
 import org.jastacry.GlobalData.Returncode;
-import org.jastacry.layer.AesLayer;
 import org.jastacry.layer.AbstractBasicLayer;
+import org.jastacry.layer.AesCbcLayer;
+import org.jastacry.layer.AesEcbLayer;
 import org.jastacry.layer.AsciiTransportLayer;
 import org.jastacry.layer.FilemergeLayer;
 import org.jastacry.layer.Md5DesLayer;
@@ -297,8 +298,11 @@ public class Worker {
             case GlobalData.LAYER_MD5DES:
                 layer = new Md5DesLayer();
                 break;
-            case GlobalData.LAYER_AES:
-                layer = new AesLayer();
+            case GlobalData.LAYER_AESCBC:
+                layer = new AesCbcLayer();
+                break;
+            case GlobalData.LAYER_AESECB:
+                layer = new AesEcbLayer();
                 break;
             default:
                 LOGGER.error("unknown layer '{}'", sName);

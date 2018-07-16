@@ -193,13 +193,18 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer {
 
             // Encrypt the clear text
             final byte[] ciphertext = pbeCipher.doFinal(bInput);
-            ivBytes = pbeCipher.getIV();
-
-            if (null == ivBytes) {
-                logger.error("IV empty");
+            if(0 == iIVLen) {
+                logger.trace("No IV to write");
             } else {
-                outputStream.write(ivBytes, 0, iIVLen);
+                ivBytes = pbeCipher.getIV();
+
+                if (null == ivBytes) {
+                    logger.error("IV empty");
+                } else {
+                    outputStream.write(ivBytes, 0, iIVLen);
+                } // if
             } // if
+
             outputStream.write(salt, 0, iSaltLen);
             outputStream.write(ciphertext);
             logger.info("close pipe");
@@ -225,11 +230,16 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer {
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         // Create PBE Cipher
         Cipher pbeCipher;
+        int iReadBytes;
         try {
-            ivBytes = new byte[iIVLen];
-            int iReadBytes = inputStream.read(ivBytes, 0, iIVLen);
-            if (iIVLen != iReadBytes) {
-                logger.error("read {} bytes of IV, expecting {}.", iReadBytes, iIVLen);
+            if(0 == iIVLen) {
+                logger.trace("No IV to read");
+            } else {
+                ivBytes = new byte[iIVLen];
+                iReadBytes = inputStream.read(ivBytes, 0, iIVLen);
+                if (iIVLen != iReadBytes) {
+                    logger.error("read {} bytes of IV, expecting {}.", iReadBytes, iIVLen);
+                } // if
             } // if
 
             salt = new byte[iSaltLen];
@@ -242,7 +252,11 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer {
             setupPBE();
 
             pbeCipher = Cipher.getInstance(sALG);
-            pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec, new IvParameterSpec(ivBytes));
+            if(0 == iIVLen) {
+                pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec);
+            } else {
+                pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec, new IvParameterSpec(ivBytes));
+            } // if
 
             final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
