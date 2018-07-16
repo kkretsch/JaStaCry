@@ -33,7 +33,6 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer {
      */
     private static final int ONEBLOCKSIZE = 256;
 
-    protected static String MYALG;
     /**
      * PBEKeySpec.
      */
