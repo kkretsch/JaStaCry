@@ -33,6 +33,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer {
      */
     private static final int ONEBLOCKSIZE = 256;
 
+    protected static String MYALG;
     /**
      * PBEKeySpec.
      */
@@ -109,6 +110,13 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer {
         super(cClass, layerName);
     }
 
+    protected abstract String getMyAlg();
+    protected abstract String getMyKeyAlg();
+    protected abstract int getMySaltLen();
+    protected abstract int getMyIVLen();
+    protected abstract int getMyCount();
+    protected abstract int getMyKeysize();
+
     /**
      * Generate random salt.
      */
@@ -122,6 +130,18 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer {
      */
     protected final void getIV() {
         ivBytes = new byte[iIVLen];
+    }
+
+    /**
+     * Set base values via own getters, which are defined in child classes.
+     */
+    protected final void init() {
+        this.sALG = getMyAlg();
+        this.sKeyALG = getMyKeyAlg();
+        this.iSaltLen = getMySaltLen();
+        this.iIVLen = getMyIVLen();
+        this.iCount = getMyCount();
+        this.iKeysize = getMyKeysize();
     }
 
     /**
