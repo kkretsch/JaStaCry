@@ -226,7 +226,7 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<test>org.jastacry.test.AllTests</test>
+					<test>org.jastacry.test.Test*</test>
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
 				</configuration>
 			</plugin>
