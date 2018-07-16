@@ -104,37 +104,32 @@ public class Md5DesLayer extends AbstractCipherLayer {
 
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected final String getMyAlg() {
         return MYALG;
     }
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected final String getMyKeyAlg() {
         return MYKEYALG;
     }
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMySaltLen() {
         return SALTLEN;
     }
 
     @Override
     protected int getMyIVLen() {
-        return IVLEN; // NOSONAR
+        return IVLEN;
     }
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMyCount() {
-        return COUNT; // NOSONAR
+        return COUNT;
     }
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMyKeysize() {
-        return KEYSIZE; // NOSONAR common-java:DuplicatedBlocks
+        return KEYSIZE;
     }
 }

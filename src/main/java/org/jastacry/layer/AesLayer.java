@@ -91,37 +91,31 @@ public class AesLayer extends AbstractCipherLayer {
     }
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected final String getMyAlg() {
         return MYALG;
     }
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected final String getMyKeyAlg() {
         return MYKEYALG;
     }
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMySaltLen() {
         return SALTLEN;
     }
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMyIVLen() {
         return IVLEN;
     }
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMyCount() {
         return COUNT;
     }
 
     @Override
-    @SuppressWarnings("common-java:DuplicatedBlocks")
     protected int getMyKeysize() {
         return KEYSIZE;
     }
