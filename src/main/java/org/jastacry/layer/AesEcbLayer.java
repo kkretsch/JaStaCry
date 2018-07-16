@@ -31,6 +31,11 @@ public class AesEcbLayer extends AbstractCipherLayer {
     private static final String MYKEYALG = "AES";
 
     /**
+     * Used algorithm name for the key hash.
+     */
+    private static final String MYHASHALG = "SHA-256";
+
+    /**
      * IV length.
      */
     private static final int IVLEN = 0;
@@ -68,7 +73,7 @@ public class AesEcbLayer extends AbstractCipherLayer {
     @Override
     protected final void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] key = new String(cPasswd).getBytes(StandardCharsets.UTF_8);
-        MessageDigest sha = MessageDigest.getInstance("SHA-1");
+        final MessageDigest sha = MessageDigest.getInstance(MYHASHALG);
         key = sha.digest(key);
         key = Arrays.copyOf(key, KEYSIZE/8);
         pbeSecretKeySpec = new SecretKeySpec(key, MYKEYALG);
