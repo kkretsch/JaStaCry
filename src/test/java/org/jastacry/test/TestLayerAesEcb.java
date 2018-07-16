@@ -11,7 +11,8 @@ import java.net.MalformedURLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jastacry.layer.AesLayer;
+import org.jastacry.layer.AesCbcLayer;
+import org.jastacry.layer.AesEcbLayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -23,7 +24,7 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerAes {
+public class TestLayerAesEcb {
     /**
      * log4j2 object.
      */
@@ -37,12 +38,12 @@ public class TestLayerAes {
     /**
      * Layer to test.
      */
-    private AesLayer layerEncrypt = null;
+    private AesEcbLayer layerEncrypt = null;
 
     /**
      * Layer to test.
      */
-    private AesLayer layerDecrypt = null;
+    private AesEcbLayer layerDecrypt = null;
 
     /**
      * Init value for random layer.
@@ -68,10 +69,10 @@ public class TestLayerAes {
      */
     @Before
     public void setUp() throws Exception {
-        layerEncrypt = new AesLayer();
+        layerEncrypt = new AesEcbLayer();
         layerEncrypt.init(INITVALUE);
 
-        layerDecrypt = new AesLayer();
+        layerDecrypt = new AesEcbLayer();
         layerDecrypt.init(INITVALUE);
     }
 
@@ -114,7 +115,7 @@ public class TestLayerAes {
      */
     @Test
     public void testToString() {
-        assertEquals("Layer name mismatch", AesLayer.LAYERNAME, layerEncrypt.toString());
+        assertEquals("Layer name mismatch", AesEcbLayer.LAYERNAME, layerEncrypt.toString());
     }
 
 }

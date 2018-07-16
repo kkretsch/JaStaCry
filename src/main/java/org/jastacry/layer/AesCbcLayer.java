@@ -13,11 +13,11 @@ import javax.crypto.spec.SecretKeySpec;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
-public class AesLayer extends AbstractCipherLayer {
+public class AesCbcLayer extends AbstractCipherLayer {
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "AES Layer";
+    public static final String LAYERNAME = "AES CBC Layer";
 
     /**
      * Used algorithm name.
@@ -57,8 +57,8 @@ public class AesLayer extends AbstractCipherLayer {
     /**
      * Constructor of AesLayer.
      */
-    public AesLayer() {
-        super(AesLayer.class, LAYERNAME);
+    public AesCbcLayer() {
+        super(AesCbcLayer.class, LAYERNAME);
     }
 
     /**

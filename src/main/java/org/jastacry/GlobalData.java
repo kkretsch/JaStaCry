@@ -77,9 +77,14 @@ public final class GlobalData {
     public static final String LAYER_MD5DES = "md5des";
 
     /**
-     * Configuration value for layer "aes" (lower case).
+     * Configuration value for layer "aescbc" (lower case).
      */
-    public static final String LAYER_AES = "aes";
+    public static final String LAYER_AESCBC = "aescbc";
+
+    /**
+     * Configuration value for layer "aesecb" (lower case).
+     */
+    public static final String LAYER_AESECB = "aesecb";
 
 
     /**
