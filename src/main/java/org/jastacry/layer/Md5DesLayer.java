@@ -14,6 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
  * SPDX-License-Identifier: MIT
  * @author Kai Kretschmann
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class Md5DesLayer extends AbstractCipherLayer {
     /**
      * static name of the layer.
