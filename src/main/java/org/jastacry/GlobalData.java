@@ -86,6 +86,11 @@ public final class GlobalData {
      */
     public static final String LAYER_AESECB = "aesecb";
 
+    /**
+     * Configuration value for layer "aesctr" (lower case).
+     */
+    public static final String LAYER_AESCTR = "aesctr";
+
 
     /**
      * enum range for Actions.
