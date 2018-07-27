@@ -28,6 +28,7 @@ import org.jastacry.GlobalData.Action;
 import org.jastacry.GlobalData.Returncode;
 import org.jastacry.layer.AbstractBasicLayer;
 import org.jastacry.layer.AesCbcLayer;
+import org.jastacry.layer.AesCtrLayer;
 import org.jastacry.layer.AesEcbLayer;
 import org.jastacry.layer.AsciiTransportLayer;
 import org.jastacry.layer.FilemergeLayer;
@@ -303,6 +304,9 @@ public class Worker {
                 break;
             case GlobalData.LAYER_AESECB:
                 layer = new AesEcbLayer();
+                break;
+            case GlobalData.LAYER_AESCTR:
+                layer = new AesCtrLayer();
                 break;
             default:
                 LOGGER.error("unknown layer '{}'", sName);
