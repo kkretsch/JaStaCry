@@ -44,14 +44,14 @@ public final class ShannonEntropy
     public void calculate(final byte[] bArray)
     {
         entropy = 0.0;
-        ArrayList<byteFreq> freqs = new ArrayList<>();
+        ArrayList<ByteFreq> freqs = new ArrayList<>();
         for (int i = 0; i < bArray.length; i++)
         {
             byte b = bArray[i];
             boolean flag = true;
-            for (byteFreq cf : freqs)
+            for (ByteFreq cf : freqs)
             {
-                if (cf.b == b)
+                if (cf.byteValue == b)
                 {
                     flag = false;
                     cf.count++;
@@ -61,11 +61,11 @@ public final class ShannonEntropy
             } // for
             if (flag)
             {
-                freqs.add(new byteFreq(b));
+                freqs.add(new ByteFreq(b));
             } // if
         } // for
 
-        for (byteFreq cf : freqs)
+        for (ByteFreq cf : freqs)
         {
             int freq = cf.count;
             if (freq == 0)
@@ -93,20 +93,18 @@ public final class ShannonEntropy
      * inner class for array use.
      *
      */
-    class byteFreq
+    class ByteFreq
     {
-        public final byte b;
+        public final byte byteValue;
         public int count = 1;
 
         /**
-         * inner constructor
-         * 
-         * @param in
-         *            byte to count
+         * inner constructor.
+         * @param in byte to count
          */
-        public byteFreq(byte in)
+        public ByteFreq(byte in)
         {
-            this.b = in;
+            this.byteValue = in;
         } // constructor
 
     } // inner class

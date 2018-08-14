@@ -1,9 +1,7 @@
-/**
- *
- */
 package org.jastacry.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,8 +12,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalData;
 import org.jastacry.GlobalData.Returncode;
-import org.jastacry.test.utils.Tooling;
 import org.jastacry.JaStaCry;
+import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -30,9 +28,9 @@ import org.junit.Test;
 public class TestConfig
 {
     /**
-     * Maven test resources path
+     * Maven test resources path.
      */
-    private final static String RESOURCES = "src/test/resources/";
+    private static final String RESOURCES = "src/test/resources/";
 
     /**
      * log4j2 object.
@@ -169,7 +167,7 @@ public class TestConfig
      *
      */
     @Test
-    public void testConfWithBOM()
+    public void testConfWithBom()
     {
         testGivenConfig(CONF_UTFBOM);
     }
@@ -179,7 +177,7 @@ public class TestConfig
      *
      */
     @Test
-    public void testConfWithoutBOM()
+    public void testConfWithoutBom()
     {
         testGivenConfig(CONF_UTFNOBOM);
     }

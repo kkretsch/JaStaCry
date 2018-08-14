@@ -100,15 +100,15 @@ public class TestExportEncryption
     /**
      * Helper function.
      *
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws NoSuchPaddingException
-     * @throws InvalidKeyException
-     * @throws InvalidParameterSpecException
-     * @throws UnsupportedEncodingException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
-     * @throws InvalidAlgorithmParameterException
+     * @throws NoSuchAlgorithmException on error
+     * @throws InvalidKeySpecException on error
+     * @throws NoSuchPaddingException on error
+     * @throws InvalidKeyException on error
+     * @throws InvalidParameterSpecExceptio on errorn
+     * @throws UnsupportedEncodingException on error
+     * @throws BadPaddingException on errorv
+     * @throws IllegalBlockSizeException on error
+     * @throws InvalidAlgorithmParameterException on error
      */
     private void helperEncryptDecrypt(final int bitsize) throws NoSuchAlgorithmException, InvalidKeySpecException,
             NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException,

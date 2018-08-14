@@ -1,6 +1,6 @@
 package org.jastacry.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -36,8 +36,7 @@ public class TestLayerReverse
     /**
      * The layer to test.
      */
-    private AbstractBasicLayer layer = null; // NOPMD by kkretsch on 29.03.18
-                                             // 14:55
+    private AbstractBasicLayer layer = null;
 
     /**
      * Test Before method.
