@@ -73,12 +73,12 @@ public class AesCbcLayer extends AbstractCipherLayer
      *             on error
      */
     @Override
-    protected final void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException
+    protected final void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         keyFac = SecretKeyFactory.getInstance(MYKEYFACT);
         pbeKeySpec = new PBEKeySpec(cPasswd, salt, iCount, iKeysize);
         pbeKey = keyFac.generateSecret(pbeKeySpec);
-        pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyALG);
+        pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyAlg);
     }
 
     /**
@@ -114,7 +114,7 @@ public class AesCbcLayer extends AbstractCipherLayer
     }
 
     @Override
-    protected int getMyIVLen()
+    protected int getMyIvLen()
     {
         return IVLEN;
     }
