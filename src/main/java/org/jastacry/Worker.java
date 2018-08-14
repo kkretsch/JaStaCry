@@ -43,7 +43,7 @@ import org.jastacry.layer.XorLayer;
 /**
  * Real working class.
  *
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -70,9 +70,9 @@ public class Worker
     private static final int TOKENCOUNT_ONE = 1;
 
     /**
-     * boolean status: do we encode to text transport format?
+     * boolean status: do we encode to text transport format.
      */
-    private boolean doASCIItransport;
+    private boolean doAsciitransport;
 
     /**
      * Filename of configuration file.
@@ -90,7 +90,7 @@ public class Worker
     private String outputFilename;
 
     /**
-     * Be verbose about every step?
+     * Be verbose about every step.
      */
     private boolean isVerbose;
 
@@ -150,7 +150,7 @@ public class Worker
 
         // In case of plain text, either encode after layers or decode before
         // them.
-        if (doASCIItransport)
+        if (doAsciitransport)
         {
             final AbstractBasicLayer layerEncode = new AsciiTransportLayer();
             switch (action)
@@ -368,7 +368,7 @@ public class Worker
         LOGGER.traceEntry();
 
         final CountDownLatch endController = new CountDownLatch(layers.size() + 2);
-        final List<AbstractBasicLayer> layersWithIO = new ArrayList<>();
+        final List<AbstractBasicLayer> layersWithIo = new ArrayList<>();
         final List<InputStream> inputStreams = new ArrayList<>();
         final List<OutputStream> outputStreams = new ArrayList<>();
 
@@ -389,7 +389,7 @@ public class Worker
             l.setOutputStream(pipedOutputFromFile);
             l.setAction(action);
             l.setEndController(endController);
-            layersWithIO.add(l);
+            layersWithIo.add(l);
 
             // Handle very first layer
             l = layers.get(0);
@@ -404,7 +404,7 @@ public class Worker
             l.setOutputStream(pipedOutputStream);
             l.setAction(action);
             l.setEndController(endController);
-            layersWithIO.add(l);
+            layersWithIo.add(l);
 
             // only second and further layers are looped through
             for (int i = 1; i < layers.size(); i++)
@@ -423,7 +423,7 @@ public class Worker
                 l.setOutputStream(pipedOutputStream);
                 l.setAction(action);
                 l.setEndController(endController);
-                layersWithIO.add(l);
+                layersWithIo.add(l);
             } // for
 
             // Handle file output as very last layer
@@ -435,13 +435,13 @@ public class Worker
             l.setOutputStream(output);
             l.setAction(action);
             l.setEndController(endController);
-            layersWithIO.add(l);
+            layersWithIo.add(l);
 
             // Start all threads
-            for (int i = 0; i < layersWithIO.size(); i++)
+            for (int i = 0; i < layersWithIo.size(); i++)
             {
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
-                final AbstractBasicLayer layer = layersWithIO.get(i);
+                final AbstractBasicLayer layer = layersWithIo.get(i);
                 threadFactory.setNumber(i);
                 executor.execute(layer);
             } // for
@@ -506,15 +506,17 @@ public class Worker
     }
 
     /**
+     * Setter method for ascii transport.
      * @param bStatus
      *            the doEncode to set
      */
-    public final void setDoASCIItransport(final boolean bStatus)
+    public final void setDoAsciitransport(final boolean bStatus)
     {
-        doASCIItransport = bStatus;
+        doAsciitransport = bStatus;
     }
 
     /**
+     * Setter method for config file name.
      * @param sFilename
      *            the confFilename to set
      */
@@ -524,6 +526,7 @@ public class Worker
     }
 
     /**
+     * Setter method for input file name.
      * @param sFilename
      *            the inputFilename to set
      */
@@ -533,6 +536,7 @@ public class Worker
     }
 
     /**
+     * Setter method for output file name.
      * @param sFilename
      *            the outputFilename to set
      */
@@ -542,6 +546,7 @@ public class Worker
     }
 
     /**
+     * Setter method for verbosity.
      * @param bStatus
      *            the isVerbose to set
      */
@@ -551,6 +556,7 @@ public class Worker
     }
 
     /**
+     * Setter method for action value.
      * @param oAction
      *            the action to set
      */
