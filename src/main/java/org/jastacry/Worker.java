@@ -253,14 +253,7 @@ public class Worker
                         // Optional interactive password entry
                         if (sParams.equalsIgnoreCase(org.jastacry.GlobalData.MACRO_PASSWORD))
                         {
-                            final Console console = System.console();
-                            if (null == console)
-                            {
-                                LOGGER.error("No interactive console available for password entry!");
-                                return LOGGER.traceExit(layers);
-                            }
-                            final char[] password = console.readPassword("Layer " + sLayer + " Password: ");
-                            sParams = new String(password);
+                            sParams = readPassword(sLayer);
                         }
                     }
 
@@ -295,6 +288,23 @@ public class Worker
         }
 
         return LOGGER.traceExit(layers);
+    }
+
+    /**
+     * read secret password from console interactively.
+     * @param layername for labelling
+     * @return String for password
+     */
+    private String readPassword(final String layername)
+    {
+        final Console console = System.console();
+        if (null == console)
+        {
+            LOGGER.error("No interactive console available for password entry!");
+            return "";
+        }
+        final char[] password = console.readPassword("Layer " + layername + " Password: ");
+        return new String(password);
     }
 
     /**
@@ -382,7 +392,7 @@ public class Worker
         try
         {
             // Handle file input
-            pipedOutputFromFile = new PipedOutputStream();
+            pipedOutputFromFile = createOutputPipe();
             outputStreams.add(pipedOutputFromFile);
             l = new ReadWriteLayer();
             l.setInputStream(input);
@@ -394,8 +404,8 @@ public class Worker
             // Handle very first layer
             l = layers.get(0);
             GlobalFunctions.logDebug(isVerbose, LOGGER, "layer FIRST '{}'", l);
-            pipedInputStream = new PipedInputStream();
-            pipedOutputStream = new PipedOutputStream();
+            pipedInputStream = createInputPipe();
+            pipedOutputStream = createOutputPipe();
             inputStreams.add(pipedInputStream);
             outputStreams.add(pipedOutputStream);
             pipedInputStream.connect(pipedOutputFromFile);
@@ -413,8 +423,8 @@ public class Worker
 
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "layer {} '{}'", i, l);
 
-                pipedInputStream = new PipedInputStream(); // NOSONAR
-                pipedOutputStream = new PipedOutputStream();
+                pipedInputStream = createInputPipe();
+                pipedOutputStream = createOutputPipe();
                 inputStreams.add(pipedInputStream);
                 outputStreams.add(pipedOutputStream);
                 pipedInputStream.connect(prevOutput);
@@ -427,7 +437,7 @@ public class Worker
             } // for
 
             // Handle file output as very last layer
-            pipedInputStreamToFile = new PipedInputStream(); // NOSONAR
+            pipedInputStreamToFile = createInputPipe();
             inputStreams.add(pipedInputStreamToFile);
             pipedInputStreamToFile.connect(prevOutput);
             l = new ReadWriteLayer();
@@ -477,6 +487,24 @@ public class Worker
 
         LOGGER.traceExit();
     } // function
+
+    /**
+     * Create object outside of a loop.
+     * @return created object
+     */
+    private PipedInputStream createInputPipe()
+    {
+        return new PipedInputStream();
+    }
+
+    /**
+     * Create object outside of a loop.
+     * @return created object
+     */
+    private PipedOutputStream createOutputPipe()
+    {
+        return new PipedOutputStream();
+    }
 
     /**
      * Wait for all threads to end.
