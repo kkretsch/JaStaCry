@@ -1,6 +1,3 @@
-/**
- *
- */
 package org.jastacry.test;
 
 import static org.junit.Assert.assertEquals;
@@ -34,14 +31,14 @@ import org.junit.Test;
 public class TestEntropy
 {
     /**
-     * Maven temp resources path
+     * Maven temp resources path.
      */
-    private final static String TMPRESOURCES = "target/";
+    private static final String TMPRESOURCES = "target/";
 
     /**
-     * Maven test resources path
+     * Maven test resources path.
      */
-    private final static String RESOURCES = "src/test/resources/";
+    private static final String RESOURCES = "src/test/resources/";
 
     /**
      * log4j2 object.
@@ -233,8 +230,8 @@ public class TestEntropy
         final String[] sArguments = { "-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
                 sConfigFile };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
-        final int iRC = JaStaCry.mainMethod(sArguments);
-        assertEquals("Main encode returncode", 0, iRC);
+        final int iRc = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main encode returncode", 0, iRc);
 
         // Test entropy values
         try

@@ -5,8 +5,12 @@ import org.jastacry.JaStaCry;
 public class Generator
 {
 
-    private final static String RESOURCES = "src/test/resources/";
+    private static final String RESOURCES = "src/test/resources/";
 
+    /**
+     * Generate file to compare to.
+     * @param args command line
+     */
     public static void main(final String[] args)
     {
         final String sInputFile = RESOURCES + TestMain.INPUTFILE;

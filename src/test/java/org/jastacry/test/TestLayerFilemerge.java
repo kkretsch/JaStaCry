@@ -106,6 +106,7 @@ public class TestLayerFilemerge
         InputStream is = new FileInputStream(LONGTEXTFILE);
         byte[] buf = IOUtils.toByteArray(is);
         String sTextcontent = new String(buf, "ISO-8859-1");
+
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
         layer.init(INITVALUE);
