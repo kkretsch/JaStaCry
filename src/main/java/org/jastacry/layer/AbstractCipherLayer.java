@@ -83,12 +83,12 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * Key size as defined by child class.
      */
-    protected int keysize;
+    protected int currentKeysize;
 
     /**
      * IV length.
      */
-    protected int ivLen;
+    protected int currentIvLen;
 
     /**
      * IV bytes.
@@ -98,7 +98,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * Salt length.
      */
-    protected int saltLen;
+    protected int currentSaltLen;
 
     /**
      * salt.
@@ -159,7 +159,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      */
     protected final void getSalt()
     {
-        salt = new byte[saltLen];
+        salt = new byte[currentSaltLen];
         new SecureRandom().nextBytes(salt);
     }
 
@@ -168,7 +168,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      */
     protected final void getIv()
     {
-        ivBytes = new byte[ivLen];
+        ivBytes = new byte[currentIvLen];
     }
 
     /**
@@ -178,10 +178,10 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     {
         this.strAlg = getMyAlg();
         this.strKeyAlg = getMyKeyAlg();
-        this.saltLen = getMySaltLen();
-        this.ivLen = getMyIvLen();
+        this.currentSaltLen = getMySaltLen();
+        this.currentIvLen = getMyIvLen();
         this.iterCount = getMyCount();
-        this.keysize = getMyKeysize();
+        this.currentKeysize = getMyKeysize();
     }
 
     /**
@@ -237,7 +237,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
 
             // Encrypt the clear text
             final byte[] ciphertext = pbeCipher.doFinal(bInput);
-            if (0 == ivLen)
+            if (0 == currentIvLen)
             {
                 logger.trace("No IV to write");
             }
@@ -251,11 +251,11 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
                 }
                 else
                 {
-                    outputStream.write(ivBytes, 0, ivLen);
+                    outputStream.write(ivBytes, 0, currentIvLen);
                 } // if
             } // if
 
-            outputStream.write(salt, 0, saltLen);
+            outputStream.write(salt, 0, currentSaltLen);
             outputStream.write(ciphertext);
             logger.info("close pipe");
             outputStream.close();
@@ -286,32 +286,32 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
         int iReadBytes;
         try
         {
-            if (0 == ivLen)
+            if (0 == currentIvLen)
             {
                 logger.trace("No IV to read");
             }
             else
             {
-                ivBytes = new byte[ivLen];
-                iReadBytes = inputStream.read(ivBytes, 0, ivLen);
-                if (ivLen != iReadBytes)
+                ivBytes = new byte[currentIvLen];
+                iReadBytes = inputStream.read(ivBytes, 0, currentIvLen);
+                if (currentIvLen != iReadBytes)
                 {
-                    logger.error("read {} bytes of IV, expecting {}.", iReadBytes, ivLen);
+                    logger.error("read {} bytes of IV, expecting {}.", iReadBytes, currentIvLen);
                 } // if
             } // if
 
-            salt = new byte[saltLen];
-            iReadBytes = inputStream.read(salt, 0, saltLen);
-            if (saltLen != iReadBytes)
+            salt = new byte[currentSaltLen];
+            iReadBytes = inputStream.read(salt, 0, currentSaltLen);
+            if (currentSaltLen != iReadBytes)
             {
-                logger.error("read {} bytes of salt, expecting {}.", iReadBytes, saltLen);
+                logger.error("read {} bytes of salt, expecting {}.", iReadBytes, currentSaltLen);
             } // if
 
             // call implementation of child class method.
             setupPbe();
 
             pbeCipher = Cipher.getInstance(strAlg);
-            if (0 == ivLen)
+            if (0 == currentIvLen)
             {
                 pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec);
             }
