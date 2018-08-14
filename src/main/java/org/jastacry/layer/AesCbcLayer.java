@@ -76,7 +76,7 @@ public class AesCbcLayer extends AbstractCipherLayer
     protected final void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         keyFac = SecretKeyFactory.getInstance(MYKEYFACT);
-        pbeKeySpec = new PBEKeySpec(chPasswd, salt, iterCount, keysize);
+        pbeKeySpec = new PBEKeySpec(chPasswd, salt, iterCount, currentKeysize);
         pbeKey = keyFac.generateSecret(pbeKeySpec);
         pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), strKeyAlg);
     }
