@@ -245,9 +245,9 @@ public final class JaStaCry
         CommandLine cmdLine;
         try
         {
-            cmdLine = parser.parse(options, args); // NOPMD
+            cmdLine = parser.parse(options, args);
         }
-        catch (final MissingOptionException eOpt)
+        catch (final MissingOptionException exOpt)
         {
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
@@ -270,7 +270,7 @@ public final class JaStaCry
             LOGGER.debug("Show help");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return LOGGER.traceExit(Returncode.RC_HELP.getNumVal()); // NOPMD
+            return LOGGER.traceExit(Returncode.RC_HELP.getNumVal());
         } // if
 
         // Is verbose?

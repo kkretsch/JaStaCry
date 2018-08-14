@@ -7,7 +7,7 @@ import net.sourceforge.cobertura.CoverageIgnore;
 /**
  * Global static functions are stored here.
  *
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author kai
  */

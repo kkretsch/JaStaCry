@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * AES Layer class.
  *
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -76,7 +76,7 @@ public class AesEcbLayer extends AbstractCipherLayer
     @Override
     protected final void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException
     {
-        byte[] key = new String(cPasswd).getBytes(StandardCharsets.UTF_8);
+        byte[] key = new String(chPasswd).getBytes(StandardCharsets.UTF_8);
         final MessageDigest sha = MessageDigest.getInstance(MYHASHALG);
         key = sha.digest(key);
         key = Arrays.copyOf(key, KEYSIZE / BITSPERBYTE);
@@ -94,7 +94,7 @@ public class AesEcbLayer extends AbstractCipherLayer
     {
         super.init();
 
-        this.cPasswd = data.toCharArray();
+        this.chPasswd = data.toCharArray();
     }
 
     @Override
