@@ -1,6 +1,9 @@
+/**
+ *
+ */
 package org.jastacry.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,11 +23,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Test Ascii layer.
  * @author Kai Kretschmann
  *
  */
-public class TestLayerAsciiTransport
+public class TestLayerASCIITransport
 {
     /**
      * log4j2 object.
@@ -37,7 +39,7 @@ public class TestLayerAsciiTransport
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
 
     /**
-     * default data encoded.
+     * default data encoded
      */
     private final String testdataEncoded = "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4=";
 
