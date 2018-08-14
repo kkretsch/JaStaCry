@@ -13,7 +13,7 @@ import org.jastacry.GlobalData.Action;
  * Abstract base class for the actual worker layers.
  *
  * SPDX-License-Identifier: MIT
- * 
+ *
  * @author Kai Kretschmann
  */
 public abstract class AbstractBasicLayer implements Runnable
@@ -166,7 +166,7 @@ public abstract class AbstractBasicLayer implements Runnable
 
     /**
      * Property setter for input stream.
-     * 
+     *
      * @param newInputStream
      *            the new stream
      */
@@ -177,7 +177,7 @@ public abstract class AbstractBasicLayer implements Runnable
 
     /**
      * property setter for output stream.
-     * 
+     *
      * @param newOutputStream
      *            the new output stream
      */
@@ -188,7 +188,7 @@ public abstract class AbstractBasicLayer implements Runnable
 
     /**
      * Property setter for action.
-     * 
+     *
      * @param newAction
      *            the new action
      */
@@ -199,7 +199,7 @@ public abstract class AbstractBasicLayer implements Runnable
 
     /**
      * Property setter for endcontroller.
-     * 
+     *
      * @param newEndController
      *            the new endcontroller
      */
@@ -210,7 +210,7 @@ public abstract class AbstractBasicLayer implements Runnable
 
     /**
      * Property setter for realLayerName.
-     * 
+     *
      * @param newRealLayerName
      *            the new layer name
      */

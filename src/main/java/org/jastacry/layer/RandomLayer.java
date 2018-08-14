@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * decryption).
  *
  * SPDX-License-Identifier: MIT
- * 
+ *
  * @author Kai Kretschmann
  */
 public class RandomLayer extends AbstractBasicLayer

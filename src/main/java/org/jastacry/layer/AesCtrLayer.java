@@ -12,7 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
  * AES Layer class.
  *
  * SPDX-License-Identifier: MIT
- * 
+ *
  * @author Kai Kretschmann
  */
 public class AesCtrLayer extends AbstractCipherLayer
@@ -79,7 +79,7 @@ public class AesCtrLayer extends AbstractCipherLayer
         byte[] key = new String(cPasswd).getBytes(StandardCharsets.UTF_8);
         final MessageDigest sha = MessageDigest.getInstance(MYHASHALG);
         key = sha.digest(key);
-        key = Arrays.copyOf(key, KEYSIZE / 8);
+        key = Arrays.copyOf(key, KEYSIZE / BITSPERBYTE);
         pbeSecretKeySpec = new SecretKeySpec(key, MYKEYALG);
     }
 

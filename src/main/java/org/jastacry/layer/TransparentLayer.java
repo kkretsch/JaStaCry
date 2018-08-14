@@ -9,7 +9,7 @@ import java.io.OutputStream;
  * framework to start with.
  *
  * SPDX-License-Identifier: MIT
- * 
+ *
  * @author Kai Kretschmann
  */
 public class TransparentLayer extends AbstractBasicLayer

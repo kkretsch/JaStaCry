@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Thread factory for better thread naming.
- * 
+ *
  * @author kai
  *
  */
@@ -40,7 +40,7 @@ public class LayerThreadFactory implements ThreadFactory
 
     /**
      * Set name suffix for thread.
-     * 
+     *
      * @param sSuffix
      *            String as suffix.
      */
@@ -51,7 +51,7 @@ public class LayerThreadFactory implements ThreadFactory
 
     /**
      * Set name suffix for thread.
-     * 
+     *
      * @param iSuffix
      *            Number as suffix.
      */

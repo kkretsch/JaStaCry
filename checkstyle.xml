@@ -59,7 +59,9 @@ Checkstyle configuration that checks the sun coding conventions.
       <property name="tokens" value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, STATIC_INIT"/>
     </module>
     <module name="NeedBraces"/>
-    <module name="RightCurly"/>
+    <module name="RightCurly">
+      <property name="option" value="alone"/>
+    </module>
     <module name="AvoidInlineConditionals"/>
     <module name="EmptyStatement"/>
     <module name="EqualsHashCode"/>

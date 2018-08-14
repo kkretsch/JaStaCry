@@ -24,7 +24,7 @@ import javax.crypto.spec.SecretKeySpec;
  * Abstract base class for encryption.
  *
  * SPDX-License-Identifier: MIT
- * 
+ *
  * @author Kai Kretschmann
  */
 public abstract class AbstractCipherLayer extends AbstractBasicLayer
@@ -34,6 +34,11 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      * Block size.
      */
     private static final int ONEBLOCKSIZE = 256;
+
+    /**
+     * How many bits in a byte.
+     */
+    protected static final int BITSPERBYTE = 8;
 
     /**
      * PBEKeySpec.
@@ -113,16 +118,40 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
         super(cClass, layerName);
     }
 
+    /**
+     * Abstract base method for getting algorithm name back.
+     * @return String
+     */
     protected abstract String getMyAlg();
 
+    /**
+     * Abstract base method for getting key algorithm name back.
+     * @return String
+     */
     protected abstract String getMyKeyAlg();
 
+    /**
+     * Abstract base method for getting salt len back.
+     * @return int length
+     */
     protected abstract int getMySaltLen();
 
+    /**
+     * Abstract base method for getting IV length back.
+     * @return int length
+     */
     protected abstract int getMyIVLen();
 
+    /**
+     * Abstract base method for getting a counter back.
+     * @return int
+     */
     protected abstract int getMyCount();
 
+    /**
+     * Abstract base method for getting key size back.
+     * @return int length
+     */
     protected abstract int getMyKeysize();
 
     /**

@@ -12,7 +12,7 @@ import java.nio.channels.FileChannel;
  * data it will be used again and again from the beginning.
  *
  * SPDX-License-Identifier: MIT
- * 
+ *
  * @author Kai Kretschmann
  */
 public class FilemergeLayer extends AbstractBasicLayer

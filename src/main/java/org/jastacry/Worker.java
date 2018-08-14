@@ -44,7 +44,7 @@ import org.jastacry.layer.XorLayer;
  * Real working class.
  *
  * SPDX-License-Identifier: MIT
- * 
+ *
  * @author Kai Kretschmann
  */
 public class Worker
@@ -480,7 +480,7 @@ public class Worker
 
     /**
      * Wait for all threads to end.
-     * 
+     *
      * @param endController
      *            the controller which counts the threads
      */
