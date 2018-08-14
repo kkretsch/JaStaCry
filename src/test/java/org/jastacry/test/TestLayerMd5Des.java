@@ -24,7 +24,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerMd5Des {
+public class TestLayerMd5Des
+{
     /**
      * log4j2 object.
      */
@@ -62,7 +63,8 @@ public class TestLayerMd5Des {
      *             in case of error.
      */
     @BeforeClass
-    public static void setLogger() throws MalformedURLException {
+    public static void setLogger() throws MalformedURLException
+    {
         oLogger = LogManager.getLogger();
     }
 
@@ -73,7 +75,8 @@ public class TestLayerMd5Des {
      *             in case of error.
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         tooling = new Tooling();
 
         layerEncrypt = new Md5DesLayer();
@@ -89,7 +92,8 @@ public class TestLayerMd5Des {
      *             in case off error
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         layerEncrypt = null;
         layerDecrypt = null;
     }
@@ -102,7 +106,8 @@ public class TestLayerMd5Des {
      */
     @Test
     // TestLink(externalId = "JAS-4")
-    public void testEncDecStream() throws IOException {
+    public void testEncDecStream() throws IOException
+    {
         // tooling.listProviders();
 
         byte[] buf = testdata.getBytes();
@@ -122,7 +127,8 @@ public class TestLayerMd5Des {
      */
     @Test
     // TestLink(externalId = "JAS-5")
-    public void testToString() {
+    public void testToString()
+    {
         assertEquals("Layer name mismatch", Md5DesLayer.LAYERNAME, layerEncrypt.toString());
     }
 

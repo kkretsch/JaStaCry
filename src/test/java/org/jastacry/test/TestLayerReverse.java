@@ -21,7 +21,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerReverse {
+public class TestLayerReverse
+{
     /**
      * Test data to play with.
      */
@@ -35,7 +36,8 @@ public class TestLayerReverse {
     /**
      * The layer to test.
      */
-    private AbstractBasicLayer layer = null; // NOPMD by kkretsch on 29.03.18 14:55
+    private AbstractBasicLayer layer = null; // NOPMD by kkretsch on 29.03.18
+                                             // 14:55
 
     /**
      * Test Before method.
@@ -44,7 +46,8 @@ public class TestLayerReverse {
      *             in case of error
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         layer = new ReverseLayer();
     }
 
@@ -55,7 +58,8 @@ public class TestLayerReverse {
      *             in case of error
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         layer = null;
     }
 
@@ -66,7 +70,8 @@ public class TestLayerReverse {
      *             in case of error
      */
     @Test
-    public void testEncDecStream() throws IOException {
+    public void testEncDecStream() throws IOException
+    {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
@@ -83,7 +88,8 @@ public class TestLayerReverse {
      * Test case testToString.
      */
     @Test
-    public void testToString() {
+    public void testToString()
+    {
         assertEquals("Layer name mismatch", ReverseLayer.LAYERNAME, layer.toString());
     }
 

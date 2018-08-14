@@ -6,55 +6,70 @@ import java.util.ArrayList;
  * Helper functions for checking entropy.
  *
  */
-public final class ShannonEntropy {
+public final class ShannonEntropy
+{
     private double entropy = 0.0;
 
-    public double getEntropy() {
+    public double getEntropy()
+    {
         return entropy;
     }
 
     /**
      * Constructor of class.
      */
-    public ShannonEntropy() {
+    public ShannonEntropy()
+    {
         entropy = 0.0;
     }
 
     /**
      * Calculate entropy.
-     * @param in String to analyze
+     * 
+     * @param in
+     *            String to analyze
      */
-    public void calculate(final String in) {
+    public void calculate(final String in)
+    {
         byte[] bArray = in.getBytes();
         calculate(bArray);
     } // function
 
     /**
      * Calculate entropy.
-     * @param bArray byte array to analyze
+     * 
+     * @param bArray
+     *            byte array to analyze
      */
-    public void calculate(final byte[] bArray) {
+    public void calculate(final byte[] bArray)
+    {
         entropy = 0.0;
         ArrayList<byteFreq> freqs = new ArrayList<>();
-        for (int i = 0; i<bArray.length; i++) {
+        for (int i = 0; i < bArray.length; i++)
+        {
             byte b = bArray[i];
             boolean flag = true;
-            for (byteFreq cf : freqs) {
-                if (cf.b == b) {
+            for (byteFreq cf : freqs)
+            {
+                if (cf.b == b)
+                {
                     flag = false;
                     cf.count++;
                     break;
                 } // if
                 flag = true;
             } // for
-            if (flag) {
+            if (flag)
+            {
                 freqs.add(new byteFreq(b));
             } // if
         } // for
 
-        for (byteFreq cf : freqs) {
+        for (byteFreq cf : freqs)
+        {
             int freq = cf.count;
-            if (freq == 0) {
+            if (freq == 0)
+            {
                 continue;
             } // if
 
@@ -63,12 +78,14 @@ public final class ShannonEntropy {
         } // for
     } // function
 
-    private final double log2(double x) {
+    private final double log2(double x)
+    {
         return Math.log(x) / Math.log(2);
     } // math function
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Entropy: " + this.entropy;
     } // function
 
@@ -76,19 +93,22 @@ public final class ShannonEntropy {
      * inner class for array use.
      *
      */
-    class byteFreq {
+    class byteFreq
+    {
         public final byte b;
         public int count = 1;
 
         /**
          * inner constructor
-         * @param in byte to count
+         * 
+         * @param in
+         *            byte to count
          */
-        public byteFreq(byte in) {
+        public byteFreq(byte in)
+        {
             this.b = in;
         } // constructor
 
     } // inner class
 
 } // class ShannonEntropy
-

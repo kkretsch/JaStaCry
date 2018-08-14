@@ -23,7 +23,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerAesCtr {
+public class TestLayerAesCtr
+{
     /**
      * log4j2 object.
      */
@@ -56,7 +57,8 @@ public class TestLayerAesCtr {
      *             in case of error.
      */
     @BeforeClass
-    public static void setLogger() throws MalformedURLException {
+    public static void setLogger() throws MalformedURLException
+    {
         oLogger = LogManager.getLogger();
     }
 
@@ -67,7 +69,8 @@ public class TestLayerAesCtr {
      *             in case of error.
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         layerEncrypt = new AesCtrLayer();
         layerEncrypt.init(INITVALUE);
 
@@ -82,7 +85,8 @@ public class TestLayerAesCtr {
      *             in case off error
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         layerEncrypt = null;
         layerDecrypt = null;
     }
@@ -95,7 +99,8 @@ public class TestLayerAesCtr {
      */
     @Test
     // TestLink(externalId = "JAS-4")
-    public void testEncDecStream() throws IOException {
+    public void testEncDecStream() throws IOException
+    {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
@@ -113,7 +118,8 @@ public class TestLayerAesCtr {
      * Testcase testToString.
      */
     @Test
-    public void testToString() {
+    public void testToString()
+    {
         assertEquals("Layer name mismatch", AesCtrLayer.LAYERNAME, layerEncrypt.toString());
     }
 

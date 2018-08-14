@@ -12,9 +12,11 @@ import javax.crypto.spec.SecretKeySpec;
  * MD5 DES Layer class.
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public class Md5DesLayer extends AbstractCipherLayer {
+public class Md5DesLayer extends AbstractCipherLayer
+{
     /**
      * static name of the layer.
      */
@@ -63,7 +65,8 @@ public class Md5DesLayer extends AbstractCipherLayer {
     /**
      * Constructor of Md5DesLayer.
      */
-    public Md5DesLayer() {
+    public Md5DesLayer()
+    {
         super(Md5DesLayer.class, LAYERNAME);
     }
 
@@ -76,7 +79,8 @@ public class Md5DesLayer extends AbstractCipherLayer {
      *             on error
      */
     @Override
-    protected final void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException {
+    protected final void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException
+    {
         logger.debug("in child setupPBE");
         pbeKey = new SecretKeySpec(keyBytes, MYKEYALG);
         pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyALG);
@@ -89,47 +93,56 @@ public class Md5DesLayer extends AbstractCipherLayer {
      *            to initialize the crypt value.
      */
     @Override
-    public final void init(final String data) {
+    public final void init(final String data)
+    {
         super.init();
 
         this.cPasswd = data.toCharArray();
-        try {
+        try
+        {
             final MessageDigest msgDigest = MessageDigest.getInstance(MYHASHALG);
             final byte[] digestOfPassword = msgDigest.digest(data.getBytes(StandardCharsets.UTF_8));
             keyBytes = Arrays.copyOf(digestOfPassword, KEYSIZE);
-        } catch (final NoSuchAlgorithmException e) {
+        }
+        catch (final NoSuchAlgorithmException e)
+        {
             logger.catching(e);
         }
     }
 
-
     @Override
-    protected final String getMyAlg() {
+    protected final String getMyAlg()
+    {
         return MYALG;
     }
 
     @Override
-    protected final String getMyKeyAlg() {
+    protected final String getMyKeyAlg()
+    {
         return MYKEYALG;
     }
 
     @Override
-    protected int getMySaltLen() {
+    protected int getMySaltLen()
+    {
         return SALTLEN;
     }
 
     @Override
-    protected int getMyIVLen() {
+    protected int getMyIVLen()
+    {
         return IVLEN;
     }
 
     @Override
-    protected int getMyCount() {
+    protected int getMyCount()
+    {
         return COUNT;
     }
 
     @Override
-    protected int getMyKeysize() {
+    protected int getMyKeysize()
+    {
         return KEYSIZE;
     }
 }

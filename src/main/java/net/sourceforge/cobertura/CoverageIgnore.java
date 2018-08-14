@@ -6,5 +6,6 @@ package net.sourceforge.cobertura;
  * @author Kai Kretschmann
  *
  */
-public @interface CoverageIgnore {
+public @interface CoverageIgnore
+{
 }

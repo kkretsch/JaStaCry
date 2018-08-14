@@ -16,7 +16,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestIO {
+public class TestIO
+{
 
     /**
      * The layer to test.
@@ -35,7 +36,8 @@ public class TestIO {
      *             in case of error
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         layer = new ReadWriteLayer();
         endController = new CountDownLatch(1);
         layer.setEndController(endController);
@@ -48,7 +50,8 @@ public class TestIO {
      *             in case of error
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         layer = null;
     }
 
@@ -57,18 +60,23 @@ public class TestIO {
      *
      */
     @Test
-    public void testIOException() {
+    public void testIOException()
+    {
         InputStream sInput;
         OutputStream sOutput;
-        sInput = new InputStream() {
+        sInput = new InputStream()
+        {
             @Override
-            public int read() throws IOException {
+            public int read() throws IOException
+            {
                 throw new IOException("Expected as a test");
             }
         };
-        sOutput = new OutputStream() {
+        sOutput = new OutputStream()
+        {
             @Override
-            public void write(int i) throws IOException {
+            public void write(int i) throws IOException
+            {
                 throw new IOException("Expected as a test");
             }
         };

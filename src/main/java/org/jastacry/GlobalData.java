@@ -6,9 +6,11 @@ import net.sourceforge.cobertura.CoverageIgnore;
  * Class for constant values.
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public final class GlobalData {
+public final class GlobalData
+{
     /**
      * Help line reply.
      */
@@ -39,7 +41,6 @@ public final class GlobalData {
      * Parameter for decoding.
      */
     public static final String PARAM_DECODE = "decode";
-
 
     /**
      * Configuration value for layer "transparent" (lower case).
@@ -91,14 +92,14 @@ public final class GlobalData {
      */
     public static final String LAYER_AESCTR = "aesctr";
 
-
     /**
      * enum range for Actions.
      *
      * @author Kai Kretschmann
      *
      */
-    public enum Action {
+    public enum Action
+    {
         /**
          * Unknown action.
          */
@@ -121,7 +122,8 @@ public final class GlobalData {
      * @author Kai Kretschmann
      *
      */
-    public enum Returncode {
+    public enum Returncode
+    {
         /**
          * Everything is OK.
          */
@@ -153,7 +155,8 @@ public final class GlobalData {
          * @param iNumVal
          *            gives initial value
          */
-        Returncode(final int iNumVal) {
+        Returncode(final int iNumVal)
+        {
             this.numVal = iNumVal;
         }
 
@@ -162,7 +165,8 @@ public final class GlobalData {
          *
          * @return integer value
          */
-        public int getNumVal() {
+        public int getNumVal()
+        {
             return numVal;
         }
     }
@@ -176,7 +180,8 @@ public final class GlobalData {
      * Hidden constructor.
      */
     @CoverageIgnore
-    private GlobalData() {
+    private GlobalData()
+    {
         // not called
     }
 }

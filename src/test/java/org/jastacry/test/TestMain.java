@@ -27,7 +27,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestMain {
+public class TestMain
+{
     /**
      * Maven test resources path
      */
@@ -44,7 +45,8 @@ public class TestMain {
     private Tooling tooling;
 
     /**
-     * Test configuration file, contains broad range of running layers. used for "OK" tests.
+     * Test configuration file, contains broad range of running layers. used for
+     * "OK" tests.
      */
     public static final String CONF1 = "conf1.cfg";
 
@@ -110,7 +112,8 @@ public class TestMain {
      *             in case of error.
      */
     @BeforeClass
-    public static void setLogger() throws MalformedURLException {
+    public static void setLogger() throws MalformedURLException
+    {
         oLogger = LogManager.getLogger();
     }
 
@@ -121,13 +124,17 @@ public class TestMain {
      *             in case of error
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         tooling = new Tooling();
-        try {
+        try
+        {
             tmpFile = File.createTempFile(org.jastacry.GlobalData.TMPBASE, GlobalData.TMPEXT);
             binFile = File.createTempFile(org.jastacry.GlobalData.TMPBASE, GlobalData.TMPEXT);
             encFile = File.createTempFile(org.jastacry.GlobalData.TMPBASE, GlobalData.ENCEXT);
-        } catch (final IOException e1) {
+        }
+        catch (final IOException e1)
+        {
             oLogger.catching(e1);
         }
     }
@@ -139,7 +146,8 @@ public class TestMain {
      *             in case of error
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         encFile.delete();
         binFile.delete();
         tmpFile.delete();
@@ -150,7 +158,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainHelp() {
+    public void testMainHelp()
+    {
         final String[] sArguments = { "-h" };
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main help returncode", Returncode.RC_HELP.getNumVal(), iRC);
@@ -161,7 +170,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainNoargs() {
+    public void testMainNoargs()
+    {
         final String[] sArguments = {};
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main noargs returncode", Returncode.RC_ERROR.getNumVal(), iRC);
@@ -172,7 +182,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainUnknownargs() {
+    public void testMainUnknownargs()
+    {
         final String[] sArguments = { "--unknown", "--arguments" };
         final int iRC = JaStaCry.mainMethod(sArguments);
         assertEquals("Main unknown args returncode", Returncode.RC_ERROR.getNumVal(), iRC);
@@ -183,7 +194,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainMissingArgs() {
+    public void testMainMissingArgs()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = tmpFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF1;
@@ -199,7 +211,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainMissingParams() {
+    public void testMainMissingParams()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = tmpFile.getAbsolutePath();
 
@@ -214,7 +227,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainEncode() {
+    public void testMainEncode()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = encFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF1;
@@ -231,7 +245,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainDecode() {
+    public void testMainDecode()
+    {
         final String sInputFile = RESOURCES + INPUTENCODED;
         final String sOutputFile = tmpFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF1;
@@ -248,7 +263,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainUnknownLayer() {
+    public void testMainUnknownLayer()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = tmpFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF2;
@@ -265,7 +281,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainOnelayer() {
+    public void testMainOnelayer()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = tmpFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF5;
@@ -282,7 +299,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainTwolayer() {
+    public void testMainTwolayer()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = tmpFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF4;
@@ -299,7 +317,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainPassword() {
+    public void testMainPassword()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = tmpFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF6;
@@ -316,7 +335,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainNolayer() {
+    public void testMainNolayer()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = tmpFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF3;
@@ -333,7 +353,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainMissingInputFile() {
+    public void testMainMissingInputFile()
+    {
         final String sInputFile = RESOURCES + "NotExistingFile.txt";
         final String sEncryptedFile = encFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF1;
@@ -350,7 +371,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainMissingConfigFile() {
+    public void testMainMissingConfigFile()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sEncryptedFile = encFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + "NotExistingConfig.txt";
@@ -367,7 +389,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainEncDec() {
+    public void testMainEncDec()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sEncryptedFile = encFile.getAbsolutePath();
         final String sDecryptedFile = tmpFile.getAbsolutePath();
@@ -398,7 +421,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainBase64EncDec() {
+    public void testMainBase64EncDec()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sEncryptedFile = encFile.getAbsolutePath();
         final String sDecryptedFile = tmpFile.getAbsolutePath();
@@ -429,7 +453,8 @@ public class TestMain {
      *
      */
     @Test
-    public void testMainBinaryEncDec() {
+    public void testMainBinaryEncDec()
+    {
         tooling.createBinaryTestfile(binFile);
 
         final String sInputFile = binFile.getAbsolutePath();

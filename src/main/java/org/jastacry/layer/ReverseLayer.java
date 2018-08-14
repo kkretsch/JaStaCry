@@ -8,9 +8,11 @@ import java.io.OutputStream;
  * Reverse every bits per byte. 0101 gives 1010 i.e.
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public class ReverseLayer extends AbstractBasicLayer {
+public class ReverseLayer extends AbstractBasicLayer
+{
     /**
      * Number of bits to shift back to byte form.
      */
@@ -29,7 +31,8 @@ public class ReverseLayer extends AbstractBasicLayer {
     /**
      * Constructor of XorLayer.
      */
-    public ReverseLayer() {
+    public ReverseLayer()
+    {
         super(ReverseLayer.class, LAYERNAME);
     }
 
@@ -40,7 +43,8 @@ public class ReverseLayer extends AbstractBasicLayer {
      *            to initialize the offset value.
      */
     @Override
-    public final void init(final String data) {
+    public final void init(final String data)
+    {
         // not used
     }
 
@@ -54,9 +58,12 @@ public class ReverseLayer extends AbstractBasicLayer {
      * @throws IOException
      *             in case of error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
+            throws IOException
+    {
         int iChar;
-        while ((iChar = inputStream.read()) != -1) {
+        while ((iChar = inputStream.read()) != -1)
+        {
             iChar = rangeCheck(iChar);
             iChar = Integer.reverse(iChar);
             iChar >>= SHIFTBITS;

@@ -19,7 +19,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerRotate {
+public class TestLayerRotate
+{
     /**
      * Testdata to play with.
      */
@@ -47,7 +48,8 @@ public class TestLayerRotate {
      *             in case of error
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         layer = new RotateLayer();
     }
 
@@ -58,7 +60,8 @@ public class TestLayerRotate {
      *             in case of error
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         layer = null;
     }
 
@@ -70,7 +73,8 @@ public class TestLayerRotate {
      */
     @Test
     // TestLink(externalId = "JAS-8")
-    public void testEncDecStream() throws IOException {
+    public void testEncDecStream() throws IOException
+    {
         layer.init(SHIFTSMALL);
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
@@ -91,7 +95,8 @@ public class TestLayerRotate {
      *             in case of error
      */
     @Test
-    public void testEncDecStreamWide() throws IOException {
+    public void testEncDecStreamWide() throws IOException
+    {
         layer.init(SHIFTWIDE);
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
@@ -110,7 +115,8 @@ public class TestLayerRotate {
      */
     @Test
     // TestLink(externalId = "JAS-9")
-    public void testToString() {
+    public void testToString()
+    {
         assertEquals("Layer name mismatch", RotateLayer.LAYERNAME, layer.toString());
     }
 

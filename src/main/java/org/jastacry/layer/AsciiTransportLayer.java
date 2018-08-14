@@ -12,9 +12,11 @@ import org.apache.commons.io.IOUtils;
  * Helper class for encode decode.
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public class AsciiTransportLayer extends AbstractBasicLayer {
+public class AsciiTransportLayer extends AbstractBasicLayer
+{
     /**
      * static name of the layer.
      */
@@ -23,7 +25,8 @@ public class AsciiTransportLayer extends AbstractBasicLayer {
     /**
      * Constructor of EncodeDecodeLayer.
      */
-    public AsciiTransportLayer() {
+    public AsciiTransportLayer()
+    {
         super(AsciiTransportLayer.class, LAYERNAME);
     }
 
@@ -34,7 +37,8 @@ public class AsciiTransportLayer extends AbstractBasicLayer {
      *            to initialize nothing.
      */
     @Override
-    public final void init(final String data) {
+    public final void init(final String data)
+    {
         // Empty at the moment
     }
 
@@ -49,7 +53,8 @@ public class AsciiTransportLayer extends AbstractBasicLayer {
      *             thrown on error
      */
     @Override
-    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    {
         final Base64.Encoder encoder = Base64.getEncoder();
         final byte[] bytes = IOUtils.toByteArray(inputStream);
         final byte[] bytesEncoded = encoder.encode(bytes);
@@ -69,7 +74,8 @@ public class AsciiTransportLayer extends AbstractBasicLayer {
      *             thrown on error
      */
     @Override
-    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    {
         final Base64.Decoder decoder = Base64.getDecoder();
         final InputStream isDecoded = decoder.wrap(inputStream);
         final int iCount = IOUtils.copy(isDecoded, outputStream);
@@ -77,7 +83,9 @@ public class AsciiTransportLayer extends AbstractBasicLayer {
     }
 
     @Override
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
+            throws IOException
+    {
         throw new UnsupportedOperationException();
     }
 

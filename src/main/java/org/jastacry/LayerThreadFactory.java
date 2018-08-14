@@ -7,10 +7,12 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Thread factory for better thread naming.
+ * 
  * @author kai
  *
  */
-public class LayerThreadFactory implements ThreadFactory {
+public class LayerThreadFactory implements ThreadFactory
+{
 
     /**
      * log4j logger object.
@@ -28,7 +30,8 @@ public class LayerThreadFactory implements ThreadFactory {
     private String suffix = "";
 
     @Override
-    public final Thread newThread(final Runnable r) {
+    public final Thread newThread(final Runnable r)
+    {
         LOGGER.traceEntry();
         final Thread thread = new Thread(r, PFX + suffix);
         thread.setDaemon(true);
@@ -37,17 +40,23 @@ public class LayerThreadFactory implements ThreadFactory {
 
     /**
      * Set name suffix for thread.
-     * @param sSuffix String as suffix.
+     * 
+     * @param sSuffix
+     *            String as suffix.
      */
-    public final void setName(final String sSuffix) {
+    public final void setName(final String sSuffix)
+    {
         this.suffix = sSuffix;
     }
 
     /**
      * Set name suffix for thread.
-     * @param iSuffix Number as suffix.
+     * 
+     * @param iSuffix
+     *            Number as suffix.
      */
-    public final void setNumber(final int iSuffix) {
+    public final void setNumber(final int iSuffix)
+    {
         this.suffix = Integer.toString(iSuffix);
     }
 
