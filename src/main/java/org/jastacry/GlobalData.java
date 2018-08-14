@@ -5,7 +5,7 @@ import net.sourceforge.cobertura.CoverageIgnore;
 /**
  * Class for constant values.
  *
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */

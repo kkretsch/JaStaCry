@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * MD5 DES Layer class.
  *
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -83,7 +83,7 @@ public class Md5DesLayer extends AbstractCipherLayer
     {
         logger.debug("in child setupPBE");
         pbeKey = new SecretKeySpec(keyBytes, MYKEYALG);
-        pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyAlg);
+        pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), strKeyAlg);
     }
 
     /**
@@ -97,7 +97,7 @@ public class Md5DesLayer extends AbstractCipherLayer
     {
         super.init();
 
-        this.cPasswd = data.toCharArray();
+        this.chPasswd = data.toCharArray();
         try
         {
             final MessageDigest msgDigest = MessageDigest.getInstance(MYHASHALG);

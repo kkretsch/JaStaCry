@@ -20,7 +20,7 @@ public class RotateLayer extends AbstractBasicLayer
     /**
      * private range to rate.
      */
-    private int iOffset;
+    private int offset;
 
     /**
      * Constructor of XorLayer.
@@ -39,7 +39,7 @@ public class RotateLayer extends AbstractBasicLayer
     @Override
     public final void init(final String data)
     {
-        this.iOffset = Integer.parseInt(data);
+        this.offset = Integer.parseInt(data);
     }
 
     /**
@@ -58,7 +58,7 @@ public class RotateLayer extends AbstractBasicLayer
         int iChar;
         while ((iChar = inputStream.read()) != -1)
         { // NOPMD by kai on 21.11.17 17:19
-            iChar += this.iOffset;
+            iChar += this.offset;
             iChar = rangeCheck(iChar);
             outputStream.write(iChar);
         }
@@ -82,7 +82,7 @@ public class RotateLayer extends AbstractBasicLayer
         int iChar;
         while ((iChar = inputStream.read()) != -1)
         { // NOPMD by kai on 21.11.17 17:19
-            iChar -= this.iOffset;
+            iChar -= this.offset;
             iChar = rangeCheck(iChar);
             outputStream.write(iChar);
         }

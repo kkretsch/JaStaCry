@@ -7,7 +7,7 @@ import java.io.OutputStream;
 /**
  * Very simple algorithm just to infuse some more complex data rotation.
  *
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -20,7 +20,7 @@ public class XorLayer extends AbstractBasicLayer
     /**
      * private byte mask to xor with.
      */
-    private byte bMask; // NOPMD by kkretsch on 29.03.18 14:53
+    private byte bitMask;
 
     /**
      * Constructor of XorLayer.
@@ -39,7 +39,7 @@ public class XorLayer extends AbstractBasicLayer
     @Override
     public final void init(final String data)
     {
-        this.bMask = (byte) Integer.parseInt(data);
+        this.bitMask = (byte) Integer.parseInt(data);
     }
 
     /**
@@ -60,7 +60,7 @@ public class XorLayer extends AbstractBasicLayer
         while ((iChar = inputStream.read()) != -1)
         { // NOPMD by kai on 21.11.17 17:18
             bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:18
-            bChar = (byte) (bChar ^ this.bMask);
+            bChar = (byte) (bChar ^ this.bitMask);
             outputStream.write(bChar);
         }
         logger.info("close pipe");

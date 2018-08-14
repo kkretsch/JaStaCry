@@ -63,32 +63,32 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * ALG for the data.
      */
-    protected String sAlg;
+    protected String strAlg;
 
     /**
      * Algorithm for the key.
      */
-    protected String sKeyAlg;
+    protected String strKeyAlg;
 
     /**
      * char array of password.
      */
-    protected char[] cPasswd;
+    protected char[] chPasswd;
 
     /**
      * Iterations count as defined by child class.
      */
-    protected int iCount;
+    protected int iterCount;
 
     /**
      * Key size as defined by child class.
      */
-    protected int iKeysize;
+    protected int keysize;
 
     /**
      * IV length.
      */
-    protected int iIvLen;
+    protected int ivLen;
 
     /**
      * IV bytes.
@@ -98,7 +98,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * Salt length.
      */
-    protected int iSaltLen;
+    protected int saltLen;
 
     /**
      * salt.
@@ -159,7 +159,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      */
     protected final void getSalt()
     {
-        salt = new byte[iSaltLen];
+        salt = new byte[saltLen];
         new SecureRandom().nextBytes(salt);
     }
 
@@ -168,7 +168,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      */
     protected final void getIv()
     {
-        ivBytes = new byte[iIvLen];
+        ivBytes = new byte[ivLen];
     }
 
     /**
@@ -176,12 +176,12 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      */
     protected final void init()
     {
-        this.sAlg = getMyAlg();
-        this.sKeyAlg = getMyKeyAlg();
-        this.iSaltLen = getMySaltLen();
-        this.iIvLen = getMyIvLen();
-        this.iCount = getMyCount();
-        this.iKeysize = getMyKeysize();
+        this.strAlg = getMyAlg();
+        this.strKeyAlg = getMyKeyAlg();
+        this.saltLen = getMySaltLen();
+        this.ivLen = getMyIvLen();
+        this.iterCount = getMyCount();
+        this.keysize = getMyKeysize();
     }
 
     /**
@@ -216,7 +216,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             setupPbe();
             logger.debug("made key");
 
-            pbeCipher = Cipher.getInstance(sAlg);
+            pbeCipher = Cipher.getInstance(strAlg);
             logger.debug("cipher created");
             pbeCipher.init(Cipher.ENCRYPT_MODE, pbeSecretKeySpec);
             logger.debug("cipher initialized");
@@ -237,7 +237,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
 
             // Encrypt the clear text
             final byte[] ciphertext = pbeCipher.doFinal(bInput);
-            if (0 == iIvLen)
+            if (0 == ivLen)
             {
                 logger.trace("No IV to write");
             }
@@ -251,11 +251,11 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
                 }
                 else
                 {
-                    outputStream.write(ivBytes, 0, iIvLen);
+                    outputStream.write(ivBytes, 0, ivLen);
                 } // if
             } // if
 
-            outputStream.write(salt, 0, iSaltLen);
+            outputStream.write(salt, 0, saltLen);
             outputStream.write(ciphertext);
             logger.info("close pipe");
             outputStream.close();
@@ -286,32 +286,32 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
         int iReadBytes;
         try
         {
-            if (0 == iIvLen)
+            if (0 == ivLen)
             {
                 logger.trace("No IV to read");
             }
             else
             {
-                ivBytes = new byte[iIvLen];
-                iReadBytes = inputStream.read(ivBytes, 0, iIvLen);
-                if (iIvLen != iReadBytes)
+                ivBytes = new byte[ivLen];
+                iReadBytes = inputStream.read(ivBytes, 0, ivLen);
+                if (ivLen != iReadBytes)
                 {
-                    logger.error("read {} bytes of IV, expecting {}.", iReadBytes, iIvLen);
+                    logger.error("read {} bytes of IV, expecting {}.", iReadBytes, ivLen);
                 } // if
             } // if
 
-            salt = new byte[iSaltLen];
-            iReadBytes = inputStream.read(salt, 0, iSaltLen);
-            if (iSaltLen != iReadBytes)
+            salt = new byte[saltLen];
+            iReadBytes = inputStream.read(salt, 0, saltLen);
+            if (saltLen != iReadBytes)
             {
-                logger.error("read {} bytes of salt, expecting {}.", iReadBytes, iSaltLen);
+                logger.error("read {} bytes of salt, expecting {}.", iReadBytes, saltLen);
             } // if
 
             // call implementation of child class method.
             setupPbe();
 
-            pbeCipher = Cipher.getInstance(sAlg);
-            if (0 == iIvLen)
+            pbeCipher = Cipher.getInstance(strAlg);
+            if (0 == ivLen)
             {
                 pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec);
             }

@@ -9,7 +9,7 @@ import java.io.OutputStream;
  * the init seed. Must be used the same on both sides (encryption and
  * decryption).
  *
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */

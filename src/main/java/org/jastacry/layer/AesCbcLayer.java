@@ -10,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * AES Layer class.
  *
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -76,9 +76,9 @@ public class AesCbcLayer extends AbstractCipherLayer
     protected final void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         keyFac = SecretKeyFactory.getInstance(MYKEYFACT);
-        pbeKeySpec = new PBEKeySpec(cPasswd, salt, iCount, iKeysize);
+        pbeKeySpec = new PBEKeySpec(chPasswd, salt, iterCount, keysize);
         pbeKey = keyFac.generateSecret(pbeKeySpec);
-        pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), sKeyAlg);
+        pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), strKeyAlg);
     }
 
     /**
@@ -92,7 +92,7 @@ public class AesCbcLayer extends AbstractCipherLayer
     {
         super.init();
 
-        this.cPasswd = data.toCharArray();
+        this.chPasswd = data.toCharArray();
     }
 
     @Override
