@@ -12,7 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
  * MD5 DES Layer class.
  *
  * SPDX-License-Identifier: MIT
- * 
+ *
  * @author Kai Kretschmann
  */
 public class Md5DesLayer extends AbstractCipherLayer

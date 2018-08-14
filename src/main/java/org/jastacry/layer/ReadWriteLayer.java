@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 /**
  * Read write layer for IO purpose.
- * 
+ *
  * @author kkretsch
  *
  */

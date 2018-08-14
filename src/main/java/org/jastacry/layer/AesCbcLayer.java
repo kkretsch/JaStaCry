@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
  * AES Layer class.
  *
  * SPDX-License-Identifier: MIT
- * 
+ *
  * @author Kai Kretschmann
  */
 public class AesCbcLayer extends AbstractCipherLayer
