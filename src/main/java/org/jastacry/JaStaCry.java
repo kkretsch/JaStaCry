@@ -19,7 +19,7 @@ import net.sourceforge.cobertura.CoverageIgnore;
 /**
  * Main JaStaCry class to start.
  *
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -106,7 +106,7 @@ public final class JaStaCry
     private static final Logger LOGGER = LogManager.getLogger(JaStaCry.class.getName());
 
     /**
-     * boolean status: do we encode to plain text transport format?
+     * boolean status: do we encode to plain text transport format.
      */
     private static boolean doASCIItransport;
 
@@ -126,7 +126,7 @@ public final class JaStaCry
     private static String outputFilename;
 
     /**
-     * Be verbose about every step?
+     * Be verbose about every step.
      */
     private static boolean isVerbose;
 
@@ -153,8 +153,8 @@ public final class JaStaCry
     @CoverageIgnore
     public static void main(final String[] args)
     {
-        final int iRC = mainMethod(args);
-        System.exit(iRC); // NOPMD by kai on 21.11.17 17:04
+        final int iRc = mainMethod(args);
+        System.exit(iRc); // NOPMD by kai on 21.11.17 17:04
     }
 
     /**
@@ -167,23 +167,23 @@ public final class JaStaCry
     public static int mainMethod(final String... args)
     {
         LOGGER.traceEntry();
-        int iRC = setup(args);
-        if (0 != iRC)
+        int iRc = setup(args);
+        if (0 != iRc)
         {
-            LOGGER.error("Setup found errors {}", iRC);
-            return iRC; // NOPMD by kai on 21.11.17 16:59
+            LOGGER.error("Setup found errors {}", iRc);
+            return iRc; // NOPMD by kai on 21.11.17 16:59
         } // if
 
         final Worker worker = new Worker();
         worker.setAction(action);
         worker.setConfFilename(confFilename);
-        worker.setDoASCIItransport(doASCIItransport);
+        worker.setDoAsciitransport(doASCIItransport);
         worker.setInputFilename(inputFilename);
         worker.setOutputFilename(outputFilename);
         worker.setVerbose(isVerbose);
 
-        iRC = worker.mainWork();
-        return LOGGER.traceExit(iRC);
+        iRc = worker.mainWork();
+        return LOGGER.traceExit(iRc);
     }
 
     /**
@@ -195,7 +195,6 @@ public final class JaStaCry
     {
         LOGGER.traceEntry();
         final Options options = new Options();
-        Option option;
 
         // optional parameters
         options.addOption(P_SHORT_HELP, P_LONG_HELP, false, "show some help");
@@ -204,6 +203,7 @@ public final class JaStaCry
 
         // either/or arguments
         final OptionGroup ogAction = new OptionGroup();
+        Option option;
         option = Option.builder(P_SHORT_ENCODE).required(false).longOpt(P_LONG_ENCODE).desc("encode input stream")
                 .build();
         ogAction.addOption(option);
@@ -245,8 +245,7 @@ public final class JaStaCry
         CommandLine cmdLine;
         try
         {
-            cmdLine = parser.parse(options, args); // NOPMD by kai on 21.11.17
-                                                   // 17:02
+            cmdLine = parser.parse(options, args); // NOPMD
         }
         catch (final MissingOptionException eOpt)
         {
@@ -257,21 +256,13 @@ public final class JaStaCry
         catch (final ParseException e2)
         {
             LOGGER.catching(e2);
-            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD
-                                                                      // by kai
-                                                                      // on
-                                                                      // 21.11.17
-                                                                      // 17:02
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
         }
 
         if (null == cmdLine)
         {
             LOGGER.error("cmdLine null");
-            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD
-                                                                      // by kai
-                                                                      // on
-                                                                      // 21.11.17
-                                                                      // 16:59
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
         }
 
         if (cmdLine.hasOption(P_SHORT_HELP))
@@ -279,10 +270,7 @@ public final class JaStaCry
             LOGGER.debug("Show help");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return LOGGER.traceExit(Returncode.RC_HELP.getNumVal()); // NOPMD by
-                                                                     // kai on
-                                                                     // 21.11.17
-                                                                     // 17:00
+            return LOGGER.traceExit(Returncode.RC_HELP.getNumVal()); // NOPMD
         } // if
 
         // Is verbose?
@@ -313,11 +301,7 @@ public final class JaStaCry
             LOGGER.debug("action required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD
-                                                                      // by kai
-                                                                      // on
-                                                                      // 21.11.17
-                                                                      // 16:59
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
         }
 
         // Use text format?
@@ -333,11 +317,7 @@ public final class JaStaCry
             LOGGER.debug("argument to parameter required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD
-                                                                      // by kai
-                                                                      // on
-                                                                      // 21.11.17
-                                                                      // 16:59
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
         }
 
         return LOGGER.traceExit(0);
