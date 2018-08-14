@@ -8,13 +8,15 @@ import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 
 /**
- * Mask every byte with data of a given file. If the file is smaller than the data it will be used again and again from
- * the beginning.
+ * Mask every byte with data of a given file. If the file is smaller than the
+ * data it will be used again and again from the beginning.
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public class FilemergeLayer extends AbstractBasicLayer {
+public class FilemergeLayer extends AbstractBasicLayer
+{
     /**
      * static name of the layer.
      */
@@ -28,7 +30,8 @@ public class FilemergeLayer extends AbstractBasicLayer {
     /**
      * Constructor of FilemergeLayer.
      */
-    public FilemergeLayer() {
+    public FilemergeLayer()
+    {
         super(FilemergeLayer.class, LAYERNAME);
     }
 
@@ -39,7 +42,8 @@ public class FilemergeLayer extends AbstractBasicLayer {
      *            to initialize the file.
      */
     @Override
-    public final void init(final String data) {
+    public final void init(final String data)
+    {
         this.fileMerge = new File(data);
     }
 
@@ -53,20 +57,25 @@ public class FilemergeLayer extends AbstractBasicLayer {
      * @throws IOException
      *             in case of error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
+            throws IOException
+    {
         int iChar;
         int iMerge;
         byte bChar;
         byte bMerge;
         FileChannel channel;
 
-        try (FileInputStream fIS = new FileInputStream(fileMerge)) {
+        try (FileInputStream fIS = new FileInputStream(fileMerge))
+        {
             channel = fIS.getChannel(); // NOPMD by kai on 21.11.17 17:24
 
-            while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:24
+            while ((iChar = inputStream.read()) != -1)
+            { // NOPMD by kai on 21.11.17 17:24
                 iMerge = fIS.read();
 
-                if (-1 == iMerge) {
+                if (-1 == iMerge)
+                {
                     logger.debug("EOF reached, reset to start");
                     channel.position(0);
                     iMerge = fIS.read();

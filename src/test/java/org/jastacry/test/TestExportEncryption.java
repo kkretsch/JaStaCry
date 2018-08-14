@@ -26,7 +26,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestExportEncryption {
+public class TestExportEncryption
+{
     /**
      * Testdata to play with.
      */
@@ -37,21 +38,25 @@ public class TestExportEncryption {
      *
      */
     @Test
-    public void testJavaVersion() {
+    public void testJavaVersion()
+    {
         String version = System.getProperty("java.version");
         System.out.println("Version=" + version);
     }
 
     /**
      * Testcase get max key length.
-     * @throws NoSuchAlgorithmException in case of export restrictions
+     * 
+     * @throws NoSuchAlgorithmException
+     *             in case of export restrictions
      *
      */
     @Test
-    public void testMaxKeylength() throws NoSuchAlgorithmException {
+    public void testMaxKeylength() throws NoSuchAlgorithmException
+    {
         int maxlength = Cipher.getMaxAllowedKeyLength("AES/CBC/PKCS5Padding");
         System.out.println("MaxAllowedKeyLength=" + maxlength);
-        assertEquals("Encryption key unrestricted", Integer.MAX_VALUE, maxlength); 
+        assertEquals("Encryption key unrestricted", Integer.MAX_VALUE, maxlength);
     }
 
     /**
@@ -59,12 +64,16 @@ public class TestExportEncryption {
      *
      */
     @Test
-    public void testAes128() {
-        try {
+    public void testAes128()
+    {
+        try
+        {
             helperEncryptDecrypt(128);
-        } catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException
+        }
+        catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException
                 | InvalidParameterSpecException | IllegalBlockSizeException | BadPaddingException
-                | UnsupportedEncodingException | InvalidAlgorithmParameterException e) {
+                | UnsupportedEncodingException | InvalidAlgorithmParameterException e)
+        {
             org.junit.Assert.fail("exception " + e.getLocalizedMessage());
         }
     }
@@ -74,12 +83,16 @@ public class TestExportEncryption {
      *
      */
     @Test
-    public void testAes256() {
-        try {
+    public void testAes256()
+    {
+        try
+        {
             helperEncryptDecrypt(256);
-        } catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException
+        }
+        catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException
                 | InvalidParameterSpecException | IllegalBlockSizeException | BadPaddingException
-                | UnsupportedEncodingException | InvalidAlgorithmParameterException e) {
+                | UnsupportedEncodingException | InvalidAlgorithmParameterException e)
+        {
             org.junit.Assert.fail("exception " + e.getLocalizedMessage());
         }
     }
@@ -87,22 +100,26 @@ public class TestExportEncryption {
     /**
      * Helper function.
      *
-     * @throws NoSuchAlgorithmException 
-     * @throws InvalidKeySpecException 
-     * @throws NoSuchPaddingException 
-     * @throws InvalidKeyException 
-     * @throws InvalidParameterSpecException 
-     * @throws UnsupportedEncodingException 
-     * @throws BadPaddingException 
-     * @throws IllegalBlockSizeException 
-     * @throws InvalidAlgorithmParameterException 
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     * @throws NoSuchPaddingException
+     * @throws InvalidKeyException
+     * @throws InvalidParameterSpecException
+     * @throws UnsupportedEncodingException
+     * @throws BadPaddingException
+     * @throws IllegalBlockSizeException
+     * @throws InvalidAlgorithmParameterException
      */
-    private void helperEncryptDecrypt(final int bitsize) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
+    private void helperEncryptDecrypt(final int bitsize) throws NoSuchAlgorithmException, InvalidKeySpecException,
+            NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException,
+            BadPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException
+    {
         int bytesize = bitsize / 8;
         System.out.println("key size " + bytesize);
         byte[] aesKey = new byte[bytesize];
-        for (int i = 0; i < aesKey.length; ++i) {
-            aesKey[i] = (byte)i;
+        for (int i = 0; i < aesKey.length; ++i)
+        {
+            aesKey[i] = (byte) i;
         }
         SecretKey secret = new SecretKeySpec(aesKey, "AES");
 

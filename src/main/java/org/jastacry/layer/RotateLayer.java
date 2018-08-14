@@ -7,10 +7,10 @@ import java.io.OutputStream;
 /**
  * Rotate every byte by an offset (either positiv or negativ).
  *
- * @author Kai Kretschmann
- * SPDX-License-Identifier: MIT
+ * @author Kai Kretschmann SPDX-License-Identifier: MIT
  */
-public class RotateLayer extends AbstractBasicLayer {
+public class RotateLayer extends AbstractBasicLayer
+{
 
     /**
      * static name of the layer.
@@ -25,7 +25,8 @@ public class RotateLayer extends AbstractBasicLayer {
     /**
      * Constructor of XorLayer.
      */
-    public RotateLayer() {
+    public RotateLayer()
+    {
         super(RotateLayer.class, LAYERNAME);
     }
 
@@ -36,7 +37,8 @@ public class RotateLayer extends AbstractBasicLayer {
      *            to initialize the offset value.
      */
     @Override
-    public final void init(final String data) {
+    public final void init(final String data)
+    {
         this.iOffset = Integer.parseInt(data);
     }
 
@@ -51,9 +53,11 @@ public class RotateLayer extends AbstractBasicLayer {
      *             thrown on error
      */
     @Override
-    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    {
         int iChar;
-        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:19
+        while ((iChar = inputStream.read()) != -1)
+        { // NOPMD by kai on 21.11.17 17:19
             iChar += this.iOffset;
             iChar = rangeCheck(iChar);
             outputStream.write(iChar);
@@ -73,9 +77,11 @@ public class RotateLayer extends AbstractBasicLayer {
      *             thrown on error
      */
     @Override
-    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    {
         int iChar;
-        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:19
+        while ((iChar = inputStream.read()) != -1)
+        { // NOPMD by kai on 21.11.17 17:19
             iChar -= this.iOffset;
             iChar = rangeCheck(iChar);
             outputStream.write(iChar);
@@ -85,7 +91,9 @@ public class RotateLayer extends AbstractBasicLayer {
     }
 
     @Override
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
+            throws IOException
+    {
         throw new UnsupportedOperationException();
     }
 

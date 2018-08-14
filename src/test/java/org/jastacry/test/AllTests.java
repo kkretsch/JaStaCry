@@ -13,11 +13,12 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({ TestExportEncryption.class,
-    TestConfig.class, TestEntropy.class, TestLayerAesCbc.class, TestLayerAesEcb.class, TestLayerASCIITransport.class,
-    TestLayerFilemerge.class, TestLayerMd5Des.class, TestLayerRandom.class, TestLayerReverse.class, TestLayerRotate.class, 
-    TestLayerTransparent.class, TestLayerXor.class, TestIO.class, TestMain.class })
-public class AllTests {
+@SuiteClasses({ TestExportEncryption.class, TestConfig.class, TestEntropy.class, TestLayerAesCbc.class,
+        TestLayerAesEcb.class, TestLayerASCIITransport.class, TestLayerFilemerge.class, TestLayerMd5Des.class,
+        TestLayerRandom.class, TestLayerReverse.class, TestLayerRotate.class, TestLayerTransparent.class,
+        TestLayerXor.class, TestIO.class, TestMain.class })
+public class AllTests
+{
 
     /**
      * log4j logger object.
@@ -27,7 +28,8 @@ public class AllTests {
     /**
      * All tests, initial test suite starting point.
      */
-    public AllTests() {
+    public AllTests()
+    {
         // empty constructor
         LOGGER.info("running AllTests");
     }

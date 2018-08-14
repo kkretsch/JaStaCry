@@ -13,9 +13,11 @@ import org.jastacry.GlobalData.Action;
  * Abstract base class for the actual worker layers.
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public abstract class AbstractBasicLayer implements Runnable {
+public abstract class AbstractBasicLayer implements Runnable
+{
     /**
      * When a byte is too little.
      */
@@ -61,9 +63,11 @@ public abstract class AbstractBasicLayer implements Runnable {
      *
      * @param caller
      *            class object
-     * @param layerName name of real layer
+     * @param layerName
+     *            name of real layer
      */
-    protected AbstractBasicLayer(final Class<?> caller, final String layerName) {
+    protected AbstractBasicLayer(final Class<?> caller, final String layerName)
+    {
         logger = LogManager.getLogger(caller);
         setAction(null);
         setInputStream(null);
@@ -72,7 +76,8 @@ public abstract class AbstractBasicLayer implements Runnable {
     }
 
     /**
-     * Optional method for setting encryption or decryption parameters like keys or passwords.
+     * Optional method for setting encryption or decryption parameters like keys
+     * or passwords.
      *
      * @param data
      *            a String containing everything the layer needs to know
@@ -102,12 +107,14 @@ public abstract class AbstractBasicLayer implements Runnable {
      * @throws IOException
      *             if one of the streams fail
      */
-    public void encStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException {
+    public void encStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException
+    {
         encodeAndDecode(newInputStream, newOutputStream);
     }
 
     /**
-     * Decodes an encrypted stream to either plain text or the next encoded layer.
+     * Decodes an encrypted stream to either plain text or the next encoded
+     * layer.
      *
      * @param newInputStream
      *            existing and opened input stream
@@ -116,7 +123,8 @@ public abstract class AbstractBasicLayer implements Runnable {
      * @throws IOException
      *             if one of the streams fail
      */
-    public void decStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException {
+    public void decStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException
+    {
         encodeAndDecode(newInputStream, newOutputStream);
     }
 
@@ -126,7 +134,8 @@ public abstract class AbstractBasicLayer implements Runnable {
      * @return a human readable name of the layer
      * @see java.lang.Object#toString()
      */
-    public final String toString() {
+    public final String toString()
+    {
         return realLayerName;
     }
 
@@ -137,12 +146,17 @@ public abstract class AbstractBasicLayer implements Runnable {
      *            as input value
      * @return range checked byte value
      */
-    protected final int rangeCheck(final int iInput) {
+    protected final int rangeCheck(final int iInput)
+    {
         int iTmp = iInput;
-        if (iTmp < 0) {
+        if (iTmp < 0)
+        {
             iTmp += BYTE_VALUE_OVER;
-        } else {
-            if (iTmp > BYTE_VALUE_MAX) {
+        }
+        else
+        {
+            if (iTmp > BYTE_VALUE_MAX)
+            {
                 iTmp -= BYTE_VALUE_OVER;
             }
         }
@@ -152,41 +166,56 @@ public abstract class AbstractBasicLayer implements Runnable {
 
     /**
      * Property setter for input stream.
-     * @param newInputStream the new stream
+     * 
+     * @param newInputStream
+     *            the new stream
      */
-    public final void setInputStream(final InputStream newInputStream) {
+    public final void setInputStream(final InputStream newInputStream)
+    {
         this.inputStream = newInputStream;
     }
 
     /**
      * property setter for output stream.
-     * @param newOutputStream the new output stream
+     * 
+     * @param newOutputStream
+     *            the new output stream
      */
-    public final void setOutputStream(final OutputStream newOutputStream) {
+    public final void setOutputStream(final OutputStream newOutputStream)
+    {
         this.outputStream = newOutputStream;
     }
 
     /**
      * Property setter for action.
-     * @param newAction the new action
+     * 
+     * @param newAction
+     *            the new action
      */
-    public final void setAction(final Action newAction) {
+    public final void setAction(final Action newAction)
+    {
         this.action = newAction;
     }
 
     /**
      * Property setter for endcontroller.
-     * @param newEndController the new endcontroller
+     * 
+     * @param newEndController
+     *            the new endcontroller
      */
-    public final void setEndController(final CountDownLatch newEndController) {
+    public final void setEndController(final CountDownLatch newEndController)
+    {
         this.endController = newEndController;
     }
 
     /**
      * Property setter for realLayerName.
-     * @param newRealLayerName the new layer name
+     * 
+     * @param newRealLayerName
+     *            the new layer name
      */
-    public final void setRealLayerName(final String newRealLayerName) {
+    public final void setRealLayerName(final String newRealLayerName)
+    {
         this.realLayerName = newRealLayerName;
     }
 
@@ -194,10 +223,13 @@ public abstract class AbstractBasicLayer implements Runnable {
      * Thread entry function for layer work.
      */
     @Override
-    public void run() {
+    public void run()
+    {
         logger.info("started thread");
-        try {
-            switch (action) {
+        try
+        {
+            switch (action)
+            {
                 case ENCODE:
                     this.encStream(inputStream, outputStream);
                     break;
@@ -210,9 +242,13 @@ public abstract class AbstractBasicLayer implements Runnable {
                     break;
             }
             outputStream.close();
-        } catch (final IOException exception) {
+        }
+        catch (final IOException exception)
+        {
             logger.catching(exception);
-        } finally {
+        }
+        finally
+        {
             endController.countDown();
         }
         logger.info("finished thread");

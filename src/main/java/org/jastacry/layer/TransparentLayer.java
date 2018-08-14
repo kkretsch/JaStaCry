@@ -5,12 +5,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * A transparent layer just doing nothing with the data. Use it as an example framework to start with.
+ * A transparent layer just doing nothing with the data. Use it as an example
+ * framework to start with.
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public class TransparentLayer extends AbstractBasicLayer {
+public class TransparentLayer extends AbstractBasicLayer
+{
     /**
      * static name of the layer.
      */
@@ -19,7 +22,8 @@ public class TransparentLayer extends AbstractBasicLayer {
     /**
      * Constructor of TransparentLayer.
      */
-    public TransparentLayer() {
+    public TransparentLayer()
+    {
         super(TransparentLayer.class, LAYERNAME);
     }
 
@@ -33,9 +37,12 @@ public class TransparentLayer extends AbstractBasicLayer {
      * @throws IOException
      *             thrown on error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
+            throws IOException
+    {
         int iChar;
-        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:13
+        while ((iChar = inputStream.read()) != -1)
+        { // NOPMD by kai on 21.11.17 17:13
             outputStream.write(iChar);
         }
         logger.info("close pipe");
@@ -49,7 +56,8 @@ public class TransparentLayer extends AbstractBasicLayer {
      *            to initialize nothing.
      */
     @Override
-    public final void init(final String data) {
+    public final void init(final String data)
+    {
         // empty by intend
     }
 

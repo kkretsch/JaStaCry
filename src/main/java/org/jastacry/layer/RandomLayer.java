@@ -5,13 +5,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Mask every byte with some random data. The random stream is initialized by the init seed. Must be used the same on
- * both sides (encryption and decryption).
+ * Mask every byte with some random data. The random stream is initialized by
+ * the init seed. Must be used the same on both sides (encryption and
+ * decryption).
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public class RandomLayer extends AbstractBasicLayer {
+public class RandomLayer extends AbstractBasicLayer
+{
     /**
      * static name of the layer.
      */
@@ -25,7 +28,8 @@ public class RandomLayer extends AbstractBasicLayer {
     /**
      * Constructor of RandomLayer.
      */
-    public RandomLayer() {
+    public RandomLayer()
+    {
         super(RandomLayer.class, LAYERNAME);
     }
 
@@ -36,7 +40,8 @@ public class RandomLayer extends AbstractBasicLayer {
      *            to initialize the random seed value.
      */
     @Override
-    public final void init(final String data) {
+    public final void init(final String data)
+    {
         final long sSeed = Long.parseLong(data);
         rand.setSeed(sSeed);
     }
@@ -51,11 +56,13 @@ public class RandomLayer extends AbstractBasicLayer {
      * @throws IOException
      *             thrown on error
      */
-    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    {
         int iChar;
         byte bChar;
         final byte[] bRand = new byte[1];
-        while ((iChar = inputStream.read()) != -1) {
+        while ((iChar = inputStream.read()) != -1)
+        {
             bChar = (byte) iChar;
             this.rand.nextBytes(bRand);
             bChar = (byte) (bChar ^ bRand[0]);

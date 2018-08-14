@@ -6,10 +6,12 @@ import java.io.OutputStream;
 
 /**
  * Read write layer for IO purpose.
+ * 
  * @author kkretsch
  *
  */
-public class ReadWriteLayer extends AbstractBasicLayer {
+public class ReadWriteLayer extends AbstractBasicLayer
+{
     /**
      * static name of the layer.
      */
@@ -18,30 +20,40 @@ public class ReadWriteLayer extends AbstractBasicLayer {
     /**
      * Constructor of class, calling super.
      */
-    public ReadWriteLayer() {
+    public ReadWriteLayer()
+    {
         super(ReadWriteLayer.class, LAYERNAME);
     }
 
     @Override
-    public final void run() {
+    public final void run()
+    {
         logger.info("started thread");
-        try {
+        try
+        {
             int i;
-            while ((i = inputStream.read()) != -1) {
+            while ((i = inputStream.read()) != -1)
+            {
                 outputStream.write(i);
             }
             logger.info("close stream");
             outputStream.close();
-        } catch (final IOException e) {
+        }
+        catch (final IOException e)
+        {
             logger.catching(e);
-        } finally {
+        }
+        finally
+        {
             endController.countDown();
         }
         logger.info("finished thread");
     }
 
     @Override
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
+            throws IOException
+    {
         throw new UnsupportedOperationException();
     }
 
@@ -52,7 +64,8 @@ public class ReadWriteLayer extends AbstractBasicLayer {
      *            to initialize nothing.
      */
     @Override
-    public final void init(final String data) {
+    public final void init(final String data)
+    {
         // empty by intend
     }
 }

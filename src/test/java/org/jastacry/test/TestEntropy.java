@@ -31,7 +31,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestEntropy {
+public class TestEntropy
+{
     /**
      * Maven temp resources path
      */
@@ -58,10 +59,10 @@ public class TestEntropy {
     private static ShannonEntropy shannon = null;
 
     /**
-     * Test configuration file, contains broad range of running layers. used for "OK" tests.
+     * Test configuration file, contains broad range of running layers. used for
+     * "OK" tests.
      */
     public static final String CONF1 = "conf1.cfg";
-
 
     /**
      * Test input text file.
@@ -110,13 +111,14 @@ public class TestEntropy {
      *             in case of error.
      */
     @BeforeClass
-    public static void setupData() throws MalformedURLException {
+    public static void setupData() throws MalformedURLException
+    {
         oLogger = LogManager.getLogger();
         tooling = new Tooling();
         shannon = new ShannonEntropy();
 
         allbinFile = new File(TMPRESOURCES + INPUTBYTEFILE);
-        tooling.createBinaryTestfile(allbinFile, 1024, (byte)0x20);
+        tooling.createBinaryTestfile(allbinFile, 1024, (byte) 0x20);
 
         onebinFile = new File(TMPRESOURCES + INPUTREPEATFILE);
         tooling.createBinaryTestfile(onebinFile);
@@ -129,12 +131,16 @@ public class TestEntropy {
      *             in case of error
      */
     @Before
-    public void setUp() throws Exception {
-        
-        try {
+    public void setUp() throws Exception
+    {
+
+        try
+        {
             tmpFile = File.createTempFile(org.jastacry.GlobalData.TMPBASE, GlobalData.TMPEXT);
             encFile = File.createTempFile(org.jastacry.GlobalData.TMPBASE, GlobalData.ENCEXT);
-        } catch (final IOException e1) {
+        }
+        catch (final IOException e1)
+        {
             oLogger.catching(e1);
         }
     }
@@ -146,21 +152,22 @@ public class TestEntropy {
      *             in case of error
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         encFile.delete();
         tmpFile.delete();
     }
-
 
     /**
      * Test method plain string.
      */
     @Test
-    public void testEntropyZero() {
+    public void testEntropyZero()
+    {
         String sSimple = "aaaaaaaaaa";
         shannon.calculate(sSimple);
         double entropy = shannon.getEntropy();
-        oLogger.info("testEntropyZero Entropy: {}",  entropy);
+        oLogger.info("testEntropyZero Entropy: {}", entropy);
         assertTrue("Entropy", entropy == 0);
     }
 
@@ -169,11 +176,12 @@ public class TestEntropy {
      *
      */
     @Test
-    public void testEntropyNonzero() {
+    public void testEntropyNonzero()
+    {
         String sSimple = "abcdefgh";
         shannon.calculate(sSimple);
         double entropy = shannon.getEntropy();
-        oLogger.info("testEntropyNonzero Entropy: {}",  entropy);
+        oLogger.info("testEntropyNonzero Entropy: {}", entropy);
         assertTrue("Entropy", entropy > 0);
     }
 
@@ -182,12 +190,13 @@ public class TestEntropy {
      *
      */
     @Test
-    public void testEntropyBytes() {
+    public void testEntropyBytes()
+    {
         String sSimple = "abcdefgh";
         byte[] byteArr = sSimple.getBytes();
         shannon.calculate(byteArr);
         double entropy = shannon.getEntropy();
-        oLogger.info("testEntropyBytes Entropy: {}",  entropy);
+        oLogger.info("testEntropyBytes Entropy: {}", entropy);
         assertTrue("Entropy", entropy > 0);
     }
 
@@ -196,7 +205,8 @@ public class TestEntropy {
      *
      */
     @Test
-    public void testEntropyStringEqualsBytes() {
+    public void testEntropyStringEqualsBytes()
+    {
         String sSimple = "abcdefgh";
 
         shannon.calculate(sSimple);
@@ -205,7 +215,7 @@ public class TestEntropy {
         byte[] byteArr = sSimple.getBytes();
         shannon.calculate(byteArr);
         double entropyBytes = shannon.getEntropy();
-        oLogger.info("testEntropyStringEqualsBytes Entropy: {} & {}",  entropyString, entropyBytes);
+        oLogger.info("testEntropyStringEqualsBytes Entropy: {} & {}", entropyString, entropyBytes);
         assertTrue("Entropy equals", entropyString == entropyBytes);
     }
 
@@ -214,7 +224,8 @@ public class TestEntropy {
      *
      */
     @Test
-    public void testEntropyMainEncode() {
+    public void testEntropyMainEncode()
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sOutputFile = encFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF1;
@@ -226,7 +237,8 @@ public class TestEntropy {
         assertEquals("Main encode returncode", 0, iRC);
 
         // Test entropy values
-        try {
+        try
+        {
             Path pathInput = Paths.get(sInputFile);
             byte[] dataInput = Files.readAllBytes(pathInput);
             shannon.calculate(dataInput);
@@ -237,12 +249,14 @@ public class TestEntropy {
             shannon.calculate(dataOutput);
             double entropyOutput = shannon.getEntropy();
 
-            oLogger.info("testMainEncode Entropy: {} to {}",  entropyInput, entropyOutput);
+            oLogger.info("testMainEncode Entropy: {} to {}", entropyInput, entropyOutput);
 
             assertTrue("Entropy input above zero", entropyInput > 0);
             assertTrue("Entropy output above zero", entropyOutput > 0);
             assertTrue("Entropy getting better", entropyInput < entropyOutput);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             oLogger.catching(e);
         }
     }

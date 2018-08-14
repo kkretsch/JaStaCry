@@ -44,9 +44,11 @@ import org.jastacry.layer.XorLayer;
  * Real working class.
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public class Worker {
+public class Worker
+{
     /**
      * log4j logger object.
      */
@@ -107,11 +109,11 @@ public class Worker {
      */
     private final LayerThreadFactory threadFactory;
 
-
     /**
      * Constructor of Worker class.
      */
-    public Worker() {
+    public Worker()
+    {
         LOGGER.traceEntry();
         final int numCores = Runtime.getRuntime().availableProcessors();
         LOGGER.trace("CPU cores available: {}", numCores);
@@ -129,24 +131,30 @@ public class Worker {
      *
      * @return int system return code to shell
      */
-    public final int mainWork() {
+    public final int mainWork()
+    {
         LOGGER.traceEntry();
         final List<AbstractBasicLayer> layers = createLayers();
 
-        if (null == layers || layers.isEmpty()) {
+        if (null == layers || layers.isEmpty())
+        {
             LOGGER.error("No layers defined!");
             return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
         } // if
 
-        if (layers.size() == 1) {
+        if (layers.size() == 1)
+        {
             LOGGER.warn("Warning: Only one layer defined!");
             return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
         }
 
-        // In case of plain text, either encode after layers or decode before them.
-        if (doASCIItransport) {
+        // In case of plain text, either encode after layers or decode before
+        // them.
+        if (doASCIItransport)
+        {
             final AbstractBasicLayer layerEncode = new AsciiTransportLayer();
-            switch (action) {
+            switch (action)
+            {
                 case ENCODE:
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "add text encoding to end");
                     layers.add(layerEncode);
@@ -157,7 +165,8 @@ public class Worker {
                     break;
                 case UNKOWN:
                 default:
-                    // will never be reached if main setup function works correctly
+                    // will never be reached if main setup function works
+                    // correctly
                     LOGGER.error("unknown action '{}'", action);
                     break;
             } // switch
@@ -166,19 +175,26 @@ public class Worker {
         final File fileIn = new File(inputFilename);
         final File fileOut = new File(outputFilename);
 
-        try {
+        try
+        {
             try (InputStream input = new BufferedInputStream(new FileInputStream(fileIn));
-                    OutputStream output = new BufferedOutputStream(new FileOutputStream(fileOut))) {
+                    OutputStream output = new BufferedOutputStream(new FileOutputStream(fileOut)))
+            {
                 loopLayers(layers, input, output);
             }
-        } catch (final FileNotFoundException e) {
+        }
+        catch (final FileNotFoundException e)
+        {
             LOGGER.catching(e);
             return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
-        } catch (final IOException e) {
+        }
+        catch (final IOException e)
+        {
             LOGGER.catching(e);
         }
 
-        if (isVerbose) {
+        if (isVerbose)
+        {
             LOGGER.info("JaStaCry finished");
         }
 
@@ -192,43 +208,54 @@ public class Worker {
      * @return List of abstract layer objects
      */
     @java.lang.SuppressWarnings("squid:S3776")
-    private List<AbstractBasicLayer> createLayers() {
+    private List<AbstractBasicLayer> createLayers()
+    {
         LOGGER.traceEntry();
         final List<AbstractBasicLayer> layers = new ArrayList<>();
 
         // try with resources
         try (FileInputStream fstream = new FileInputStream(confFilename);
                 InputStreamReader isr = new InputStreamReader(fstream, StandardCharsets.UTF_8);
-                BufferedReader breader = new BufferedReader(isr)) {
+                BufferedReader breader = new BufferedReader(isr))
+        {
             String strLine;
 
             AbstractBasicLayer layer = null;
 
             // Read File Line By Line
-            while ((strLine = breader.readLine()) != null) {
+            while ((strLine = breader.readLine()) != null)
+            {
                 strLine = strLine.trim();
-                if (TOKEN_COMMENT == strLine.charAt(0)) {
+                if (TOKEN_COMMENT == strLine.charAt(0))
+                {
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "skip comment line '{}'", strLine);
-                } else {
+                }
+                else
+                {
 
                     String sLayer;
                     String sParams;
 
                     final String[] toks = strLine.split("\\s+");
                     // no parameter?
-                    if (TOKENCOUNT_ONE == toks.length) {
+                    if (TOKENCOUNT_ONE == toks.length)
+                    {
                         sLayer = strLine;
                         sParams = "";
-                    } else {
+                    }
+                    else
+                    {
                         sLayer = toks[0];
                         sParams = toks[1];
                         GlobalFunctions.logDebug(isVerbose, LOGGER, "read config, layer={}, params={}", sLayer,
                                 sParams);
 
                         // Optional interactive password entry
-                        if (sParams.equalsIgnoreCase(org.jastacry.GlobalData.MACRO_PASSWORD)) {
+                        if (sParams.equalsIgnoreCase(org.jastacry.GlobalData.MACRO_PASSWORD))
+                        {
                             final Console console = System.console();
-                            if (null == console) {
+                            if (null == console)
+                            {
                                 LOGGER.error("No interactive console available for password entry!");
                                 return LOGGER.traceExit(layers);
                             }
@@ -238,13 +265,15 @@ public class Worker {
                     }
 
                     layer = createLayer(sLayer);
-                    if (null == layer) {
+                    if (null == layer)
+                    {
                         continue;
                     }
                     GlobalFunctions.logDebug(isVerbose, LOGGER, "adding layer {}", sLayer);
 
                     layer.init(sParams);
-                    switch (action) {
+                    switch (action)
+                    {
                         case ENCODE:
                             layers.add(layer);
                             break;
@@ -259,7 +288,9 @@ public class Worker {
                 } // if comment
             } // while
 
-        } catch (final IOException e) {
+        }
+        catch (final IOException e)
+        {
             LOGGER.catching(e);
         }
 
@@ -273,11 +304,13 @@ public class Worker {
      *            name of layer
      * @return Layer object
      */
-    private AbstractBasicLayer createLayer(final String sName) {
+    private AbstractBasicLayer createLayer(final String sName)
+    {
         LOGGER.traceEntry(sName);
         AbstractBasicLayer layer;
 
-        switch (sName.toLowerCase(Locale.getDefault())) {
+        switch (sName.toLowerCase(Locale.getDefault()))
+        {
             case GlobalData.LAYER_TRANSPARENT:
                 layer = new TransparentLayer();
                 break;
@@ -320,13 +353,18 @@ public class Worker {
     /**
      * Loop through layers with data streams.
      *
-     * @param layers Array of layers
-     * @param input input Stream
-     * @param output output Stream
-     * @throws IOException in case of error
+     * @param layers
+     *            Array of layers
+     * @param input
+     *            input Stream
+     * @param output
+     *            output Stream
+     * @throws IOException
+     *             in case of error
      */
     @java.lang.SuppressWarnings("squid:S2093")
-    private void loopLayers(final List<AbstractBasicLayer> layers, final InputStream input, final OutputStream output) {
+    private void loopLayers(final List<AbstractBasicLayer> layers, final InputStream input, final OutputStream output)
+    {
         LOGGER.traceEntry();
 
         final CountDownLatch endController = new CountDownLatch(layers.size() + 2);
@@ -341,7 +379,8 @@ public class Worker {
         PipedOutputStream pipedOutputStream = null;
         PipedInputStream pipedInputStreamToFile = null;
 
-        try {
+        try
+        {
             // Handle file input
             pipedOutputFromFile = new PipedOutputStream();
             outputStreams.add(pipedOutputFromFile);
@@ -368,7 +407,8 @@ public class Worker {
             layersWithIO.add(l);
 
             // only second and further layers are looped through
-            for (int i = 1; i < layers.size(); i++) {
+            for (int i = 1; i < layers.size(); i++)
+            {
                 l = layers.get(i);
 
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "layer {} '{}'", i, l);
@@ -397,9 +437,9 @@ public class Worker {
             l.setEndController(endController);
             layersWithIO.add(l);
 
-
             // Start all threads
-            for (int i = 0; i < layersWithIO.size(); i++) {
+            for (int i = 0; i < layersWithIO.size(); i++)
+            {
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
                 final AbstractBasicLayer layer = layersWithIO.get(i);
                 threadFactory.setNumber(i);
@@ -409,19 +449,28 @@ public class Worker {
             // wait for all threads
             waitForThreads(endController);
 
-        } catch (final IOException e) {
+        }
+        catch (final IOException e)
+        {
             LOGGER.catching(e);
-        } finally {
-            try {
-                for (final InputStream inputStream : inputStreams) {
+        }
+        finally
+        {
+            try
+            {
+                for (final InputStream inputStream : inputStreams)
+                {
                     inputStream.close();
                 } // for
-                for (final OutputStream outputStream : outputStreams) {
+                for (final OutputStream outputStream : outputStreams)
+                {
                     outputStream.close();
                 } // for
                 inputStreams.clear();
                 outputStreams.clear();
-            } catch (final IOException e) {
+            }
+            catch (final IOException e)
+            {
                 LOGGER.catching(e);
             }
         }
@@ -431,12 +480,18 @@ public class Worker {
 
     /**
      * Wait for all threads to end.
-     * @param endController the controller which counts the threads
+     * 
+     * @param endController
+     *            the controller which counts the threads
      */
-    private void waitForThreads(final CountDownLatch endController) {
-        try {
+    private void waitForThreads(final CountDownLatch endController)
+    {
+        try
+        {
             endController.await();
-        } catch (final InterruptedException e) {
+        }
+        catch (final InterruptedException e)
+        {
             LOGGER.catching(e);
             Thread.currentThread().interrupt();
         }
@@ -445,21 +500,26 @@ public class Worker {
     /**
      * Destroy just like a inverted constructor function.
      */
-    public final void destroy() {
+    public final void destroy()
+    {
         executor.shutdown();
     }
 
     /**
-     * @param bStatus the doEncode to set
+     * @param bStatus
+     *            the doEncode to set
      */
-    public final void setDoASCIItransport(final boolean bStatus) {
+    public final void setDoASCIItransport(final boolean bStatus)
+    {
         doASCIItransport = bStatus;
     }
 
     /**
-     * @param sFilename the confFilename to set
+     * @param sFilename
+     *            the confFilename to set
      */
-    public final void setConfFilename(final String sFilename) {
+    public final void setConfFilename(final String sFilename)
+    {
         confFilename = sFilename;
     }
 
@@ -467,7 +527,8 @@ public class Worker {
      * @param sFilename
      *            the inputFilename to set
      */
-    public final void setInputFilename(final String sFilename) {
+    public final void setInputFilename(final String sFilename)
+    {
         inputFilename = sFilename;
     }
 
@@ -475,7 +536,8 @@ public class Worker {
      * @param sFilename
      *            the outputFilename to set
      */
-    public final void setOutputFilename(final String sFilename) {
+    public final void setOutputFilename(final String sFilename)
+    {
         outputFilename = sFilename;
     }
 
@@ -483,7 +545,8 @@ public class Worker {
      * @param bStatus
      *            the isVerbose to set
      */
-    public final void setVerbose(final boolean bStatus) {
+    public final void setVerbose(final boolean bStatus)
+    {
         isVerbose = bStatus;
     }
 
@@ -491,7 +554,8 @@ public class Worker {
      * @param oAction
      *            the action to set
      */
-    public final void setAction(final Action oAction) {
+    public final void setAction(final Action oAction)
+    {
         this.action = oAction;
     }
 

@@ -21,7 +21,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerFilemerge {
+public class TestLayerFilemerge
+{
     /**
      * Test data to play with.
      */
@@ -49,7 +50,8 @@ public class TestLayerFilemerge {
      *             in case of error
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         layer = new FilemergeLayer();
     }
 
@@ -60,7 +62,8 @@ public class TestLayerFilemerge {
      *             in case of error
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         layer = null;
     }
 
@@ -72,7 +75,8 @@ public class TestLayerFilemerge {
      */
     @Test
     // TestLink(externalId = "JAS-6")
-    public void testEncDecStream() throws IOException {
+    public void testEncDecStream() throws IOException
+    {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
@@ -97,7 +101,8 @@ public class TestLayerFilemerge {
      */
     @Test
     // TestLink(externalId = "JAS-6")
-    public void testEncDecStreamLong() throws IOException {
+    public void testEncDecStreamLong() throws IOException
+    {
         InputStream is = new FileInputStream(LONGTEXTFILE);
         byte[] buf = IOUtils.toByteArray(is);
         String sTextcontent = new String(buf, "ISO-8859-1");
@@ -120,7 +125,8 @@ public class TestLayerFilemerge {
      * Testcase testToString.
      */
     @Test
-    public void testToString() {
+    public void testToString()
+    {
         assertEquals("Layer name mismatch", FilemergeLayer.LAYERNAME, layer.toString());
     }
 

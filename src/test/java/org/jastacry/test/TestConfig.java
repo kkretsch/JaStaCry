@@ -27,7 +27,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestConfig {
+public class TestConfig
+{
     /**
      * Maven test resources path
      */
@@ -95,7 +96,8 @@ public class TestConfig {
      *             in case of error.
      */
     @BeforeClass
-    public static void setLogger() throws MalformedURLException {
+    public static void setLogger() throws MalformedURLException
+    {
         oLogger = LogManager.getLogger();
     }
 
@@ -106,13 +108,17 @@ public class TestConfig {
      *             in case of error
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         tooling = new Tooling();
-        try {
+        try
+        {
             tmpFile = File.createTempFile(org.jastacry.GlobalData.TMPBASE, GlobalData.TMPEXT);
             binFile = File.createTempFile(org.jastacry.GlobalData.TMPBASE, GlobalData.TMPEXT);
             encFile = File.createTempFile(org.jastacry.GlobalData.TMPBASE, GlobalData.ENCEXT);
-        } catch (final IOException e1) {
+        }
+        catch (final IOException e1)
+        {
             oLogger.catching(e1);
         }
     }
@@ -124,13 +130,15 @@ public class TestConfig {
      *             in case of error
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         encFile.delete();
         binFile.delete();
         tmpFile.delete();
     }
 
-    private void testGivenConfig(final String sConfig) {
+    private void testGivenConfig(final String sConfig)
+    {
         final String sInputFile = RESOURCES + INPUTFILE;
         final String sEncryptedFile = encFile.getAbsolutePath();
         final String sDecryptedFile = tmpFile.getAbsolutePath();
@@ -161,7 +169,8 @@ public class TestConfig {
      *
      */
     @Test
-    public void testConfWithBOM() {
+    public void testConfWithBOM()
+    {
         testGivenConfig(CONF_UTFBOM);
     }
 
@@ -170,7 +179,8 @@ public class TestConfig {
      *
      */
     @Test
-    public void testConfWithoutBOM() {
+    public void testConfWithoutBOM()
+    {
         testGivenConfig(CONF_UTFNOBOM);
     }
 
@@ -179,7 +189,8 @@ public class TestConfig {
      *
      */
     @Test
-    public void testConfIso() {
+    public void testConfIso()
+    {
         testGivenConfig(CONF_ISO);
     }
 

@@ -26,7 +26,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerASCIITransport {
+public class TestLayerASCIITransport
+{
     /**
      * log4j2 object.
      */
@@ -54,7 +55,8 @@ public class TestLayerASCIITransport {
      *             in case of error.
      */
     @BeforeClass
-    public static void setLogger() throws MalformedURLException {
+    public static void setLogger() throws MalformedURLException
+    {
         oLogger = LogManager.getLogger();
     }
 
@@ -65,7 +67,8 @@ public class TestLayerASCIITransport {
      *             in case of error.
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         layer = new AsciiTransportLayer();
         layer.init("");
     }
@@ -77,12 +80,14 @@ public class TestLayerASCIITransport {
      *             in case of error.
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         layer = null;
     }
 
     /**
-     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#encStream(java.io.InputStream, java.io.OutputStream)}
+     * Test method for
+     * {@link org.jastacry.layer.AsciiTransportLayer#encStream(java.io.InputStream, java.io.OutputStream)}
      * .
      *
      * @throws IOException
@@ -90,7 +95,8 @@ public class TestLayerASCIITransport {
      */
     @Test
     // TestLink(externalId = "JAS-12")
-    public void testEncStream() throws IOException {
+    public void testEncStream() throws IOException
+    {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
         is.mark(0);
@@ -106,7 +112,8 @@ public class TestLayerASCIITransport {
     }
 
     /**
-     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)}
+     * Test method for
+     * {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)}
      * .
      *
      * @throws IOException
@@ -114,7 +121,8 @@ public class TestLayerASCIITransport {
      */
     @Test
     // TestLink(externalId = "JAS-13")
-    public void testDecStream() throws IOException {
+    public void testDecStream() throws IOException
+    {
         final byte[] buf = testdataEncoded.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
         is.mark(0);
@@ -129,11 +137,13 @@ public class TestLayerASCIITransport {
     }
 
     /**
-     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#toString()}.
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#toString()}
+     * .
      */
     @Test
     // TestLink(externalId = "JAS-14")
-    public void testToString() {
+    public void testToString()
+    {
         assertEquals("Layer name mismatch", AsciiTransportLayer.LAYERNAME, layer.toString());
     }
 

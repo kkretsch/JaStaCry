@@ -8,9 +8,11 @@ import java.io.OutputStream;
  * Very simple algorithm just to infuse some more complex data rotation.
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public class XorLayer extends AbstractBasicLayer {
+public class XorLayer extends AbstractBasicLayer
+{
     /**
      * static name of the layer.
      */
@@ -23,7 +25,8 @@ public class XorLayer extends AbstractBasicLayer {
     /**
      * Constructor of XorLayer.
      */
-    public XorLayer() {
+    public XorLayer()
+    {
         super(XorLayer.class, LAYERNAME);
     }
 
@@ -34,7 +37,8 @@ public class XorLayer extends AbstractBasicLayer {
      *            to initialize the xor value.
      */
     @Override
-    public final void init(final String data) {
+    public final void init(final String data)
+    {
         this.bMask = (byte) Integer.parseInt(data);
     }
 
@@ -48,10 +52,13 @@ public class XorLayer extends AbstractBasicLayer {
      * @throws IOException
      *             thrown on error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
+            throws IOException
+    {
         int iChar;
         byte bChar;
-        while ((iChar = inputStream.read()) != -1) { // NOPMD by kai on 21.11.17 17:18
+        while ((iChar = inputStream.read()) != -1)
+        { // NOPMD by kai on 21.11.17 17:18
             bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:18
             bChar = (byte) (bChar ^ this.bMask);
             outputStream.write(bChar);

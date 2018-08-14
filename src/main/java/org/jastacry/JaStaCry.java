@@ -20,9 +20,11 @@ import net.sourceforge.cobertura.CoverageIgnore;
  * Main JaStaCry class to start.
  *
  * SPDX-License-Identifier: MIT
+ * 
  * @author Kai Kretschmann
  */
-public final class JaStaCry {
+public final class JaStaCry
+{
     /**
      * Parameter, short version, for "help".
      */
@@ -137,7 +139,8 @@ public final class JaStaCry {
      * Hidden constructor.
      */
     @CoverageIgnore
-    private JaStaCry() {
+    private JaStaCry()
+    {
         // not called
     }
 
@@ -148,7 +151,8 @@ public final class JaStaCry {
      *            parsed by Apache commons CLI package
      */
     @CoverageIgnore
-    public static void main(final String[] args) {
+    public static void main(final String[] args)
+    {
         final int iRC = mainMethod(args);
         System.exit(iRC); // NOPMD by kai on 21.11.17 17:04
     }
@@ -160,10 +164,12 @@ public final class JaStaCry {
      *            for parsing
      * @return int result code
      */
-    public static int mainMethod(final String... args) {
+    public static int mainMethod(final String... args)
+    {
         LOGGER.traceEntry();
         int iRC = setup(args);
-        if (0 != iRC) {
+        if (0 != iRC)
+        {
             LOGGER.error("Setup found errors {}", iRC);
             return iRC; // NOPMD by kai on 21.11.17 16:59
         } // if
@@ -185,7 +191,8 @@ public final class JaStaCry {
      *
      * @return Options object
      */
-    private static Options createOptions() {
+    private static Options createOptions()
+    {
         LOGGER.traceEntry();
         final Options options = new Options();
         Option option;
@@ -228,61 +235,89 @@ public final class JaStaCry {
      *            array of Strings from command line
      * @return int error value
      */
-    private static int setup(final String... args) {
+    private static int setup(final String... args)
+    {
         LOGGER.traceEntry();
         // Command line parameters
         final Options options = createOptions();
 
         final CommandLineParser parser = new DefaultParser();
         CommandLine cmdLine;
-        try {
-            cmdLine = parser.parse(options, args); // NOPMD by kai on 21.11.17 17:02
-        } catch (final MissingOptionException eOpt) {
+        try
+        {
+            cmdLine = parser.parse(options, args); // NOPMD by kai on 21.11.17
+                                                   // 17:02
+        }
+        catch (final MissingOptionException eOpt)
+        {
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
             return Returncode.RC_ERROR.getNumVal();
-        } catch (final ParseException e2) {
+        }
+        catch (final ParseException e2)
+        {
             LOGGER.catching(e2);
-            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD by kai on 21.11.17 17:02
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD
+                                                                      // by kai
+                                                                      // on
+                                                                      // 21.11.17
+                                                                      // 17:02
         }
 
-        if (null == cmdLine) {
+        if (null == cmdLine)
+        {
             LOGGER.error("cmdLine null");
-            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD by kai on 21.11.17 16:59
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD
+                                                                      // by kai
+                                                                      // on
+                                                                      // 21.11.17
+                                                                      // 16:59
         }
 
-        if (cmdLine.hasOption(P_SHORT_HELP)) {
+        if (cmdLine.hasOption(P_SHORT_HELP))
+        {
             LOGGER.debug("Show help");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return LOGGER.traceExit(Returncode.RC_HELP.getNumVal()); // NOPMD by kai on 21.11.17 17:00
+            return LOGGER.traceExit(Returncode.RC_HELP.getNumVal()); // NOPMD by
+                                                                     // kai on
+                                                                     // 21.11.17
+                                                                     // 17:00
         } // if
 
         // Is verbose?
         isVerbose = cmdLine.hasOption(P_SHORT_VERBOSE);
-        if (isVerbose) {
+        if (isVerbose)
+        {
             LOGGER.info("JaStaCry starting");
         }
 
         action = Action.UNKOWN;
 
         // is it called with all needed parameters?
-        if (cmdLine.hasOption(P_SHORT_ENCODE) || cmdLine.hasOption(P_LONG_ENCODE)) {
+        if (cmdLine.hasOption(P_SHORT_ENCODE) || cmdLine.hasOption(P_LONG_ENCODE))
+        {
             action = Action.ENCODE;
         } // if
-        if (cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE)) {
+        if (cmdLine.hasOption(P_SHORT_DECODE) || cmdLine.hasOption(P_LONG_DECODE))
+        {
             action = Action.DECODE;
         } // if
 
         /*
-         * Should have been solved by commons-CLI required attribute,
-         * which collides to help parameter.
+         * Should have been solved by commons-CLI required attribute, which
+         * collides to help parameter.
          */
-        if (Action.UNKOWN == action) {
+        if (Action.UNKOWN == action)
+        {
             LOGGER.debug("action required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD by kai on 21.11.17 16:59
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD
+                                                                      // by kai
+                                                                      // on
+                                                                      // 21.11.17
+                                                                      // 16:59
         }
 
         // Use text format?
@@ -293,11 +328,16 @@ public final class JaStaCry {
         inputFilename = cmdLine.getOptionValue(P_LONG_INFILE);
         outputFilename = cmdLine.getOptionValue(P_LONG_OUTFILE);
 
-        if (null == confFilename || null == inputFilename || null == outputFilename) {
+        if (null == confFilename || null == inputFilename || null == outputFilename)
+        {
             LOGGER.debug("argument to parameter required");
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
-            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD by kai on 21.11.17 16:59
+            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal()); // NOPMD
+                                                                      // by kai
+                                                                      // on
+                                                                      // 21.11.17
+                                                                      // 16:59
         }
 
         return LOGGER.traceExit(0);

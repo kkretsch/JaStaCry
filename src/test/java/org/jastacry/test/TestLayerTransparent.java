@@ -22,7 +22,8 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerTransparent {
+public class TestLayerTransparent
+{
     /**
      * Test data to play with.
      */
@@ -40,7 +41,8 @@ public class TestLayerTransparent {
      *             in case of error
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         layer = new TransparentLayer();
         layer.init("");
     }
@@ -52,19 +54,23 @@ public class TestLayerTransparent {
      *             in case of error
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws Exception
+    {
         layer = null;
     }
 
     /**
-     * Test method for {@link org.jastacry.layer.TransparentLayer#encStream(java.io.InputStream, java.io.OutputStream)}.
+     * Test method for
+     * {@link org.jastacry.layer.TransparentLayer#encStream(java.io.InputStream, java.io.OutputStream)}
+     * .
      *
      * @throws IOException
      *             in case of error.
      */
     @Test
     // TestLink(externalId = "JAS-1")
-    public void testEncStream() throws IOException {
+    public void testEncStream() throws IOException
+    {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
         final OutputStream os = new ByteArrayOutputStream();
@@ -73,14 +79,17 @@ public class TestLayerTransparent {
     }
 
     /**
-     * Test method for {@link org.jastacry.layer.TransparentLayer#decStream(java.io.InputStream, java.io.OutputStream)}.
+     * Test method for
+     * {@link org.jastacry.layer.TransparentLayer#decStream(java.io.InputStream, java.io.OutputStream)}
+     * .
      *
      * @throws IOException
      *             in case of error.
      */
     @Test
     // TestLink(externalId = "JAS-2")
-    public void testDecStream() throws IOException {
+    public void testDecStream() throws IOException
+    {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
         final OutputStream os = new ByteArrayOutputStream();
@@ -93,7 +102,8 @@ public class TestLayerTransparent {
      */
     @Test
     // TestLink(externalId = "JAS-3")
-    public void testToString() {
+    public void testToString()
+    {
         assertEquals("Layer name mismatch", TransparentLayer.LAYERNAME, layer.toString());
     }
 
