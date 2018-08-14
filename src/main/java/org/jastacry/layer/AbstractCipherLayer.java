@@ -23,7 +23,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * Abstract base class for encryption.
  *
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -63,12 +63,12 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * ALG for the data.
      */
-    protected String sALG;
+    protected String sAlg;
 
     /**
      * Algorithm for the key.
      */
-    protected String sKeyALG;
+    protected String sKeyAlg;
 
     /**
      * char array of password.
@@ -88,7 +88,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * IV length.
      */
-    protected int iIVLen;
+    protected int iIvLen;
 
     /**
      * IV bytes.
@@ -140,7 +140,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      * Abstract base method for getting IV length back.
      * @return int length
      */
-    protected abstract int getMyIVLen();
+    protected abstract int getMyIvLen();
 
     /**
      * Abstract base method for getting a counter back.
@@ -166,9 +166,9 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * store IV bytes.
      */
-    protected final void getIV()
+    protected final void getIv()
     {
-        ivBytes = new byte[iIVLen];
+        ivBytes = new byte[iIvLen];
     }
 
     /**
@@ -176,10 +176,10 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      */
     protected final void init()
     {
-        this.sALG = getMyAlg();
-        this.sKeyALG = getMyKeyAlg();
+        this.sAlg = getMyAlg();
+        this.sKeyAlg = getMyKeyAlg();
         this.iSaltLen = getMySaltLen();
-        this.iIVLen = getMyIVLen();
+        this.iIvLen = getMyIvLen();
         this.iCount = getMyCount();
         this.iKeysize = getMyKeysize();
     }
@@ -192,7 +192,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      * @throws InvalidKeySpecException
      *             on error
      */
-    protected abstract void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException;
+    protected abstract void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException;
 
     /**
      * encode Stream function.
@@ -213,10 +213,10 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             logger.debug("encoding");
             getSalt();
             logger.debug("got salt");
-            setupPBE();
+            setupPbe();
             logger.debug("made key");
 
-            pbeCipher = Cipher.getInstance(sALG);
+            pbeCipher = Cipher.getInstance(sAlg);
             logger.debug("cipher created");
             pbeCipher.init(Cipher.ENCRYPT_MODE, pbeSecretKeySpec);
             logger.debug("cipher initialized");
@@ -237,7 +237,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
 
             // Encrypt the clear text
             final byte[] ciphertext = pbeCipher.doFinal(bInput);
-            if (0 == iIVLen)
+            if (0 == iIvLen)
             {
                 logger.trace("No IV to write");
             }
@@ -251,7 +251,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
                 }
                 else
                 {
-                    outputStream.write(ivBytes, 0, iIVLen);
+                    outputStream.write(ivBytes, 0, iIvLen);
                 } // if
             } // if
 
@@ -286,17 +286,17 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
         int iReadBytes;
         try
         {
-            if (0 == iIVLen)
+            if (0 == iIvLen)
             {
                 logger.trace("No IV to read");
             }
             else
             {
-                ivBytes = new byte[iIVLen];
-                iReadBytes = inputStream.read(ivBytes, 0, iIVLen);
-                if (iIVLen != iReadBytes)
+                ivBytes = new byte[iIvLen];
+                iReadBytes = inputStream.read(ivBytes, 0, iIvLen);
+                if (iIvLen != iReadBytes)
                 {
-                    logger.error("read {} bytes of IV, expecting {}.", iReadBytes, iIVLen);
+                    logger.error("read {} bytes of IV, expecting {}.", iReadBytes, iIvLen);
                 } // if
             } // if
 
@@ -308,10 +308,10 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             } // if
 
             // call implementation of child class method.
-            setupPBE();
+            setupPbe();
 
-            pbeCipher = Cipher.getInstance(sALG);
-            if (0 == iIVLen)
+            pbeCipher = Cipher.getInstance(sAlg);
+            if (0 == iIvLen)
             {
                 pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec);
             }

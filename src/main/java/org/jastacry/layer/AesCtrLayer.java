@@ -74,7 +74,7 @@ public class AesCtrLayer extends AbstractCipherLayer
      *             on error
      */
     @Override
-    protected final void setupPBE() throws NoSuchAlgorithmException, InvalidKeySpecException
+    protected final void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         byte[] key = new String(cPasswd).getBytes(StandardCharsets.UTF_8);
         final MessageDigest sha = MessageDigest.getInstance(MYHASHALG);
@@ -116,7 +116,7 @@ public class AesCtrLayer extends AbstractCipherLayer
     }
 
     @Override
-    protected int getMyIVLen()
+    protected int getMyIvLen()
     {
         return IVLEN;
     }
