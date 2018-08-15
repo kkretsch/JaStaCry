@@ -76,11 +76,13 @@ public class AesEcbLayer extends AbstractCipherLayer
     @Override
     protected final void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException
     {
-        byte[] key = new String(chPasswd).getBytes(StandardCharsets.UTF_8);
         final MessageDigest sha = MessageDigest.getInstance(MYHASHALG);
-        key = sha.digest(key);
-        key = Arrays.copyOf(key, KEYSIZE / BITSPERBYTE);
-        pbeSecretKeySpec = new SecretKeySpec(key, MYKEYALG);
+
+        final byte[] keyPlaintext = new String(chPasswd).getBytes(StandardCharsets.UTF_8);
+        final byte[] keyDigest = sha.digest(keyPlaintext);
+        final byte[] keyDigestTrimmed = Arrays.copyOf(keyDigest, KEYSIZE / BITSPERBYTE);
+
+        pbeSecretKeySpec = new SecretKeySpec(keyDigestTrimmed, MYKEYALG);
     }
 
     /**
