@@ -17,6 +17,7 @@
 	</licenses>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<language.version>1.8</language.version>
 		<findbugs.version>3.0.5</findbugs.version>
 		<checkstyle.version>3.0.0</checkstyle.version>
 		<surefire.version>2.22.0</surefire.version>
@@ -163,6 +164,11 @@
 					<artifactId>maven-checkstyle-plugin</artifactId>
 					<version>${checkstyle.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>3.10.0</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -190,8 +196,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${language.version}</source>
+					<target>${language.version}</target>
 				</configuration>
 			</plugin>
 
@@ -418,10 +424,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.10.0</version>
 				<configuration>
 					<linkXref>true</linkXref>
-					<targetJdk>1.8</targetJdk>
+					<targetJdk>${language.version}</targetJdk>
 					<rulesets>
 						<!-- These three rules should be followed -->
 						<ruleset>/rulesets/java/basic.xml</ruleset>
