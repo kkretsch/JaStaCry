@@ -328,7 +328,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
 
             final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-            int nRead;
+            int nRead = 0;
             final byte[] data = new byte[ONEBLOCKSIZE];
 
             while ((nRead = inputStream.read(data, 0, data.length)) != -1)
