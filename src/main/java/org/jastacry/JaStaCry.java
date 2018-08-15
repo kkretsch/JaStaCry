@@ -19,8 +19,7 @@ import net.sourceforge.cobertura.CoverageIgnore;
 /**
  * Main JaStaCry class to start.
  *
- * <p>
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
