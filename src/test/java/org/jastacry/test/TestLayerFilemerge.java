@@ -105,20 +105,21 @@ public class TestLayerFilemerge
     {
         InputStream is = new FileInputStream(LONGTEXTFILE);
         byte[] buf = IOUtils.toByteArray(is);
-        String sTextcontent = new String(buf, "ISO-8859-1");
 
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
         layer.init(INITVALUE);
         layer.encStream(isEncode, osEncode);
-        buf = osEncode.toByteArray();
+        byte[] buf2 = osEncode.toByteArray();
 
         layer = null;
         layer = new FilemergeLayer();
-        final InputStream isDecode = new ByteArrayInputStream(buf);
+        final InputStream isDecode = new ByteArrayInputStream(buf2);
         final OutputStream osDecode = new ByteArrayOutputStream();
         layer.init(INITVALUE);
         layer.decStream(isDecode, osDecode);
+
+        String sTextcontent = new String(buf, "ISO-8859-1");
         assertEquals("decoding differs", sTextcontent, osDecode.toString());
     }
 
