@@ -11,7 +11,8 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * AES Layer class.
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */

@@ -7,7 +7,8 @@ import java.io.OutputStream;
 /**
  * Very simple algorithm just to infuse some more complex data rotation.
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -52,8 +53,7 @@ public class XorLayer extends AbstractBasicLayer
      * @throws IOException
      *             thrown on error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
-            throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {
         int iChar;
         byte bChar;

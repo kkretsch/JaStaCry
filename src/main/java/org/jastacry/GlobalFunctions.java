@@ -7,7 +7,8 @@ import net.sourceforge.cobertura.CoverageIgnore;
 /**
  * Global static functions are stored here.
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author kai
  */
@@ -26,8 +27,7 @@ public final class GlobalFunctions
      * @param arguments
      *            variable arguments
      */
-    public static void logDebug(final boolean isVerbose, final Logger logger, final String sFormat,
-            final Object... arguments)
+    public static void logDebug(final boolean isVerbose, final Logger logger, final String sFormat, final Object... arguments)
     {
         if (isVerbose && logger.isDebugEnabled())
         {

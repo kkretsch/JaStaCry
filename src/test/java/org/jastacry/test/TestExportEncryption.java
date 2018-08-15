@@ -71,8 +71,8 @@ public class TestExportEncryption
             helperEncryptDecrypt(128);
         }
         catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException
-                | InvalidParameterSpecException | IllegalBlockSizeException | BadPaddingException
-                | UnsupportedEncodingException | InvalidAlgorithmParameterException e)
+                | InvalidParameterSpecException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException
+                | InvalidAlgorithmParameterException e)
         {
             org.junit.Assert.fail("exception " + e.getLocalizedMessage());
         }
@@ -90,8 +90,8 @@ public class TestExportEncryption
             helperEncryptDecrypt(256);
         }
         catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException
-                | InvalidParameterSpecException | IllegalBlockSizeException | BadPaddingException
-                | UnsupportedEncodingException | InvalidAlgorithmParameterException e)
+                | InvalidParameterSpecException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException
+                | InvalidAlgorithmParameterException e)
         {
             org.junit.Assert.fail("exception " + e.getLocalizedMessage());
         }
@@ -100,15 +100,24 @@ public class TestExportEncryption
     /**
      * Helper function.
      *
-     * @throws NoSuchAlgorithmException on error
-     * @throws InvalidKeySpecException on error
-     * @throws NoSuchPaddingException on error
-     * @throws InvalidKeyException on error
-     * @throws InvalidParameterSpecExceptio on errorn
-     * @throws UnsupportedEncodingException on error
-     * @throws BadPaddingException on errorv
-     * @throws IllegalBlockSizeException on error
-     * @throws InvalidAlgorithmParameterException on error
+     * @throws NoSuchAlgorithmException
+     *             on error
+     * @throws InvalidKeySpecException
+     *             on error
+     * @throws NoSuchPaddingException
+     *             on error
+     * @throws InvalidKeyException
+     *             on error
+     * @throws InvalidParameterSpecExceptio
+     *             on errorn
+     * @throws UnsupportedEncodingException
+     *             on error
+     * @throws BadPaddingException
+     *             on errorv
+     * @throws IllegalBlockSizeException
+     *             on error
+     * @throws InvalidAlgorithmParameterException
+     *             on error
      */
     private void helperEncryptDecrypt(final int bitsize) throws NoSuchAlgorithmException, InvalidKeySpecException,
             NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException,

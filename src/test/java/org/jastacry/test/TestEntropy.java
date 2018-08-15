@@ -56,8 +56,7 @@ public class TestEntropy
     private static ShannonEntropy shannon = null;
 
     /**
-     * Test configuration file, contains broad range of running layers. used for
-     * "OK" tests.
+     * Test configuration file, contains broad range of running layers. used for "OK" tests.
      */
     public static final String CONF1 = "conf1.cfg";
 
@@ -227,8 +226,9 @@ public class TestEntropy
         final String sOutputFile = encFile.getAbsolutePath();
         final String sConfigFile = RESOURCES + CONF1;
 
-        final String[] sArguments = { "-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
-                sConfigFile };
+        final String[] sArguments = {
+            "-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile
+        };
         oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
         final int iRc = JaStaCry.mainMethod(sArguments);
         assertEquals("Main encode returncode", 0, iRc);

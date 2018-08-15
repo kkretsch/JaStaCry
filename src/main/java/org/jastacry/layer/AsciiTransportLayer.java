@@ -11,7 +11,8 @@ import org.apache.commons.io.IOUtils;
 /**
  * Helper class for encode decode.
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -83,8 +84,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
     }
 
     @Override
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
-            throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {
         throw new UnsupportedOperationException();
     }

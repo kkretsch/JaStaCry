@@ -24,6 +24,7 @@ import org.junit.Test;
 
 /**
  * Test class for ascii transport format.
+ * 
  * @author Kai Kretschmann
  *
  */
@@ -87,9 +88,7 @@ public class TestLayerAsciiTransport
     }
 
     /**
-     * Test method for
-     * {@link org.jastacry.layer.AsciiTransportLayer#encStream(java.io.InputStream, java.io.OutputStream)}
-     * .
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#encStream(java.io.InputStream, java.io.OutputStream)} .
      *
      * @throws IOException
      *             in case of error.
@@ -113,9 +112,7 @@ public class TestLayerAsciiTransport
     }
 
     /**
-     * Test method for
-     * {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)}
-     * .
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)} .
      *
      * @throws IOException
      *             in case of error.
@@ -138,8 +135,7 @@ public class TestLayerAsciiTransport
     }
 
     /**
-     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#toString()}
-     * .
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#toString()} .
      */
     @Test
     // TestLink(externalId = "JAS-14")

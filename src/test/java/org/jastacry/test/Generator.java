@@ -9,7 +9,9 @@ public class Generator
 
     /**
      * Generate file to compare to.
-     * @param args command line
+     * 
+     * @param args
+     *            command line
      */
     public static void main(final String[] args)
     {
@@ -17,8 +19,9 @@ public class Generator
         final String sOutputFile = RESOURCES + TestMain.INPUTENCODED;
         final String sConfigFile = RESOURCES + TestMain.CONF1;
 
-        final String[] sArguments = { "-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile",
-                sConfigFile };
+        final String[] sArguments = {
+            "-v", "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile
+        };
         JaStaCry.mainMethod(sArguments);
     }
 }

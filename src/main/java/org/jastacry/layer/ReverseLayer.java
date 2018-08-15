@@ -7,7 +7,8 @@ import java.io.OutputStream;
 /**
  * Reverse every bits per byte. 0101 gives 1010 i.e.
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -58,8 +59,7 @@ public class ReverseLayer extends AbstractBasicLayer
      * @throws IOException
      *             in case of error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
-            throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {
         int iChar;
         while ((iChar = inputStream.read()) != -1)

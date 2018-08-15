@@ -23,7 +23,8 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * Abstract base class for encryption.
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -120,36 +121,42 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
 
     /**
      * Abstract base method for getting algorithm name back.
+     * 
      * @return String
      */
     protected abstract String getMyAlg();
 
     /**
      * Abstract base method for getting key algorithm name back.
+     * 
      * @return String
      */
     protected abstract String getMyKeyAlg();
 
     /**
      * Abstract base method for getting salt len back.
+     * 
      * @return int length
      */
     protected abstract int getMySaltLen();
 
     /**
      * Abstract base method for getting IV length back.
+     * 
      * @return int length
      */
     protected abstract int getMyIvLen();
 
     /**
      * Abstract base method for getting a counter back.
+     * 
      * @return int
      */
     protected abstract int getMyCount();
 
     /**
      * Abstract base method for getting key size back.
+     * 
      * @return int length
      */
     protected abstract int getMyKeysize();
@@ -348,8 +355,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     }
 
     @Override
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
-            throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {
         throw new UnsupportedOperationException();
     }

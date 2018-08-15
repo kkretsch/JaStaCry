@@ -12,7 +12,8 @@ import org.jastacry.GlobalData.Action;
 /**
  * Abstract base class for the actual worker layers.
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -76,8 +77,7 @@ public abstract class AbstractBasicLayer implements Runnable
     }
 
     /**
-     * Optional method for setting encryption or decryption parameters like keys
-     * or passwords.
+     * Optional method for setting encryption or decryption parameters like keys or passwords.
      *
      * @param data
      *            a String containing everything the layer needs to know
@@ -113,8 +113,7 @@ public abstract class AbstractBasicLayer implements Runnable
     }
 
     /**
-     * Decodes an encrypted stream to either plain text or the next encoded
-     * layer.
+     * Decodes an encrypted stream to either plain text or the next encoded layer.
      *
      * @param newInputStream
      *            existing and opened input stream
