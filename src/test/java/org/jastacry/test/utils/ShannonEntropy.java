@@ -78,7 +78,12 @@ public final class ShannonEntropy
         } // for
     } // function
 
-    private final double log2(double x)
+    /**
+     * Implement log2 function.
+     * @param x input value
+     * @return log2 of input value
+     */
+    private double log2(final double x)
     {
         return Math.log(x) / Math.log(2);
     } // math function
