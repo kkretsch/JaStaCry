@@ -7,8 +7,7 @@ import java.io.OutputStream;
 /**
  * A transparent layer just doing nothing with the data. Use it as an example framework to start with.
  *
- * <p>
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */

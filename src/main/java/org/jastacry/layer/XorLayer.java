@@ -7,8 +7,7 @@ import java.io.OutputStream;
 /**
  * Very simple algorithm just to infuse some more complex data rotation.
  *
- * <p>
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */

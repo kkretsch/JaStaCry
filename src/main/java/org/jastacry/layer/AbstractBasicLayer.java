@@ -12,8 +12,7 @@ import org.jastacry.GlobalData.Action;
 /**
  * Abstract base class for the actual worker layers.
  *
- * <p>
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */

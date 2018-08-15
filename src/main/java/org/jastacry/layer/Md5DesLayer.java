@@ -11,8 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * MD5 DES Layer class.
  *
- * <p>
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */

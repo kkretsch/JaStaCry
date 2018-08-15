@@ -43,8 +43,7 @@ import org.jastacry.layer.XorLayer;
 /**
  * Real working class.
  *
- * <p>
- * SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
