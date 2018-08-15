@@ -5,11 +5,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Mask every byte with some random data. The random stream is initialized by
- * the init seed. Must be used the same on both sides (encryption and
- * decryption).
+ * Mask every byte with some random data. The random stream is initialized by the init seed. Must be used the same on both sides
+ * (encryption and decryption).
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */

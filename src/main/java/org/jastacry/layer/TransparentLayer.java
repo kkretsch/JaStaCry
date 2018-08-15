@@ -5,10 +5,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * A transparent layer just doing nothing with the data. Use it as an example
- * framework to start with.
+ * A transparent layer just doing nothing with the data. Use it as an example framework to start with.
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -37,8 +37,7 @@ public class TransparentLayer extends AbstractBasicLayer
      * @throws IOException
      *             thrown on error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
-            throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {
         int iChar;
         while ((iChar = inputStream.read()) != -1)

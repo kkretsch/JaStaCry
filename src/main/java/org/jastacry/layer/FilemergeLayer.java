@@ -8,10 +8,11 @@ import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 
 /**
- * Mask every byte with data of a given file. If the file is smaller than the
- * data it will be used again and again from the beginning.
+ * Mask every byte with data of a given file. If the file is smaller than the data it will be used again and again from the
+ * beginning.
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -57,8 +58,7 @@ public class FilemergeLayer extends AbstractBasicLayer
      * @throws IOException
      *             in case of error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream)
-            throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {
         int iChar;
         int iMerge;

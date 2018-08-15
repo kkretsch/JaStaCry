@@ -57,9 +57,7 @@ public class TestLayerTransparent
     }
 
     /**
-     * Test method for
-     * {@link org.jastacry.layer.TransparentLayer#encStream(java.io.InputStream, java.io.OutputStream)}
-     * .
+     * Test method for {@link org.jastacry.layer.TransparentLayer#encStream(java.io.InputStream, java.io.OutputStream)} .
      *
      * @throws IOException
      *             in case of error.
@@ -76,9 +74,7 @@ public class TestLayerTransparent
     }
 
     /**
-     * Test method for
-     * {@link org.jastacry.layer.TransparentLayer#decStream(java.io.InputStream, java.io.OutputStream)}
-     * .
+     * Test method for {@link org.jastacry.layer.TransparentLayer#decStream(java.io.InputStream, java.io.OutputStream)} .
      *
      * @throws IOException
      *             in case of error.

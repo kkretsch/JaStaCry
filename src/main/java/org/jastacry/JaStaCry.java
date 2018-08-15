@@ -19,7 +19,8 @@ import net.sourceforge.cobertura.CoverageIgnore;
 /**
  * Main JaStaCry class to start.
  *
- * <p>SPDX-License-Identifier: MIT
+ * <p>
+ * SPDX-License-Identifier: MIT
  *
  * @author Kai Kretschmann
  */
@@ -204,11 +205,9 @@ public final class JaStaCry
         // either/or arguments
         final OptionGroup ogAction = new OptionGroup();
         Option option;
-        option = Option.builder(P_SHORT_ENCODE).required(false).longOpt(P_LONG_ENCODE).desc("encode input stream")
-                .build();
+        option = Option.builder(P_SHORT_ENCODE).required(false).longOpt(P_LONG_ENCODE).desc("encode input stream").build();
         ogAction.addOption(option);
-        option = Option.builder(P_SHORT_DECODE).required(false).longOpt(P_LONG_DECODE).desc("decode input stream")
-                .build();
+        option = Option.builder(P_SHORT_DECODE).required(false).longOpt(P_LONG_DECODE).desc("decode input stream").build();
         ogAction.addOption(option);
         options.addOptionGroup(ogAction);
 
@@ -293,8 +292,7 @@ public final class JaStaCry
         } // if
 
         /*
-         * Should have been solved by commons-CLI required attribute, which
-         * collides to help parameter.
+         * Should have been solved by commons-CLI required attribute, which collides to help parameter.
          */
         if (Action.UNKOWN == action)
         {

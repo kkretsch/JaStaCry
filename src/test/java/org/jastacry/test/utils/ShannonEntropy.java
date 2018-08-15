@@ -100,7 +100,9 @@ public final class ShannonEntropy
 
         /**
          * inner constructor.
-         * @param in byte to count
+         * 
+         * @param in
+         *            byte to count
          */
         public ByteFreq(byte in)
         {
