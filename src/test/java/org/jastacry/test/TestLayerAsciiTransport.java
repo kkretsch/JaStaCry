@@ -23,7 +23,7 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerASCIITransport
+public class TestLayerAsciiTransport
 {
     /**
      * log4j2 object.
