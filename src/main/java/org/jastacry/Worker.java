@@ -47,6 +47,7 @@ import org.jastacry.layer.XorLayer;
  *
  * @author Kai Kretschmann
  */
+@SuppressWarnings("PMD.NcssCount")
 public class Worker
 {
     /**
@@ -367,7 +368,7 @@ public class Worker
      * @param output output Stream
      * @throws IOException in case of error
      */
-    @SuppressWarnings({"squid:S2093", "PMD.NcssCount"})
+    @SuppressWarnings("squid:S2093")
     private void loopLayers(final List<AbstractBasicLayer> layers, final InputStream input, final OutputStream output)
     {
         LOGGER.traceEntry();
