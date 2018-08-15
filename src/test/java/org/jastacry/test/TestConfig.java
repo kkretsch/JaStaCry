@@ -148,16 +148,16 @@ public class TestConfig
         final String[] sArgumentsEncrypt = { "--encode", "--infile", sInputFile, "--outfile", sEncryptedFile,
                 "--conffile", sConfigFile };
         oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
-        int iRC = JaStaCry.mainMethod(sArgumentsEncrypt);
-        assertEquals("Main ascencdec returncode", Returncode.RC_OK.getNumVal(), iRC);
+        int returncode = JaStaCry.mainMethod(sArgumentsEncrypt);
+        assertEquals("Main ascencdec returncode", Returncode.RC_OK.getNumVal(), returncode);
 
         assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
 
         final String[] sArgumentsDecrypt = { "-v", "--decode", "--infile", sEncryptedFile, "--outfile", sDecryptedFile,
                 "--conffile", sConfigFile };
         oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
-        iRC = JaStaCry.mainMethod(sArgumentsDecrypt);
-        assertEquals("Main ascdecend returncode", Returncode.RC_OK.getNumVal(), iRC);
+        returncode = JaStaCry.mainMethod(sArgumentsDecrypt);
+        assertEquals("Main ascdecend returncode", Returncode.RC_OK.getNumVal(), returncode);
 
         assertTrue("File results in equal content", tooling.compareFiles(fInputfile, fDecryptedfile));
     }

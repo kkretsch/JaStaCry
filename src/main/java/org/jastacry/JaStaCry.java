@@ -153,8 +153,8 @@ public final class JaStaCry
     @CoverageIgnore
     public static void main(final String[] args)
     {
-        final int iRc = mainMethod(args);
-        System.exit(iRc); // NOPMD by kai on 21.11.17 17:04
+        final int returncode = mainMethod(args);
+        System.exit(returncode); // NOPMD by kai on 21.11.17 17:04
     }
 
     /**
@@ -167,11 +167,11 @@ public final class JaStaCry
     public static int mainMethod(final String... args)
     {
         LOGGER.traceEntry();
-        int iRc = setup(args);
-        if (0 != iRc)
+        int returncode = setup(args);
+        if (0 != returncode)
         {
-            LOGGER.error("Setup found errors {}", iRc);
-            return iRc; // NOPMD by kai on 21.11.17 16:59
+            LOGGER.error("Setup found errors {}", returncode);
+            return returncode; // NOPMD by kai on 21.11.17 16:59
         } // if
 
         final Worker worker = new Worker();
@@ -182,8 +182,8 @@ public final class JaStaCry
         worker.setOutputFilename(outputFilename);
         worker.setVerbose(isVerbose);
 
-        iRc = worker.mainWork();
-        return LOGGER.traceExit(iRc);
+        returncode = worker.mainWork();
+        return LOGGER.traceExit(returncode);
     }
 
     /**
