@@ -33,8 +33,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data
-     *            to initialize nothing.
+     * @param data to initialize nothing.
      */
     @Override
     public final void init(final String data)
@@ -45,12 +44,9 @@ public class AsciiTransportLayer extends AbstractBasicLayer
     /**
      * encode Stream function.
      *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
+     * @param inputStream incoming data
+     * @param outputStream outgoing data
+     * @throws IOException thrown on error
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
@@ -58,20 +54,17 @@ public class AsciiTransportLayer extends AbstractBasicLayer
         final Base64.Encoder encoder = Base64.getEncoder();
         final byte[] bytes = IOUtils.toByteArray(inputStream);
         final byte[] bytesEncoded = encoder.encode(bytes);
-        final ByteArrayInputStream in = new ByteArrayInputStream(bytesEncoded);
-        final int iCount = IOUtils.copy(in, outputStream);
+        final ByteArrayInputStream inputByteStream = new ByteArrayInputStream(bytesEncoded);
+        final int iCount = IOUtils.copy(inputByteStream, outputStream);
         logger.debug("encStream copied {} bytes", iCount);
     }
 
     /**
      * decode Stream function.
      *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
+     * @param inputStream incoming data
+     * @param outputStream outgoing data
+     * @throws IOException thrown on error
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException

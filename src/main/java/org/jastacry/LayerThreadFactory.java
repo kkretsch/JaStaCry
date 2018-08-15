@@ -41,8 +41,7 @@ public class LayerThreadFactory implements ThreadFactory
     /**
      * Set name suffix for thread.
      *
-     * @param sSuffix
-     *            String as suffix.
+     * @param sSuffix String as suffix.
      */
     public final void setName(final String sSuffix)
     {
@@ -52,8 +51,7 @@ public class LayerThreadFactory implements ThreadFactory
     /**
      * Set name suffix for thread.
      *
-     * @param iSuffix
-     *            Number as suffix.
+     * @param iSuffix Number as suffix.
      */
     public final void setNumber(final int iSuffix)
     {

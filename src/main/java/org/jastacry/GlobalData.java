@@ -152,8 +152,7 @@ public final class GlobalData
         /**
          * Constructor of enum object.
          *
-         * @param iNumVal
-         *            gives initial value
+         * @param iNumVal gives initial value
          */
         Returncode(final int iNumVal)
         {

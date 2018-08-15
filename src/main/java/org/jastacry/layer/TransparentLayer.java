@@ -29,12 +29,9 @@ public class TransparentLayer extends AbstractBasicLayer
     /**
      * encode Stream function which does the real thing.
      *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
+     * @param inputStream incoming data
+     * @param outputStream outgoing data
+     * @throws IOException thrown on error
      */
     protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {
@@ -50,8 +47,7 @@ public class TransparentLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data
-     *            to initialize nothing.
+     * @param data to initialize nothing.
      */
     @Override
     public final void init(final String data)

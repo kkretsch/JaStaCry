@@ -17,14 +17,10 @@ public final class GlobalFunctions
     /**
      * Log debugging only if switched on via command line and log4j.
      *
-     * @param isVerbose
-     *            boolean
-     * @param logger
-     *            log4j Logger object
-     * @param sFormat
-     *            Formatting string
-     * @param arguments
-     *            variable arguments
+     * @param isVerbose boolean
+     * @param logger log4j Logger object
+     * @param sFormat Formatting string
+     * @param arguments variable arguments
      */
     public static void logDebug(final boolean isVerbose, final Logger logger, final String sFormat, final Object... arguments)
     {

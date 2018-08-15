@@ -33,8 +33,7 @@ public class XorLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data
-     *            to initialize the xor value.
+     * @param data to initialize the xor value.
      */
     @Override
     public final void init(final String data)
@@ -45,12 +44,9 @@ public class XorLayer extends AbstractBasicLayer
     /**
      * Local encode Stream function which does the real thing for Xor Layer.
      *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
+     * @param inputStream incoming data
+     * @param outputStream outgoing data
+     * @throws IOException thrown on error
      */
     protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {

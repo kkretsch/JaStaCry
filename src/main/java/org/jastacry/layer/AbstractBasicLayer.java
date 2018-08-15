@@ -51,7 +51,7 @@ public abstract class AbstractBasicLayer implements Runnable
     /**
      * Logger object.
      */
-    protected Logger logger;
+    protected final Logger logger;
 
     /**
      * Countdown for managing threads running.
@@ -61,10 +61,8 @@ public abstract class AbstractBasicLayer implements Runnable
     /**
      * Constructor of Layer.
      *
-     * @param caller
-     *            class object
-     * @param layerName
-     *            name of real layer
+     * @param caller class object
+     * @param layerName name of real layer
      */
     protected AbstractBasicLayer(final Class<?> caller, final String layerName)
     {
@@ -76,22 +74,19 @@ public abstract class AbstractBasicLayer implements Runnable
     }
 
     /**
-     * Optional method for setting encryption or decryption parameters like keys or passwords.
+     * Optional method for setting encryption or decryption
+     * parameters like keys or passwords.
      *
-     * @param data
-     *            a String containing everything the layer needs to know
+     * @param data a String containing everything the layer needs to know
      */
     public abstract void init(final String data);
 
     /**
      * Local encode Stream function which does the real thing for Random Layer.
      *
-     * @param newInputStream
-     *            incoming data
-     * @param newOutputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
+     * @param newInputStream incoming data
+     * @param newOutputStream outgoing data
+     * @throws IOException thrown on error
      */
     protected abstract void encodeAndDecode(final InputStream newInputStream, final OutputStream newOutputStream)
             throws IOException;
@@ -99,12 +94,9 @@ public abstract class AbstractBasicLayer implements Runnable
     /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
      *
-     * @param newInputStream
-     *            existing and opened input stream
-     * @param newOutputStream
-     *            existing and opened output stream
-     * @throws IOException
-     *             if one of the streams fail
+     * @param newInputStream existing and opened input stream
+     * @param newOutputStream existing and opened output stream
+     * @throws IOException if one of the streams fail
      */
     public void encStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException
     {
@@ -114,12 +106,9 @@ public abstract class AbstractBasicLayer implements Runnable
     /**
      * Decodes an encrypted stream to either plain text or the next encoded layer.
      *
-     * @param newInputStream
-     *            existing and opened input stream
-     * @param newOutputStream
-     *            existing and opened output stream
-     * @throws IOException
-     *             if one of the streams fail
+     * @param newInputStream existing and opened input stream
+     * @param newOutputStream existing and opened output stream
+     * @throws IOException if one of the streams fail
      */
     public void decStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException
     {
@@ -140,8 +129,7 @@ public abstract class AbstractBasicLayer implements Runnable
     /**
      * Private range check function for byte values.
      *
-     * @param iInput
-     *            as input value
+     * @param iInput as input value
      * @return range checked byte value
      */
     protected final int rangeCheck(final int iInput)
@@ -165,8 +153,7 @@ public abstract class AbstractBasicLayer implements Runnable
     /**
      * Property setter for input stream.
      *
-     * @param newInputStream
-     *            the new stream
+     * @param newInputStream the new stream
      */
     public final void setInputStream(final InputStream newInputStream)
     {
@@ -176,8 +163,7 @@ public abstract class AbstractBasicLayer implements Runnable
     /**
      * property setter for output stream.
      *
-     * @param newOutputStream
-     *            the new output stream
+     * @param newOutputStream the new output stream
      */
     public final void setOutputStream(final OutputStream newOutputStream)
     {
@@ -187,8 +173,7 @@ public abstract class AbstractBasicLayer implements Runnable
     /**
      * Property setter for action.
      *
-     * @param newAction
-     *            the new action
+     * @param newAction the new action
      */
     public final void setAction(final Action newAction)
     {
@@ -198,8 +183,7 @@ public abstract class AbstractBasicLayer implements Runnable
     /**
      * Property setter for endcontroller.
      *
-     * @param newEndController
-     *            the new endcontroller
+     * @param newEndController the new endcontroller
      */
     public final void setEndController(final CountDownLatch newEndController)
     {
@@ -209,8 +193,7 @@ public abstract class AbstractBasicLayer implements Runnable
     /**
      * Property setter for realLayerName.
      *
-     * @param newRealLayerName
-     *            the new layer name
+     * @param newRealLayerName the new layer name
      */
     public final void setRealLayerName(final String newRealLayerName)
     {

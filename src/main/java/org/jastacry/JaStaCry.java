@@ -147,8 +147,7 @@ public final class JaStaCry
     /**
      * Main class for running a command line interface.
      *
-     * @param args
-     *            parsed by Apache commons CLI package
+     * @param args parsed by Apache commons CLI package
      */
     @CoverageIgnore
     public static void main(final String[] args)
@@ -160,8 +159,7 @@ public final class JaStaCry
     /**
      * Main method.
      *
-     * @param args
-     *            for parsing
+     * @param args for parsing
      * @return int result code
      */
     public static int mainMethod(final String... args)
@@ -229,8 +227,7 @@ public final class JaStaCry
     /**
      * Setup environment via command line arguments.
      *
-     * @param args
-     *            array of Strings from command line
+     * @param args array of Strings from command line
      * @return int error value
      */
     private static int setup(final String... args)
