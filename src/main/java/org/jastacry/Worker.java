@@ -207,7 +207,7 @@ public class Worker
      *
      * @return List of abstract layer objects
      */
-    @java.lang.SuppressWarnings("squid:S3776")
+    @SuppressWarnings("squid:S3776")
     private List<AbstractBasicLayer> createLayers()
     {
         LOGGER.traceEntry();
@@ -367,7 +367,7 @@ public class Worker
      * @param output output Stream
      * @throws IOException in case of error
      */
-    @java.lang.SuppressWarnings("squid:S2093")
+    @SuppressWarnings("squid:S2093")
     private void loopLayers(final List<AbstractBasicLayer> layers, final InputStream input, final OutputStream output)
     {
         LOGGER.traceEntry();
