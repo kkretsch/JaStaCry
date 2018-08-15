@@ -38,8 +38,7 @@ public class FilemergeLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data
-     *            to initialize the file.
+     * @param data to initialize the file.
      */
     @Override
     public final void init(final String data)
@@ -50,12 +49,9 @@ public class FilemergeLayer extends AbstractBasicLayer
     /**
      * merge Stream function.
      *
-     * @param inputStream
-     *            input stream
-     * @param outputStream
-     *            output stream
-     * @throws IOException
-     *             in case of error
+     * @param inputStream input stream
+     * @param outputStream output stream
+     * @throws IOException in case of error
      */
     protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {

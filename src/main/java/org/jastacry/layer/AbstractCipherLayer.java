@@ -108,10 +108,8 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * Constructor of abstract class.
      *
-     * @param cClass
-     *            class name of calling class
-     * @param layerName
-     *            name of real layer
+     * @param cClass class name of calling class
+     * @param layerName name of real layer
      */
     public AbstractCipherLayer(final Class<?> cClass, final String layerName)
     {
@@ -193,22 +191,17 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * Generate Keys from plain password.
      *
-     * @throws NoSuchAlgorithmException
-     *             on error
-     * @throws InvalidKeySpecException
-     *             on error
+     * @throws NoSuchAlgorithmException on error
+     * @throws InvalidKeySpecException on error
      */
     protected abstract void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException;
 
     /**
      * encode Stream function.
      *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
+     * @param inputStream incoming data
+     * @param outputStream outgoing data
+     * @throws IOException thrown on error
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
@@ -233,7 +226,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             final byte[] data = new byte[ONEBLOCKSIZE];
 
             while ((nRead = inputStream.read(data, 0, data.length)) != -1)
-            { // NOPMD by kai on 21.11.17 17:34
+            {
                 buffer.write(data, 0, nRead);
             }
 
@@ -277,12 +270,9 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * decode Stream function.
      *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
+     * @param inputStream incoming data
+     * @param outputStream outgoing data
+     * @throws IOException thrown on error
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException

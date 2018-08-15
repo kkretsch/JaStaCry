@@ -67,10 +67,8 @@ public class AesCbcLayer extends AbstractCipherLayer
     /**
      * Generate Keys from plain password.
      *
-     * @throws NoSuchAlgorithmException
-     *             on error
-     * @throws InvalidKeySpecException
-     *             on error
+     * @throws NoSuchAlgorithmException on error
+     * @throws InvalidKeySpecException on error
      */
     @Override
     protected final void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException
@@ -84,8 +82,7 @@ public class AesCbcLayer extends AbstractCipherLayer
     /**
      * init function. Overrides base init but uses it for setting base values.
      *
-     * @param data
-     *            to initialize the crypt value.
+     * @param data to initialize the crypt value.
      */
     @Override
     public final void init(final String data)

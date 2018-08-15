@@ -292,8 +292,7 @@ public class Worker
     /**
      * read secret password from console interactively.
      *
-     * @param layername
-     *            for labelling
+     * @param layername for labelling
      * @return String for password
      */
     private String readPassword(final String layername)
@@ -311,8 +310,7 @@ public class Worker
     /**
      * Create layer objects by given String name.
      *
-     * @param sName
-     *            name of layer
+     * @param sName name of layer
      * @return Layer object
      */
     private AbstractBasicLayer createLayer(final String sName)
@@ -364,14 +362,10 @@ public class Worker
     /**
      * Loop through layers with data streams.
      *
-     * @param layers
-     *            Array of layers
-     * @param input
-     *            input Stream
-     * @param output
-     *            output Stream
-     * @throws IOException
-     *             in case of error
+     * @param layers Array of layers
+     * @param input input Stream
+     * @param output output Stream
+     * @throws IOException in case of error
      */
     @java.lang.SuppressWarnings("squid:S2093")
     private void loopLayers(final List<AbstractBasicLayer> layers, final InputStream input, final OutputStream output)
@@ -512,8 +506,7 @@ public class Worker
     /**
      * Wait for all threads to end.
      *
-     * @param endController
-     *            the controller which counts the threads
+     * @param endController the controller which counts the threads
      */
     private void waitForThreads(final CountDownLatch endController)
     {
@@ -539,8 +532,7 @@ public class Worker
     /**
      * Setter method for ascii transport.
      *
-     * @param bStatus
-     *            the doEncode to set
+     * @param bStatus the doEncode to set
      */
     public final void setDoAsciitransport(final boolean bStatus)
     {
@@ -550,8 +542,7 @@ public class Worker
     /**
      * Setter method for config file name.
      *
-     * @param sFilename
-     *            the confFilename to set
+     * @param sFilename the confFilename to set
      */
     public final void setConfFilename(final String sFilename)
     {
@@ -561,8 +552,7 @@ public class Worker
     /**
      * Setter method for input file name.
      *
-     * @param sFilename
-     *            the inputFilename to set
+     * @param sFilename the inputFilename to set
      */
     public final void setInputFilename(final String sFilename)
     {
@@ -572,8 +562,7 @@ public class Worker
     /**
      * Setter method for output file name.
      *
-     * @param sFilename
-     *            the outputFilename to set
+     * @param sFilename the outputFilename to set
      */
     public final void setOutputFilename(final String sFilename)
     {
@@ -583,8 +572,7 @@ public class Worker
     /**
      * Setter method for verbosity.
      *
-     * @param bStatus
-     *            the isVerbose to set
+     * @param bStatus the isVerbose to set
      */
     public final void setVerbose(final boolean bStatus)
     {
@@ -594,8 +582,7 @@ public class Worker
     /**
      * Setter method for action value.
      *
-     * @param oAction
-     *            the action to set
+     * @param oAction the action to set
      */
     public final void setAction(final Action oAction)
     {

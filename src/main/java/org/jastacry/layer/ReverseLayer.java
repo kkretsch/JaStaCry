@@ -39,8 +39,7 @@ public class ReverseLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data
-     *            to initialize the offset value.
+     * @param data to initialize the offset value.
      */
     @Override
     public final void init(final String data)
@@ -51,12 +50,9 @@ public class ReverseLayer extends AbstractBasicLayer
     /**
      * Local encode Stream function which does the real thing for Reverse Layer.
      *
-     * @param inputStream
-     *            input data stream
-     * @param outputStream
-     *            output data stream
-     * @throws IOException
-     *             in case of error
+     * @param inputStream input data stream
+     * @param outputStream output data stream
+     * @throws IOException in case of error
      */
     protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {

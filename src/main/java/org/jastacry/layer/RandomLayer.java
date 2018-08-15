@@ -35,8 +35,7 @@ public class RandomLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data
-     *            to initialize the random seed value.
+     * @param data to initialize the random seed value.
      */
     @Override
     public final void init(final String data)
@@ -48,12 +47,9 @@ public class RandomLayer extends AbstractBasicLayer
     /**
      * Local encode Stream function which does the real thing for Random Layer.
      *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
+     * @param inputStream incoming data
+     * @param outputStream outgoing data
+     * @throws IOException thrown on error
      */
     protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
     {

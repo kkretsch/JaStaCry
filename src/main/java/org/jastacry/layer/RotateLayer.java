@@ -33,8 +33,7 @@ public class RotateLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data
-     *            to initialize the offset value.
+     * @param data to initialize the offset value.
      */
     @Override
     public final void init(final String data)
@@ -45,12 +44,9 @@ public class RotateLayer extends AbstractBasicLayer
     /**
      * encode Stream function.
      *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoing data
-     * @throws IOException
-     *             thrown on error
+     * @param inputStream incoming data
+     * @param outputStream outgoing data
+     * @throws IOException thrown on error
      */
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
@@ -69,12 +65,9 @@ public class RotateLayer extends AbstractBasicLayer
     /**
      * decode Stream function.
      *
-     * @param inputStream
-     *            incoming data
-     * @param outputStream
-     *            outgoging data
-     * @throws IOException
-     *             thrown on error
+     * @param inputStream incoming data
+     * @param outputStream outgoging data
+     * @throws IOException thrown on error
      */
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException

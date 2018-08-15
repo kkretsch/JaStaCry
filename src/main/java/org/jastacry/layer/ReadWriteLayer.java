@@ -59,8 +59,7 @@ public class ReadWriteLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data
-     *            to initialize nothing.
+     * @param data to initialize nothing.
      */
     @Override
     public final void init(final String data)
