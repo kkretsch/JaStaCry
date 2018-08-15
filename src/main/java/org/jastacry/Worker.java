@@ -291,7 +291,7 @@ public class Worker
 
     /**
      * read secret password from console interactively.
-     * 
+     *
      * @param layername
      *            for labelling
      * @return String for password
@@ -491,7 +491,7 @@ public class Worker
 
     /**
      * Create object outside of a loop.
-     * 
+     *
      * @return created object
      */
     private PipedInputStream createInputPipe()
@@ -501,7 +501,7 @@ public class Worker
 
     /**
      * Create object outside of a loop.
-     * 
+     *
      * @return created object
      */
     private PipedOutputStream createOutputPipe()
@@ -538,7 +538,7 @@ public class Worker
 
     /**
      * Setter method for ascii transport.
-     * 
+     *
      * @param bStatus
      *            the doEncode to set
      */
@@ -549,7 +549,7 @@ public class Worker
 
     /**
      * Setter method for config file name.
-     * 
+     *
      * @param sFilename
      *            the confFilename to set
      */
@@ -560,7 +560,7 @@ public class Worker
 
     /**
      * Setter method for input file name.
-     * 
+     *
      * @param sFilename
      *            the inputFilename to set
      */
@@ -571,7 +571,7 @@ public class Worker
 
     /**
      * Setter method for output file name.
-     * 
+     *
      * @param sFilename
      *            the outputFilename to set
      */
@@ -582,7 +582,7 @@ public class Worker
 
     /**
      * Setter method for verbosity.
-     * 
+     *
      * @param bStatus
      *            the isVerbose to set
      */
@@ -593,7 +593,7 @@ public class Worker
 
     /**
      * Setter method for action value.
-     * 
+     *
      * @param oAction
      *            the action to set
      */
