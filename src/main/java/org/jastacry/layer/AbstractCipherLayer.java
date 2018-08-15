@@ -120,42 +120,42 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
 
     /**
      * Abstract base method for getting algorithm name back.
-     * 
+     *
      * @return String
      */
     protected abstract String getMyAlg();
 
     /**
      * Abstract base method for getting key algorithm name back.
-     * 
+     *
      * @return String
      */
     protected abstract String getMyKeyAlg();
 
     /**
      * Abstract base method for getting salt len back.
-     * 
+     *
      * @return int length
      */
     protected abstract int getMySaltLen();
 
     /**
      * Abstract base method for getting IV length back.
-     * 
+     *
      * @return int length
      */
     protected abstract int getMyIvLen();
 
     /**
      * Abstract base method for getting a counter back.
-     * 
+     *
      * @return int
      */
     protected abstract int getMyCount();
 
     /**
      * Abstract base method for getting key size back.
-     * 
+     *
      * @return int length
      */
     protected abstract int getMyKeysize();
