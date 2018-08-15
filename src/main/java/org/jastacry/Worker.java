@@ -367,7 +367,7 @@ public class Worker
      * @param output output Stream
      * @throws IOException in case of error
      */
-    @SuppressWarnings("squid:S2093")
+    @SuppressWarnings({"squid:S2093", "PMD.NcssCount"})
     private void loopLayers(final List<AbstractBasicLayer> layers, final InputStream input, final OutputStream output)
     {
         LOGGER.traceEntry();
