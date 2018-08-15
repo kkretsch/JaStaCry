@@ -35,7 +35,7 @@ public class TestConfig
     /**
      * log4j2 object.
      */
-    private static Logger oLogger = null;
+    private static Logger oLogger;
 
     /**
      * Tooling functions object.
