@@ -20,6 +20,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
+ * Test class for ascii transport format.
  * @author Kai Kretschmann
  *
  */
