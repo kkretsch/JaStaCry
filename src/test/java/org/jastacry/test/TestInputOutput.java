@@ -16,7 +16,7 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestIO
+public class TestInputOutput
 {
 
     /**
@@ -60,7 +60,7 @@ public class TestIO
      *
      */
     @Test
-    public void testIOException()
+    public void testIoException()
     {
         InputStream sInput;
         OutputStream sOutput;
