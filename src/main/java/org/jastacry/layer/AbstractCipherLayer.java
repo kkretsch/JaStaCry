@@ -198,6 +198,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
 
     /**
      * Write IV data if any.
+     * @param outputStream stream to write to
      * @param pbeCipher the cipher object
      * @throws IOException in case of error
      */
@@ -219,11 +220,12 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             {
                 outputStream.write(ivBytes, 0, currentIvLen);
             } // if
-        } // if        
+        } // if
     }
 
     /**
      * Read IV data if any.
+     * @param inputStream stream to read from
      * @throws IOException in case of error
      */
     private void readIv(final InputStream inputStream) throws IOException
@@ -251,7 +253,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      */
     private void writeSalt(final OutputStream outputStream) throws IOException
     {
-        outputStream.write(salt, 0, currentSaltLen);        
+        outputStream.write(salt, 0, currentSaltLen);
     }
 
     /**
