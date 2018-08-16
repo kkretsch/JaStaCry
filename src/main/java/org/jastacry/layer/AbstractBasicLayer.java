@@ -79,7 +79,7 @@ public abstract class AbstractBasicLayer implements Runnable
      *
      * @param data a String containing everything the layer needs to know
      */
-    public abstract void init(final String data);
+    public abstract void init(String data);
 
     /**
      * Local encode Stream function which does the real thing for Random Layer.
@@ -88,7 +88,7 @@ public abstract class AbstractBasicLayer implements Runnable
      * @param newOutputStream outgoing data
      * @throws IOException thrown on error
      */
-    protected abstract void encodeAndDecode(final InputStream newInputStream, final OutputStream newOutputStream)
+    protected abstract void encodeAndDecode(InputStream newInputStream, OutputStream newOutputStream)
             throws IOException;
 
     /**
