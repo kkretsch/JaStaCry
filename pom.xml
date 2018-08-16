@@ -4,7 +4,7 @@
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacry</artifactId>
 
-	<version>0.4.8</version>
+	<version>0.4.9</version>
 	<!-- 'mvn scm:tag' will create a new git tag with above value -->
 
 	<description>Java Stacked Crypto</description>
@@ -20,7 +20,7 @@
 		<language.version>1.8</language.version>
 		<pmd.version>6.6.0</pmd.version>
 		<findbugs.version>3.0.5</findbugs.version>
-		<checkstyle.version>3.0.0</checkstyle.version>
+		<checkstyle.version>8.12</checkstyle.version>
 		<surefire.version>2.22.0</surefire.version>
 		<jacoco.version>0.8.1</jacoco.version>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
@@ -163,7 +163,14 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>${checkstyle.version}</version>
+					<version>3.0.0</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>${checkstyle.version}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
