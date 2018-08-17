@@ -7,6 +7,7 @@ import java.io.OutputStream;
 /**
  * Read write layer for IO purpose.
  *
+ * <p>SPDX-License-Identifier: MIT
  * @author kkretsch
  *
  */
