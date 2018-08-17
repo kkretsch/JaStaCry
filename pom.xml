@@ -12,6 +12,7 @@
 	<name>JaStaCry</name>
 	<licenses>
 		<license>
+			<!-- SPDX-License-Identifier: MIT -->
 			<name>MIT License</name>
 		</license>
 	</licenses>
