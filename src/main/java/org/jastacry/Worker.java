@@ -298,14 +298,32 @@ public class Worker
      */
     private String readPassword(final String layername)
     {
+        String passwordString = "";
+        final String prompt = "Layer " + layername + " Password: ";
         final Console console = System.console();
-        if (null == console)
+
+        if (null != console)
+        {
+            final char[] password = console.readPassword(prompt);
+            passwordString = new String(password); 
+        }
+        else
         {
             LOGGER.error("No interactive console available for password entry!");
-            return "";
-        }
-        final char[] password = console.readPassword("Layer " + layername + " Password: ");
-        return new String(password);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            try
+            {
+                System.out.print(prompt);
+                passwordString = reader.readLine();
+            }
+            catch (IOException e)
+            {
+                LOGGER.catching(e);
+            }
+
+        } // if
+
+        return passwordString;
     }
 
     /**
