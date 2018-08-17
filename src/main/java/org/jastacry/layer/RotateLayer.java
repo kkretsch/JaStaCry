@@ -7,7 +7,8 @@ import java.io.OutputStream;
 /**
  * Rotate every byte by an offset (either positiv or negativ).
  *
- * @author Kai Kretschmann SPDX-License-Identifier: MIT
+ * <p>SPDX-License-Identifier: MIT
+ * @author Kai Kretschmann
  */
 public class RotateLayer extends AbstractBasicLayer
 {

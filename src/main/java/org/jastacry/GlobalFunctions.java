@@ -9,7 +9,7 @@ import net.sourceforge.cobertura.CoverageIgnore;
  *
  * <p>SPDX-License-Identifier: MIT
  *
- * @author kai
+ * @author Kai Kretschmann
  */
 public final class GlobalFunctions
 {

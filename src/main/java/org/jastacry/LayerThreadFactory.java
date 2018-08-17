@@ -8,7 +8,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Thread factory for better thread naming.
  *
- * @author kai
+ * <p>SPDX-License-Identifier: MIT
+ * @author Kai Kretschmann
  *
  */
 public class LayerThreadFactory implements ThreadFactory
