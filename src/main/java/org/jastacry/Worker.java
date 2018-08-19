@@ -310,17 +310,6 @@ public class Worker
         else
         {
             LOGGER.error("No interactive console available for password entry!");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            try
-            {
-                System.out.print(prompt);
-                passwordString = reader.readLine();
-            }
-            catch (IOException e)
-            {
-                LOGGER.catching(e);
-            }
-
         } // if
 
         return passwordString;
