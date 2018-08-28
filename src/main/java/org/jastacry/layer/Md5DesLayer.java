@@ -3,10 +3,11 @@ package org.jastacry.layer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 
 import javax.crypto.spec.SecretKeySpec;
+
+import org.jastacry.JastacryException;
 
 /**
  * MD5 DES Layer class.
@@ -73,11 +74,10 @@ public class Md5DesLayer extends AbstractCipherLayer
     /**
      * Generate Keys from plain password.
      *
-     * @throws NoSuchAlgorithmException on error
-     * @throws InvalidKeySpecException on error
+     * @throws JastacryException on error
      */
     @Override
-    protected final void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException
+    protected final void setupPbe() throws JastacryException
     {
         logger.debug("in child setupPBE");
         pbeKey = new SecretKeySpec(keyBytes, MYKEYALG);

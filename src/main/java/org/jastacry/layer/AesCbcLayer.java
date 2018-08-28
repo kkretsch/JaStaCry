@@ -7,6 +7,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.jastacry.JastacryException;
+
 /**
  * AES Layer class.
  *
@@ -67,16 +69,22 @@ public class AesCbcLayer extends AbstractCipherLayer
     /**
      * Generate Keys from plain password.
      *
-     * @throws NoSuchAlgorithmException on error
-     * @throws InvalidKeySpecException on error
+     * @throws JastacryException on error
      */
     @Override
-    protected final void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException
+    protected final void setupPbe() throws JastacryException
     {
-        keyFac = SecretKeyFactory.getInstance(MYKEYFACT);
-        pbeKeySpec = new PBEKeySpec(chPasswd, salt, iterCount, currentKeysize);
-        pbeKey = keyFac.generateSecret(pbeKeySpec);
-        pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), strKeyAlg);
+        try
+        {
+            keyFac = SecretKeyFactory.getInstance(MYKEYFACT);
+            pbeKeySpec = new PBEKeySpec(chPasswd, salt, iterCount, currentKeysize);
+            pbeKey = keyFac.generateSecret(pbeKeySpec);
+            pbeSecretKeySpec = new SecretKeySpec(pbeKey.getEncoded(), strKeyAlg);
+        }
+        catch (NoSuchAlgorithmException | InvalidKeySpecException e)
+        {
+            throw (JastacryException) new JastacryException("Setup PBE failed").initCause(e.getCause());
+        }
     }
 
     /**

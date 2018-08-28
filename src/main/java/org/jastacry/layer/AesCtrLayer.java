@@ -3,10 +3,11 @@ package org.jastacry.layer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 
 import javax.crypto.spec.SecretKeySpec;
+
+import org.jastacry.JastacryException;
 
 /**
  * AES Layer class.
@@ -68,19 +69,27 @@ public class AesCtrLayer extends AbstractCipherLayer
     /**
      * Generate Keys from plain password.
      *
-     * @throws NoSuchAlgorithmException on error
-     * @throws InvalidKeySpecException on error
+     * @throws JastacryException on error
      */
     @Override
-    protected final void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException
+    protected final void setupPbe() throws JastacryException
     {
-        final MessageDigest sha = MessageDigest.getInstance(MYHASHALG);
+        MessageDigest sha;
+        try
+        {
+            sha = MessageDigest.getInstance(MYHASHALG);
 
-        final byte[] keyPlaintext = new String(chPasswd).getBytes(StandardCharsets.UTF_8);
-        final byte[] keyDigest = sha.digest(keyPlaintext);
-        final byte[] keyDigestTrimmed = Arrays.copyOf(keyDigest, KEYSIZE / BITSPERBYTE);
+            final byte[] keyPlaintext = new String(chPasswd).getBytes(StandardCharsets.UTF_8);
+            final byte[] keyDigest = sha.digest(keyPlaintext);
+            final byte[] keyDigestTrimmed = Arrays.copyOf(keyDigest, KEYSIZE / BITSPERBYTE);
 
-        this.pbeSecretKeySpec = new SecretKeySpec(keyDigestTrimmed, MYKEYALG);
+            this.pbeSecretKeySpec = new SecretKeySpec(keyDigestTrimmed, MYKEYALG);
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            throw (JastacryException) new JastacryException("Setup PBE failed").initCause(e.getCause());
+        }
+
     }
 
     /**
