@@ -8,7 +8,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -19,6 +18,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+
+import org.jastacry.JastacryException;
 
 /**
  * Abstract base class for encryption.
@@ -191,10 +192,9 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * Generate Keys from plain password.
      *
-     * @throws NoSuchAlgorithmException on error
-     * @throws InvalidKeySpecException on error
+     * @throws JastacryException on error
      */
-    protected abstract void setupPbe() throws NoSuchAlgorithmException, InvalidKeySpecException;
+    protected abstract void setupPbe() throws JastacryException;
 
     /**
      * Write IV data if any.
@@ -314,7 +314,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             outputStream.close();
         }
         catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-                | InvalidKeySpecException | BadPaddingException e)
+                | JastacryException | BadPaddingException e)
         {
             logger.catching(e);
         }
@@ -371,7 +371,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             outputStream.close();
         }
         catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-                | BadPaddingException | InvalidAlgorithmParameterException | InvalidKeySpecException e)
+                | BadPaddingException | InvalidAlgorithmParameterException | JastacryException e)
         {
             logger.catching(e);
         }
