@@ -86,7 +86,7 @@ public class AesEcbLayer extends AbstractCipherLayer
         }
         catch (NoSuchAlgorithmException e)
         {
-            throw (JastacryException) new JastacryException("Setup PBE failed").initCause(e.getCause());
+            throw (JastacryException) new JastacryException("Setup PBE failed").initCause(e);
         }
 
     }

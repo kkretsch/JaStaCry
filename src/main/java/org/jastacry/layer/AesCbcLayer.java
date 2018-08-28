@@ -83,7 +83,7 @@ public class AesCbcLayer extends AbstractCipherLayer
         }
         catch (NoSuchAlgorithmException | InvalidKeySpecException e)
         {
-            throw (JastacryException) new JastacryException("Setup PBE failed").initCause(e.getCause());
+            throw (JastacryException) new JastacryException("Setup PBE failed").initCause(e);
         }
     }
 

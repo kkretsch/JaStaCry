@@ -1,5 +1,9 @@
 package org.jastacry;
 
+/**
+ * My very own JaStyCry exception class.
+ * @author kkretsch
+ */
 public class JastacryException extends Exception
 {
 
@@ -8,7 +12,7 @@ public class JastacryException extends Exception
      */
     private static final long serialVersionUID = 5001556363057011159L;
 
-    public JastacryException(String msg)
+    public JastacryException(final String msg)
     {
         super(msg);
     }
