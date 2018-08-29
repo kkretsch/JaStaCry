@@ -1,26 +1,25 @@
-package org.jastacry.test;
+package org.jastacry.layer;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.jastacry.JastacryException;
-import org.jastacry.layer.RotateLayer;
+import org.jastacry.layer.XorLayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test of Rotate Layer.
+ * Test of Layer XOR.
  *
  * @author Kai Kretschmann
  *
  */
-public class TestLayerRotate
+public class TestLayerXor
 {
     /**
      * Testdata to play with.
@@ -30,20 +29,15 @@ public class TestLayerRotate
     /**
      * The layer to test.
      */
-    private RotateLayer layer = null; // NOPMD by kkretsch on 29.03.18 14:54
+    private XorLayer layer = null; // NOPMD by kkretsch on 29.03.18 14:54
 
     /**
-     * Shift a small amount.
+     * Init value for xor layer.
      */
-    private static final String SHIFTSMALL = "2";
+    private static final String INITVALUE = "123";
 
     /**
-     * Shift a wide amount.
-     */
-    private static final String SHIFTWIDE = "250";
-
-    /**
-     * Test Before method.
+     * Test before method.
      *
      * @throws Exception
      *             in case of error
@@ -51,7 +45,8 @@ public class TestLayerRotate
     @Before
     public void setUp() throws Exception
     {
-        layer = new RotateLayer();
+        layer = new XorLayer();
+        layer.init(INITVALUE);
     }
 
     /**
@@ -67,16 +62,15 @@ public class TestLayerRotate
     }
 
     /**
-     * Testcase JastacryException.
+     * Testcase testEncDecStream.
      *
      * @throws JastacryException
      *             in case of error
      */
     @Test
-    // TestLink(externalId = "JAS-8")
+    // TestLink(externalId = "JAS-10")
     public void testEncDecStream() throws JastacryException
     {
-        layer.init(SHIFTSMALL);
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
@@ -87,38 +81,17 @@ public class TestLayerRotate
         final OutputStream osDecode = new ByteArrayOutputStream();
         layer.decStream(isDecode, osDecode);
         assertEquals("decoding differs", testdata, osDecode.toString());
-    }
 
-    /**
-     * Testcase testEncDecStreamWide.
-     *
-     * @throws JastacryException
-     *             in case of error
-     */
-    @Test
-    public void testEncDecStreamWide() throws JastacryException
-    {
-        layer.init(SHIFTWIDE);
-        byte[] buf = testdata.getBytes();
-        final InputStream isEncode = new ByteArrayInputStream(buf);
-        final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
-        layer.encStream(isEncode, osEncode);
-        buf = osEncode.toByteArray();
-
-        final InputStream isDecode = new ByteArrayInputStream(buf);
-        final OutputStream osDecode = new ByteArrayOutputStream();
-        layer.decStream(isDecode, osDecode);
-        assertEquals("decoding differs", testdata, osDecode.toString());
     }
 
     /**
      * Testcase testToString.
      */
     @Test
-    // TestLink(externalId = "JAS-9")
+    // TestLink(externalId = "JAS-11")
     public void testToString()
     {
-        assertEquals("Layer name mismatch", RotateLayer.LAYERNAME, layer.toString());
+        assertEquals("Layer name mismatch", XorLayer.LAYERNAME, layer.toString());
     }
 
 }

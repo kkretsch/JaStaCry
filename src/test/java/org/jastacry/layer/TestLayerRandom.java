@@ -1,4 +1,4 @@
-package org.jastacry.test;
+package org.jastacry.layer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,21 +7,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
-import org.jastacry.layer.AbstractBasicLayer;
-import org.jastacry.layer.ReverseLayer;
+import org.jastacry.layer.RandomLayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test of Rotate Layer.
+ * Test of Layer Random.
  *
  * @author Kai Kretschmann
  *
  */
-public class TestLayerReverse
+public class TestLayerRandom
 {
     /**
      * Test data to play with.
@@ -29,14 +27,14 @@ public class TestLayerReverse
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
 
     /**
-     * log4j2 object.
-     */
-    private static Logger oLogger = null;
-
-    /**
      * The layer to test.
      */
-    private AbstractBasicLayer layer = null;
+    private RandomLayer layer = null;
+
+    /**
+     * Init value for random layer.
+     */
+    private static final String INITVALUE = "333";
 
     /**
      * Test Before method.
@@ -47,7 +45,7 @@ public class TestLayerReverse
     @Before
     public void setUp() throws Exception
     {
-        layer = new ReverseLayer();
+        layer = new RandomLayer();
     }
 
     /**
@@ -63,33 +61,40 @@ public class TestLayerReverse
     }
 
     /**
-     * Test case testEncDecStream.
+     * Testcase testEncDecStream.
      *
      * @throws JastacryException
      *             in case of error
      */
     @Test
+    // TestLink(externalId = "JAS-6")
     public void testEncDecStream() throws JastacryException
     {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
+        layer.init(INITVALUE);
         layer.encStream(isEncode, osEncode);
         buf = osEncode.toByteArray();
 
+        layer = null;
+        layer = new RandomLayer();
         final InputStream isDecode = new ByteArrayInputStream(buf);
         final OutputStream osDecode = new ByteArrayOutputStream();
+        layer.init(INITVALUE);
         layer.decStream(isDecode, osDecode);
         assertEquals("decoding differs", testdata, osDecode.toString());
+
     }
 
     /**
-     * Test case testToString.
+     * Testcase testToString.
      */
     @Test
+    // TestLink(externalId = "JAS-7")
     public void testToString()
     {
-        assertEquals("Layer name mismatch", ReverseLayer.LAYERNAME, layer.toString());
+        assertEquals("Layer name mismatch", RandomLayer.LAYERNAME, layer.toString());
     }
 
 }

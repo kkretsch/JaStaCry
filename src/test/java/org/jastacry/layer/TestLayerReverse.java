@@ -1,4 +1,4 @@
-package org.jastacry.test;
+package org.jastacry.layer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,37 +7,39 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
-import org.jastacry.layer.XorLayer;
+import org.jastacry.layer.AbstractBasicLayer;
+import org.jastacry.layer.ReverseLayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test of Layer XOR.
+ * Test of Rotate Layer.
  *
  * @author Kai Kretschmann
  *
  */
-public class TestLayerXor
+public class TestLayerReverse
 {
     /**
-     * Testdata to play with.
+     * Test data to play with.
      */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
 
     /**
+     * log4j2 object.
+     */
+    private static Logger oLogger = null;
+
+    /**
      * The layer to test.
      */
-    private XorLayer layer = null; // NOPMD by kkretsch on 29.03.18 14:54
+    private AbstractBasicLayer layer = null;
 
     /**
-     * Init value for xor layer.
-     */
-    private static final String INITVALUE = "123";
-
-    /**
-     * Test before method.
+     * Test Before method.
      *
      * @throws Exception
      *             in case of error
@@ -45,8 +47,7 @@ public class TestLayerXor
     @Before
     public void setUp() throws Exception
     {
-        layer = new XorLayer();
-        layer.init(INITVALUE);
+        layer = new ReverseLayer();
     }
 
     /**
@@ -62,13 +63,12 @@ public class TestLayerXor
     }
 
     /**
-     * Testcase testEncDecStream.
+     * Test case testEncDecStream.
      *
      * @throws JastacryException
      *             in case of error
      */
     @Test
-    // TestLink(externalId = "JAS-10")
     public void testEncDecStream() throws JastacryException
     {
         byte[] buf = testdata.getBytes();
@@ -81,17 +81,15 @@ public class TestLayerXor
         final OutputStream osDecode = new ByteArrayOutputStream();
         layer.decStream(isDecode, osDecode);
         assertEquals("decoding differs", testdata, osDecode.toString());
-
     }
 
     /**
-     * Testcase testToString.
+     * Test case testToString.
      */
     @Test
-    // TestLink(externalId = "JAS-11")
     public void testToString()
     {
-        assertEquals("Layer name mismatch", XorLayer.LAYERNAME, layer.toString());
+        assertEquals("Layer name mismatch", ReverseLayer.LAYERNAME, layer.toString());
     }
 
 }
