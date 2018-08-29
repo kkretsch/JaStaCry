@@ -10,6 +10,7 @@ import java.io.OutputStream;
 
 import org.jastacry.JastacryException;
 import org.jastacry.layer.RotateLayer;
+import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -11,6 +11,7 @@ import java.io.OutputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.jastacry.JastacryException;
+import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -126,7 +127,6 @@ public class TestLayerFilemerge
         assertEquals("decoding differs", sTextcontent, osDecode.toString());
     }
 
-
     /**
      * Testcase testEncStream Exceptions.
      *
@@ -137,11 +137,8 @@ public class TestLayerFilemerge
     @Test(expected = JastacryException.class)
     public void testEncStreamException() throws JastacryException, IOException
     {
-        InputStream in = org.mockito.Mockito.mock(InputStream.class);
-        OutputStream out = org.mockito.Mockito.mock(OutputStream.class);
-        org.mockito.Mockito.when(in.read()).thenThrow(new IOException());
-        layer.init(INITVALUE);
-        layer.encStream(in, out);
+        Tooling tool = new Tooling();
+        tool.mockupInputOutputStreams(layer);
     }
 
     /**

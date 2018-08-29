@@ -10,6 +10,7 @@ import java.io.OutputStream;
 
 import org.jastacry.JastacryException;
 import org.jastacry.layer.RotateLayer;
+import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,7 +74,6 @@ public class TestLayerRotate
      *             in case of error
      */
     @Test
-    // TestLink(externalId = "JAS-8")
     public void testEncDecStream() throws JastacryException
     {
         layer.init(SHIFTSMALL);
@@ -115,7 +115,6 @@ public class TestLayerRotate
      * Testcase testToString.
      */
     @Test
-    // TestLink(externalId = "JAS-9")
     public void testToString()
     {
         assertEquals("Layer name mismatch", RotateLayer.LAYERNAME, layer.toString());
@@ -133,6 +132,20 @@ public class TestLayerRotate
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
         layer.encodeAndDecode(isEncode, osEncode);
+    }
+
+    /**
+     * Testcase testEncStream Exceptions.
+     *
+     * @throws JastacryException
+     *             in case of error
+     * @throws IOException will be thrown in test
+     */
+    @Test(expected = JastacryException.class)
+    public void testEncStreamException() throws JastacryException, IOException
+    {
+        Tooling tool = new Tooling();
+        tool.mockupInputOutputStreams(layer);
     }
 
 }

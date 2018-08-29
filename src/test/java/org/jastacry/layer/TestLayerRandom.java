@@ -4,11 +4,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.jastacry.JastacryException;
 import org.jastacry.layer.RandomLayer;
+import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,7 +69,6 @@ public class TestLayerRandom
      *             in case of error
      */
     @Test
-    // TestLink(externalId = "JAS-6")
     public void testEncDecStream() throws JastacryException
     {
         byte[] buf = testdata.getBytes();
@@ -91,10 +92,23 @@ public class TestLayerRandom
      * Testcase testToString.
      */
     @Test
-    // TestLink(externalId = "JAS-7")
     public void testToString()
     {
         assertEquals("Layer name mismatch", RandomLayer.LAYERNAME, layer.toString());
+    }
+
+    /**
+     * Testcase testEncStream Exceptions.
+     *
+     * @throws JastacryException
+     *             in case of error
+     * @throws IOException will be thrown in test
+     */
+    @Test(expected = JastacryException.class)
+    public void testEncStreamException() throws JastacryException, IOException
+    {
+        Tooling tool = new Tooling();
+        tool.mockupInputOutputStreams(layer);
     }
 
 }
