@@ -1,14 +1,17 @@
-package org.jastacry.test;
+package org.jastacry.layer;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.jastacry.JastacryException;
-import org.jastacry.layer.RandomLayer;
+import org.jastacry.layer.FilemergeLayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +22,7 @@ import org.junit.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerRandom
+public class TestLayerFilemerge
 {
     /**
      * Test data to play with.
@@ -29,12 +32,17 @@ public class TestLayerRandom
     /**
      * The layer to test.
      */
-    private RandomLayer layer = null;
+    private FilemergeLayer layer = null;
 
     /**
      * Init value for random layer.
      */
-    private static final String INITVALUE = "333";
+    private static final String INITVALUE = "src/test/resources/foto.jpg";
+
+    /**
+     * Init value for random layer.
+     */
+    private static final String LONGTEXTFILE = "src/test/resources/longtext.txt";
 
     /**
      * Test Before method.
@@ -45,7 +53,7 @@ public class TestLayerRandom
     @Before
     public void setUp() throws Exception
     {
-        layer = new RandomLayer();
+        layer = new FilemergeLayer();
     }
 
     /**
@@ -78,23 +86,52 @@ public class TestLayerRandom
         buf = osEncode.toByteArray();
 
         layer = null;
-        layer = new RandomLayer();
+        layer = new FilemergeLayer();
         final InputStream isDecode = new ByteArrayInputStream(buf);
         final OutputStream osDecode = new ByteArrayOutputStream();
         layer.init(INITVALUE);
         layer.decStream(isDecode, osDecode);
         assertEquals("decoding differs", testdata, osDecode.toString());
+    }
 
+    /**
+     * Testcase testEncDecStream.
+     *
+     * @throws JastacryException
+     *             in case of error
+     * @throws IOException in case of error
+     */
+    @Test
+    // TestLink(externalId = "JAS-6")
+    public void testEncDecStreamLong() throws JastacryException, IOException
+    {
+        InputStream is = new FileInputStream(LONGTEXTFILE);
+        byte[] buf = IOUtils.toByteArray(is);
+
+        final InputStream isEncode = new ByteArrayInputStream(buf);
+        final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
+        layer.init(INITVALUE);
+        layer.encStream(isEncode, osEncode);
+        byte[] buf2 = osEncode.toByteArray();
+
+        layer = null;
+        layer = new FilemergeLayer();
+        final InputStream isDecode = new ByteArrayInputStream(buf2);
+        final OutputStream osDecode = new ByteArrayOutputStream();
+        layer.init(INITVALUE);
+        layer.decStream(isDecode, osDecode);
+
+        String sTextcontent = new String(buf, "ISO-8859-1");
+        assertEquals("decoding differs", sTextcontent, osDecode.toString());
     }
 
     /**
      * Testcase testToString.
      */
     @Test
-    // TestLink(externalId = "JAS-7")
     public void testToString()
     {
-        assertEquals("Layer name mismatch", RandomLayer.LAYERNAME, layer.toString());
+        assertEquals("Layer name mismatch", FilemergeLayer.LAYERNAME, layer.toString());
     }
 
 }

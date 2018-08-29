@@ -1,48 +1,46 @@
-package org.jastacry.test;
+package org.jastacry.layer;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.commons.io.IOUtils;
 import org.jastacry.JastacryException;
-import org.jastacry.layer.FilemergeLayer;
+import org.jastacry.layer.RotateLayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test of Layer Random.
+ * Test of Rotate Layer.
  *
  * @author Kai Kretschmann
  *
  */
-public class TestLayerFilemerge
+public class TestLayerRotate
 {
     /**
-     * Test data to play with.
+     * Testdata to play with.
      */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
 
     /**
      * The layer to test.
      */
-    private FilemergeLayer layer = null;
+    private RotateLayer layer = null; // NOPMD by kkretsch on 29.03.18 14:54
 
     /**
-     * Init value for random layer.
+     * Shift a small amount.
      */
-    private static final String INITVALUE = "src/test/resources/foto.jpg";
+    private static final String SHIFTSMALL = "2";
 
     /**
-     * Init value for random layer.
+     * Shift a wide amount.
      */
-    private static final String LONGTEXTFILE = "src/test/resources/longtext.txt";
+    private static final String SHIFTWIDE = "250";
 
     /**
      * Test Before method.
@@ -53,7 +51,7 @@ public class TestLayerFilemerge
     @Before
     public void setUp() throws Exception
     {
-        layer = new FilemergeLayer();
+        layer = new RotateLayer();
     }
 
     /**
@@ -69,69 +67,72 @@ public class TestLayerFilemerge
     }
 
     /**
-     * Testcase testEncDecStream.
+     * Testcase JastacryException.
      *
      * @throws JastacryException
      *             in case of error
      */
     @Test
-    // TestLink(externalId = "JAS-6")
+    // TestLink(externalId = "JAS-8")
     public void testEncDecStream() throws JastacryException
     {
+        layer.init(SHIFTSMALL);
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
-        layer.init(INITVALUE);
         layer.encStream(isEncode, osEncode);
         buf = osEncode.toByteArray();
 
-        layer = null;
-        layer = new FilemergeLayer();
         final InputStream isDecode = new ByteArrayInputStream(buf);
         final OutputStream osDecode = new ByteArrayOutputStream();
-        layer.init(INITVALUE);
         layer.decStream(isDecode, osDecode);
         assertEquals("decoding differs", testdata, osDecode.toString());
     }
 
     /**
-     * Testcase testEncDecStream.
+     * Testcase testEncDecStreamWide.
      *
      * @throws JastacryException
      *             in case of error
-     * @throws IOException in case of error
      */
     @Test
-    // TestLink(externalId = "JAS-6")
-    public void testEncDecStreamLong() throws JastacryException, IOException
+    public void testEncDecStreamWide() throws JastacryException
     {
-        InputStream is = new FileInputStream(LONGTEXTFILE);
-        byte[] buf = IOUtils.toByteArray(is);
-
+        layer.init(SHIFTWIDE);
+        byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
-        layer.init(INITVALUE);
         layer.encStream(isEncode, osEncode);
-        byte[] buf2 = osEncode.toByteArray();
+        buf = osEncode.toByteArray();
 
-        layer = null;
-        layer = new FilemergeLayer();
-        final InputStream isDecode = new ByteArrayInputStream(buf2);
+        final InputStream isDecode = new ByteArrayInputStream(buf);
         final OutputStream osDecode = new ByteArrayOutputStream();
-        layer.init(INITVALUE);
         layer.decStream(isDecode, osDecode);
-
-        String sTextcontent = new String(buf, "ISO-8859-1");
-        assertEquals("decoding differs", sTextcontent, osDecode.toString());
+        assertEquals("decoding differs", testdata, osDecode.toString());
     }
 
     /**
      * Testcase testToString.
      */
     @Test
+    // TestLink(externalId = "JAS-9")
     public void testToString()
     {
-        assertEquals("Layer name mismatch", FilemergeLayer.LAYERNAME, layer.toString());
+        assertEquals("Layer name mismatch", RotateLayer.LAYERNAME, layer.toString());
+    }
+
+    /**
+     * Testcase unsupported exception.
+     * @throws JastacryException on error
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    // TestLink(externalId = "JAS-9")
+    public void testUnsupported() throws JastacryException
+    {
+        byte[] buf = testdata.getBytes();
+        final InputStream isEncode = new ByteArrayInputStream(buf);
+        final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
+        layer.encodeAndDecode(isEncode, osEncode);
     }
 
 }

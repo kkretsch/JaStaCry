@@ -1,7 +1,4 @@
-/**
- *
- */
-package org.jastacry.test;
+package org.jastacry.layer;
 
 import static org.junit.Assert.*;
 
