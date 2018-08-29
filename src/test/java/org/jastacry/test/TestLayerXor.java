@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jastacry.JastacryException;
 import org.jastacry.layer.XorLayer;
 import org.junit.After;
 import org.junit.Before;
@@ -64,12 +64,12 @@ public class TestLayerXor
     /**
      * Testcase testEncDecStream.
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case of error
      */
     @Test
     // TestLink(externalId = "JAS-10")
-    public void testEncDecStream() throws IOException
+    public void testEncDecStream() throws JastacryException
     {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);

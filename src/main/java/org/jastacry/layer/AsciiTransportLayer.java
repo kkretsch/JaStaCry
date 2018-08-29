@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.util.Base64;
 
 import org.apache.commons.io.IOUtils;
+import org.jastacry.JastacryException;
 
 /**
  * Helper class for encode decode.
@@ -46,17 +47,24 @@ public class AsciiTransportLayer extends AbstractBasicLayer
      *
      * @param inputStream incoming data
      * @param outputStream outgoing data
-     * @throws IOException thrown on error
+     * @throws JastacryException thrown on error
      */
     @Override
-    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        final Base64.Encoder encoder = Base64.getEncoder();
-        final byte[] bytes = IOUtils.toByteArray(inputStream);
-        final byte[] bytesEncoded = encoder.encode(bytes);
-        final ByteArrayInputStream inputByteStream = new ByteArrayInputStream(bytesEncoded);
-        final int iCount = IOUtils.copy(inputByteStream, outputStream);
-        logger.debug("encStream copied {} bytes", iCount);
+        try
+        {
+            final Base64.Encoder encoder = Base64.getEncoder();
+            final byte[] bytes = IOUtils.toByteArray(inputStream);
+            final byte[] bytesEncoded = encoder.encode(bytes);
+            final ByteArrayInputStream inputByteStream = new ByteArrayInputStream(bytesEncoded);
+            int iCount = IOUtils.copy(inputByteStream, outputStream);
+            logger.debug("encStream copied {} bytes", iCount);
+        }
+        catch (IOException e)
+        {
+            throw (JastacryException) new JastacryException("encStream failed").initCause(e);
+        }
     }
 
     /**
@@ -64,19 +72,26 @@ public class AsciiTransportLayer extends AbstractBasicLayer
      *
      * @param inputStream incoming data
      * @param outputStream outgoing data
-     * @throws IOException thrown on error
+     * @throws JastacryException thrown on error
      */
     @Override
-    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        final Base64.Decoder decoder = Base64.getDecoder();
-        final InputStream isDecoded = decoder.wrap(inputStream);
-        final int iCount = IOUtils.copy(isDecoded, outputStream);
-        logger.debug("decStream copied {} bytes", iCount);
+        try
+        {
+            final Base64.Decoder decoder = Base64.getDecoder();
+            final InputStream isDecoded = decoder.wrap(inputStream);
+            int iCount = IOUtils.copy(isDecoded, outputStream);
+            logger.debug("decStream copied {} bytes", iCount);
+        }
+        catch (IOException e)
+        {
+            throw (JastacryException) new JastacryException("encStream failed").initCause(e);
+        }
     }
 
     @Override
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         throw new UnsupportedOperationException();
     }

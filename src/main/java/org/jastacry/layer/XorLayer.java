@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jastacry.JastacryException;
+
 /**
  * Very simple algorithm just to infuse some more complex data rotation.
  *
@@ -46,20 +48,27 @@ public class XorLayer extends AbstractBasicLayer
      *
      * @param inputStream incoming data
      * @param outputStream outgoing data
-     * @throws IOException thrown on error
+     * @throws JastacryException thrown on error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        int iChar;
-        byte bChar;
-        while ((iChar = inputStream.read()) != -1)
-        { // NOPMD by kai on 21.11.17 17:18
-            bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:18
-            bChar = (byte) (bChar ^ this.bitMask);
-            outputStream.write(bChar);
+        try
+        {
+            int iChar;
+            byte bChar;
+            while ((iChar = inputStream.read()) != -1)
+            { // NOPMD by kai on 21.11.17 17:18
+                bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:18
+                bChar = (byte) (bChar ^ this.bitMask);
+                outputStream.write(bChar);
+            }
+            logger.info("close pipe");
+            outputStream.close();
         }
-        logger.info("close pipe");
-        outputStream.close();
+        catch (IOException e)
+        {
+            throw (JastacryException) new JastacryException("encodeAndDecode failed").initCause(e);
+        }
     }
 
 }

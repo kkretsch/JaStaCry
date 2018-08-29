@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.jastacry.JastacryException;
 import org.jastacry.layer.FilemergeLayer;
 import org.junit.After;
 import org.junit.Before;
@@ -70,12 +71,12 @@ public class TestLayerFilemerge
     /**
      * Testcase testEncDecStream.
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case of error
      */
     @Test
     // TestLink(externalId = "JAS-6")
-    public void testEncDecStream() throws IOException
+    public void testEncDecStream() throws JastacryException
     {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
@@ -96,12 +97,13 @@ public class TestLayerFilemerge
     /**
      * Testcase testEncDecStream.
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case of error
+     * @throws IOException in case of error
      */
     @Test
     // TestLink(externalId = "JAS-6")
-    public void testEncDecStreamLong() throws IOException
+    public void testEncDecStreamLong() throws JastacryException, IOException
     {
         InputStream is = new FileInputStream(LONGTEXTFILE);
         byte[] buf = IOUtils.toByteArray(is);

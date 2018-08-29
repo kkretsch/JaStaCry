@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jastacry.JastacryException;
 import org.jastacry.layer.TransparentLayer;
 import org.junit.After;
 import org.junit.Before;
@@ -59,12 +60,12 @@ public class TestLayerTransparent
     /**
      * Test method for {@link org.jastacry.layer.TransparentLayer#encStream(java.io.InputStream, java.io.OutputStream)} .
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case of error.
      */
     @Test
     // TestLink(externalId = "JAS-1")
-    public void testEncStream() throws IOException
+    public void testEncStream() throws JastacryException
     {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
@@ -76,12 +77,12 @@ public class TestLayerTransparent
     /**
      * Test method for {@link org.jastacry.layer.TransparentLayer#decStream(java.io.InputStream, java.io.OutputStream)} .
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case of error.
      */
     @Test
     // TestLink(externalId = "JAS-2")
-    public void testDecStream() throws IOException
+    public void testDecStream() throws JastacryException
     {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);

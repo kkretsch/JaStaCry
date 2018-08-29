@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jastacry.JastacryException;
 import org.jastacry.layer.AsciiTransportLayer;
 import org.junit.After;
 import org.junit.Before;
@@ -87,12 +88,13 @@ public class TestLayerAsciiTransport
     /**
      * Test method for {@link org.jastacry.layer.AsciiTransportLayer#encStream(java.io.InputStream, java.io.OutputStream)} .
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case of error.
+     * @throws IOException i case of error
      */
     @Test
     // TestLink(externalId = "JAS-12")
-    public void testEncStream() throws IOException
+    public void testEncStream() throws JastacryException, IOException
     {
         final byte[] buf = testdata.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);
@@ -111,12 +113,13 @@ public class TestLayerAsciiTransport
     /**
      * Test method for {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)} .
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case of error.
+     * @throws IOException in case of error
      */
     @Test
     // TestLink(externalId = "JAS-13")
-    public void testDecStream() throws IOException
+    public void testDecStream() throws JastacryException, IOException
     {
         final byte[] buf = testdataEncoded.getBytes();
         final InputStream is = new ByteArrayInputStream(buf);

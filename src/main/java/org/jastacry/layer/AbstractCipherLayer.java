@@ -277,10 +277,10 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      *
      * @param inputStream incoming data
      * @param outputStream outgoing data
-     * @throws IOException thrown on error
+     * @throws JastacryException thrown on error
      */
     @Override
-    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         Cipher pbeCipher;
         try
@@ -314,9 +314,10 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             outputStream.close();
         }
         catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-                | JastacryException | BadPaddingException e)
+                | JastacryException | BadPaddingException | IOException e)
         {
             logger.catching(e);
+            throw (JastacryException) new JastacryException("encStream failed").initCause(e);
         }
 
     }
@@ -326,10 +327,10 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      *
      * @param inputStream incoming data
      * @param outputStream outgoing data
-     * @throws IOException thrown on error
+     * @throws JastacryException thrown on error
      */
     @Override
-    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         // Create PBE Cipher
         Cipher pbeCipher;
@@ -371,14 +372,15 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             outputStream.close();
         }
         catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-                | BadPaddingException | InvalidAlgorithmParameterException | JastacryException e)
+                | BadPaddingException | InvalidAlgorithmParameterException | JastacryException | IOException e)
         {
             logger.catching(e);
+            throw (JastacryException) new JastacryException("decStream failed").initCause(e);
         }
     }
 
     @Override
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         throw new UnsupportedOperationException();
     }

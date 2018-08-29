@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jastacry.JastacryException;
 import org.jastacry.layer.RotateLayer;
 import org.junit.After;
 import org.junit.Before;
@@ -66,14 +67,14 @@ public class TestLayerRotate
     }
 
     /**
-     * Testcase testEncDecStream.
+     * Testcase JastacryException.
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case of error
      */
     @Test
     // TestLink(externalId = "JAS-8")
-    public void testEncDecStream() throws IOException
+    public void testEncDecStream() throws JastacryException
     {
         layer.init(SHIFTSMALL);
         byte[] buf = testdata.getBytes();
@@ -91,11 +92,11 @@ public class TestLayerRotate
     /**
      * Testcase testEncDecStreamWide.
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case of error
      */
     @Test
-    public void testEncDecStreamWide() throws IOException
+    public void testEncDecStreamWide() throws JastacryException
     {
         layer.init(SHIFTWIDE);
         byte[] buf = testdata.getBytes();
