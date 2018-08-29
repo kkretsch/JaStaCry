@@ -17,7 +17,9 @@ import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 /**
  * Test of Main function.
@@ -27,6 +29,9 @@ import org.junit.Test;
  */
 public class TestMain
 {
+    @Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
+
     /**
      * Maven test resources path.
      */
@@ -102,6 +107,7 @@ public class TestMain
      */
     private File encFile; // NOPMD by kkretsch on 29.03.18 14:53
 
+
     /**
      * The BeforeClass method.
      *
@@ -148,6 +154,20 @@ public class TestMain
         encFile.delete();
         binFile.delete();
         tmpFile.delete();
+    }
+
+    /**
+     * Test method help for Main function via static main.
+     *
+     */
+    @Test
+    public void testMainStatic()
+    {
+        final String[] sArguments = {
+            "-h"
+        };
+        exit.expectSystemExit();
+        JaStaCry.main(sArguments);
     }
 
     /**
