@@ -305,7 +305,7 @@ public class Worker
         if (null != console)
         {
             final char[] password = console.readPassword(prompt);
-            passwordString = new String(password); 
+            passwordString = new String(password);
         }
         else
         {
