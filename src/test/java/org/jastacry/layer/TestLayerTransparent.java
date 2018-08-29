@@ -113,4 +113,18 @@ public class TestLayerTransparent
         tool.mockupInputOutputEncStreams(layer);
     }
 
+    /**
+     * Testcase testDecStream Exceptions.
+     *
+     * @throws JastacryException
+     *             in case of error
+     * @throws IOException will be thrown in test
+     */
+    @Test(expected = JastacryException.class)
+    public void testDecStreamException() throws JastacryException, IOException
+    {
+        Tooling tool = new Tooling();
+        tool.mockupInputOutputDecStreams(layer);
+    }
+
 }
