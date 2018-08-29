@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jastacry.JastacryException;
+
 /**
  * Read write layer for IO purpose.
  *
@@ -52,7 +54,7 @@ public class ReadWriteLayer extends AbstractBasicLayer
     }
 
     @Override
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         throw new UnsupportedOperationException();
     }

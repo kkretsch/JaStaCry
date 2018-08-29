@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.logging.log4j.Logger;
+import org.jastacry.JastacryException;
 import org.jastacry.layer.AbstractBasicLayer;
 import org.jastacry.layer.ReverseLayer;
 import org.junit.After;
@@ -65,11 +65,11 @@ public class TestLayerReverse
     /**
      * Test case testEncDecStream.
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case of error
      */
     @Test
-    public void testEncDecStream() throws IOException
+    public void testEncDecStream() throws JastacryException
     {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);

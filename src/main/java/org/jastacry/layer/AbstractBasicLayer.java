@@ -8,6 +8,7 @@ import java.util.concurrent.CountDownLatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalData.Action;
+import org.jastacry.JastacryException;
 
 /**
  * Abstract base class for the actual worker layers.
@@ -86,19 +87,19 @@ public abstract class AbstractBasicLayer implements Runnable
      *
      * @param newInputStream incoming data
      * @param newOutputStream outgoing data
-     * @throws IOException thrown on error
+     * @throws JastacryException thrown on error
      */
     protected abstract void encodeAndDecode(InputStream newInputStream, OutputStream newOutputStream)
-            throws IOException;
+            throws JastacryException;
 
     /**
      * Encodes either plain text or an encoded layer to the next encoding layer.
      *
      * @param newInputStream existing and opened input stream
      * @param newOutputStream existing and opened output stream
-     * @throws IOException if one of the streams fail
+     * @throws JastacryException if one of the streams fail
      */
-    public void encStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException
+    public void encStream(final InputStream newInputStream, final OutputStream newOutputStream) throws JastacryException
     {
         encodeAndDecode(newInputStream, newOutputStream);
     }
@@ -108,9 +109,9 @@ public abstract class AbstractBasicLayer implements Runnable
      *
      * @param newInputStream existing and opened input stream
      * @param newOutputStream existing and opened output stream
-     * @throws IOException if one of the streams fail
+     * @throws JastacryException if one of the streams fail
      */
-    public void decStream(final InputStream newInputStream, final OutputStream newOutputStream) throws IOException
+    public void decStream(final InputStream newInputStream, final OutputStream newOutputStream) throws JastacryException
     {
         encodeAndDecode(newInputStream, newOutputStream);
     }
@@ -224,7 +225,7 @@ public abstract class AbstractBasicLayer implements Runnable
             }
             outputStream.close();
         }
-        catch (final IOException exception)
+        catch (final JastacryException | IOException exception)
         {
             logger.catching(exception);
         }

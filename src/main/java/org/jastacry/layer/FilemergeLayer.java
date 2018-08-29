@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 
+import org.jastacry.JastacryException;
+
 /**
  * Mask every byte with data of a given file. If the file is smaller than the data it will be used again and again from the
  * beginning.
@@ -38,7 +40,7 @@ public class FilemergeLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data to initialize the file.
+     * @param data to initialise the file.
      */
     @Override
     public final void init(final String data)
@@ -51,9 +53,9 @@ public class FilemergeLayer extends AbstractBasicLayer
      *
      * @param inputStream input stream
      * @param outputStream output stream
-     * @throws IOException in case of error
+     * @throws JastacryException in case of error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         int iChar;
         int iMerge;
@@ -83,6 +85,10 @@ public class FilemergeLayer extends AbstractBasicLayer
             logger.info("close pipe");
             outputStream.close();
         } // try with resources
+        catch (IOException e)
+        {
+            throw (JastacryException) new JastacryException("encodeAndDecode failed").initCause(e);
+        }
     }
 
 }

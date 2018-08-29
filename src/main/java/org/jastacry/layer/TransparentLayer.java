@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jastacry.JastacryException;
+
 /**
  * A transparent layer just doing nothing with the data. Use it as an example framework to start with.
  *
@@ -31,23 +33,30 @@ public class TransparentLayer extends AbstractBasicLayer
      *
      * @param inputStream incoming data
      * @param outputStream outgoing data
-     * @throws IOException thrown on error
+     * @throws JastacryException thrown on error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        int iChar;
-        while ((iChar = inputStream.read()) != -1)
-        { // NOPMD by kai on 21.11.17 17:13
-            outputStream.write(iChar);
+        try
+        {
+            int iChar;
+            while ((iChar = inputStream.read()) != -1)
+            { // NOPMD by kai on 21.11.17 17:13
+                outputStream.write(iChar);
+            }
+            logger.info("close pipe");
+            outputStream.close();
         }
-        logger.info("close pipe");
-        outputStream.close();
+        catch (IOException e)
+        {
+            throw (JastacryException) new JastacryException("encodeAndDecode failed").initCause(e);
+        }
     }
 
     /**
      * init function.
      *
-     * @param data to initialize nothing.
+     * @param data to initialise nothing.
      */
     @Override
     public final void init(final String data)

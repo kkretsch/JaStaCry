@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jastacry.JastacryException;
+
 /**
  * Rotate every byte by an offset (either positiv or negativ).
  *
@@ -47,20 +49,27 @@ public class RotateLayer extends AbstractBasicLayer
      *
      * @param inputStream incoming data
      * @param outputStream outgoing data
-     * @throws IOException thrown on error
+     * @throws JastacryException thrown on error
      */
     @Override
-    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        int iChar;
-        while ((iChar = inputStream.read()) != -1)
-        { // NOPMD by kai on 21.11.17 17:19
-            iChar += this.offset;
-            iChar = rangeCheck(iChar);
-            outputStream.write(iChar);
+        try
+        {
+            int iChar;
+            while ((iChar = inputStream.read()) != -1)
+            { // NOPMD by kai on 21.11.17 17:19
+                iChar += this.offset;
+                iChar = rangeCheck(iChar);
+                outputStream.write(iChar);
+            }
+            logger.info("close pipe");
+            outputStream.close();
         }
-        logger.info("close pipe");
-        outputStream.close();
+        catch (IOException e)
+        {
+            throw (JastacryException) new JastacryException("encStream failed").initCause(e);
+        }
     }
 
     /**
@@ -68,24 +77,31 @@ public class RotateLayer extends AbstractBasicLayer
      *
      * @param inputStream incoming data
      * @param outputStream outgoging data
-     * @throws IOException thrown on error
+     * @throws JastacryException thrown on error
      */
     @Override
-    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        int iChar;
-        while ((iChar = inputStream.read()) != -1)
-        { // NOPMD by kai on 21.11.17 17:19
-            iChar -= this.offset;
-            iChar = rangeCheck(iChar);
-            outputStream.write(iChar);
+        try
+        {
+            int iChar;
+            while ((iChar = inputStream.read()) != -1)
+            { // NOPMD by kai on 21.11.17 17:19
+                iChar -= this.offset;
+                iChar = rangeCheck(iChar);
+                outputStream.write(iChar);
+            }
+            logger.info("close pipe");
+            outputStream.close();
         }
-        logger.info("close pipe");
-        outputStream.close();
+        catch (IOException e)
+        {
+            throw (JastacryException) new JastacryException("decStream failed").initCause(e);
+        }
     }
 
     @Override
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         throw new UnsupportedOperationException();
     }

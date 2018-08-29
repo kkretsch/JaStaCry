@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jastacry.JastacryException;
+
 /**
  * Reverse every bits per byte. 0101 gives 1010 i.e.
  *
@@ -52,21 +54,28 @@ public class ReverseLayer extends AbstractBasicLayer
      *
      * @param inputStream input data stream
      * @param outputStream output data stream
-     * @throws IOException in case of error
+     * @throws JastacryException in case of error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        int iChar;
-        while ((iChar = inputStream.read()) != -1)
+        try
         {
-            iChar = rangeCheck(iChar);
-            iChar = Integer.reverse(iChar);
-            iChar >>= SHIFTBITS;
-            iChar &= MASKBITS;
-            outputStream.write(iChar);
+            int iChar;
+            while ((iChar = inputStream.read()) != -1)
+            {
+                iChar = rangeCheck(iChar);
+                iChar = Integer.reverse(iChar);
+                iChar >>= SHIFTBITS;
+                iChar &= MASKBITS;
+                outputStream.write(iChar);
+            }
+            logger.info("close pipe");
+            outputStream.close();
         }
-        logger.info("close pipe");
-        outputStream.close();
+        catch (IOException e)
+        {
+            throw (JastacryException) new JastacryException("encodeAndDecode failed").initCause(e);
+        }
     }
 
 }

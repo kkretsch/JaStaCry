@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jastacry.JastacryException;
+
 /**
  * Mask every byte with some random data. The random stream is initialized by the init seed. Must be used the same on both sides
  * (encryption and decryption).
@@ -35,7 +37,7 @@ public class RandomLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data to initialize the random seed value.
+     * @param data to initialise the random seed value.
      */
     @Override
     public final void init(final String data)
@@ -49,22 +51,29 @@ public class RandomLayer extends AbstractBasicLayer
      *
      * @param inputStream incoming data
      * @param outputStream outgoing data
-     * @throws IOException thrown on error
+     * @throws JastacryException thrown on error
      */
-    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws IOException
+    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        int iChar;
-        byte bChar;
-        final byte[] bRand = new byte[1];
-        while ((iChar = inputStream.read()) != -1)
+        try
         {
-            bChar = (byte) iChar;
-            this.rand.nextBytes(bRand);
-            bChar = (byte) (bChar ^ bRand[0]);
-            outputStream.write(bChar);
+            int iChar;
+            byte bChar;
+            final byte[] bRand = new byte[1];
+            while ((iChar = inputStream.read()) != -1)
+            {
+                bChar = (byte) iChar;
+                this.rand.nextBytes(bRand);
+                bChar = (byte) (bChar ^ bRand[0]);
+                outputStream.write(bChar);
+            }
+            logger.info("close pipe");
+            outputStream.close();
         }
-        logger.info("close pipe");
-        outputStream.close();
+        catch (IOException e)
+        {
+            throw (JastacryException) new JastacryException("encodeAndDecode failed").initCause(e);
+        }
     }
 
 }

@@ -4,13 +4,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jastacry.JastacryException;
 import org.jastacry.layer.Md5DesLayer;
 import org.jastacry.test.utils.Tooling;
 import org.junit.After;
@@ -101,12 +101,12 @@ public class TestLayerMd5Des
     /**
      * Testcase testEncDecStream.
      *
-     * @throws IOException
+     * @throws JastacryException
      *             in case off error
      */
     @Test
     // TestLink(externalId = "JAS-4")
-    public void testEncDecStream() throws IOException
+    public void testEncDecStream() throws JastacryException
     {
         // tooling.listProviders();
 
