@@ -10,6 +10,7 @@ import java.io.OutputStream;
 
 import org.jastacry.JastacryException;
 import org.jastacry.layer.TransparentLayer;
+import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,7 +65,6 @@ public class TestLayerTransparent
      *             in case of error.
      */
     @Test
-    // TestLink(externalId = "JAS-1")
     public void testEncStream() throws JastacryException
     {
         final byte[] buf = testdata.getBytes();
@@ -81,7 +81,6 @@ public class TestLayerTransparent
      *             in case of error.
      */
     @Test
-    // TestLink(externalId = "JAS-2")
     public void testDecStream() throws JastacryException
     {
         final byte[] buf = testdata.getBytes();
@@ -95,10 +94,23 @@ public class TestLayerTransparent
      * Test method for {@link org.jastacry.layer.TransparentLayer#toString()}.
      */
     @Test
-    // TestLink(externalId = "JAS-3")
     public void testToString()
     {
         assertEquals("Layer name mismatch", TransparentLayer.LAYERNAME, layer.toString());
+    }
+
+    /**
+     * Testcase testEncStream Exceptions.
+     *
+     * @throws JastacryException
+     *             in case of error
+     * @throws IOException will be thrown in test
+     */
+    @Test(expected = JastacryException.class)
+    public void testEncStreamException() throws JastacryException, IOException
+    {
+        Tooling tool = new Tooling();
+        tool.mockupInputOutputStreams(layer);
     }
 
 }

@@ -4,11 +4,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.jastacry.JastacryException;
 import org.jastacry.layer.XorLayer;
+import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -82,6 +84,20 @@ public class TestLayerXor
         layer.decStream(isDecode, osDecode);
         assertEquals("decoding differs", testdata, osDecode.toString());
 
+    }
+
+    /**
+     * Testcase testEncStream Exceptions.
+     *
+     * @throws JastacryException
+     *             in case of error
+     * @throws IOException will be thrown in test
+     */
+    @Test(expected = JastacryException.class)
+    public void testEncStreamException() throws JastacryException, IOException
+    {
+        Tooling tool = new Tooling();
+        tool.mockupInputOutputStreams(layer);
     }
 
     /**

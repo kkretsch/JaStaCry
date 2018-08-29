@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
 import org.jastacry.layer.AsciiTransportLayer;
+import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -138,7 +139,6 @@ public class TestLayerAsciiTransport
      * Test method for {@link org.jastacry.layer.AsciiTransportLayer#toString()} .
      */
     @Test
-    // TestLink(externalId = "JAS-14")
     public void testToString()
     {
         assertEquals("Layer name mismatch", AsciiTransportLayer.LAYERNAME, layer.toString());

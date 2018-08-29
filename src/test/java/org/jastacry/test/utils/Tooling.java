@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.Provider;
 import java.security.Security;
 import java.util.Enumeration;
@@ -12,6 +14,8 @@ import java.util.Enumeration;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jastacry.JastacryException;
+import org.jastacry.layer.AbstractBasicLayer;
 
 /**
  * Helper functions for automated tests.
@@ -128,5 +132,21 @@ public final class Tooling
         {
             LOGGER.catching(e);
         }
+    }
+
+    /**
+     * General mockup for IO Exceptions.
+     * @param layer The layer to be tested
+     * @throws JastacryException on error
+     * @throws IOException on error
+     */
+    public void mockupInputOutputStreams(AbstractBasicLayer layer) throws  JastacryException, IOException
+    {
+        InputStream in = org.mockito.Mockito.mock(InputStream.class);
+        OutputStream out = org.mockito.Mockito.mock(OutputStream.class);
+        org.mockito.Mockito.when(in.read()).thenThrow(new IOException());
+        //org.mockito.Mockito.when(out.write(0)).thenThrow(new IOException());
+        layer.init("1");
+        layer.encStream(in, out);
     }
 }
