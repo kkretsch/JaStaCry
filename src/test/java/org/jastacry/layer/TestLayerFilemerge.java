@@ -11,10 +11,11 @@ import java.io.OutputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.jastacry.JastacryException;
-import org.jastacry.layer.FilemergeLayer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+
 
 /**
  * Test of Layer Random.
@@ -123,6 +124,24 @@ public class TestLayerFilemerge
 
         String sTextcontent = new String(buf, "ISO-8859-1");
         assertEquals("decoding differs", sTextcontent, osDecode.toString());
+    }
+
+
+    /**
+     * Testcase testEncStream Exceptions.
+     *
+     * @throws JastacryException
+     *             in case of error
+     * @throws IOException will be thrown in test
+     */
+    @Test(expected = JastacryException.class)
+    public void testEncStreamException() throws JastacryException, IOException
+    {
+        InputStream in = org.mockito.Mockito.mock(InputStream.class);
+        OutputStream out = org.mockito.Mockito.mock(OutputStream.class);
+        org.mockito.Mockito.when(in.read()).thenThrow(new IOException());
+        layer.init(INITVALUE);
+        layer.encStream(in, out);
     }
 
     /**
