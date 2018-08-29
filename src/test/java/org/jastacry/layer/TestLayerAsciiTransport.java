@@ -144,4 +144,17 @@ public class TestLayerAsciiTransport
         assertEquals("Layer name mismatch", AsciiTransportLayer.LAYERNAME, layer.toString());
     }
 
+    /**
+     * Testcase unsupported exception.
+     * @throws JastacryException on error
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void testUnsupported() throws JastacryException
+    {
+        byte[] buf = testdata.getBytes();
+        final InputStream isEncode = new ByteArrayInputStream(buf);
+        final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
+        layer.encodeAndDecode(isEncode, osEncode);
+    }
+
 }
