@@ -34,7 +34,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
     /**
      * init function.
      *
-     * @param data to initialize nothing.
+     * @param data to initialise nothing.
      */
     @Override
     public final void init(final String data)
@@ -58,7 +58,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
             final byte[] bytes = IOUtils.toByteArray(inputStream);
             final byte[] bytesEncoded = encoder.encode(bytes);
             final ByteArrayInputStream inputByteStream = new ByteArrayInputStream(bytesEncoded);
-            int iCount = IOUtils.copy(inputByteStream, outputStream);
+            final int iCount = IOUtils.copy(inputByteStream, outputStream);
             logger.debug("encStream copied {} bytes", iCount);
         }
         catch (IOException e)
@@ -81,7 +81,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
         {
             final Base64.Decoder decoder = Base64.getDecoder();
             final InputStream isDecoded = decoder.wrap(inputStream);
-            int iCount = IOUtils.copy(isDecoded, outputStream);
+            final int iCount = IOUtils.copy(isDecoded, outputStream);
             logger.debug("decStream copied {} bytes", iCount);
         }
         catch (IOException e)
