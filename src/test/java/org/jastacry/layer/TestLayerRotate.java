@@ -145,7 +145,21 @@ public class TestLayerRotate
     public void testEncStreamException() throws JastacryException, IOException
     {
         Tooling tool = new Tooling();
-        tool.mockupInputOutputStreams(layer);
+        tool.mockupInputOutputEncStreams(layer);
+    }
+
+    /**
+     * Testcase testEncStream Exceptions.
+     *
+     * @throws JastacryException
+     *             in case of error
+     * @throws IOException will be thrown in test
+     */
+    @Test(expected = JastacryException.class)
+    public void testDecStreamException() throws JastacryException, IOException
+    {
+        Tooling tool = new Tooling();
+        tool.mockupInputOutputDecStreams(layer);
     }
 
 }

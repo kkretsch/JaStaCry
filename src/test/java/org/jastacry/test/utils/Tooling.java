@@ -140,7 +140,7 @@ public final class Tooling
      * @throws JastacryException on error
      * @throws IOException on error
      */
-    public void mockupInputOutputStreams(AbstractBasicLayer layer) throws  JastacryException, IOException
+    public void mockupInputOutputEncStreams(AbstractBasicLayer layer) throws  JastacryException, IOException
     {
         InputStream in = org.mockito.Mockito.mock(InputStream.class);
         OutputStream out = org.mockito.Mockito.mock(OutputStream.class);
@@ -148,5 +148,21 @@ public final class Tooling
         //org.mockito.Mockito.when(out.write(0)).thenThrow(new IOException());
         layer.init("1");
         layer.encStream(in, out);
+    }
+
+    /**
+     * General mockup for IO Exceptions.
+     * @param layer The layer to be tested
+     * @throws JastacryException on error
+     * @throws IOException on error
+     */
+    public void mockupInputOutputDecStreams(AbstractBasicLayer layer) throws  JastacryException, IOException
+    {
+        InputStream in = org.mockito.Mockito.mock(InputStream.class);
+        OutputStream out = org.mockito.Mockito.mock(OutputStream.class);
+        org.mockito.Mockito.when(in.read()).thenThrow(new IOException());
+        //org.mockito.Mockito.when(out.write(0)).thenThrow(new IOException());
+        layer.init("1");
+        layer.decStream(in, out);
     }
 }

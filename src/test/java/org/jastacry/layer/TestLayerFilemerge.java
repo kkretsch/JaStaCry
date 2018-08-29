@@ -138,7 +138,7 @@ public class TestLayerFilemerge
     public void testEncStreamException() throws JastacryException, IOException
     {
         Tooling tool = new Tooling();
-        tool.mockupInputOutputStreams(layer);
+        tool.mockupInputOutputEncStreams(layer);
     }
 
     /**

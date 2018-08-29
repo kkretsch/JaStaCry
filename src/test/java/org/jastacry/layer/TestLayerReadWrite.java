@@ -79,4 +79,13 @@ public class TestLayerReadWrite
         layer.encodeAndDecode(isEncode, osEncode);
     }
 
+    /**
+     * Testcase testInit.
+     */
+    @Test
+    public void testInit()
+    {
+        layer.init("");
+    }
+
 }
