@@ -239,7 +239,7 @@ public final class JaStaCry
 
         // Manual check for help, ignoring otherwise mandatory arguments
         final HelpFormatter formatter = new HelpFormatter();
-        if(args.length > 0 && "-h".equalsIgnoreCase(args[0]))
+        if ((args.length > 0) && "-h".equalsIgnoreCase(args[0]))
         {
             formatter.printHelp(GlobalData.HELP, options);
             return Returncode.RC_HELP.getNumVal();
