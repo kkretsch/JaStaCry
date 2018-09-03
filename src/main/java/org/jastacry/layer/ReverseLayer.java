@@ -56,7 +56,7 @@ public class ReverseLayer extends AbstractBasicLayer
      * @param outputStream output data stream
      * @throws JastacryException in case of error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
+    public final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         try
         {

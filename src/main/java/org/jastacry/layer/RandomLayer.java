@@ -53,7 +53,7 @@ public class RandomLayer extends AbstractBasicLayer
      * @param outputStream outgoing data
      * @throws JastacryException thrown on error
      */
-    protected void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
+    public void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         try
         {
