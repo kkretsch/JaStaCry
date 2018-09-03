@@ -268,12 +268,7 @@ public final class JaStaCry
             return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
         }
 
-        if (cmdLine.hasOption(P_SHORT_HELP))
-        {
-            LOGGER.debug("Show help");
-            formatter.printHelp(GlobalData.HELP, options);
-            return LOGGER.traceExit(Returncode.RC_HELP.getNumVal());
-        } // if
+        // No need to check for P_SHORT_HELP here anymore.
 
         // Is verbose?
         isVerbose = cmdLine.hasOption(P_SHORT_VERBOSE);

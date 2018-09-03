@@ -467,7 +467,7 @@ public class TestMain
         final File fDecryptedfile = new File(sDecryptedFile);
 
         final String[] sArgumentsEncrypt = {
-            "--encode", "--text", "--infile", sInputFile, "--outfile", sEncryptedFile, "--conffile", sConfigFile
+            "-e", "-t", "--infile", sInputFile, "--outfile", sEncryptedFile, "--conffile", sConfigFile
         };
         oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
         int returncode = JaStaCry.mainMethod(sArgumentsEncrypt);
@@ -476,7 +476,7 @@ public class TestMain
         assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
 
         final String[] sArgumentsDecrypt = {
-            "-v", "--decode", "--text", "--infile", sEncryptedFile, "--outfile", sDecryptedFile, "--conffile", sConfigFile
+            "-v", "-d", "--text", "--infile", sEncryptedFile, "--outfile", sDecryptedFile, "--conffile", sConfigFile
         };
         oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
         returncode = JaStaCry.mainMethod(sArgumentsDecrypt);
