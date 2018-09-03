@@ -199,25 +199,26 @@ public final class JaStaCry
         options.addOption(P_SHORT_VERBOSE, false, "verbose");
         options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, "text formatted output or input of encrypted data");
 
-        // either/or arguments
+        // either/or arguments, but mandatory as a set
         final OptionGroup ogAction = new OptionGroup();
         Option option;
         option = Option.builder(P_SHORT_ENCODE).required(false).longOpt(P_LONG_ENCODE).desc("encode input stream").build();
         ogAction.addOption(option);
         option = Option.builder(P_SHORT_DECODE).required(false).longOpt(P_LONG_DECODE).desc("decode input stream").build();
         ogAction.addOption(option);
+        ogAction.setRequired(true);
         options.addOptionGroup(ogAction);
 
-        // potential mandatory parameters
-        option = Option.builder(P_SHORT_CONFFILE).required(false).hasArg().longOpt(P_LONG_CONFFILE).argName("FILE")
+        // mandatory parameters
+        option = Option.builder(P_SHORT_CONFFILE).required(true).hasArg().longOpt(P_LONG_CONFFILE).argName("FILE")
                 .desc("use FILE as stack configuration").build();
         options.addOption(option);
 
-        option = Option.builder(P_SHORT_INFILE).required(false).hasArg().longOpt(P_LONG_INFILE).argName("FILE")
+        option = Option.builder(P_SHORT_INFILE).required(true).hasArg().longOpt(P_LONG_INFILE).argName("FILE")
                 .desc("use FILE as input stream").build();
         options.addOption(option);
 
-        option = Option.builder(P_SHORT_OUTFILE).required(false).hasArg().longOpt(P_LONG_OUTFILE).argName("FILE")
+        option = Option.builder(P_SHORT_OUTFILE).required(true).hasArg().longOpt(P_LONG_OUTFILE).argName("FILE")
                 .desc("use FILE as output stream").build();
         options.addOption(option);
 
@@ -236,6 +237,14 @@ public final class JaStaCry
         // Command line parameters
         final Options options = createOptions();
 
+        // Manual check for help, ignoring otherwise mandatory arguments
+        final HelpFormatter formatter = new HelpFormatter();
+        if(args.length > 0 && "-h".equalsIgnoreCase(args[0]))
+        {
+            formatter.printHelp(GlobalData.HELP, options);
+            return Returncode.RC_HELP.getNumVal();
+        } // if
+
         final CommandLineParser parser = new DefaultParser();
         CommandLine cmdLine;
         try
@@ -244,7 +253,6 @@ public final class JaStaCry
         }
         catch (final MissingOptionException exOpt)
         {
-            final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
             return Returncode.RC_ERROR.getNumVal();
         }
@@ -263,7 +271,6 @@ public final class JaStaCry
         if (cmdLine.hasOption(P_SHORT_HELP))
         {
             LOGGER.debug("Show help");
-            final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(GlobalData.HELP, options);
             return LOGGER.traceExit(Returncode.RC_HELP.getNumVal());
         } // if
@@ -276,7 +283,6 @@ public final class JaStaCry
         }
 
         action = Action.UNKOWN;
-
         // is it called with all needed parameters?
         if (cmdLine.hasOption(P_SHORT_ENCODE) || cmdLine.hasOption(P_LONG_ENCODE))
         {
@@ -287,17 +293,6 @@ public final class JaStaCry
             action = Action.DECODE;
         } // if
 
-        /*
-         * Should have been solved by commons-CLI required attribute, which collides to help parameter.
-         */
-        if (Action.UNKOWN == action)
-        {
-            LOGGER.debug("action required");
-            final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp(GlobalData.HELP, options);
-            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
-        }
-
         // Use text format?
         doASCIItransport = cmdLine.hasOption(P_SHORT_ASCII) || cmdLine.hasOption(P_LONG_ASCII);
 
@@ -305,14 +300,6 @@ public final class JaStaCry
         confFilename = cmdLine.getOptionValue(P_LONG_CONFFILE);
         inputFilename = cmdLine.getOptionValue(P_LONG_INFILE);
         outputFilename = cmdLine.getOptionValue(P_LONG_OUTFILE);
-
-        if (null == confFilename || null == inputFilename || null == outputFilename)
-        {
-            LOGGER.debug("argument to parameter required");
-            final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp(GlobalData.HELP, options);
-            return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
-        }
 
         return LOGGER.traceExit(0);
     }
