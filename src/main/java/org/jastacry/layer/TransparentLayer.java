@@ -35,7 +35,7 @@ public class TransparentLayer extends AbstractBasicLayer
      * @param outputStream outgoing data
      * @throws JastacryException thrown on error
      */
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
+    public final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         try
         {

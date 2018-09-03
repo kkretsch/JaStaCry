@@ -15,7 +15,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
-import org.jastacry.layer.AbstractBasicLayer;
+import org.jastacry.layer.Layer;
 
 /**
  * Helper functions for automated tests.
@@ -140,7 +140,7 @@ public final class Tooling
      * @throws JastacryException on error
      * @throws IOException on error
      */
-    public void mockupInputOutputEncStreams(AbstractBasicLayer layer) throws  JastacryException, IOException
+    public void mockupInputOutputEncStreams(Layer layer) throws  JastacryException, IOException
     {
         InputStream in = org.mockito.Mockito.mock(InputStream.class);
         OutputStream out = org.mockito.Mockito.mock(OutputStream.class);
@@ -156,7 +156,7 @@ public final class Tooling
      * @throws JastacryException on error
      * @throws IOException on error
      */
-    public void mockupInputOutputDecStreams(AbstractBasicLayer layer) throws  JastacryException, IOException
+    public void mockupInputOutputDecStreams(Layer layer) throws  JastacryException, IOException
     {
         InputStream in = org.mockito.Mockito.mock(InputStream.class);
         OutputStream out = org.mockito.Mockito.mock(OutputStream.class);

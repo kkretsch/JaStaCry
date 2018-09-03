@@ -91,7 +91,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
     }
 
     @Override
-    protected final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
+    public final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
         throw new UnsupportedOperationException();
     }

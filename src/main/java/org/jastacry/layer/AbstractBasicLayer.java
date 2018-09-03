@@ -17,7 +17,7 @@ import org.jastacry.JastacryException;
  *
  * @author Kai Kretschmann
  */
-public abstract class AbstractBasicLayer implements Runnable
+public abstract class AbstractBasicLayer implements Runnable, Layer
 {
     /**
      * When a byte is too little.
@@ -74,47 +74,6 @@ public abstract class AbstractBasicLayer implements Runnable
         setRealLayerName(layerName);
     }
 
-    /**
-     * Optional method for setting encryption or decryption
-     * parameters like keys or passwords.
-     *
-     * @param data a String containing everything the layer needs to know
-     */
-    public abstract void init(String data);
-
-    /**
-     * Local encode Stream function which does the real thing for Random Layer.
-     *
-     * @param newInputStream incoming data
-     * @param newOutputStream outgoing data
-     * @throws JastacryException thrown on error
-     */
-    protected abstract void encodeAndDecode(InputStream newInputStream, OutputStream newOutputStream)
-            throws JastacryException;
-
-    /**
-     * Encodes either plain text or an encoded layer to the next encoding layer.
-     *
-     * @param newInputStream existing and opened input stream
-     * @param newOutputStream existing and opened output stream
-     * @throws JastacryException if one of the streams fail
-     */
-    public void encStream(final InputStream newInputStream, final OutputStream newOutputStream) throws JastacryException
-    {
-        encodeAndDecode(newInputStream, newOutputStream);
-    }
-
-    /**
-     * Decodes an encrypted stream to either plain text or the next encoded layer.
-     *
-     * @param newInputStream existing and opened input stream
-     * @param newOutputStream existing and opened output stream
-     * @throws JastacryException if one of the streams fail
-     */
-    public void decStream(final InputStream newInputStream, final OutputStream newOutputStream) throws JastacryException
-    {
-        encodeAndDecode(newInputStream, newOutputStream);
-    }
 
     /**
      * Show a human readable name of the layer.
@@ -151,31 +110,28 @@ public abstract class AbstractBasicLayer implements Runnable
         return iTmp;
     }
 
-    /**
-     * Property setter for input stream.
-     *
-     * @param newInputStream the new stream
+    /* (non-Javadoc)
+     * @see org.jastacry.layer.Layer#setInputStream(java.io.InputStream)
      */
+    @Override
     public final void setInputStream(final InputStream newInputStream)
     {
         this.inputStream = newInputStream;
     }
 
-    /**
-     * property setter for output stream.
-     *
-     * @param newOutputStream the new output stream
+    /* (non-Javadoc)
+     * @see org.jastacry.layer.Layer#setOutputStream(java.io.OutputStream)
      */
+    @Override
     public final void setOutputStream(final OutputStream newOutputStream)
     {
         this.outputStream = newOutputStream;
     }
 
-    /**
-     * Property setter for action.
-     *
-     * @param newAction the new action
+    /* (non-Javadoc)
+     * @see org.jastacry.layer.Layer#setAction(org.jastacry.GlobalData.Action)
      */
+    @Override
     public final void setAction(final Action newAction)
     {
         this.action = newAction;
@@ -191,11 +147,10 @@ public abstract class AbstractBasicLayer implements Runnable
         this.endController = newEndController;
     }
 
-    /**
-     * Property setter for realLayerName.
-     *
-     * @param newRealLayerName the new layer name
+    /* (non-Javadoc)
+     * @see org.jastacry.layer.Layer#setRealLayerName(java.lang.String)
      */
+    @Override
     public final void setRealLayerName(final String newRealLayerName)
     {
         this.realLayerName = newRealLayerName;
