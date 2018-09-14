@@ -19,3 +19,6 @@ Afterwards create new global style, name it as you like, load it from the checks
 solved by creating a new registry key as administrator:
 
     Computer\HKEY_LOCAL_MACHINE\SOFTWARE\JavaSoft\Prefs
+
+## Ticket system
+For internal use we now have [https://jira.myocastor.de]( "jira") installed. Tickets can be sent via eMail too.
