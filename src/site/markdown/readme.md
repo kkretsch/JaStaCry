@@ -22,3 +22,6 @@ solved by creating a new registry key as administrator:
 
 ## Ticket system
 For internal use we now have [jira](https://jira.myocastor.de "jira") installed. Tickets can be sent via eMail too.
+
+## Source code repository
+Our git is accessible via [gitea](https://git.kretschmann.software/kai/JaStaCry) gui.
