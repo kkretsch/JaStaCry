@@ -173,7 +173,7 @@ public final class JaStaCry
     public static int mainMethod(final String... args)
     {
         LOGGER.traceEntry();
-        
+
         localizer();
 
         int returncode = setup(args);
@@ -236,7 +236,11 @@ public final class JaStaCry
         return LOGGER.traceExit(options);
     }
 
-    private static void localizer() {
+    /**
+     * Read current locale and load i18n bundle.
+     */
+    private static void localizer()
+    {
         LOGGER.traceEntry();
 
         Locale currentLocale = Locale.getDefault();
@@ -248,7 +252,13 @@ public final class JaStaCry
         LOGGER.traceExit();
     }
 
-    public static String getText(final String key) {
+    /**
+     * Helper function to get translated text from bundle.
+     * @param key String key for value
+     * @return String as translation
+     */
+    public static String getText(final String key)
+    {
         return bundle.getString(key);
     }
 
