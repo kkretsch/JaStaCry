@@ -46,6 +46,25 @@ public class TestLocale
      *
      */
     @Test
+    public void testMainHelpEN()
+    {
+        final String[] sArguments = {
+            "-h"
+        };
+        Locale englishLocale = new Locale("en", "GB");
+        Locale.setDefault(englishLocale);
+    
+        JaStaCry.mainMethod(sArguments);
+        String sOut = outContent.toString();
+        boolean bFound = sOut.contains("show some help");
+        assertTrue("Locale", bFound);
+    }
+
+    /**
+     * Test method help for Main function.
+     *
+     */
+    @Test
     public void testMainHelpDE()
     {
         final String[] sArguments = {
@@ -57,25 +76,6 @@ public class TestLocale
         JaStaCry.mainMethod(sArguments);
         String sOut = outContent.toString();
         boolean bFound = sOut.contains("zeige Hilfe an");
-        assertTrue("Locale", bFound);
-    }
-
-    /**
-     * Test method help for Main function.
-     *
-     */
-    @Test
-    public void testMainHelpEN()
-    {
-        final String[] sArguments = {
-            "-h"
-        };
-        Locale englishLocale = new Locale("en", "GB");
-        Locale.setDefault(englishLocale);
-
-        JaStaCry.mainMethod(sArguments);
-        String sOut = outContent.toString();
-        boolean bFound = sOut.contains("show some help");
         assertTrue("Locale", bFound);
     }
 
