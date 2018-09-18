@@ -1,5 +1,8 @@
 package org.jastacry;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -25,6 +28,11 @@ import net.sourceforge.cobertura.CoverageIgnore;
  */
 public final class JaStaCry
 {
+    /**
+     * Holder of i18n translations.
+     */
+    private static ResourceBundle bundle;
+
     /**
      * Parameter, short version, for "help".
      */
@@ -165,6 +173,9 @@ public final class JaStaCry
     public static int mainMethod(final String... args)
     {
         LOGGER.traceEntry();
+        
+        localizer();
+
         int returncode = setup(args);
         if (0 != returncode)
         {
@@ -195,9 +206,9 @@ public final class JaStaCry
         final Options options = new Options();
 
         // optional parameters
-        options.addOption(P_SHORT_HELP, P_LONG_HELP, false, "show some help");
-        options.addOption(P_SHORT_VERBOSE, false, "verbose");
-        options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, "text formatted output or input of encrypted data");
+        options.addOption(P_SHORT_HELP, P_LONG_HELP, false, getText("help.help"));
+        options.addOption(P_SHORT_VERBOSE, false, getText("help.verbose"));
+        options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, getText("help.ascii"));
 
         // either/or arguments, but mandatory as a set
         final OptionGroup ogAction = new OptionGroup();
@@ -225,6 +236,22 @@ public final class JaStaCry
         return LOGGER.traceExit(options);
     }
 
+    private static void localizer() {
+        LOGGER.traceEntry();
+
+        Locale currentLocale = Locale.getDefault();
+        LOGGER.info("Locale: {}", currentLocale);
+
+        // First read locale i18n stuff
+        bundle = ResourceBundle.getBundle("Bundle");
+
+        LOGGER.traceExit();
+    }
+
+    public static String getText(final String key) {
+        return bundle.getString(key);
+    }
+
     /**
      * Setup environment via command line arguments.
      *
@@ -234,6 +261,7 @@ public final class JaStaCry
     private static int setup(final String... args)
     {
         LOGGER.traceEntry();
+
         // Command line parameters
         final Options options = createOptions();
 
