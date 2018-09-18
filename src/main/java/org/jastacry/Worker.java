@@ -302,14 +302,14 @@ public class Worker
         final String prompt = "Layer " + layername + " Password: ";
         final Console console = System.console();
 
-        if (null != console)
+        if (null == console)
         {
-            final char[] password = console.readPassword(prompt);
-            passwordString = new String(password);
+            LOGGER.error("No interactive console available for password entry!");
         }
         else
         {
-            LOGGER.error("No interactive console available for password entry!");
+            final char[] password = console.readPassword(prompt);
+            passwordString = new String(password);
         } // if
 
         return passwordString;

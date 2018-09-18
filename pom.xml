@@ -4,7 +4,7 @@
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacry</artifactId>
 
-	<version>0.4.16</version>
+	<version>0.4.17</version>
 	<!-- 'mvn scm:tag' will create a new git tag with above value -->
 
 	<description>Java Stacked Crypto</description>
@@ -562,8 +562,8 @@
 		<developerConnection>scm:git:ssh://git@git.kretschmann.software:kai/JaStaCry.git</developerConnection>
 	</scm>
 	<issueManagement>
-		<system>Gitea Issues</system>
-		<url>https://git.kretschmann.software/kai/JaStaCry/issues</url>
+		<system>jira</system>
+		<url>https://jira.myocastor.de/projects/JAS/summary</url>
 	</issueManagement>
 	<ciManagement>
 		<system>Jenkins</system>
