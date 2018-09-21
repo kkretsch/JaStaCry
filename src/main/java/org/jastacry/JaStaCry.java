@@ -179,7 +179,7 @@ public final class JaStaCry
         int returncode = setup(args);
         if (0 != returncode)
         {
-            LOGGER.error("Setup found errors {}", returncode);
+            LOGGER.error(getText("error.setupfound"), returncode);
             return returncode; // NOPMD by kai on 21.11.17 16:59
         } // if
 
@@ -213,9 +213,9 @@ public final class JaStaCry
         // either/or arguments, but mandatory as a set
         final OptionGroup ogAction = new OptionGroup();
         Option option;
-        option = Option.builder(P_SHORT_ENCODE).required(false).longOpt(P_LONG_ENCODE).desc("encode input stream").build();
+        option = Option.builder(P_SHORT_ENCODE).required(false).longOpt(P_LONG_ENCODE).desc(getText("help.encode")).build();
         ogAction.addOption(option);
-        option = Option.builder(P_SHORT_DECODE).required(false).longOpt(P_LONG_DECODE).desc("decode input stream").build();
+        option = Option.builder(P_SHORT_DECODE).required(false).longOpt(P_LONG_DECODE).desc(getText("help.decode")).build();
         ogAction.addOption(option);
         ogAction.setRequired(true);
         options.addOptionGroup(ogAction);
