@@ -121,4 +121,14 @@ public class TestLayerReverse
         tool.mockupInputOutputDecStreams(layer);
     }
 
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEquals()
+    {
+        ReverseLayer l1 = new ReverseLayer();
+        ReverseLayer l2 = new ReverseLayer();
+        assertEquals("Layer equal", l1, l2);
+    }
 }
