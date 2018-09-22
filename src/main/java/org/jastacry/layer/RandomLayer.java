@@ -3,6 +3,7 @@ package org.jastacry.layer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 
 import org.jastacry.JastacryException;
 
@@ -76,4 +77,32 @@ public class RandomLayer extends AbstractBasicLayer
         }
     }
 
+    /**
+     * Override equals method from object class.
+     * @param o object to compare with
+     * @return true or false
+     */
+    public boolean equals(final Object o)
+    {
+        if (o == this)
+        {
+            return true;
+        }
+        if (!(o instanceof RandomLayer))
+        {
+            return false;
+        }
+
+        return false;
+    }
+
+    /**
+     * Override equals method from object class.
+     * @return hash of properties
+     */
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(rand);
+    }
 }

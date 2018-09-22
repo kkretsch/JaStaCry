@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Base64;
+import java.util.Objects;
 
 import org.apache.commons.io.IOUtils;
 import org.jastacry.JastacryException;
@@ -96,4 +97,32 @@ public class AsciiTransportLayer extends AbstractBasicLayer
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Override equals method from object class.
+     * @param o object to compare with
+     * @return true or false
+     */
+    public boolean equals(final Object o)
+    {
+        if (o == this)
+        {
+            return true;
+        }
+        if (!(o instanceof AsciiTransportLayer))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Override equals method from object class.
+     * @return hash of properties
+     */
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash();
+    }
 }

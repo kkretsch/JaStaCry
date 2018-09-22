@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
+import java.util.Objects;
 
 import org.jastacry.JastacryException;
 
@@ -91,4 +92,33 @@ public class FilemergeLayer extends AbstractBasicLayer
         }
     }
 
+    /**
+     * Override equals method from object class.
+     * @param o object to compare with
+     * @return true or false
+     */
+    public boolean equals(final Object o)
+    {
+        if (o == this)
+        {
+            return true;
+        }
+        if (!(o instanceof FilemergeLayer))
+        {
+            return false;
+        }
+
+        final FilemergeLayer layer = (FilemergeLayer) o;
+        return layer.fileMerge.equals(this.fileMerge);
+    }
+
+    /**
+     * Override equals method from object class.
+     * @return hash of properties
+     */
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(fileMerge);
+    }
 }
