@@ -2,6 +2,8 @@ package org.jastacry.layer;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
+import java.util.Objects;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -136,4 +138,33 @@ public class AesCbcLayer extends AbstractCipherLayer
         return KEYSIZE;
     }
 
+    /**
+     * Override equals method from object class.
+     * @param o object to compare with
+     * @return true or false
+     */
+    public boolean equals(final Object o)
+    {
+        if (o == this)
+        {
+            return true;
+        }
+        if (!(o instanceof AesCbcLayer))
+        {
+            return false;
+        }
+
+        final AesCbcLayer layer = (AesCbcLayer) o;
+        return Arrays.equals(layer.chPasswd, this.chPasswd);
+    }
+
+    /**
+     * Override equals method from object class.
+     * @return hash of properties
+     */
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(chPasswd);
+    }
 }

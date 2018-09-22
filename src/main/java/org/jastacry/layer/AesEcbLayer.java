@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Objects;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -140,4 +141,33 @@ public class AesEcbLayer extends AbstractCipherLayer
         return KEYSIZE;
     }
 
+    /**
+     * Override equals method from object class.
+     * @param o object to compare with
+     * @return true or false
+     */
+    public boolean equals(final Object o)
+    {
+        if (o == this)
+        {
+            return true;
+        }
+        if (!(o instanceof AesEcbLayer))
+        {
+            return false;
+        }
+
+        final AesEcbLayer layer = (AesEcbLayer) o;
+        return Arrays.equals(layer.chPasswd, this.chPasswd);
+    }
+
+    /**
+     * Override equals method from object class.
+     * @return hash of properties
+     */
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(chPasswd);
+    }
 }

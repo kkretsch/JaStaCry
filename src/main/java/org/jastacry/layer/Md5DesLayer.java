@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Objects;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -141,5 +142,35 @@ public class Md5DesLayer extends AbstractCipherLayer
     protected int getMyKeysize()
     {
         return KEYSIZE;
+    }
+
+    /**
+     * Override equals method from object class.
+     * @param o object to compare with
+     * @return true or false
+     */
+    public boolean equals(final Object o)
+    {
+        if (o == this)
+        {
+            return true;
+        }
+        if (!(o instanceof Md5DesLayer))
+        {
+            return false;
+        }
+
+        final Md5DesLayer layer = (Md5DesLayer) o;
+        return Arrays.equals(layer.keyBytes, this.keyBytes);
+    }
+
+    /**
+     * Override equals method from object class.
+     * @return hash of properties
+     */
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(keyBytes);
     }
 }
