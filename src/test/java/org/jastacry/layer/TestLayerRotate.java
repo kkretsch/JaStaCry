@@ -162,4 +162,17 @@ public class TestLayerRotate
         tool.mockupInputOutputDecStreams(layer);
     }
 
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEquals()
+    {
+        RotateLayer l1 = new RotateLayer();
+        RotateLayer l2 = new RotateLayer();
+        l1.init(SHIFTSMALL);
+        l2.init(SHIFTSMALL);
+        assertEquals("Layer equal", l1, l2);
+    }
+
 }

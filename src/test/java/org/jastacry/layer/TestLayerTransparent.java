@@ -127,4 +127,15 @@ public class TestLayerTransparent
         tool.mockupInputOutputDecStreams(layer);
     }
 
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEquals()
+    {
+        TransparentLayer l1 = new TransparentLayer();
+        TransparentLayer l2 = new TransparentLayer();
+        assertEquals("Layer equal", l1, l2);
+    }
+
 }

@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.jastacry.JastacryException;
-import org.jastacry.layer.XorLayer;
 import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
@@ -122,6 +121,19 @@ public class TestLayerXor
     public void testToString()
     {
         assertEquals("Layer name mismatch", XorLayer.LAYERNAME, layer.toString());
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEquals()
+    {
+        XorLayer l1 = new XorLayer();
+        XorLayer l2 = new XorLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer equal", l1, l2);
     }
 
 }
