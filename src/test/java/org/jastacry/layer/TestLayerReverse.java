@@ -129,6 +129,17 @@ public class TestLayerReverse
     {
         ReverseLayer l1 = new ReverseLayer();
         ReverseLayer l2 = new ReverseLayer();
-        assertEquals("Layer equal", l1, l2);
+        assertEquals("Layer object equal", l1, l2);
+    }
+
+    /**
+     * Testcase hashcode.
+     */
+    @Test
+    public void testHashcode()
+    {
+        ReverseLayer l1 = new ReverseLayer();
+        ReverseLayer l2 = new ReverseLayer();
+        assertEquals("Layer hash equal", l1.hashCode(), l2.hashCode());
     }
 }

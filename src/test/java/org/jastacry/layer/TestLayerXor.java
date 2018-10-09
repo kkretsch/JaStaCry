@@ -133,7 +133,20 @@ public class TestLayerXor
         XorLayer l2 = new XorLayer();
         l1.init(INITVALUE);
         l2.init(INITVALUE);
-        assertEquals("Layer equal", l1, l2);
+        assertEquals("Layer object equal", l1, l2);
+    }
+
+    /**
+     * Testcase hashcode.
+     */
+    @Test
+    public void testHashcode()
+    {
+        XorLayer l1 = new XorLayer();
+        XorLayer l2 = new XorLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer hash equal", l1.hashCode(), l2.hashCode());
     }
 
 }

@@ -172,7 +172,20 @@ public class TestLayerRotate
         RotateLayer l2 = new RotateLayer();
         l1.init(SHIFTSMALL);
         l2.init(SHIFTSMALL);
-        assertEquals("Layer equal", l1, l2);
+        assertEquals("Layer object equal", l1, l2);
+    }
+
+    /**
+     * Testcase hashcode.
+     */
+    @Test
+    public void testHashcode()
+    {
+        RotateLayer l1 = new RotateLayer();
+        RotateLayer l2 = new RotateLayer();
+        l1.init(SHIFTSMALL);
+        l2.init(SHIFTSMALL);
+        assertEquals("Layer hash equal", l1.hashCode(), l2.hashCode());
     }
 
 }

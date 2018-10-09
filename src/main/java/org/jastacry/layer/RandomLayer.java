@@ -28,12 +28,30 @@ public class RandomLayer extends AbstractBasicLayer
     private final java.util.Random rand = new java.util.Random();
 
     /**
+     * Random number seed.
+     */
+    private long seed;
+
+    /**
      * Constructor of RandomLayer.
      */
     public RandomLayer()
     {
         super(RandomLayer.class, LAYERNAME);
     }
+
+    
+    public final long getSeed()
+    {
+        return seed;
+    }
+
+
+    public final void setSeed(long seed)
+    {
+        this.seed = seed;
+    }
+
 
     /**
      * init function.
@@ -43,8 +61,8 @@ public class RandomLayer extends AbstractBasicLayer
     @Override
     public final void init(final String data)
     {
-        final long sSeed = Long.parseLong(data);
-        rand.setSeed(sSeed);
+        this.seed = Long.parseLong(data);
+        rand.setSeed(seed);
     }
 
     /**
@@ -93,7 +111,8 @@ public class RandomLayer extends AbstractBasicLayer
             return false;
         }
 
-        return false;
+        final RandomLayer layer = (RandomLayer) o;
+        return layer.getSeed() == this.getSeed();
     }
 
     /**
@@ -103,6 +122,6 @@ public class RandomLayer extends AbstractBasicLayer
     @Override
     public int hashCode()
     {
-        return Objects.hash(rand);
+        return Objects.hash(seed);
     }
 }
