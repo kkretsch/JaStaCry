@@ -139,6 +139,29 @@ public class TestLayerRandom
     }
 
     /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsNull()
+    {
+        RandomLayer l1 = new RandomLayer();
+        l1.init(INITVALUE);
+        assertEquals("Layer object null unequal", l1.equals(null), false);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsWrongclass()
+    {
+        RandomLayer l1 = new RandomLayer();
+        Object o = new Object();
+        l1.init(INITVALUE);
+        assertEquals("Layer object null unequal", l1.equals(o), false);
+    }
+
+    /**
      * Testcase hashcode.
      */
     @Test

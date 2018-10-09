@@ -176,6 +176,29 @@ public class TestLayerRotate
     }
 
     /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsNull()
+    {
+        RotateLayer l1 = new RotateLayer();
+        l1.init(SHIFTSMALL);
+        assertEquals("Layer object null unequal", l1.equals(null), false);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsWrongclass()
+    {
+        RotateLayer l1 = new RotateLayer();
+        Object o = new Object();
+        l1.init(SHIFTSMALL);
+        assertEquals("Layer object null unequal", l1.equals(o), false);
+    }
+
+    /**
      * Testcase hashcode.
      */
     @Test
