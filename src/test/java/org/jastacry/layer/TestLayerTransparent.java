@@ -135,7 +135,18 @@ public class TestLayerTransparent
     {
         TransparentLayer l1 = new TransparentLayer();
         TransparentLayer l2 = new TransparentLayer();
-        assertEquals("Layer equal", l1, l2);
+        assertEquals("Layer object equal", l1, l2);
+    }
+
+    /**
+     * Testcase hashcode.
+     */
+    @Test
+    public void testHashcode()
+    {
+        TransparentLayer l1 = new TransparentLayer();
+        TransparentLayer l2 = new TransparentLayer();
+        assertEquals("Layer hash equal", l1.hashCode(), l2.hashCode());
     }
 
 }

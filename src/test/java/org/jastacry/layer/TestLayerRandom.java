@@ -125,4 +125,30 @@ public class TestLayerRandom
         tool.mockupInputOutputDecStreams(layer);
     }
 
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEquals()
+    {
+        RandomLayer l1 = new RandomLayer();
+        RandomLayer l2 = new RandomLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer object equal", l1, l2);
+    }
+
+    /**
+     * Testcase hashcode.
+     */
+    @Test
+    public void testHashcode()
+    {
+        RandomLayer l1 = new RandomLayer();
+        RandomLayer l2 = new RandomLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer hash equal", l1.hashCode(), l2.hashCode());
+    }
+
 }
