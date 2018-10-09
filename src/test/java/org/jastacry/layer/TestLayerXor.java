@@ -137,6 +137,29 @@ public class TestLayerXor
     }
 
     /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsNull()
+    {
+        XorLayer l1 = new XorLayer();
+        l1.init(INITVALUE);
+        assertEquals("Layer object null unequal", l1.equals(null), false);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsWrongclass()
+    {
+        XorLayer l1 = new XorLayer();
+        Object o = new Object();
+        l1.init(INITVALUE);
+        assertEquals("Layer object null unequal", l1.equals(o), false);
+    }
+
+    /**
      * Testcase hashcode.
      */
     @Test

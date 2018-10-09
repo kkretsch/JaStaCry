@@ -139,6 +139,27 @@ public class TestLayerTransparent
     }
 
     /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsNull()
+    {
+        TransparentLayer l1 = new TransparentLayer();
+        assertEquals("Layer object null unequal", l1.equals(null), false);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsWrongclass()
+    {
+        TransparentLayer l1 = new TransparentLayer();
+        Object o = new Object();
+        assertEquals("Layer object null unequal", l1.equals(o), false);
+    }
+
+    /**
      * Testcase hashcode.
      */
     @Test
