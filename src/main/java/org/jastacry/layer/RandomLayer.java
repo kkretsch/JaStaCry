@@ -40,28 +40,33 @@ public class RandomLayer extends AbstractBasicLayer
         super(RandomLayer.class, LAYERNAME);
     }
 
-    
+    /**
+     * Getter method.
+     * @return long seed value
+     */
     public final long getSeed()
     {
         return seed;
     }
 
-
+    /**
+     * Setter method.
+     * @param seed long value
+     */
     public final void setSeed(long seed)
     {
         this.seed = seed;
     }
 
-
     /**
-     * init function.
+     * Init function.
      *
      * @param data to initialise the random seed value.
      */
     @Override
     public final void init(final String data)
     {
-        this.seed = Long.parseLong(data);
+        setSeed(Long.parseLong(data));
         rand.setSeed(seed);
     }
 

@@ -182,8 +182,9 @@ public class TestLayerRotate
     public void testNotEqualsNull()
     {
         RotateLayer l1 = new RotateLayer();
+        Object o = null;
         l1.init(SHIFTSMALL);
-        assertEquals("Layer object null unequal", l1.equals(null), false);
+        assertEquals("Layer object null unequal", l1.equals(o), false);
     }
 
     /**
