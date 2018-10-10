@@ -142,6 +142,16 @@ public class TestLayerTransparent
      * Testcase equals.
      */
     @Test
+    public void testEqualsSame()
+    {
+        TransparentLayer l1 = new TransparentLayer();
+        assertEquals("Layer object same", l1, l1);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
     public void testNotEqualsNull()
     {
         TransparentLayer l1 = new TransparentLayer();

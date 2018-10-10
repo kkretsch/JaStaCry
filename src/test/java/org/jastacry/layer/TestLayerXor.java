@@ -140,6 +140,17 @@ public class TestLayerXor
      * Testcase equals.
      */
     @Test
+    public void testEqualsSame()
+    {
+        XorLayer l1 = new XorLayer();
+        l1.init(INITVALUE);
+        assertEquals("Layer object same", l1, l1);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
     public void testNotEqualsNull()
     {
         XorLayer l1 = new XorLayer();

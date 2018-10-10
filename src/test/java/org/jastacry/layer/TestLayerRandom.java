@@ -142,6 +142,17 @@ public class TestLayerRandom
      * Testcase equals.
      */
     @Test
+    public void testEqualsSame()
+    {
+        RandomLayer l1 = new RandomLayer();
+        l1.init(INITVALUE);
+        assertEquals("Layer object same", l1, l1);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
     public void testNotEqualsNull()
     {
         RandomLayer l1 = new RandomLayer();

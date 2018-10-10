@@ -179,6 +179,17 @@ public class TestLayerRotate
      * Testcase equals.
      */
     @Test
+    public void testEqualsSame()
+    {
+        RotateLayer l1 = new RotateLayer();
+        l1.init(SHIFTSMALL);
+        assertEquals("Layer object same", l1, l1);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
     public void testNotEqualsNull()
     {
         RotateLayer l1 = new RotateLayer();

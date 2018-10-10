@@ -136,6 +136,16 @@ public class TestLayerReverse
      * Testcase equals.
      */
     @Test
+    public void testEqualsSame()
+    {
+        ReverseLayer l1 = new ReverseLayer();
+        assertEquals("Layer object same", l1, l1);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
     public void testNotEqualsNull()
     {
         ReverseLayer l1 = new ReverseLayer();
