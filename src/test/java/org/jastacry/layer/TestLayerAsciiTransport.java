@@ -172,6 +172,16 @@ public class TestLayerAsciiTransport
      * Testcase equals.
      */
     @Test
+    public void testEqualsSame()
+    {
+        AsciiTransportLayer l1 = new AsciiTransportLayer();
+        assertEquals("Layer object same", l1, l1);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
     public void testNotEqualsNull()
     {
         AsciiTransportLayer l1 = new AsciiTransportLayer();
