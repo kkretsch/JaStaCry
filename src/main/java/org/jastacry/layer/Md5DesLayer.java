@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.Objects;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -172,6 +171,6 @@ public class Md5DesLayer extends AbstractCipherLayer
     @Override
     public int hashCode()
     {
-        return Objects.hash(keyBytes);
+        return java.util.Arrays.hashCode(keyBytes);
     }
 }

@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
@@ -12,8 +11,6 @@ import java.net.MalformedURLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
-import org.jastacry.layer.Md5DesLayer;
-import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -53,11 +50,6 @@ public class TestLayerMd5Des
     private static final String INITVALUE = "Passwort123";
 
     /**
-     * Tooling functions object.
-     */
-    private Tooling tooling;
-
-    /**
      * The BeforeClass method.
      *
      * @throws MalformedURLException
@@ -78,8 +70,6 @@ public class TestLayerMd5Des
     @Before
     public void setUp() throws Exception
     {
-        tooling = new Tooling();
-
         layerEncrypt = new Md5DesLayer();
         layerEncrypt.init(INITVALUE);
         layerDecrypt = new Md5DesLayer();
@@ -131,6 +121,67 @@ public class TestLayerMd5Des
     public void testToString()
     {
         assertEquals("Layer name mismatch", Md5DesLayer.LAYERNAME, layerEncrypt.toString());
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEquals()
+    {
+        Md5DesLayer l1 = new Md5DesLayer();
+        Md5DesLayer l2 = new Md5DesLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer object equal", l1, l2);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEqualsSame()
+    {
+        Md5DesLayer l1 = new Md5DesLayer();
+        l1.init(INITVALUE);
+        assertEquals("Layer object same", l1, l1);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsNull()
+    {
+        Md5DesLayer l1 = new Md5DesLayer();
+        l1.init(INITVALUE);
+        Object o = null;
+        assertEquals("Layer object null unequal", l1.equals(o), false);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsWrongclass()
+    {
+        Md5DesLayer l1 = new Md5DesLayer();
+        l1.init(INITVALUE);
+        Object o = new Object();
+        assertEquals("Layer object wrong class unequal", l1.equals(o), false);
+    }
+
+    /**
+     * Testcase hashcode.
+     */
+    @Test
+    public void testHashcode()
+    {
+        Md5DesLayer l1 = new Md5DesLayer();
+        Md5DesLayer l2 = new Md5DesLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer hash equal", l1.hashCode(), l2.hashCode());
     }
 
 }
