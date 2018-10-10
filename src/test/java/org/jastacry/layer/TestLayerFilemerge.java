@@ -164,4 +164,64 @@ public class TestLayerFilemerge
         assertEquals("Layer name mismatch", FilemergeLayer.LAYERNAME, layer.toString());
     }
 
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEquals()
+    {
+        FilemergeLayer l1 = new FilemergeLayer();
+        FilemergeLayer l2 = new FilemergeLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer object equal", l1, l2);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEqualsSame()
+    {
+        FilemergeLayer l1 = new FilemergeLayer();
+        l1.init(INITVALUE);
+        assertEquals("Layer object same", l1, l1);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsNull()
+    {
+        FilemergeLayer l1 = new FilemergeLayer();
+        l1.init(INITVALUE);
+        Object o = null;
+        assertEquals("Layer object null unequal", l1.equals(o), false);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsWrongclass()
+    {
+        FilemergeLayer l1 = new FilemergeLayer();
+        l1.init(INITVALUE);
+        Object o = new Object();
+        assertEquals("Layer object wrong class unequal", l1.equals(o), false);
+    }
+
+    /**
+     * Testcase hashcode.
+     */
+    @Test
+    public void testHashcode()
+    {
+        FilemergeLayer l1 = new FilemergeLayer();
+        FilemergeLayer l2 = new FilemergeLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer hash equal", l1.hashCode(), l2.hashCode());
+    }
 }
