@@ -145,8 +145,9 @@ public class TestLayerRandom
     public void testNotEqualsNull()
     {
         RandomLayer l1 = new RandomLayer();
+        Object o = null;
         l1.init(INITVALUE);
-        assertEquals("Layer object null unequal", l1.equals(null), false);
+        assertEquals("Layer object null unequal", l1.equals(o), false);
     }
 
     /**
