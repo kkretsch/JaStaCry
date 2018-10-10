@@ -125,4 +125,65 @@ public class TestLayerAesCtr
         assertEquals("Layer name mismatch", AesCtrLayer.LAYERNAME, layerEncrypt.toString());
     }
 
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEquals()
+    {
+        AesCtrLayer l1 = new AesCtrLayer();
+        AesCtrLayer l2 = new AesCtrLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer object equal", l1, l2);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEqualsSame()
+    {
+        AesCtrLayer l1 = new AesCtrLayer();
+        l1.init(INITVALUE);
+        assertEquals("Layer object same", l1, l1);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsNull()
+    {
+        AesCtrLayer l1 = new AesCtrLayer();
+        l1.init(INITVALUE);
+        Object o = null;
+        assertEquals("Layer object null unequal", false, l1.equals(o));
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsWrongclass()
+    {
+        AesCtrLayer l1 = new AesCtrLayer();
+        l1.init(INITVALUE);
+        Object o = new Object();
+        assertEquals("Layer object wrong class unequal", false, l1.equals(o));
+    }
+
+    /**
+     * Testcase hashcode.
+     */
+    @Test
+    public void testHashcode()
+    {
+        AesCtrLayer l1 = new AesCtrLayer();
+        AesCtrLayer l2 = new AesCtrLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer hash equal", l1.hashCode(), l2.hashCode());
+    }
+
 }

@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.Objects;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -170,6 +169,6 @@ public class AesCtrLayer extends AbstractCipherLayer
     @Override
     public int hashCode()
     {
-        return Objects.hash(chPasswd);
+        return java.util.Arrays.hashCode(chPasswd);
     }
 }
