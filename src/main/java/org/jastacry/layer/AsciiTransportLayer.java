@@ -102,6 +102,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
      * @param o object to compare with
      * @return true or false
      */
+    @Override
     public boolean equals(final Object o)
     {
         if (o == this)
