@@ -149,6 +149,7 @@ public class Md5DesLayer extends AbstractCipherLayer
      * @param o object to compare with
      * @return true or false
      */
+    @Override
     public boolean equals(final Object o)
     {
         if (o == this)
