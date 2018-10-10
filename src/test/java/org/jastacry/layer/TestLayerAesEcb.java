@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
@@ -12,8 +11,6 @@ import java.net.MalformedURLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
-import org.jastacry.layer.AesEcbLayer;
-import org.jastacry.test.utils.Tooling;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -123,6 +120,67 @@ public class TestLayerAesEcb
     public void testToString()
     {
         assertEquals("Layer name mismatch", AesEcbLayer.LAYERNAME, layerEncrypt.toString());
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEquals()
+    {
+        AesEcbLayer l1 = new AesEcbLayer();
+        AesEcbLayer l2 = new AesEcbLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer object equal", l1, l2);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEqualsSame()
+    {
+        AesEcbLayer l1 = new AesEcbLayer();
+        l1.init(INITVALUE);
+        assertEquals("Layer object same", l1, l1);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsNull()
+    {
+        AesEcbLayer l1 = new AesEcbLayer();
+        l1.init(INITVALUE);
+        Object o = null;
+        assertEquals("Layer object null unequal", false, l1.equals(o));
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsWrongclass()
+    {
+        AesEcbLayer l1 = new AesEcbLayer();
+        l1.init(INITVALUE);
+        Object o = new Object();
+        assertEquals("Layer object wrong class unequal", false, l1.equals(o));
+    }
+
+    /**
+     * Testcase hashcode.
+     */
+    @Test
+    public void testHashcode()
+    {
+        AesEcbLayer l1 = new AesEcbLayer();
+        AesEcbLayer l2 = new AesEcbLayer();
+        l1.init(INITVALUE);
+        l2.init(INITVALUE);
+        assertEquals("Layer hash equal", l1.hashCode(), l2.hashCode());
     }
 
 }
