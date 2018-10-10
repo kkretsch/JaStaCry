@@ -157,4 +157,47 @@ public class TestLayerAsciiTransport
         layer.encodeAndDecode(isEncode, osEncode);
     }
 
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testEquals()
+    {
+        AsciiTransportLayer l1 = new AsciiTransportLayer();
+        AsciiTransportLayer l2 = new AsciiTransportLayer();
+        assertEquals("Layer object equal", l1, l2);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsNull()
+    {
+        AsciiTransportLayer l1 = new AsciiTransportLayer();
+        Object o = null;
+        assertEquals("Layer object null unequal", l1.equals(o), false);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsWrongclass()
+    {
+        AsciiTransportLayer l1 = new AsciiTransportLayer();
+        Object o = new Object();
+        assertEquals("Layer object wrong class unequal", l1.equals(o), false);
+    }
+
+    /**
+     * Testcase hashcode.
+     */
+    @Test
+    public void testHashcode()
+    {
+        AsciiTransportLayer l1 = new AsciiTransportLayer();
+        AsciiTransportLayer l2 = new AsciiTransportLayer();
+        assertEquals("Layer hash equal", l1.hashCode(), l2.hashCode());
+    }
 }
