@@ -133,6 +133,28 @@ public class TestLayerReverse
     }
 
     /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsNull()
+    {
+        ReverseLayer l1 = new ReverseLayer();
+        Object o = null;
+        assertEquals("Layer object null unequal", l1.equals(o), false);
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEqualsWrongclass()
+    {
+        ReverseLayer l1 = new ReverseLayer();
+        Object o = new Object();
+        assertEquals("Layer object wrong class unequal", l1.equals(o), false);
+    }
+
+    /**
      * Testcase hashcode.
      */
     @Test
