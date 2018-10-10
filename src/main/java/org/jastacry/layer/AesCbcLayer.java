@@ -166,6 +166,6 @@ public class AesCbcLayer extends AbstractCipherLayer
     @Override
     public int hashCode()
     {
-        return Objects.hash(chPasswd);
+        return java.util.Arrays.hashCode(chPasswd);
     }
 }
