@@ -73,16 +73,7 @@ public class TransparentLayer extends AbstractBasicLayer
     @Override
     public boolean equals(final Object o)
     {
-        if (o == this)
-        {
-            return true;
-        }
-        if (!(o instanceof TransparentLayer))
-        {
-            return false;
-        }
-
-        return true;
+        return (o == this) || (o instanceof TransparentLayer);
     }
 
     /**
