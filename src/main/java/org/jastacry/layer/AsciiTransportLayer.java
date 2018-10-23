@@ -105,7 +105,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
     @Override
     public boolean equals(final Object o)
     {
-        return (o == this) || (o instanceof AsciiTransportLayer);
+        return o == this || o instanceof AsciiTransportLayer;
     }
 
     /**
