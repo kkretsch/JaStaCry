@@ -243,7 +243,7 @@ public final class JaStaCry
     {
         LOGGER.traceEntry();
 
-        Locale currentLocale = Locale.getDefault();
+        final Locale currentLocale = Locale.getDefault();
         LOGGER.info("Locale: {}", currentLocale);
 
         // First read locale i18n stuff

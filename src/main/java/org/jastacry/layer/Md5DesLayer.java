@@ -171,6 +171,6 @@ public class Md5DesLayer extends AbstractCipherLayer
     @Override
     public int hashCode()
     {
-        return java.util.Arrays.hashCode(keyBytes);
+        return Arrays.hashCode(keyBytes);
     }
 }

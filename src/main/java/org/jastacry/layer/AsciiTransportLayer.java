@@ -105,16 +105,21 @@ public class AsciiTransportLayer extends AbstractBasicLayer
     @Override
     public boolean equals(final Object o)
     {
+        boolean bResult;
+
         if (o == this)
         {
-            return true;
-        }
-        if (!(o instanceof AsciiTransportLayer))
-        {
-            return false;
+            bResult = true;
+        } else {
+            if (!(o instanceof AsciiTransportLayer))
+            {
+                bResult = false;
+            } else {
+                bResult = true;
+            }
         }
 
-        return true;
+        return bResult;
     }
 
     /**
