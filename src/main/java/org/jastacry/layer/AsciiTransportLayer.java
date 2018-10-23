@@ -110,11 +110,15 @@ public class AsciiTransportLayer extends AbstractBasicLayer
         if (o == this)
         {
             bResult = true;
-        } else {
+        }
+        else
+        {
             if (!(o instanceof AsciiTransportLayer))
             {
                 bResult = false;
-            } else {
+            }
+            else
+            {
                 bResult = true;
             }
         }

@@ -51,11 +51,11 @@ public class RandomLayer extends AbstractBasicLayer
 
     /**
      * Setter method.
-     * @param seed long value
+     * @param newSeed long value
      */
-    public final void setSeed(long seed)
+    public final void setSeed(final long newSeed)
     {
-        this.seed = seed;
+        this.seed = newSeed;
     }
 
     /**
