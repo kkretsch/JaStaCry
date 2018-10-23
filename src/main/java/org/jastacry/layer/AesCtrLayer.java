@@ -169,6 +169,6 @@ public class AesCtrLayer extends AbstractCipherLayer
     @Override
     public int hashCode()
     {
-        return java.util.Arrays.hashCode(chPasswd);
+        return Arrays.hashCode(chPasswd);
     }
 }
