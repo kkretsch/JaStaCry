@@ -78,16 +78,7 @@ public class ReadWriteLayer extends AbstractBasicLayer
      */
     public boolean equals(final Object o)
     {
-        if (o == this)
-        {
-            return true;
-        }
-        if (!(o instanceof ReadWriteLayer))
-        {
-            return false;
-        }
-
-        return true;
+        return o == this || o instanceof ReadWriteLayer;
     }
 
     /**

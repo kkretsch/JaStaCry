@@ -115,17 +115,7 @@ public class RotateLayer extends AbstractBasicLayer
     @Override
     public boolean equals(final Object o)
     {
-        if (o == this)
-        {
-            return true;
-        }
-        if (!(o instanceof RotateLayer))
-        {
-            return false;
-        }
-
-        final RotateLayer layer = (RotateLayer) o;
-        return layer.offset == this.offset;
+        return o == this || (o instanceof XorLayer && ((RotateLayer) o).offset == this.offset);
     }
 
     /**
