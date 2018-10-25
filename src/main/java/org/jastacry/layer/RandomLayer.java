@@ -108,7 +108,7 @@ public class RandomLayer extends AbstractBasicLayer
     @Override
     public boolean equals(final Object o)
     {
-        return o == this || (o instanceof RandomLayer && ((RandomLayer) o).getSeed() == this.getSeed());
+        return o == this || o instanceof RandomLayer && ((RandomLayer) o).getSeed() == this.getSeed();
      }
 
     /**
