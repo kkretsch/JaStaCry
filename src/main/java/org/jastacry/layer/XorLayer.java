@@ -80,17 +80,7 @@ public class XorLayer extends AbstractBasicLayer
     @Override
     public boolean equals(final Object o)
     {
-        if (o == this)
-        {
-            return true;
-        }
-        if (!(o instanceof XorLayer))
-        {
-            return false;
-        }
-
-        final XorLayer layer = (XorLayer) o;
-        return layer.bitMask == this.bitMask;
+        return o == this || (o instanceof XorLayer && ((XorLayer) o).bitMask == this.bitMask);
     }
 
     /**
