@@ -87,16 +87,7 @@ public class ReverseLayer extends AbstractBasicLayer
     @Override
     public boolean equals(final Object o)
     {
-        if (o == this)
-        {
-            return true;
-        }
-        if (!(o instanceof ReverseLayer))
-        {
-            return false;
-        }
-
-        return true;
+        return o == this || o instanceof ReverseLayer;
     }
 
     /**
