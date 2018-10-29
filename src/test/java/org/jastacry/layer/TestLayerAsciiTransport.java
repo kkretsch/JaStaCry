@@ -259,9 +259,6 @@ public class TestLayerAsciiTransport
     /**
      * Test method for {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)} .
      *
-     * @throws JastacryException
-     *             in case of error.
-     * @throws IOException in case of error
      */
     @Test
     public void testRun()
