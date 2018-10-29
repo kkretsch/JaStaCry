@@ -9,10 +9,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.CountDownLatch;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jastacry.GlobalData.Action;
 import org.jastacry.JastacryException;
 import org.junit.After;
 import org.junit.Before;
@@ -47,6 +49,8 @@ public class TestLayerAsciiTransport
      */
     private AsciiTransportLayer layer = null;
 
+    private CountDownLatch endController = new CountDownLatch(2);
+    
     /**
      * The BeforeClass method.
      *
@@ -250,6 +254,40 @@ public class TestLayerAsciiTransport
             }
         };
         layer.decStream(is, os);
+    }
+
+    /**
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)} .
+     *
+     * @throws JastacryException
+     *             in case of error.
+     * @throws IOException in case of error
+     */
+    @Test
+    public void testRun()
+    {
+        final InputStream is = new InputStream()
+        {
+            @Override
+            public int read() throws IOException
+            {
+                throw new IOException("Expected as a test");
+            }
+        };
+        is.mark(0);
+        final OutputStream os = new OutputStream()
+        {
+            @Override
+            public void write(int i) throws IOException
+            {
+                throw new IOException("Expected as a test");
+            }
+        };
+        layer.inputStream = is;
+        layer.outputStream = os;
+        layer.setEndController(endController);
+        layer.setAction(Action.ENCODE);
+        layer.run();
     }
 
     /**
