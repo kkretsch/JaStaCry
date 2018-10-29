@@ -196,6 +196,63 @@ public class TestLayerAsciiTransport
     }
 
     /**
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)} .
+     *
+     * @throws JastacryException
+     *             in case of error.
+     * @throws IOException in case of error
+     */
+    @Test(expected = IOException.class)
+    // TestLink(externalId = "JAS-13")
+    public void testDecStreamExceptionIn() throws JastacryException, IOException
+    {
+        final InputStream is = new InputStream()
+        {
+            @Override
+            public int read() throws IOException
+            {
+                throw new IOException("Expected as a test");
+            }
+        };
+        is.mark(0);
+        final String text = IOUtils.toString(is, StandardCharsets.UTF_8.name());
+        is.reset();
+        oLogger.debug("testDecStream is='{}'", text);
+        oLogger.debug("size of encoded text is {}", testdataEncoded.length());
+        final OutputStream os = new ByteArrayOutputStream();
+        layer.decStream(is, os);
+    }
+
+    /**
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)} .
+     *
+     * @throws JastacryException
+     *             in case of error.
+     * @throws IOException in case of error
+     */
+    @Test(expected = JastacryException.class)
+    // TestLink(externalId = "JAS-13")
+    public void testDecStreamExceptionOut() throws JastacryException, IOException
+    {
+        final byte[] buf = testdataEncoded.getBytes();
+        final InputStream is = new ByteArrayInputStream(buf);
+        is.mark(0);
+        final String text = IOUtils.toString(is, StandardCharsets.UTF_8.name());
+        is.reset();
+        oLogger.debug("testDecStream is='{}'", text);
+        oLogger.debug("size of encoded text is {}", testdataEncoded.length());
+        final OutputStream os = new OutputStream()
+        {
+            @Override
+            public void write(int i) throws IOException
+            {
+                throw new IOException("Expected as a test");
+            }
+        };
+        layer.decStream(is, os);
+    }
+
+    /**
      * Test method for {@link org.jastacry.layer.AsciiTransportLayer#toString()} .
      */
     @Test
