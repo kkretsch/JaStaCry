@@ -110,6 +110,68 @@ public class TestLayerAsciiTransport
     }
 
     /**
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#encStream(java.io.InputStream, java.io.OutputStream)} .
+     *
+     * @throws JastacryException
+     *             in case of error.
+     * @throws IOException i case of error
+     */
+    @Test(expected = IOException.class)
+    // TestLink(externalId = "JAS-12")
+    public void testEncStreamExceptionIn() throws JastacryException, IOException
+    {
+        final InputStream is = new InputStream()
+        {
+            @Override
+            public int read() throws IOException
+            {
+                throw new IOException("Expected as a test");
+            }
+        };
+        is.mark(0);
+        final String text = IOUtils.toString(is, StandardCharsets.UTF_8.name());
+        is.reset();
+        oLogger.debug("testEncStream is='{}'", text);
+        oLogger.debug("size of input text is {}", testdata.length());
+        final OutputStream os = new ByteArrayOutputStream();
+        layer.encStream(is, os);
+        os.flush();
+        oLogger.debug("testEncStream os='{}'", os.toString());
+    }
+
+    /**
+     * Test method for {@link org.jastacry.layer.AsciiTransportLayer#encStream(java.io.InputStream, java.io.OutputStream)} .
+     *
+     * @throws JastacryException
+     *             in case of error.
+     * @throws IOException i case of error
+     */
+    @Test(expected = JastacryException.class)
+    // TestLink(externalId = "JAS-12")
+    public void testEncStreamExceptionOut() throws JastacryException, IOException
+    {
+        final byte[] buf = testdata.getBytes();
+        final InputStream is = new ByteArrayInputStream(buf);
+        is.mark(0);
+        final String text = IOUtils.toString(is, StandardCharsets.UTF_8.name());
+        is.reset();
+        oLogger.debug("testEncStream is='{}'", text);
+        oLogger.debug("size of input text is {}", testdata.length());
+        final OutputStream os = new OutputStream()
+        {
+            @Override
+            public void write(int i) throws IOException
+            {
+                throw new IOException("Expected as a test");
+            }
+        };
+
+        layer.encStream(is, os);
+        os.flush();
+        oLogger.debug("testEncStream os='{}'", os.toString());
+    }
+
+    /**
      * Test method for {@link org.jastacry.layer.AsciiTransportLayer#decStream(java.io.InputStream, java.io.OutputStream)} .
      *
      * @throws JastacryException
