@@ -172,7 +172,20 @@ public class TestLayerRotate
         RotateLayer l2 = new RotateLayer();
         l1.init(SHIFTSMALL);
         l2.init(SHIFTSMALL);
-        assertEquals("Layer object equal", l1, l2);
+        assertEquals("Layer object equal", true, l1.equals(l2));
+    }
+
+    /**
+     * Testcase not equals.
+     */
+    @Test
+    public void testNotEquals()
+    {
+        RotateLayer l1 = new RotateLayer();
+        RotateLayer l2 = new RotateLayer();
+        l1.init(SHIFTSMALL);
+        l2.init(SHIFTWIDE);
+        assertEquals("Layer object not equal", false, l1.equals(l2));
     }
 
     /**
@@ -207,7 +220,7 @@ public class TestLayerRotate
         RotateLayer l1 = new RotateLayer();
         Object o = new Object();
         l1.init(SHIFTSMALL);
-        assertEquals("Layer object null unequal", false, l1.equals(o));
+        assertEquals("Layer object type unequal", false, l1.equals(o));
     }
 
     /**
