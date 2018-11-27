@@ -133,7 +133,20 @@ public class TestLayerXor
         XorLayer l2 = new XorLayer();
         l1.init(INITVALUE);
         l2.init(INITVALUE);
-        assertEquals("Layer object equal", l1, l2);
+        assertEquals("Layer object equal", true, l1.equals(l2));
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEquals()
+    {
+        XorLayer l1 = new XorLayer();
+        XorLayer l2 = new XorLayer();
+        l1.init(INITVALUE);
+        l2.init("321");
+        assertEquals("Layer object not equal", false, l1.equals(l2));
     }
 
     /**
@@ -144,7 +157,7 @@ public class TestLayerXor
     {
         XorLayer l1 = new XorLayer();
         l1.init(INITVALUE);
-        assertEquals("Layer object same", l1, l1);
+        assertEquals("Layer object same", true, l1.equals(l1));
     }
 
     /**
@@ -154,8 +167,9 @@ public class TestLayerXor
     public void testNotEqualsNull()
     {
         XorLayer l1 = new XorLayer();
+        Object o = null;
         l1.init(INITVALUE);
-        assertEquals("Layer object null unequal", l1.equals(null), false);
+        assertEquals("Layer object null unequal", false, l1.equals(o));
     }
 
     /**
@@ -167,7 +181,7 @@ public class TestLayerXor
         XorLayer l1 = new XorLayer();
         Object o = new Object();
         l1.init(INITVALUE);
-        assertEquals("Layer object null unequal", l1.equals(o), false);
+        assertEquals("Layer object null unequal", false, l1.equals(o));
     }
 
     /**
