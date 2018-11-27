@@ -135,7 +135,20 @@ public class TestLayerRandom
         RandomLayer l2 = new RandomLayer();
         l1.init(INITVALUE);
         l2.init(INITVALUE);
-        assertEquals("Layer object equal", l1, l2);
+        assertEquals("Layer object equal", true, l1.equals(l2));
+    }
+
+    /**
+     * Testcase equals.
+     */
+    @Test
+    public void testNotEquals()
+    {
+        RandomLayer l1 = new RandomLayer();
+        RandomLayer l2 = new RandomLayer();
+        l1.init(INITVALUE);
+        l2.init("44");
+        assertEquals("Layer object not equal", false, l1.equals(l2));
     }
 
     /**
@@ -146,7 +159,7 @@ public class TestLayerRandom
     {
         RandomLayer l1 = new RandomLayer();
         l1.init(INITVALUE);
-        assertEquals("Layer object same", l1, l1);
+        assertEquals("Layer object same", true, l1.equals(l1));
     }
 
     /**
@@ -158,7 +171,7 @@ public class TestLayerRandom
         RandomLayer l1 = new RandomLayer();
         Object o = null;
         l1.init(INITVALUE);
-        assertEquals("Layer object null unequal", l1.equals(o), false);
+        assertEquals("Layer object null unequal", false, l1.equals(o));
     }
 
     /**
@@ -170,7 +183,7 @@ public class TestLayerRandom
         RandomLayer l1 = new RandomLayer();
         Object o = new Object();
         l1.init(INITVALUE);
-        assertEquals("Layer object null unequal", l1.equals(o), false);
+        assertEquals("Layer object type unequal", false, l1.equals(o));
     }
 
     /**
