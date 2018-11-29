@@ -1,5 +1,12 @@
 package org.jastacry.layer;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.concurrent.CountDownLatch;
+
 import org.jastacry.GlobalData.Action;
 import org.jastacry.JastacryException;
 import org.junit.After;
@@ -17,8 +24,10 @@ public class TestAbstractBasicLayer
     /**
      * The layer to test.
      */
-    private XorLayer layer = null; // NOPMD by kkretsch on 29.03.18 14:54
-
+    private XorLayer layer = null;
+    private CountDownLatch endController = new CountDownLatch(1);
+    private byte[] data = {1,2,3};
+    
     /**
      * Init value for xor layer.
      */
@@ -50,39 +59,23 @@ public class TestAbstractBasicLayer
     }
 
     /**
-     * Testcase encode.
-     *
-     * @throws JastacryException
-     *             in case of error
-     */
-    @Test
-    public void testActionEncode() throws JastacryException
-    {
-        layer.setAction(Action.ENCODE);
-    }
-
-    /**
-     * Testcase decode.
-     *
-     * @throws JastacryException
-     *             in case of error
-     */
-    @Test
-    public void testActionDecode() throws JastacryException
-    {
-        layer.setAction(Action.DECODE);
-    }
-
-    /**
      * Testcase unknown.
      *
-     * @throws JastacryException
-     *             in case of error
      */
     @Test
-    public void testActionunknown() throws JastacryException
+    public void testActionunknown()
     {
+        InputStream sInput;
+        OutputStream sOutput;
+        sInput = new ByteArrayInputStream(data);
+        sOutput = new ByteArrayOutputStream();
+
+        layer.setInputStream(sInput);
+        layer.setOutputStream(sOutput);
         layer.setAction(Action.UNKOWN);
+        layer.setEndController(endController);
+
+        layer.run();
     }
 
 }
