@@ -20,10 +20,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<pmd.version>6.6.0</pmd.version>
-		<findbugs.version>3.0.5</findbugs.version>
+<!-- 		<findbugs.version>3.0.5</findbugs.version> -->
 		<checkstyle.version>8.12</checkstyle.version>
 		<surefire.version>3.0.0-M3</surefire.version>
-		<jacoco.version>0.8.1</jacoco.version>
+		<jacoco.version>0.8.2</jacoco.version>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
 	</properties>
 	<profiles>
@@ -160,11 +160,11 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${surefire.version}</version>
 				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>${findbugs.version}</version>
-				</plugin>
+<!-- 				<plugin> -->
+<!-- 					<groupId>org.codehaus.mojo</groupId> -->
+<!-- 					<artifactId>findbugs-maven-plugin</artifactId> -->
+<!-- 					<version>${findbugs.version}</version> -->
+<!-- 				</plugin> -->
 				<plugin>
 					<groupId>org.spdx</groupId>
 					<artifactId>spdx-maven-plugin</artifactId>
@@ -218,6 +218,14 @@
 				<artifactId>versions-maven-plugin</artifactId>
 				<configuration>
 					<generateBackupPoms>false</generateBackupPoms>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<targetJdk>11</targetJdk>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -359,10 +367,10 @@
 				</configuration>
 			</plugin>
 
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.codehaus.mojo</groupId> -->
-<!-- 				<artifactId>findbugs-maven-plugin</artifactId> -->
-<!-- 			</plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.codehaus.mojo</groupId> -->
+			<!-- <artifactId>findbugs-maven-plugin</artifactId> -->
+			<!-- </plugin> -->
 
 			<plugin>
 				<groupId>org.spdx</groupId>
@@ -475,11 +483,11 @@
 				<configuration>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>${findbugs.version}</version>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>findbugs-maven-plugin</artifactId> -->
+<!-- 				<version>${findbugs.version}</version> -->
+<!-- 			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
@@ -524,42 +532,42 @@
 					</reportSet>
 				</reportSets>
 			</plugin>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-pmd-plugin</artifactId> -->
-<!-- 				<configuration> -->
-<!-- 					<linkXref>true</linkXref> -->
-<!-- 					<analysisCache>true</analysisCache> -->
-<!-- 					<targetJdk>${language.version}</targetJdk> -->
-<!-- 					<rulesets> -->
-<!-- 						These three rules should be followed -->
-<!-- 						<ruleset>/rulesets/java/basic.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/imports.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/unusedcode.xml</ruleset> -->
-<!-- 						Following rules are can be discussed / disabled -->
-<!-- 						<ruleset>/rulesets/java/design.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/unnecessary.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/empty.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/braces.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/finalizers.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/optimizations.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/naming.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/strings.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/codesize.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/sunsecure.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/typeresolution.xml</ruleset> -->
-<!-- 						<ruleset>/rulesets/java/junit.xml</ruleset> -->
-<!-- 						<ruleset>${basedir}/pmdrules/ncss.xml</ruleset> -->
-<!-- 					</rulesets> -->
-<!-- 					<excludes> -->
-<!-- 						<exclude>**/*generated*/**/*</exclude> -->
-<!-- 						<exclude>**/*resources*/**/*</exclude> -->
-<!-- 						<exclude>**/test/**/*</exclude> -->
-<!-- 						<exclude>**/test_resources/**/*</exclude> -->
-<!-- 						<exclude>**/generated-sources/**/*</exclude> -->
-<!-- 					</excludes> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-pmd-plugin</artifactId> -->
+			<!-- <configuration> -->
+			<!-- <linkXref>true</linkXref> -->
+			<!-- <analysisCache>true</analysisCache> -->
+			<!-- <targetJdk>${language.version}</targetJdk> -->
+			<!-- <rulesets> -->
+			<!-- These three rules should be followed -->
+			<!-- <ruleset>/rulesets/java/basic.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/imports.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/unusedcode.xml</ruleset> -->
+			<!-- Following rules are can be discussed / disabled -->
+			<!-- <ruleset>/rulesets/java/design.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/unnecessary.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/empty.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/braces.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/finalizers.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/optimizations.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/naming.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/strings.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/codesize.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/sunsecure.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/typeresolution.xml</ruleset> -->
+			<!-- <ruleset>/rulesets/java/junit.xml</ruleset> -->
+			<!-- <ruleset>${basedir}/pmdrules/ncss.xml</ruleset> -->
+			<!-- </rulesets> -->
+			<!-- <excludes> -->
+			<!-- <exclude>**/*generated*/**/*</exclude> -->
+			<!-- <exclude>**/*resources*/**/*</exclude> -->
+			<!-- <exclude>**/test/**/*</exclude> -->
+			<!-- <exclude>**/test_resources/**/*</exclude> -->
+			<!-- <exclude>**/generated-sources/**/*</exclude> -->
+			<!-- </excludes> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
 		</plugins>
 	</reporting>
 	<distributionManagement>
