@@ -24,9 +24,9 @@ public final class GlobalFunctions
      */
     public static void logDebug(final boolean isVerbose, final Logger logger, final String sFormat, final Object... arguments)
     {
-        if (isVerbose && logger.isDebugEnabled())
+        if (isVerbose)
         {
-            logger.debug(sFormat, arguments);
+            logger.debug(sFormat, () -> arguments);
         } // if
     } // function
 
