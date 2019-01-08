@@ -161,12 +161,42 @@ public class TestMain
      *
      */
     @Test
-    public void testMainStatic()
+    public void testMainStaticHelp()
     {
         final String[] sArguments = {
             "-h"
         };
-        exit.expectSystemExit();
+        exit.expectSystemExitWithStatus(Returncode.RC_HELP.getNumVal());
+        JaStaCry.main(sArguments);
+    }
+
+    /**
+     * Test method no parameters error for Main function via static main.
+     *
+     */
+    @Test
+    public void testMainStaticNoargs()
+    {
+        final String[] sArguments = {};
+        exit.expectSystemExitWithStatus(Returncode.RC_ERROR.getNumVal());
+        JaStaCry.main(sArguments);
+    }
+
+    /**
+     * Test method two layer for Main function.
+     *
+     */
+    @Test
+    public void testMainStaticTwolayer()
+    {
+        final String sInputFile = RESOURCES + INPUTFILE;
+        final String sOutputFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = RESOURCES + CONF4;
+
+        final String[] sArguments = {
+            "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile
+        };
+        exit.expectSystemExitWithStatus(Returncode.RC_OK.getNumVal());
         JaStaCry.main(sArguments);
     }
 
