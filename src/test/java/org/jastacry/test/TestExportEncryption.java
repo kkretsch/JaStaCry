@@ -21,7 +21,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test of Rotate Layer.
+ * Test of export encryption features.
  *
  * @author Kai Kretschmann
  *
@@ -60,7 +60,7 @@ public class TestExportEncryption
     }
 
     /**
-     * Testcase testAes256.
+     * Testcase testAes128.
      *
      */
     @Test
@@ -140,7 +140,7 @@ public class TestExportEncryption
         byte[] ciphertext = cipher.doFinal(testdata.getBytes("UTF-8"));
         System.out.println(ciphertext.length);
 
-        /* Decrypt the message, given derived key and initialization vector. */
+        /* Decrypt the message, given derived key and initialisation vector. */
         cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, secret, new IvParameterSpec(iv));
         String plaintext = new String(cipher.doFinal(ciphertext), "UTF-8");

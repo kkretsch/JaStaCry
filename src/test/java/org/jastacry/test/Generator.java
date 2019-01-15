@@ -2,6 +2,12 @@ package org.jastacry.test;
 
 import org.jastacry.JaStaCry;
 
+/**
+ * Generate constant files to compare test runs to.
+ *
+ * @author Kai Kretschmann
+ *
+ */
 public class Generator
 {
 
