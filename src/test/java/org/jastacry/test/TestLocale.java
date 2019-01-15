@@ -7,23 +7,18 @@ import java.io.PrintStream;
 import java.util.Locale;
 
 import org.jastacry.JaStaCry;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 /**
- * Test of Main function.
+ * Test of locale functions.
  *
  * @author Kai Kretschmann
  *
  */
 public class TestLocale
 {
-    // TODO @Rule
-    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
-
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -42,7 +37,7 @@ public class TestLocale
     }
 
     /**
-     * Test method help for Main function.
+     * Test method help for Main function in english.
      *
      */
     @Test
@@ -61,7 +56,7 @@ public class TestLocale
     }
 
     /**
-     * Test method help for Main function.
+     * Test method help for Main function in german.
      *
      */
     @Test
