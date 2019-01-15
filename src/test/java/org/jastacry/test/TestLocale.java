@@ -7,10 +7,10 @@ import java.io.PrintStream;
 import java.util.Locale;
 
 import org.jastacry.JaStaCry;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 /**
@@ -21,7 +21,7 @@ import org.junit.contrib.java.lang.system.ExpectedSystemExit;
  */
 public class TestLocale
 {
-    @Rule
+    // TODO @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -29,13 +29,13 @@ public class TestLocale
     private final PrintStream originalOut = System.out;
     private final PrintStream originalErr = System.err;
 
-    @Before
+    @BeforeEach
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }
 
-    @After
+    @AfterEach
     public void restoreStreams() {
         System.setOut(originalOut);
         System.setErr(originalErr);

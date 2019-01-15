@@ -17,10 +17,11 @@ import org.jastacry.GlobalData;
 import org.jastacry.JaStaCry;
 import org.jastacry.test.utils.ShannonEntropy;
 import org.jastacry.test.utils.Tooling;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of entropy.
@@ -106,7 +107,7 @@ public class TestEntropy
      * @throws MalformedURLException
      *             in case of error.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setupData() throws MalformedURLException
     {
         oLogger = LogManager.getLogger();
@@ -126,7 +127,7 @@ public class TestEntropy
      * @throws Exception
      *             in case of error
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception
     {
 
@@ -147,7 +148,7 @@ public class TestEntropy
      * @throws Exception
      *             in case of error
      */
-    @After
+    @AfterEach
     public void tearDown() throws Exception
     {
         encFile.delete();

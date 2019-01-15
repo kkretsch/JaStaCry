@@ -12,9 +12,11 @@ import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
 import org.jastacry.layer.ReverseLayer;
 import org.jastacry.test.utils.Tooling;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of Rotate Layer.
@@ -45,7 +47,7 @@ public class TestLayerReverse
      * @throws Exception
      *             in case of error
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception
     {
         layer = new ReverseLayer();
@@ -57,7 +59,7 @@ public class TestLayerReverse
      * @throws Exception
      *             in case of error
      */
-    @After
+    @AfterEach
     public void tearDown() throws Exception
     {
         layer = null;
@@ -100,11 +102,13 @@ public class TestLayerReverse
      *             in case of error
      * @throws IOException will be thrown in test
      */
-    @Test(expected = JastacryException.class)
+    @Test
     public void testEncStreamException() throws JastacryException, IOException
     {
         Tooling tool = new Tooling();
-        tool.mockupInputOutputEncStreams(layer);
+        Assertions.assertThrows(JastacryException.class, () -> {
+            tool.mockupInputOutputEncStreams(layer);
+        });
     }
 
     /**
@@ -114,11 +118,13 @@ public class TestLayerReverse
      *             in case of error
      * @throws IOException will be thrown in test
      */
-    @Test(expected = JastacryException.class)
+    @Test
     public void testDecStreamException() throws JastacryException, IOException
     {
         Tooling tool = new Tooling();
-        tool.mockupInputOutputDecStreams(layer);
+        Assertions.assertThrows(JastacryException.class, () -> {
+            tool.mockupInputOutputDecStreams(layer);
+        });
     }
 
     /**

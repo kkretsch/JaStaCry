@@ -11,9 +11,11 @@ import java.io.OutputStream;
 import org.jastacry.JastacryException;
 import org.jastacry.layer.RandomLayer;
 import org.jastacry.test.utils.Tooling;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of Layer Random.
@@ -44,7 +46,7 @@ public class TestLayerRandom
      * @throws Exception
      *             in case of error
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception
     {
         layer = new RandomLayer();
@@ -56,7 +58,7 @@ public class TestLayerRandom
      * @throws Exception
      *             in case of error
      */
-    @After
+    @AfterEach
     public void tearDown() throws Exception
     {
         layer = null;
@@ -104,11 +106,13 @@ public class TestLayerRandom
      *             in case of error
      * @throws IOException will be thrown in test
      */
-    @Test(expected = JastacryException.class)
+    @Test
     public void testEncStreamException() throws JastacryException, IOException
     {
         Tooling tool = new Tooling();
-        tool.mockupInputOutputEncStreams(layer);
+        Assertions.assertThrows(JastacryException.class, () -> {
+            tool.mockupInputOutputEncStreams(layer);
+        });
     }
 
     /**
@@ -118,11 +122,13 @@ public class TestLayerRandom
      *             in case of error
      * @throws IOException will be thrown in test
      */
-    @Test(expected = JastacryException.class)
+    @Test
     public void testDecStreamException() throws JastacryException, IOException
     {
         Tooling tool = new Tooling();
-        tool.mockupInputOutputDecStreams(layer);
+        Assertions.assertThrows(JastacryException.class, () -> {
+            tool.mockupInputOutputDecStreams(layer);
+        });
     }
 
     /**

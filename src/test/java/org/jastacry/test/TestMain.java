@@ -14,12 +14,13 @@ import org.jastacry.GlobalData;
 import org.jastacry.GlobalData.Returncode;
 import org.jastacry.JaStaCry;
 import org.jastacry.test.utils.Tooling;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.contrib.java.lang.system.ExpectedSystemExit;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.ginsberg.junit.exit.ExpectSystemExitWithStatus;
+
 
 /**
  * Test of Main function.
@@ -29,9 +30,6 @@ import org.junit.contrib.java.lang.system.ExpectedSystemExit;
  */
 public class TestMain
 {
-    @Rule
-    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
-
     /**
      * Maven test resources path.
      */
@@ -114,7 +112,7 @@ public class TestMain
      * @throws MalformedURLException
      *             in case of error.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setLogger() throws MalformedURLException
     {
         oLogger = LogManager.getLogger();
@@ -126,7 +124,7 @@ public class TestMain
      * @throws Exception
      *             in case of error
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception
     {
         tooling = new Tooling();
@@ -148,7 +146,7 @@ public class TestMain
      * @throws Exception
      *             in case of error
      */
-    @After
+    @AfterEach
     public void tearDown() throws Exception
     {
         encFile.delete();
@@ -161,12 +159,12 @@ public class TestMain
      *
      */
     @Test
+    @ExpectSystemExitWithStatus(2) // Returncode.RC_HELP
     public void testMainStaticHelp()
     {
         final String[] sArguments = {
             "-h"
         };
-        exit.expectSystemExitWithStatus(Returncode.RC_HELP.getNumVal());
         JaStaCry.main(sArguments);
     }
 
@@ -175,10 +173,10 @@ public class TestMain
      *
      */
     @Test
+    @ExpectSystemExitWithStatus(3) // Returncode.RC_ERROR
     public void testMainStaticNoargs()
     {
         final String[] sArguments = {};
-        exit.expectSystemExitWithStatus(Returncode.RC_ERROR.getNumVal());
         JaStaCry.main(sArguments);
     }
 
@@ -187,6 +185,7 @@ public class TestMain
      *
      */
     @Test
+    @ExpectSystemExitWithStatus(0) // Returncode.RC_OK
     public void testMainStaticTwolayer()
     {
         final String sInputFile = RESOURCES + INPUTFILE;
@@ -196,7 +195,6 @@ public class TestMain
         final String[] sArguments = {
             "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile
         };
-        exit.expectSystemExitWithStatus(Returncode.RC_OK.getNumVal());
         JaStaCry.main(sArguments);
     }
 

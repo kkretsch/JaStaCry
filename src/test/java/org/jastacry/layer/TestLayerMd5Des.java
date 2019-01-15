@@ -11,10 +11,11 @@ import java.net.MalformedURLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for MD5DES Layer.
@@ -55,7 +56,7 @@ public class TestLayerMd5Des
      * @throws MalformedURLException
      *             in case of error.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setLogger() throws MalformedURLException
     {
         oLogger = LogManager.getLogger();
@@ -67,7 +68,7 @@ public class TestLayerMd5Des
      * @throws Exception
      *             in case of error.
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception
     {
         layerEncrypt = new Md5DesLayer();
@@ -82,7 +83,7 @@ public class TestLayerMd5Des
      * @throws Exception
      *             in case off error
      */
-    @After
+    @AfterEach
     public void tearDown() throws Exception
     {
         layerEncrypt = null;
