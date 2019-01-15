@@ -8,11 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
-import org.jastacry.layer.ReverseLayer;
 import org.jastacry.test.utils.Tooling;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,11 +27,6 @@ public class TestLayerReverse
      * Test data to play with.
      */
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
-
-    /**
-     * log4j2 object.
-     */
-    private static Logger oLogger = null;
 
     /**
      * The layer to test.

@@ -6,15 +6,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -25,11 +20,6 @@ import org.junit.jupiter.api.Test;
  */
 public class TestLayerAesEcb
 {
-    /**
-     * log4j2 object.
-     */
-    private static Logger oLogger = null;
-
     /**
      * Test data to play with.
      */
@@ -49,18 +39,6 @@ public class TestLayerAesEcb
      * Init value for random layer.
      */
     private static final String INITVALUE = "Passwort";
-
-    /**
-     * The BeforeClass method.
-     *
-     * @throws MalformedURLException
-     *             in case of error.
-     */
-    @BeforeAll
-    public static void setLogger() throws MalformedURLException
-    {
-        oLogger = LogManager.getLogger();
-    }
 
     /**
      * Test Before method.
