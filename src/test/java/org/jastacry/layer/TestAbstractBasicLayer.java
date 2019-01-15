@@ -7,9 +7,10 @@ import java.io.OutputStream;
 import java.util.concurrent.CountDownLatch;
 
 import org.jastacry.GlobalData.Action;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of Layer XOR.
@@ -37,7 +38,7 @@ public class TestAbstractBasicLayer
      * @throws Exception
      *             in case of error
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception
     {
         layer = new XorLayer();
@@ -50,7 +51,7 @@ public class TestAbstractBasicLayer
      * @throws Exception
      *             in case of error
      */
-    @After
+    @AfterEach
     public void tearDown() throws Exception
     {
         layer = null;

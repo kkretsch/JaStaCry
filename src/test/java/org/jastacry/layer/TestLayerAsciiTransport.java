@@ -16,10 +16,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalData.Action;
 import org.jastacry.JastacryException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for ascii transport format.
@@ -57,7 +59,7 @@ public class TestLayerAsciiTransport
      * @throws MalformedURLException
      *             in case of error.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setLogger() throws MalformedURLException
     {
         oLogger = LogManager.getLogger();
@@ -69,7 +71,7 @@ public class TestLayerAsciiTransport
      * @throws Exception
      *             in case of error.
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception
     {
         layer = new AsciiTransportLayer();
@@ -82,7 +84,7 @@ public class TestLayerAsciiTransport
      * @throws Exception
      *             in case of error.
      */
-    @After
+    @AfterEach
     public void tearDown() throws Exception
     {
         layer = null;
@@ -118,9 +120,9 @@ public class TestLayerAsciiTransport
      *
      * @throws JastacryException
      *             in case of error.
-     * @throws IOException i case of error
+     * @throws IOException in case of error
      */
-    @Test(expected = IOException.class)
+    @Test
     // TestLink(externalId = "JAS-12")
     public void testEncStreamExceptionIn() throws JastacryException, IOException
     {
@@ -132,13 +134,10 @@ public class TestLayerAsciiTransport
                 throw new IOException("Expected as a test");
             }
         };
-        is.mark(0);
-        final String text = IOUtils.toString(is, StandardCharsets.UTF_8.name());
-        is.reset();
-        oLogger.debug("testEncStream is='{}'", text);
-        oLogger.debug("size of input text is {}", testdata.length());
         final OutputStream os = new ByteArrayOutputStream();
-        layer.encStream(is, os);
+        Assertions.assertThrows(JastacryException.class, () -> {
+            layer.encStream(is, os);
+        });
         os.flush();
         oLogger.debug("testEncStream os='{}'", os.toString());
     }
@@ -150,7 +149,7 @@ public class TestLayerAsciiTransport
      *             in case of error.
      * @throws IOException i case of error
      */
-    @Test(expected = JastacryException.class)
+    @Test
     // TestLink(externalId = "JAS-12")
     public void testEncStreamExceptionOut() throws JastacryException, IOException
     {
@@ -170,9 +169,11 @@ public class TestLayerAsciiTransport
             }
         };
 
-        layer.encStream(is, os);
-        os.flush();
-        oLogger.debug("testEncStream os='{}'", os.toString());
+        Assertions.assertThrows(JastacryException.class, () -> {
+            layer.encStream(is, os);
+            os.flush();
+            oLogger.debug("testEncStream os='{}'", os.toString());
+        });
     }
 
     /**
@@ -206,7 +207,7 @@ public class TestLayerAsciiTransport
      *             in case of error.
      * @throws IOException in case of error
      */
-    @Test(expected = IOException.class)
+    @Test
     // TestLink(externalId = "JAS-13")
     public void testDecStreamExceptionIn() throws JastacryException, IOException
     {
@@ -218,13 +219,10 @@ public class TestLayerAsciiTransport
                 throw new IOException("Expected as a test");
             }
         };
-        is.mark(0);
-        final String text = IOUtils.toString(is, StandardCharsets.UTF_8.name());
-        is.reset();
-        oLogger.debug("testDecStream is='{}'", text);
-        oLogger.debug("size of encoded text is {}", testdataEncoded.length());
         final OutputStream os = new ByteArrayOutputStream();
-        layer.decStream(is, os);
+        Assertions.assertThrows(JastacryException.class, () -> {
+            layer.decStream(is, os);
+        });
     }
 
     /**
@@ -234,7 +232,7 @@ public class TestLayerAsciiTransport
      *             in case of error.
      * @throws IOException in case of error
      */
-    @Test(expected = JastacryException.class)
+    @Test
     // TestLink(externalId = "JAS-13")
     public void testDecStreamExceptionOut() throws JastacryException, IOException
     {
@@ -253,7 +251,9 @@ public class TestLayerAsciiTransport
                 throw new IOException("Expected as a test");
             }
         };
-        layer.decStream(is, os);
+        Assertions.assertThrows(JastacryException.class, () -> {
+            layer.decStream(is, os);
+        });
     }
 
     /**
@@ -300,13 +300,15 @@ public class TestLayerAsciiTransport
      * Testcase unsupported exception.
      * @throws JastacryException on error
      */
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnsupported() throws JastacryException
     {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
-        layer.encodeAndDecode(isEncode, osEncode);
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            layer.encodeAndDecode(isEncode, osEncode);
+        });
     }
 
     /**

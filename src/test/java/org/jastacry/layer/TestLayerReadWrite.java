@@ -7,9 +7,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import org.jastacry.JastacryException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of Rotate Layer.
@@ -35,7 +37,7 @@ public class TestLayerReadWrite
      * @throws Exception
      *             in case of error
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception
     {
         layer = new ReadWriteLayer();
@@ -47,7 +49,7 @@ public class TestLayerReadWrite
      * @throws Exception
      *             in case of error
      */
-    @After
+    @AfterEach
     public void tearDown() throws Exception
     {
         layer = null;
@@ -66,13 +68,15 @@ public class TestLayerReadWrite
      * Testcase unsupported exception.
      * @throws JastacryException on error
      */
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testUnsupported() throws JastacryException
     {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
-        layer.encodeAndDecode(isEncode, osEncode);
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            layer.encodeAndDecode(isEncode, osEncode);
+        });
     }
 
     /**

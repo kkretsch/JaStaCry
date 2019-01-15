@@ -3,7 +3,8 @@ package org.jastacry.test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalFunctions;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of Main function.
