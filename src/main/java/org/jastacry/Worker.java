@@ -137,7 +137,7 @@ public class Worker
         LOGGER.traceEntry();
         final List<AbstractBasicLayer> layers = createLayers();
 
-        if (null == layers || layers.isEmpty())
+        if (layers.isEmpty())
         {
             LOGGER.error("No layers defined!");
             return LOGGER.traceExit(Returncode.RC_ERROR.getNumVal());
