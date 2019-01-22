@@ -297,6 +297,7 @@ public class Worker
      * @param layername for labelling
      * @return String for password
      */
+    @SuppressWarnings("squid:S4829") // Reading the Standard Input is security-sensitive
     private String readPassword(final String layername)
     {
         String passwordString = "";
