@@ -314,6 +314,44 @@ public class TestMain
     }
 
     /**
+     * Test method short encode call for Main function.
+     *
+     */
+    @Test
+    public void testMainShortEncode()
+    {
+        final String sInputFile = RESOURCES + INPUTFILE;
+        final String sOutputFile = encFile.getAbsolutePath();
+        final String sConfigFile = RESOURCES + CONF1;
+
+        final String[] sArguments = {
+            "-v", "-e", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile
+        };
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int returncode = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main encode returncode", 0, returncode);
+    }
+
+    /**
+     * Test method decode call for Main function.
+     *
+     */
+    @Test
+    public void testMainShortDecode()
+    {
+        final String sInputFile = RESOURCES + INPUTENCODED;
+        final String sOutputFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = RESOURCES + CONF1;
+
+        final String[] sArguments = {
+            "-d", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile
+        };
+        oLogger.info("Main test with args: {}", Arrays.toString(sArguments));
+        final int returncode = JaStaCry.mainMethod(sArguments);
+        assertEquals("Main decode returncode", 0, returncode);
+    }
+
+    /**
      * Test method unknown layer for Main function.
      *
      */
@@ -505,6 +543,39 @@ public class TestMain
 
         final String[] sArgumentsDecrypt = {
             "-v", "-d", "--text", "--infile", sEncryptedFile, "--outfile", sDecryptedFile, "--conffile", sConfigFile
+        };
+        oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
+        returncode = JaStaCry.mainMethod(sArgumentsDecrypt);
+        assertEquals("Main ascdecend returncode", Returncode.RC_OK.getNumVal(), returncode);
+
+        assertTrue("File results in equal content", tooling.compareFiles(fInputfile, fDecryptedfile));
+    }
+
+    /**
+     * Test method normal for Main function including base64 encoding.
+     */
+    @Test
+    public void testMainBase64EncDecTexttwice()
+    {
+        final String sInputFile = RESOURCES + INPUTFILE;
+        final String sEncryptedFile = encFile.getAbsolutePath();
+        final String sDecryptedFile = tmpFile.getAbsolutePath();
+        final String sConfigFile = RESOURCES + CONF4;
+        final File fInputfile = new File(sInputFile);
+        final File fEncryptedfile = new File(sEncryptedFile);
+        final File fDecryptedfile = new File(sDecryptedFile);
+
+        final String[] sArgumentsEncrypt = {
+            "-e", "-t", "--text", "--infile", sInputFile, "--outfile", sEncryptedFile, "--conffile", sConfigFile
+        };
+        oLogger.info("Main test encrypt with args: {}", Arrays.toString(sArgumentsEncrypt));
+        int returncode = JaStaCry.mainMethod(sArgumentsEncrypt);
+        assertEquals("Main ascencdec returncode", Returncode.RC_OK.getNumVal(), returncode);
+
+        assertTrue("Encrypted data content", fEncryptedfile.length() > 0);
+
+        final String[] sArgumentsDecrypt = {
+            "-v", "-d", "-t", "--text", "--infile", sEncryptedFile, "--outfile", sDecryptedFile, "--conffile", sConfigFile
         };
         oLogger.info("Main test decrypt with args: {}", Arrays.toString(sArgumentsDecrypt));
         returncode = JaStaCry.mainMethod(sArgumentsDecrypt);
