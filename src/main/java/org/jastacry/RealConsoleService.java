@@ -11,6 +11,11 @@ import org.apache.logging.log4j.Logger;
 public class RealConsoleService implements ConsoleServiceInterface
 {
     /**
+     * Dummy password if no console available.
+     */
+    private static final char[] FALLBACK = new char[] { 'X', 'X', 'X'};
+
+    /**
      * My real console object if any.
      */
     private final java.io.Console delegate;
@@ -37,8 +42,8 @@ public class RealConsoleService implements ConsoleServiceInterface
     public char[] readPassword(final String prompt)
     {
         if(null == delegate) {
-            LOGGER.warn("delegate is null");
-            return new char[] { 'X', 'X', 'X'};
+            LOGGER.error("delegate is null");
+            return FALLBACK;
         }
         return delegate.readPassword(prompt);
     }
