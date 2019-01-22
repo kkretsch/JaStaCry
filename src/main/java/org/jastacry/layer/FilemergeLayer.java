@@ -43,6 +43,7 @@ public class FilemergeLayer extends AbstractBasicLayer
      *
      * @param data to initialise the file.
      */
+    @SuppressWarnings("squid:S4797") // Handling files is security-sensitive
     @Override
     public final void init(final String data)
     {

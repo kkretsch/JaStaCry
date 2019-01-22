@@ -132,6 +132,7 @@ public class Worker
      *
      * @return int system return code to shell
      */
+    @SuppressWarnings("squid:S4797") // Handling files is security-sensitive
     public final int mainWork()
     {
         LOGGER.traceEntry();
@@ -208,7 +209,7 @@ public class Worker
      *
      * @return List of abstract layer objects
      */
-    @SuppressWarnings("squid:S3776")
+    @SuppressWarnings({"squid:S3776", "squid:S4797"}) // #2 Handling files is security-sensitive
     private List<AbstractBasicLayer> createLayers()
     {
         LOGGER.traceEntry();
