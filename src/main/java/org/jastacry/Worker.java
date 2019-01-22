@@ -302,17 +302,10 @@ public class Worker
     {
         String passwordString = "";
         final String prompt = "Layer " + layername + " Password: ";
-        final Console console = System.console();
+        final ConsoleServiceInterface console = new RealConsoleService(System.console());
 
-        if (null == console)
-        {
-            LOGGER.error("No interactive console available for password entry!");
-        }
-        else
-        {
-            final char[] password = console.readPassword(prompt);
-            passwordString = new String(password);
-        } // if
+        final char[] password = console.readPassword(prompt);
+        passwordString = new String(password);
 
         return passwordString;
     }
