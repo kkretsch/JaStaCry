@@ -158,6 +158,7 @@ public final class JaStaCry
      * @param args parsed by Apache commons CLI package
      */
     @CoverageIgnore
+    @SuppressWarnings("squid:S4823") // Using command line arguments is security-sensitive
     public static void main(final String[] args)
     {
         final int returncode = mainMethod(args);
