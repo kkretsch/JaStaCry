@@ -160,6 +160,13 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
 					<version>3.7.1</version>
+					<dependencies>
+						<dependency><!-- add support for ssh/scp -->
+							<groupId>org.apache.maven.wagon</groupId>
+							<artifactId>wagon-ssh</artifactId>
+							<version>1.0</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -566,7 +573,7 @@
 		<site>
 			<id>sitejastacry</id>
 			<name>Site JaStaCry Website</name>
-			<url>ftp://wp12173701.server-he.de/</url>
+			<url>scp://wkd.kretschmann.email/var/www/site/</url>
 		</site>
 		<snapshotRepository>
 			<id>nexussnapshots</id>
