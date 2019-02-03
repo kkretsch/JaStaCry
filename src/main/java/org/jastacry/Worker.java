@@ -200,8 +200,7 @@ public class Worker
             LOGGER.info("JaStaCry finished");
         }
 
-        LOGGER.traceExit();
-        return 0;
+        return LOGGER.traceExit(Returncode.RC_OK.getNumVal());
     }
 
     /**
