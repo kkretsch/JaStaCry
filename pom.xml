@@ -573,7 +573,7 @@
 		<site>
 			<id>sitejastacry</id>
 			<name>Site JaStaCry Website</name>
-			<url>scp://direct.jastacry.com/var/www/site/</url>
+			<url>scp://jas@direct.jastacry.com/var/www/site/</url>
 		</site>
 		<snapshotRepository>
 			<id>nexussnapshots</id>
