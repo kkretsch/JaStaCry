@@ -1,5 +1,7 @@
 ## Welcome to JaStaCry Pages
 
-Still yet under internal review.
+![](https://img.shields.io/badge/license-MIT-brithgreen.svg)
 
-In the meantime have a look at [JaStaCry Blog](https://jastacry.org)
+We are nearly live with the first version.
+
+In the meantime have a look at [JaStaCry Blog](https://blog.jastacry.org)
