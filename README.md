@@ -1,6 +1,7 @@
 ## Welcome to JaStaCry Pages
 
 ![](https://img.shields.io/badge/license-MIT-brithgreen.svg)
+![](https://bestpractices.coreinfrastructure.org/projects/2521/badge)
 
 We are nearly live with the first version.
 
