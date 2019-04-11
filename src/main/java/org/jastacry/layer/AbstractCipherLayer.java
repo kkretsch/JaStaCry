@@ -169,14 +169,6 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     }
 
     /**
-     * store IV bytes.
-     */
-    protected final void getIv()
-    {
-        ivBytes = new byte[currentIvLen];
-    }
-
-    /**
      * Set base values via own getters, which are defined in child classes.
      */
     protected final void init()
