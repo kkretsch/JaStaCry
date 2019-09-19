@@ -1,6 +1,6 @@
 package org.jastacry.layer;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -42,7 +42,7 @@ public class TestLayerAsciiTransport
     private final String testdata = "The quick brown fox jumps over the lazy dog.";
 
     /**
-     * default data encoded
+     * default data encoded.
      */
     private final String testdataEncoded = "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4=";
 
