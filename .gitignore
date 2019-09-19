@@ -18,4 +18,4 @@ sonar-project.properties
 !/.mvn/wrapper/maven-wrapper.jar
 /target/
 /reports/
-
+velocity.log
