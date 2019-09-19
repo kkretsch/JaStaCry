@@ -3,7 +3,7 @@
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacry</artifactId>
 
-	<version>0.6.0</version>
+	<version>0.6.1</version>
 	<!-- 'mvn scm:tag' will create a new git tag with above value -->
 
 	<description>Java Stacked Crypto</description>
@@ -20,7 +20,6 @@
 		<pmd.version>6.18.0</pmd.version>
 		<checkstyle.version>8.24</checkstyle.version>
 		<surefire.version>3.0.0-M3</surefire.version>
-		<!-- <argLine>-Xmx128m - -illegal-access=permit</argLine> -->
 		<jacoco.version>0.8.3</jacoco.version>
 		<junit4.version>4.12</junit4.version>
 		<junit5.version>5.5.2</junit5.version>
@@ -631,5 +630,5 @@
 		<url>https://kai.kretschmann.consulting/</url>
 		<name>Kai Kretschmann</name>
 	</organization>
-	<inceptionYear>2018</inceptionYear>
+	<inceptionYear>2019</inceptionYear>
 </project>
