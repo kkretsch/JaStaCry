@@ -111,7 +111,7 @@ public final class JaStaCry
     /**
      * log4j logger object.
      */
-    private static final Logger LOGGER = LogManager.getLogger(JaStaCry.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger();
 
     /**
      * boolean status: do we encode to plain text transport format.
