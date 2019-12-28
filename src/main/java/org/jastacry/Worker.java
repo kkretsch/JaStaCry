@@ -56,11 +56,6 @@ public class Worker
     private static final Logger LOGGER = LogManager.getLogger();
 
     /**
-     * Minimal number of threads needed. Better use all cores.
-     */
-    private static final int MINUMUM_THREADS = 2;
-
-    /**
      * Char to mark comments.
      */
     private static final char TOKEN_COMMENT = ';';
@@ -116,13 +111,8 @@ public class Worker
     public Worker()
     {
         LOGGER.traceEntry();
-        final int numCores = Runtime.getRuntime().availableProcessors();
-        LOGGER.trace("CPU cores available: {}", numCores);
-        final int numThreads = Math.max(numCores, MINUMUM_THREADS);
-        LOGGER.trace("Using {} threads in pool", numThreads);
-
         this.threadFactory = new LayerThreadFactory();
-        this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(numThreads);
+        this.executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
         this.executor.setThreadFactory(threadFactory);
         LOGGER.traceExit();
     }
