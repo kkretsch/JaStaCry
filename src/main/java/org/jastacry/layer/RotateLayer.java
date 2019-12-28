@@ -63,6 +63,7 @@ public class RotateLayer extends AbstractBasicLayer
                 iChar += this.offset;
                 iChar = rangeCheck(iChar);
                 outputStream.write(iChar);
+                progress(1);
             }
             logger.info("close pipe");
             outputStream.close();

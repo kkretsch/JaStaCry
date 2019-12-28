@@ -70,11 +70,13 @@ public class AppendLayer extends AbstractBasicLayer
             while ((iChar = inputStream.read()) != -1)
             {
                 outputStream.write(iChar);
+                progress(1);
             }
             logger.debug("read append file stream");
             while ((iChar = fIS.read()) != -1)
             {
                 outputStream.write(iChar);
+                progress(1);
             }
 
             logger.debug("close pipe");

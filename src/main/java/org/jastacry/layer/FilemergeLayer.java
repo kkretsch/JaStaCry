@@ -83,6 +83,7 @@ public class FilemergeLayer extends AbstractBasicLayer
                 bMerge = (byte) iMerge;
                 bChar = (byte) (bChar ^ bMerge);
                 outputStream.write(bChar);
+                progress(1);
             }
             logger.info("close pipe");
             outputStream.close();

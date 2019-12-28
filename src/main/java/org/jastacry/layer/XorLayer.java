@@ -62,6 +62,7 @@ public class XorLayer extends AbstractBasicLayer
                 bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:18
                 bChar = (byte) (bChar ^ this.bitMask);
                 outputStream.write(bChar);
+                progress(1);
             }
             logger.info("close pipe");
             outputStream.close();

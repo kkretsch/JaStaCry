@@ -60,6 +60,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
             final byte[] bytesEncoded = encoder.encode(bytes);
             final ByteArrayInputStream inputByteStream = new ByteArrayInputStream(bytesEncoded);
             final int iCount = IOUtils.copy(inputByteStream, outputStream);
+            progress(iCount);
             logger.debug("encStream copied {} bytes", iCount);
         }
         catch (IOException e)
@@ -83,6 +84,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
             final Base64.Decoder decoder = Base64.getDecoder();
             final InputStream isDecoded = decoder.wrap(inputStream);
             final int iCount = IOUtils.copy(isDecoded, outputStream);
+            progress(iCount);
             logger.debug("decStream copied {} bytes", iCount);
         }
         catch (IOException e)

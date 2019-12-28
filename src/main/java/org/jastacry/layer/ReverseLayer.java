@@ -69,6 +69,7 @@ public class ReverseLayer extends AbstractBasicLayer
                 iChar >>= SHIFTBITS;
                 iChar &= MASKBITS;
                 outputStream.write(iChar);
+                progress(1);
             }
             logger.info("close pipe");
             outputStream.close();

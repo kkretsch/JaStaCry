@@ -35,6 +35,21 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
     private String realLayerName;
 
     /**
+     * Total number of bytes the layer has made progress
+     */
+    private long totalStepsize = 0;
+
+    /**
+     * Total number of calls for progress
+     */
+    private long totalStepcount = 0;
+
+    /**
+     * How many calls to progress until we log a line.
+     */
+    private static final long STEP_LOGGING_FACTOR = 1000;
+
+    /**
      * Action for encoding or decoding direction.
      */
     private Action action;
@@ -145,6 +160,21 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
     public final void setEndController(final CountDownLatch newEndController)
     {
         this.endController = newEndController;
+    }
+
+    /**
+     * Call this function for every step forward in encoding or decoding.
+     * @param stepsize number of bytes we processed in this step
+     */
+    protected final void progress(final long stepsize)
+    {
+        this.totalStepsize += stepsize;
+        this.totalStepcount++;
+
+        if((totalStepcount-1) % STEP_LOGGING_FACTOR == 0)
+        {
+            logger.trace(String.format("At byte %d after %d calls", totalStepsize, totalStepcount));
+        }
     }
 
     /* (non-Javadoc)

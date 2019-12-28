@@ -90,6 +90,7 @@ public class RandomLayer extends AbstractBasicLayer
                 this.rand.nextBytes(bRand);
                 bChar = (byte) (bChar ^ bRand[0]);
                 outputStream.write(bChar);
+                progress(1);
             }
             logger.info("close pipe");
             outputStream.close();

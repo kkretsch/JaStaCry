@@ -291,6 +291,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             while ((nRead = inputStream.read(data, 0, data.length)) != -1)
             {
                 buffer.write(data, 0, nRead);
+                progress(nRead);
             }
 
             buffer.flush();
@@ -352,6 +353,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             while ((nRead = inputStream.read(data, 0, data.length)) != -1)
             {
                 buffer.write(data, 0, nRead);
+                progress(nRead);
             }
 
             buffer.flush();
