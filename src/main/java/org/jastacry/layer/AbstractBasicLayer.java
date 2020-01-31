@@ -173,7 +173,7 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
 
         if((totalStepcount-1) % STEP_LOGGING_FACTOR == 0)
         {
-            logger.trace(String.format("At byte %d after %d calls", totalStepsize, totalStepcount));
+            logger.trace("At byte {} after {} calls", totalStepsize, totalStepcount);
         }
     }
 
