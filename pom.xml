@@ -5,7 +5,7 @@
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacry</artifactId>
 
-	<version>0.6.13</version>
+	<version>0.6.14</version>
 	<!-- 'mvn scm:tag' will create a new git tag with above value -->
 
 	<description>Java Stacked Crypto</description>
@@ -19,13 +19,13 @@
 	</licenses>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<pmd.version>6.20.0</pmd.version>
-		<checkstyle.version>8.27</checkstyle.version>
+		<pmd.version>6.21.0</pmd.version>
+		<checkstyle.version>8.29</checkstyle.version>
 		<surefire.version>3.0.0-M4</surefire.version>
 		<jacoco.version>0.8.5</jacoco.version>
-		<junit4.version>4.12</junit4.version>
-		<junit5.version>5.5.2</junit5.version>
-		<junit5platform.version>1.5.2</junit5platform.version>
+		<junit4.version>4.13</junit4.version>
+		<junit5.version>5.6.0</junit5.version>
+		<junit5platform.version>1.6.0</junit5platform.version>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
