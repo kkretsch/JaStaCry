@@ -136,7 +136,7 @@ public class AppendLayer extends AbstractBasicLayer
     @Override
     public final void encodeAndDecode(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        throw new RuntimeException("Combined method not to be used here.");
+        throw new JastacryException("Combined method not to be used here.");
     }
 
     /**
