@@ -211,6 +211,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
             else
             {
                 outputStream.write(ivBytes, 0, currentIvLen);
+                logger.trace("did write {} IV bytes to stream", currentIvLen);
             } // if
         } // if
     }
@@ -230,11 +231,15 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
         else
         {
             ivBytes = new byte[currentIvLen];
-            iReadBytes = inputStream.read(ivBytes, 0, currentIvLen);
+            iReadBytes = readAllBytes(inputStream, ivBytes, currentIvLen);
             if (currentIvLen != iReadBytes)
             {
                 logger.error("read {} bytes of IV, expecting {}.", iReadBytes, currentIvLen);
-            } // if
+            }
+            else
+            {
+                logger.trace("did read {} IV bytes from stream", iReadBytes);
+            }
         } // if
     }
 
@@ -246,6 +251,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     private void writeSalt(final OutputStream outputStream) throws IOException
     {
         outputStream.write(salt, 0, currentSaltLen);
+        logger.trace("did write {} salt bytes to stream", currentSaltLen);
     }
 
     /**
@@ -257,11 +263,15 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     {
         int iReadBytes;
         salt = new byte[currentSaltLen];
-        iReadBytes = inputStream.read(salt, 0, currentSaltLen);
+        iReadBytes = readAllBytes(inputStream, salt, currentSaltLen);
         if (currentSaltLen != iReadBytes)
         {
             logger.error("read {} bytes of salt, expecting {}.", iReadBytes, currentSaltLen);
-        } // if
+        }
+        else
+        {
+            logger.trace("did read {} salt bytes from stream", iReadBytes);
+        }
     }
 
     /**

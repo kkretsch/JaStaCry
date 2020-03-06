@@ -220,4 +220,28 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
         }
         logger.info("finished thread");
     }
+
+    /**
+     * Read all wanted bytes from inputStream
+     * @param inputStream the stream to read from
+     * @param aTarget target byte array
+     * @param len complete wanted length
+     * @return number of bytes read
+     * @throws IOException
+     */
+    protected final int readAllBytes(final InputStream is, byte[] aTarget, final int len) throws IOException
+    {
+        int iSumBytes=0;
+        int iRemainingBytes;
+
+        while(iSumBytes < len)
+        {
+            iRemainingBytes = len - iSumBytes;
+            int iReadBytes = is.read(aTarget, iSumBytes, iRemainingBytes);
+            logger.trace("Did read {} bytes, expected up to {}", iReadBytes, iRemainingBytes);
+            iSumBytes += iReadBytes;
+        }
+
+        return iSumBytes;
+    }
 }
