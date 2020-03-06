@@ -56,14 +56,14 @@ public class AppendLayer extends AbstractBasicLayer
      * Encode data.
      */
     @Override
-    public void encStream(InputStream inputStream, OutputStream outputStream) throws JastacryException
+    public void encStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        if(null == fileAppend)
+        if (null == fileAppend)
         {
             throw (JastacryException) new JastacryException("encodeAndDecode failed, append file undefined");
         }
 
-        try(FileInputStream fIS = new FileInputStream(fileAppend))
+        try (FileInputStream fIS = new FileInputStream(fileAppend))
         {
             logger.debug("read data input stream");
             int iChar;
@@ -92,9 +92,9 @@ public class AppendLayer extends AbstractBasicLayer
      * Decode back.
      */
     @Override
-    public void decStream(InputStream inputStream, OutputStream outputStream) throws JastacryException
+    public void decStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
-        if(null == fileAppend)
+        if (null == fileAppend)
         {
             throw (JastacryException) new JastacryException("encodeAndDecode failed, append file undefined");
         }
@@ -102,17 +102,17 @@ public class AppendLayer extends AbstractBasicLayer
 
         try
         {
-            if(0 == inputStream.available())
+            if (0 == inputStream.available())
             {
                 throw (JastacryException) new JastacryException("encodeAndDecode failed, input stream empty");
             }
 
             byte[] buf = inputStream.readAllBytes();
-            if(buf.length < lFileSize)
+            if (buf.length < lFileSize)
             {
                 throw (JastacryException) new JastacryException("decStream failed, too short");
             }
-            int lDataSize = (int) (buf.length-lFileSize);
+            int lDataSize = (int) (buf.length - lFileSize);
             byte[] bufData = new byte[lDataSize];
             java.lang.System.arraycopy(buf, 0, bufData, 0, lDataSize);
             outputStream.write(bufData);

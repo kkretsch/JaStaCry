@@ -35,12 +35,12 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
     private String realLayerName;
 
     /**
-     * Total number of bytes the layer has made progress
+     * Total number of bytes the layer has made progress.
      */
     private long totalStepsize = 0;
 
     /**
-     * Total number of calls for progress
+     * Total number of calls for progress.
      */
     private long totalStepcount = 0;
 
@@ -171,7 +171,7 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
         this.totalStepsize += stepsize;
         this.totalStepcount++;
 
-        if((totalStepcount-1) % STEP_LOGGING_FACTOR == 0)
+        if ((totalStepcount - 1) % STEP_LOGGING_FACTOR == 0)
         {
             logger.trace("At byte {} after {} calls", totalStepsize, totalStepcount);
         }
@@ -222,19 +222,19 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
     }
 
     /**
-     * Read all wanted bytes from inputStream
+     * Read all wanted bytes from inputStream.
      * @param is the stream to read from
      * @param aTarget target byte array
      * @param len complete wanted length
      * @return number of bytes read
      * @throws IOException
      */
-    protected final int readAllBytes(final InputStream is, byte[] aTarget, final int len) throws IOException
+    protected final int readAllBytes(final InputStream is, final byte[] aTarget, final int len) throws IOException
     {
-        int iSumBytes=0;
+        int iSumBytes = 0;
         int iRemainingBytes;
 
-        while(iSumBytes < len)
+        while (iSumBytes < len)
         {
             iRemainingBytes = len - iSumBytes;
             int iReadBytes = is.read(aTarget, iSumBytes, iRemainingBytes);
