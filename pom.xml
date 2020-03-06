@@ -314,6 +314,7 @@
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
+					<failOnError>false</failOnError>
 					<filesets>
 						<fileset>
 							<directory>logs</directory>
