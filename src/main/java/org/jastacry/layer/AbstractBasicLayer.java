@@ -223,7 +223,7 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
 
     /**
      * Read all wanted bytes from inputStream
-     * @param inputStream the stream to read from
+     * @param is the stream to read from
      * @param aTarget target byte array
      * @param len complete wanted length
      * @return number of bytes read
