@@ -8,9 +8,10 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
 
-import static com.tngtech.archunit.library.GeneralCodingRules.USE_JAVA_UTIL_LOGGING;
-import static com.tngtech.archunit.library.GeneralCodingRules.ACCESS_STANDARD_STREAMS;
-import static com.tngtech.archunit.library.GeneralCodingRules.THROW_GENERIC_EXCEPTIONS;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_USE_JODATIME;
 
 /**
  * Test of Architectural stuff.
@@ -32,17 +33,14 @@ public class TestArch
             .should().haveSimpleNameEndingWith("Layer");
 
     @ArchTest
-    public static final ArchRule noJavaUtilLoggin = ArchRuleDefinition.noClasses()
-        .should(USE_JAVA_UTIL_LOGGING)
-        .because("slf4j and logback/log4j2 should be used instead of java.util logger");
+    public static final ArchRule noJavaUtilLoggin = NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING;
 
     @ArchTest
-    public static final ArchRule noStdStreams = ArchRuleDefinition.noClasses()
-        .should(ACCESS_STANDARD_STREAMS)
-        .because("No stdout or stderr usage allowed");
+    public static final ArchRule noStdStreams = NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS;
 
     @ArchTest
-    public static final ArchRule noGenericExceptions = ArchRuleDefinition.noClasses()
-        .should(THROW_GENERIC_EXCEPTIONS)
-        .because("No generic exception should be thrown");
+    public static final ArchRule noGenericExceptions = NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS;
+
+    @ArchTest
+    public static final ArchRule noJodaTime = NO_CLASSES_SHOULD_USE_JODATIME;
 }

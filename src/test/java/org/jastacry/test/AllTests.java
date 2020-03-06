@@ -30,7 +30,8 @@ import org.junit.runner.RunWith;
     TestAbstractBasicLayer.class,
     TestLayerAesCbc.class, TestLayerAesCtr.class, TestLayerAesEcb.class,
     TestLayerAsciiTransport.class, TestLayerFilemerge.class, TestLayerMd5Des.class, TestLayerRandom.class, TestLayerReadWrite.class, TestLayerReverse.class,
-    TestLayerRotate.class, TestLayerTransparent.class, TestLayerXor.class
+    TestLayerRotate.class, TestLayerTransparent.class, TestLayerXor.class,
+    TestArch.class
 })
 public class AllTests
 {
