@@ -162,7 +162,7 @@ public final class JaStaCry
     public static void main(final String[] args)
     {
         final int returncode = mainMethod(args);
-        System.exit(returncode); // NOPMD by kai on 21.11.17 17:04
+        System.exit(returncode);
     }
 
     /**
@@ -181,7 +181,7 @@ public final class JaStaCry
         if (0 != returncode)
         {
             LOGGER.error(getText("error.setupfound"), returncode);
-            return returncode; // NOPMD by kai on 21.11.17 16:59
+            return returncode;
         } // if
 
         final Worker worker = new Worker();

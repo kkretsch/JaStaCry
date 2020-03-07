@@ -61,7 +61,7 @@ public class Md5DesLayer extends AbstractCipherLayer
     /**
      * local key storage implementation.
      */
-    private byte[] keyBytes; // NOPMD by kkretsch on 29.03.18 14:53
+    private byte[] keyBytes;
 
     /**
      * Constructor of Md5DesLayer.

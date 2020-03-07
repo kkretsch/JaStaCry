@@ -227,7 +227,7 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
      * @param aTarget target byte array
      * @param len complete wanted length
      * @return number of bytes read
-     * @throws IOException
+     * @throws IOException in case of error
      */
     protected final int readAllBytes(final InputStream is, final byte[] aTarget, final int len) throws IOException
     {

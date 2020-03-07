@@ -58,8 +58,8 @@ public class XorLayer extends AbstractBasicLayer
             int iChar;
             byte bChar;
             while ((iChar = inputStream.read()) != -1)
-            { // NOPMD by kai on 21.11.17 17:18
-                bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:18
+            {
+                bChar = (byte) iChar;
                 bChar = (byte) (bChar ^ this.bitMask);
                 outputStream.write(bChar);
                 progress(1);

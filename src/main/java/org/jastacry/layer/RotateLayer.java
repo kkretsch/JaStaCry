@@ -59,7 +59,7 @@ public class RotateLayer extends AbstractBasicLayer
         {
             int iChar;
             while ((iChar = inputStream.read()) != -1)
-            { // NOPMD by kai on 21.11.17 17:19
+            {
                 iChar += this.offset;
                 iChar = rangeCheck(iChar);
                 outputStream.write(iChar);
@@ -88,7 +88,7 @@ public class RotateLayer extends AbstractBasicLayer
         {
             int iChar;
             while ((iChar = inputStream.read()) != -1)
-            { // NOPMD by kai on 21.11.17 17:19
+            {
                 iChar -= this.offset;
                 iChar = rangeCheck(iChar);
                 outputStream.write(iChar);

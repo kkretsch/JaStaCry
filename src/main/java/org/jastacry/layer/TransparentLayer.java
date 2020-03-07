@@ -42,7 +42,7 @@ public class TransparentLayer extends AbstractBasicLayer
         {
             int iChar;
             while ((iChar = inputStream.read()) != -1)
-            { // NOPMD by kai on 21.11.17 17:13
+            {
                 outputStream.write(iChar);
                 progress(1);
             }

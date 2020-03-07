@@ -67,10 +67,10 @@ public class FilemergeLayer extends AbstractBasicLayer
 
         try (FileInputStream fIS = new FileInputStream(fileMerge))
         {
-            channel = fIS.getChannel(); // NOPMD by kai on 21.11.17 17:24
+            channel = fIS.getChannel();
 
             while ((iChar = inputStream.read()) != -1)
-            { // NOPMD by kai on 21.11.17 17:24
+            {
                 iMerge = fIS.read();
 
                 if (-1 == iMerge)
@@ -79,7 +79,7 @@ public class FilemergeLayer extends AbstractBasicLayer
                     channel.position(0);
                     iMerge = fIS.read();
                 }
-                bChar = (byte) iChar; // NOPMD by kai on 21.11.17 17:24
+                bChar = (byte) iChar;
                 bMerge = (byte) iMerge;
                 bChar = (byte) (bChar ^ bMerge);
                 outputStream.write(bChar);
