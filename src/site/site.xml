@@ -37,6 +37,7 @@
         <menu ref="modules" inherit="top" />
         <menu name="User guide">
             <item href="readme.html" name="Readme" />
+            <item href="architecture/" name="ADR" />
         </menu>
         <menu ref="reports" inherit="bottom" />
 
