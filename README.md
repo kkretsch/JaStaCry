@@ -7,6 +7,10 @@ We are nearly live with the first version.
 
 In the meantime have a look at [JaStaCry Blog](https://blog.jastacry.org)
 
+### CI status
+
+Running automated tests using Jenkins and gitlab in parallel. I just couldn't decide :-)
+
 ### manual command lines
 
     cd target/
