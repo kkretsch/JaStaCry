@@ -637,8 +637,8 @@
 		<developerConnection>scm:git:ssh://git@git.kretschmann.software:kai/JaStaCry.git</developerConnection>
 	</scm>
 	<issueManagement>
-		<system>jira</system>
-		<url>https://jira.myocastor.de/projects/JAS/summary</url>
+		<system>Gitlab</system>
+		<url>https://gitlab.kretschmann.software/kai/JaStaCry/-/issues</url>
 	</issueManagement>
 	<ciManagement>
 		<system>Jenkins</system>
