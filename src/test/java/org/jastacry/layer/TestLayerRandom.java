@@ -9,9 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.jastacry.JastacryException;
-import org.jastacry.layer.RandomLayer;
 import org.jastacry.test.utils.Tooling;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

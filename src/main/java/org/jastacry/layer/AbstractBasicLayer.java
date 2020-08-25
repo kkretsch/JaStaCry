@@ -190,6 +190,7 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
      * Thread entry function for layer work.
      */
     @Override
+    @SuppressWarnings("ucd")
     public void run()
     {
         logger.info("started thread");

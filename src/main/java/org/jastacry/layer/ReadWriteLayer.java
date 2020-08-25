@@ -19,7 +19,7 @@ public class ReadWriteLayer extends AbstractBasicLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "ReadWrite Layer";
+    static final String LAYERNAME = "ReadWrite Layer";
 
     /**
      * Constructor of class, calling super.
@@ -30,6 +30,7 @@ public class ReadWriteLayer extends AbstractBasicLayer
     }
 
     @Override
+    @SuppressWarnings("ucd")
     public final void run()
     {
         logger.info("started thread");

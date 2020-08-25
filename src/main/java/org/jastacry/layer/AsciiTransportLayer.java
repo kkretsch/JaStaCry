@@ -22,7 +22,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "ASCII Layer";
+    static final String LAYERNAME = "ASCII Layer";
 
     /**
      * Constructor of EncodeDecodeLayer.

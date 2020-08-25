@@ -21,7 +21,7 @@ public class AesEcbLayer extends AbstractCipherLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "AES ECB Layer";
+    static final String LAYERNAME = "AES ECB Layer";
 
     /**
      * Used algorithm name.

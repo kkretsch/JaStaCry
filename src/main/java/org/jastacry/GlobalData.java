@@ -14,7 +14,7 @@ public final class GlobalData
     /**
      * Help line reply.
      */
-    public static final String HELP = "JaStaCry -h | (-v) (-t) [--encode|--decode] --infile input.txt "
+    static final String HELP = "JaStaCry -h | (-v) (-t) [--encode|--decode] --infile input.txt "
             + "--outfile output.bin --conffile layers.conf";
 
     /**
@@ -45,52 +45,52 @@ public final class GlobalData
     /**
      * Configuration value for layer "transparent" (lower case).
      */
-    public static final String LAYER_TRANSPARENT = "transparent";
+    static final String LAYER_TRANSPARENT = "transparent";
 
     /**
      * Configuration value for layer "xor" (lower case).
      */
-    public static final String LAYER_XOR = "xor";
+    static final String LAYER_XOR = "xor";
 
     /**
      * Configuration value for layer "rotate" (lower case).
      */
-    public static final String LAYER_ROTATE = "rotate";
+    static final String LAYER_ROTATE = "rotate";
 
     /**
      * Configuration value for layer "reverse" (lower case).
      */
-    public static final String LAYER_REVERSE = "reverse";
+    static final String LAYER_REVERSE = "reverse";
 
     /**
      * Configuration value for layer "random" (lower case).
      */
-    public static final String LAYER_RANDOM = "random";
+    static final String LAYER_RANDOM = "random";
 
     /**
      * Configuration value for layer "filemerge" (lower case).
      */
-    public static final String LAYER_FILEMERGE = "filemerge";
+    static final String LAYER_FILEMERGE = "filemerge";
 
     /**
      * Configuration value for layer "md5des" (lower case).
      */
-    public static final String LAYER_MD5DES = "md5des";
+    static final String LAYER_MD5DES = "md5des";
 
     /**
      * Configuration value for layer "aescbc" (lower case).
      */
-    public static final String LAYER_AESCBC = "aescbc";
+    static final String LAYER_AESCBC = "aescbc";
 
     /**
      * Configuration value for layer "aesecb" (lower case).
      */
-    public static final String LAYER_AESECB = "aesecb";
+    static final String LAYER_AESECB = "aesecb";
 
     /**
      * Configuration value for layer "aesctr" (lower case).
      */
-    public static final String LAYER_AESCTR = "aesctr";
+    static final String LAYER_AESCTR = "aesctr";
 
     /**
      * enum range for Actions.
@@ -173,7 +173,7 @@ public final class GlobalData
     /**
      * Placeholder for passwords.
      */
-    public static final String MACRO_PASSWORD = "#PASS" + "WORD#";
+    static final String MACRO_PASSWORD = "#PASS" + "WORD#";
 
     /**
      * Hidden constructor.

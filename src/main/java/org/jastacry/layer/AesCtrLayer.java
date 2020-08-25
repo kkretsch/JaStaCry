@@ -21,7 +21,7 @@ public class AesCtrLayer extends AbstractCipherLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "AES CTR Layer";
+    static final String LAYERNAME = "AES CTR Layer";
 
     /**
      * Used algorithm name.

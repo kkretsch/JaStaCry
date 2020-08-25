@@ -22,7 +22,7 @@ public class AesCbcLayer extends AbstractCipherLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "AES CBC Layer";
+    static final String LAYERNAME = "AES CBC Layer";
 
     /**
      * Used algorithm name.

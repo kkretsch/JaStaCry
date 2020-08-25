@@ -28,7 +28,7 @@ import org.jastacry.JastacryException;
  *
  * @author Kai Kretschmann
  */
-public abstract class AbstractCipherLayer extends AbstractBasicLayer
+abstract class AbstractCipherLayer extends AbstractBasicLayer
 {
 
     /**
@@ -64,7 +64,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * ALG for the data.
      */
-    protected String strAlg;
+    private String strAlg;
 
     /**
      * Algorithm for the key.
@@ -89,17 +89,17 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * IV length.
      */
-    protected int currentIvLen;
+    private int currentIvLen;
 
     /**
      * IV bytes.
      */
-    protected byte[] ivBytes;
+    private byte[] ivBytes;
 
     /**
      * Salt length.
      */
-    protected int currentSaltLen;
+    private int currentSaltLen;
 
     /**
      * salt.
@@ -112,7 +112,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
      * @param cClass class name of calling class
      * @param layerName name of real layer
      */
-    public AbstractCipherLayer(final Class<?> cClass, final String layerName)
+    AbstractCipherLayer(final Class<?> cClass, final String layerName)
     {
         super(cClass, layerName);
     }
@@ -162,7 +162,7 @@ public abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * Generate random salt.
      */
-    protected final void getSalt()
+    private final void getSalt()
     {
         salt = new byte[currentSaltLen];
         new SecureRandom().nextBytes(salt);

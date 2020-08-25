@@ -21,7 +21,7 @@ public class Md5DesLayer extends AbstractCipherLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "MD5DES Layer";
+    static final String LAYERNAME = "MD5DES Layer";
 
     /**
      * Used algorithm name.

@@ -47,8 +47,8 @@ import org.jastacry.layer.XorLayer;
  *
  * @author Kai Kretschmann
  */
-@SuppressWarnings("PMD.NcssCount")
-public class Worker
+
+class Worker
 {
     /**
      * log4j logger object.
@@ -123,7 +123,7 @@ public class Worker
      * @return int system return code to shell
      */
     @SuppressWarnings("squid:S4797") // Handling files is security-sensitive
-    public final int mainWork()
+    final int mainWork()
     {
         LOGGER.traceEntry();
         final List<AbstractBasicLayer> layers = createLayers();
@@ -523,6 +523,7 @@ public class Worker
     /**
      * Destroy just like a inverted constructor function.
      */
+    @SuppressWarnings("ucd")
     public final void destroy()
     {
         executor.shutdown();

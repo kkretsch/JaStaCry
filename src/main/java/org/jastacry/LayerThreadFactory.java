@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
  * @author Kai Kretschmann
  *
  */
-public class LayerThreadFactory implements ThreadFactory
+class LayerThreadFactory implements ThreadFactory
 {
 
     /**

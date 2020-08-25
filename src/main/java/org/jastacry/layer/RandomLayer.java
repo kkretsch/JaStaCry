@@ -20,7 +20,7 @@ public class RandomLayer extends AbstractBasicLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "Random Layer";
+    static final String LAYERNAME = "Random Layer";
 
     /**
      * Random number generator.

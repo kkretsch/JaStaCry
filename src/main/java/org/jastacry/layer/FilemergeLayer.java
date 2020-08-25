@@ -23,7 +23,7 @@ public class FilemergeLayer extends AbstractBasicLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "Filemerge Layer";
+    static final String LAYERNAME = "Filemerge Layer";
 
     /**
      * File to merge with..

@@ -19,7 +19,7 @@ public class RotateLayer extends AbstractBasicLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "Rotate Layer";
+    static final String LAYERNAME = "Rotate Layer";
 
     /**
      * private range to rate.

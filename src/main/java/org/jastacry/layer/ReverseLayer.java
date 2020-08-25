@@ -29,7 +29,7 @@ public class ReverseLayer extends AbstractBasicLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "Reverse Layer";
+    static final String LAYERNAME = "Reverse Layer";
 
     /**
      * Constructor of XorLayer.

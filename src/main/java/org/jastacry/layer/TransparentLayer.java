@@ -19,7 +19,7 @@ public class TransparentLayer extends AbstractBasicLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "Transparent Layer";
+    static final String LAYERNAME = "Transparent Layer";
 
     /**
      * Constructor of TransparentLayer.

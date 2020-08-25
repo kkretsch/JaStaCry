@@ -19,7 +19,7 @@ public class XorLayer extends AbstractBasicLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "Xor Layer";
+    static final String LAYERNAME = "Xor Layer";
     /**
      * private byte mask to xor with.
      */

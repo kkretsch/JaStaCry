@@ -22,7 +22,7 @@ public class AppendLayer extends AbstractBasicLayer
     /**
      * static name of the layer.
      */
-    public static final String LAYERNAME = "Append Layer";
+    static final String LAYERNAME = "Append Layer";
 
     /**
      * File to append after data.
