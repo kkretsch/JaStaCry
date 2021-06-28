@@ -184,7 +184,7 @@ public final class JaStaCry
             return returncode;
         } // if
 
-        final Worker worker = new Worker();
+        var worker = new Worker();
         worker.setAction(action);
         worker.setConfFilename(confFilename);
         worker.setDoAsciitransport(doASCIItransport);
@@ -204,7 +204,7 @@ public final class JaStaCry
     private static Options createOptions()
     {
         LOGGER.traceEntry();
-        final Options options = new Options();
+        var options = new Options();
 
         // optional parameters
         options.addOption(P_SHORT_HELP, P_LONG_HELP, false, getText("help.help"));
