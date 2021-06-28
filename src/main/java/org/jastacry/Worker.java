@@ -164,8 +164,8 @@ class Worker
             } // switch
         }
 
-        final File fileIn = new File(inputFilename);
-        final File fileOut = new File(outputFilename);
+        final var fileIn = new File(inputFilename);
+        final var fileOut = new File(outputFilename);
 
         try
         {
@@ -205,9 +205,9 @@ class Worker
         final List<AbstractBasicLayer> layers = new ArrayList<>();
 
         // try with resources
-        try (FileInputStream fstream = new FileInputStream(confFilename);
-                InputStreamReader isr = new InputStreamReader(fstream, StandardCharsets.UTF_8);
-                BufferedReader breader = new BufferedReader(isr))
+        try (var fstream = new FileInputStream(confFilename);
+                var isr = new InputStreamReader(fstream, StandardCharsets.UTF_8);
+                var breader = new BufferedReader(isr))
         {
             String strLine;
 
@@ -289,9 +289,9 @@ class Worker
     @SuppressWarnings("squid:S4829") // Reading the Standard Input is security-sensitive
     private String readPassword(final String layername)
     {
-        String passwordString = "";
+        var passwordString = "";
         final String prompt = "Layer " + layername + " Password: ";
-        final Console console = System.console();
+        final var console = System.console();
 
         if (null == console)
         {
@@ -371,7 +371,7 @@ class Worker
     {
         LOGGER.traceEntry();
 
-        final CountDownLatch endController = new CountDownLatch(layers.size() + 2);
+        final var endController = new CountDownLatch(layers.size() + 2);
         final List<AbstractBasicLayer> layersWithIo = new ArrayList<>();
         final List<InputStream> inputStreams = new ArrayList<>();
         final List<OutputStream> outputStreams = new ArrayList<>();
@@ -411,7 +411,7 @@ class Worker
             layersWithIo.add(l);
 
             // only second and further layers are looped through
-            for (int i = 1; i < layers.size(); i++)
+            for (var i = 1; i < layers.size(); i++)
             {
                 l = layers.get(i);
 
@@ -442,7 +442,7 @@ class Worker
             layersWithIo.add(l);
 
             // Start all threads
-            for (int i = 0; i < layersWithIo.size(); i++)
+            for (var i = 0; i < layersWithIo.size(); i++)
             {
                 GlobalFunctions.logDebug(isVerbose, LOGGER, "start thread {}", i);
                 final AbstractBasicLayer layer = layersWithIo.get(i);
