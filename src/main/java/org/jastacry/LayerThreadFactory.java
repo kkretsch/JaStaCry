@@ -34,7 +34,7 @@ class LayerThreadFactory implements ThreadFactory
     public final Thread newThread(final Runnable r)
     {
         LOGGER.traceEntry();
-        final Thread thread = new Thread(r, PFX + suffix);
+        final var thread = new Thread(r, PFX + suffix);
         thread.setDaemon(true);
         return LOGGER.traceExit(thread);
     }
