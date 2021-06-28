@@ -212,7 +212,7 @@ public final class JaStaCry
         options.addOption(P_SHORT_ASCII, P_LONG_ASCII, false, getText("help.ascii"));
 
         // either/or arguments, but mandatory as a set
-        final OptionGroup ogAction = new OptionGroup();
+        final var ogAction = new OptionGroup();
         Option option;
         option = Option.builder(P_SHORT_ENCODE).required(false).longOpt(P_LONG_ENCODE).desc(getText("help.encode")).build();
         ogAction.addOption(option);
@@ -244,7 +244,7 @@ public final class JaStaCry
     {
         LOGGER.traceEntry();
 
-        final Locale currentLocale = Locale.getDefault();
+        final var currentLocale = Locale.getDefault();
         LOGGER.info("Locale: {}", currentLocale);
 
         // First read locale i18n stuff
@@ -274,10 +274,10 @@ public final class JaStaCry
         LOGGER.traceEntry();
 
         // Command line parameters
-        final Options options = createOptions();
+        final var options = createOptions();
 
         // Manual check for help, ignoring otherwise mandatory arguments
-        final HelpFormatter formatter = new HelpFormatter();
+        final var formatter = new HelpFormatter();
         if (args.length > 0 && "-h".equalsIgnoreCase(args[0]))
         {
             formatter.printHelp(GlobalData.HELP, options);
