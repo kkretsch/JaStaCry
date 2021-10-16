@@ -11,9 +11,9 @@ In the meantime have a look at [JaStaCry Blog](https://blog.jastacry.org)
 
 Sonarqube says:
 
-![Quality Gate](https://sona.kretschmann.software/dashboard?id=JaStaCry)
+![](https://sona.kretschmann.software/dashboard?id=JaStaCry)
 
-![Test Coverage](https://sona.kretschmann.software/dashboard?id=JaStaCry)
+![](https://sona.kretschmann.software/dashboard?id=JaStaCry)
 
 
 ### manual command lines
