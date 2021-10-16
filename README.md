@@ -9,7 +9,12 @@ In the meantime have a look at [JaStaCry Blog](https://blog.jastacry.org)
 
 ### CI status
 
-Running automated tests using Jenkins and gitlab in parallel. I just couldn't decide :-)
+Sonarqube says:
+
+![Quality Gate](https://sona.kretschmann.software/dashboard?id=JaStaCry)
+
+![Test Coverage](https://sona.kretschmann.software/dashboard?id=JaStaCry)
+
 
 ### manual command lines
 
@@ -20,3 +25,7 @@ Running automated tests using Jenkins and gitlab in parallel. I just couldn't de
 # Gitlab pages
 
 Automated documentation [here](https://stackedcrypto.kretschmann.fyi/JaStaCry/).
+
+# Discussion
+
+Find a (Discourse)[https://talk.kretschmann.social/c/projects/jastacry/6] area for this project.
