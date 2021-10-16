@@ -16,3 +16,7 @@ Running automated tests using Jenkins and gitlab in parallel. I just couldn't de
     cd target/
     dd if=/dev/zero of=input.dat bs=1M count=1
     java -jar jastacry-0.6.5.jar -c ../src/test/resources/conf_dieharder.cfg --encode -i input.dat -o output.dat
+
+# Gitlab pages
+
+Automated documentation [here](https://stackedcrypto.kretschmann.fyi/JaStaCry/).
