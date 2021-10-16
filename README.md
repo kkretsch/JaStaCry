@@ -11,9 +11,9 @@ In the meantime have a look at [JaStaCry Blog](https://blog.jastacry.org)
 
 Sonarqube says:
 
-![](https://sona.kretschmann.software/dashboard?id=JaStaCry)
+![](https://sona.kretschmann.software/api/project_badges/measure?project=JaStaCry&metric=alert_status)
 
-![](https://sona.kretschmann.software/dashboard?id=JaStaCry)
+![](https://sona.kretschmann.software/api/project_badges/measure?project=JaStaCry&metric=coverage)
 
 
 ### manual command lines
