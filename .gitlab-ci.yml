@@ -18,3 +18,22 @@ test:
   stage: test
   script:
     - mvn $MAVEN_CLI_OPTS test
+
+jdoc:
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS site
+  artifacts:
+    paths:
+      - target/site/
+
+pages:
+  stage: deploy
+  image: alpine
+  before_script:
+    - mkdir public
+  script:
+    - cp -a target/site/* public/
+  artifacts:
+    paths:
+      - public
