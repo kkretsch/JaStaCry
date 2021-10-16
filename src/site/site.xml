@@ -23,8 +23,8 @@
         <links>
             <item href="index.html" name="JaStaCry" />
             <item href="https://www.jastacry.org/" name="Website" />
-            <item href="https://testlink.myocastor.de" name="TestLink" />
-	    <item href="https://jen.myocastor.de" name="Jenkins" />
+            <item href="https://testlink.kretschmann.software" name="TestLink" />
+	    <item href="https://gitlab.kretschmann.software" name="Gitlab" />
             <item href="https://doc.jastacry.org" name="architecture" />
         </links>
 
