@@ -5,7 +5,7 @@
 	<groupId>org.jastacry</groupId>
 	<artifactId>jastacry</artifactId>
 
-	<version>0.6.25</version>
+	<version>0.7.0</version>
 	<!-- 'mvn scm:tag' will create a new git tag with above value -->
 
 	<description>Java Stacked Crypto</description>
@@ -631,18 +631,18 @@
 		</developer>
 	</developers>
 	<scm>
-		<url>https://git.kretschmann.software/kai/JaStaCry</url>
+		<url>https://gitlab.kretschmann.software/stackedcrypto/JaStaCry</url>
 		<tag>HEAD</tag>
-		<connection>scm:git:https://git.kretschmann.software/kai/JaStaCry.git</connection>
-		<developerConnection>scm:git:ssh://git@git.kretschmann.software:kai/JaStaCry.git</developerConnection>
+		<connection>scm:git:https://gitlab.kretschmann.software/stackedcrypto/JaStaCry.git</connection>
+		<developerConnection>scm:git:ssh://git@gitlab.kretschmann.software:stackedcrypto/JaStaCry.git</developerConnection>
 	</scm>
 	<issueManagement>
 		<system>Gitlab</system>
-		<url>https://gitlab.kretschmann.software/kai/JaStaCry/-/issues</url>
+		<url>https://gitlab.kretschmann.software/stackedcrypto/JaStaCry/-/issues</url>
 	</issueManagement>
 	<ciManagement>
-		<system>Jenkins</system>
-		<url>https://jen.myocastor.de/job/JaStaCry/</url>
+		<system>Gitlab</system>
+		<url>https://gitlab.kretschmann.software/stackedcrypto/JaStaCry</url>
 	</ciManagement>
 	<dependencyManagement>
 		<dependencies>
@@ -672,5 +672,5 @@
 		<url>https://kai.kretschmann.consulting/</url>
 		<name>Kai Kretschmann</name>
 	</organization>
-	<inceptionYear>2019</inceptionYear>
+	<inceptionYear>2021</inceptionYear>
 </project>
