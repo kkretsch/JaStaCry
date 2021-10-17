@@ -293,10 +293,10 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
             pbeCipher = Cipher.getInstance(strAlg);
             pbeCipher.init(Cipher.ENCRYPT_MODE, pbeSecretKeySpec);
 
-            final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            final var buffer = new ByteArrayOutputStream();
 
             int nRead;
-            final byte[] data = new byte[ONEBLOCKSIZE];
+            final var data = new byte[ONEBLOCKSIZE];
 
             while ((nRead = inputStream.read(data, 0, data.length)) != -1)
             {
@@ -355,10 +355,10 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
                 pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec, new IvParameterSpec(ivBytes));
             } // if
 
-            final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            final var buffer = new ByteArrayOutputStream();
 
-            int nRead = 0;
-            final byte[] data = new byte[ONEBLOCKSIZE];
+            var nRead = 0;
+            final var data = new byte[ONEBLOCKSIZE];
 
             while ((nRead = inputStream.read(data, 0, data.length)) != -1)
             {

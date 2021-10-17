@@ -63,7 +63,7 @@ public class AppendLayer extends AbstractBasicLayer
             throw (JastacryException) new JastacryException("encodeAndDecode failed, append file undefined");
         }
 
-        try (FileInputStream fIS = new FileInputStream(fileAppend))
+        try (var fIS = new FileInputStream(fileAppend))
         {
             logger.debug("read data input stream");
             int iChar;
@@ -113,7 +113,7 @@ public class AppendLayer extends AbstractBasicLayer
                 throw (JastacryException) new JastacryException("decStream failed, too short");
             }
             int lDataSize = (int) (buf.length - lFileSize);
-            byte[] bufData = new byte[lDataSize];
+            var bufData = new byte[lDataSize];
             java.lang.System.arraycopy(buf, 0, bufData, 0, lDataSize);
             outputStream.write(bufData);
 

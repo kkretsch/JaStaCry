@@ -232,7 +232,7 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
      */
     protected final int readAllBytes(final InputStream is, final byte[] aTarget, final int len) throws IOException
     {
-        int iSumBytes = 0;
+        var iSumBytes = 0;
         int iRemainingBytes;
 
         while (iSumBytes < len)

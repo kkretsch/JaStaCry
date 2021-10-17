@@ -65,7 +65,7 @@ public class FilemergeLayer extends AbstractBasicLayer
         byte bMerge;
         FileChannel channel;
 
-        try (FileInputStream fIS = new FileInputStream(fileMerge))
+        try (var fIS = new FileInputStream(fileMerge))
         {
             channel = fIS.getChannel();
 

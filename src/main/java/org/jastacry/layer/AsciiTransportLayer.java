@@ -55,10 +55,10 @@ public class AsciiTransportLayer extends AbstractBasicLayer
     {
         try
         {
-            final Base64.Encoder encoder = Base64.getEncoder();
+            final var encoder = Base64.getEncoder();
             final byte[] bytes = IOUtils.toByteArray(inputStream);
             final byte[] bytesEncoded = encoder.encode(bytes);
-            final ByteArrayInputStream inputByteStream = new ByteArrayInputStream(bytesEncoded);
+            final var inputByteStream = new ByteArrayInputStream(bytesEncoded);
             final int iCount = IOUtils.copy(inputByteStream, outputStream);
             progress(iCount);
             logger.debug("encStream copied {} bytes", iCount);
@@ -81,7 +81,7 @@ public class AsciiTransportLayer extends AbstractBasicLayer
     {
         try
         {
-            final Base64.Decoder decoder = Base64.getDecoder();
+            final var decoder = Base64.getDecoder();
             final InputStream isDecoded = decoder.wrap(inputStream);
             final int iCount = IOUtils.copy(isDecoded, outputStream);
             progress(iCount);

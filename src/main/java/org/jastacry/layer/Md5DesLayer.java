@@ -97,7 +97,7 @@ public class Md5DesLayer extends AbstractCipherLayer
         this.chPasswd = data.toCharArray();
         try
         {
-            final MessageDigest msgDigest = MessageDigest.getInstance(MYHASHALG);
+            final var msgDigest = MessageDigest.getInstance(MYHASHALG);
             final byte[] digestOfPassword = msgDigest.digest(data.getBytes(StandardCharsets.UTF_8));
             keyBytes = Arrays.copyOf(digestOfPassword, KEYSIZE);
         }

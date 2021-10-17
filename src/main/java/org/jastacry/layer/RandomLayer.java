@@ -83,7 +83,7 @@ public class RandomLayer extends AbstractBasicLayer
         {
             int iChar;
             byte bChar;
-            final byte[] bRand = new byte[1];
+            final var bRand = new byte[1];
             while ((iChar = inputStream.read()) != -1)
             {
                 bChar = (byte) iChar;
