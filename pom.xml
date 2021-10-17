@@ -440,10 +440,10 @@
 		</extensions>
 	</build>
 	<repositories>
-		<repository>
+		<!-- repository>
 			<id>rdfa-bintray</id>
 			<url>https://dl.bintray.com/yevster/maven</url>
-		</repository>
+		</repository -->
 	</repositories>
 	<dependencies>
 		<dependency>
