@@ -28,4 +28,4 @@ Automated documentation [here](https://stackedcrypto.kretschmann.fyi/JaStaCry/).
 
 # Discussion
 
-Find a (Discourse)[https://talk.kretschmann.social/c/projects/jastacry/6] area for this project.
+Find a [Discourse}(https://talk.kretschmann.social/c/projects/jastacry/6) area for this project.
