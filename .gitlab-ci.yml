@@ -18,6 +18,12 @@ test:
   stage: test
   script:
     - mvn $MAVEN_CLI_OPTS test
+  artifacts:
+    when: always
+    paths:
+      - target/surefire-reports/TEST-*.xml
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
 
 sonarqube-check:
   stage: test
