@@ -18,6 +18,12 @@ Sonarqube says:
 
 ### manual command lines
 
+#### Check for package updates
+
+    mvn versions:display-dependency-updates
+
+#### run script
+
     cd target/
     dd if=/dev/zero of=input.dat bs=1M count=1
     java -jar jastacry-0.6.5.jar -c ../src/test/resources/conf_dieharder.cfg --encode -i input.dat -o output.dat
