@@ -7,3 +7,5 @@ updates:
     commit-message:
       prefix: "dependabot maven"
       include: "scope"
+    ignore:
+      - dependency-name: "maven-surefire-plugin"
