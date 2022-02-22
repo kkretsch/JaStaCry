@@ -8,4 +8,4 @@ updates:
       prefix: "dependabot maven"
       include: "scope"
     ignore:
-      - dependency-name: "maven-surefire-plugin"
+      - dependency-name: "org.apache.maven.plugins:maven-surefire-plugin"
