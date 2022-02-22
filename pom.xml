@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<pmd.version>6.42.0</pmd.version>
 		<checkstyle.version>9.3</checkstyle.version>
-		<surefire.version>3.0.0-M4</surefire.version>
+		<surefire.version>3.0.0-M5</surefire.version>
 		<jacoco.version>0.8.7</jacoco.version>
 		<junit4.version>4.13.2</junit4.version>
 		<junit5.version>5.8.2</junit5.version>
@@ -150,7 +150,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.2.0</version>
+					<version>3.2.2</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -159,12 +159,12 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.8</version>
+					<version>3.0.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>3.9.0</version>
+					<version>3.11.0</version>
 					<dependencies>
 						<dependency><!-- add support for ssh/scp -->
 							<groupId>org.apache.maven.wagon</groupId>
@@ -185,7 +185,7 @@
 				<plugin>
 					<groupId>org.spdx</groupId>
 					<artifactId>spdx-maven-plugin</artifactId>
-					<version>0.5.3</version>
+					<version>0.5.5</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
