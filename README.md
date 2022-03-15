@@ -7,6 +7,10 @@ We are nearly live with the first version.
 
 In the meantime have a look at [JaStaCry Blog](https://blog.jastacry.org)
 
+### GIT repos
+
+Main development location is using a personal [GitLab](https://gitlab.kretschmann.software/stackedcrypto/JaStaCry) but we mirror the git repo also to [Github](https://github.com/kkretsch/JaStaCry).
+
 ### CI status
 
 Sonarqube says:
