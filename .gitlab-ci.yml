@@ -1,3 +1,7 @@
+.myglobals:
+  tags:
+    - k8s
+
 image: maven:3-openjdk-11
 
 variables:
@@ -14,11 +18,15 @@ cache:
     - target/
 
 build:
+  extends:
+    - .myglobals
   stage: build
   script:
     - mvn $MAVEN_CLI_OPTS compile
 
 test:
+  extends:
+    - .myglobals
   stage: test
   script:
     - mvn $MAVEN_CLI_OPTS test
@@ -30,6 +38,8 @@ test:
       junit: target/surefire-reports/TEST-*.xml
 
 sonarqube-check:
+  extends:
+    - .myglobals
   stage: test
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
@@ -48,6 +58,8 @@ sonarqube-check:
     - develop
 
 prepare_job:
+  extends:
+    - .myglobals
   stage: build
   only:
     variables:
@@ -64,6 +76,8 @@ prepare_job:
       dotenv: variables.env
 
 release_job:
+  extends:
+    - .myglobals
   stage: deploy
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   needs:
@@ -81,6 +95,8 @@ release_job:
     ref: '$CI_COMMIT_SHA'
 
 jdoc:
+  extends:
+    - .myglobals
   stage: build
   script:
     - mvn $MAVEN_CLI_OPTS site
@@ -89,6 +105,8 @@ jdoc:
       - target/site/
 
 pages:
+  extends:
+    - .myglobals
   stage: deploy
   image: alpine
   before_script:
