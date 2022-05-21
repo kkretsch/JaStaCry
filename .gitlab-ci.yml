@@ -37,6 +37,23 @@ test:
     reports:
       junit: target/surefire-reports/TEST-*.xml
 
+bom:
+  extends:
+    - .myglobals
+  stage: test
+  variables:
+    DTRACK_URL: ${DTRACK_URL}
+    DTRACK_API: ${DTRACK_API}
+    DTRACK_PROJECT: ${DTRACK_PROJECT}
+  script:
+    - mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
+  after_script:
+    - 'curl -X POST ${DTRACK_URL}api/v1/bom -H "Content-Type: multipart/form-data" -H "X-API-Key: ${DTRACK_API}" -F "project=${DTRACK_PROJECT}" -F bom=@target/bom.json'
+  allow_failure: true
+  artifacts:
+    paths:
+      - target/bom.json
+
 sonarqube-check:
   extends:
     - .myglobals
