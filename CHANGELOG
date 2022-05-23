@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.7.7
+Added SBOM and CI updates
+
 ## Version 0.5.10
 Update versions used in pom to newer stable versions.
 
