@@ -65,6 +65,11 @@ class Worker
     private static final int TOKENCOUNT_ONE = 1;
 
     /**
+     * Static error string for null password.
+     */
+    private static final String RTERROR = "Null password received";
+
+    /**
      * boolean status: do we encode to text transport format.
      */
     private boolean doAsciitransport;
@@ -299,6 +304,11 @@ class Worker
         else
         {
             final char[] password = console.readPassword(prompt);
+            if (null == password)
+            {
+                LOGGER.error(RTERROR);
+                throw new RuntimeException(RTERROR);
+            }
             passwordString = new String(password);
         } // if
 
