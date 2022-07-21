@@ -94,6 +94,7 @@ coverity:
     paths:
        - coverity_tool.tgz
   before_script:
+    - mvn clean
     - wget -nc -q https://scan.coverity.com/download/linux64 --post-data "token=${COVERITY_TOKEN}&project=${COVERITY_PROJECT}" -O coverity_tool.tgz || true
     - ls -l coverity_tool.tgz
     - mkdir coverity-tool
@@ -101,7 +102,7 @@ coverity:
     - export PATH="${CI_PROJECT_DIR}/coverity-tool/bin:$PATH"
     - 'export COVERITY_VERSION=$(cut -d ":" -f 6 <VERSION.cpe)'
   script:
-    - cov-build --dir cov-int --no-command --fs-capture-search ${CI_PROJECT_DIR}/src
+    - cov-build --dir cov-int mvn $MAVEN_CLI_OPTS compile
     - tar czf /tmp/jastacry.tar.gz cov-int/
     - curl --form token=${COVERITY_TOKEN} --form email=${COVERITY_LOGIN} --form file=@/tmp/jastacry.tar.gz --form version="${COVERITY_VERSION}" --form description="${COVERITY_PROJECT}" https://scan.coverity.com/builds?project=${COVERITY_PROJECT}
   allow_failure: true
