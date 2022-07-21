@@ -89,6 +89,8 @@ coverity:
   extends:
     - .myglobals
   stage: test
+  except:
+    - schedules
   cache:
     key: coverity-$CI_COMMIT_REF_SLUG
     paths:
