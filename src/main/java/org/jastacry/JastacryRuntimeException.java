@@ -4,7 +4,7 @@ package org.jastacry;
  * My very own JaStyCry runtime exception class.
  * @author kkretsch
  */
-public class JastacryRuntimeException extends Exception
+public class JastacryRuntimeException extends RuntimeException
 {
 
     /**
