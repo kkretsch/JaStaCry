@@ -23,6 +23,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import org.jastacry.JastacryRuntimeException;
+
 import org.jastacry.GlobalData.Action;
 import org.jastacry.GlobalData.Returncode;
 import org.jastacry.layer.AbstractBasicLayer;
@@ -307,7 +310,7 @@ class Worker
             if (null == password)
             {
                 LOGGER.error(RTERROR);
-                throw new RuntimeException(RTERROR);
+                throw new JastacryRuntimeException(RTERROR);
             }
             passwordString = new String(password);
         } // if
