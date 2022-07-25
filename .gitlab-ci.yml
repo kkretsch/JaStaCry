@@ -34,6 +34,8 @@ test:
     - schedules
   script:
     - mvn $MAVEN_CLI_OPTS test
+  after_script:
+    - rm target/surefire-reports/TEST-org.jastacry.test.AllTests.xml || true
   artifacts:
     when: always
     reports:
