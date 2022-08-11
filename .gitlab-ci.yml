@@ -21,6 +21,8 @@ build:
   extends:
     - .myglobals
   stage: build
+  cache:
+    policy: push
   except:
     - schedules
   script:
@@ -179,7 +181,7 @@ release_job:
     ref: '$CI_COMMIT_SHA'
     assets:
       links:
-        - name: 'jar'
+        - name: 'compiled jar'
           url: 'https://gitlab.kretschmann.software/stackedcrypto/JaStaCry/-/jobs/${JARJOB}/artifacts/download'
 
 jdoc:
