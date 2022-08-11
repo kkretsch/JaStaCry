@@ -24,7 +24,7 @@ build:
   except:
     - schedules
   script:
-    - mvn $MAVEN_CLI_OPTS compile
+    - mvn $MAVEN_CLI_OPTS clean compile
 
 package:
   extends:
