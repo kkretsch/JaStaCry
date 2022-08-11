@@ -18,6 +18,7 @@
 		</license>
 	</licenses>
 	<properties>
+		<mainclass>org.jastacry.JaStaCry</mainclass>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<pmd.version>6.48.0</pmd.version>
 		<checkstyle.version>10.3.2</checkstyle.version>
@@ -350,7 +351,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>org.jastacry.JaStaCry</mainClass>
+							<mainClass>${mainclass}</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -432,11 +433,27 @@
 					</excludedFilePatterns>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.cyclonedx</groupId>
 				<artifactId>cyclonedx-maven-plugin</artifactId>
 				<version>2.7.1</version>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>${mainclass}</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+
 		</plugins>
 
 		<extensions>

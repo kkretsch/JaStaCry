@@ -25,6 +25,18 @@ build:
     - schedules
   script:
     - mvn $MAVEN_CLI_OPTS compile
+
+package:
+  extends:
+    - .myglobals
+  stage: build
+  needs:
+    - job: build
+      artifacts: false
+  except:
+    - schedules
+  script:
+    - mvn $MAVEN_CLI_OPTS package
   after_script:
     - ls -l target/
 
