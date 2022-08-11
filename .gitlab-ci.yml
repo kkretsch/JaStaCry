@@ -1,4 +1,5 @@
 .myglobals:
+  interruptible: true
   tags:
     - $RUNNERTAG
 
