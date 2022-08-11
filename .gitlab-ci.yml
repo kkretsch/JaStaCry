@@ -30,6 +30,8 @@ package:
   extends:
     - .myglobals
   stage: build
+  variables:
+    RUNNER_GENERATE_ARTIFACTS_METADATA: "true"
   needs:
     - job: build
       artifacts: false
