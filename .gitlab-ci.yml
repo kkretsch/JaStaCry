@@ -31,7 +31,7 @@ package:
     - .myglobals
   stage: build
   variables:
-    RUNNER_GENERATE_ARTIFACTS_METADATA: "true"
+    RUNNER_GENERATE_ARTIFACTS_METADATA: "false"
   needs:
     - job: build
       artifacts: false
