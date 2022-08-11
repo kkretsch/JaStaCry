@@ -41,9 +41,12 @@ package:
     - mvn $MAVEN_CLI_OPTS package -Dmaven.test.skip=true
   after_script:
     - ls -l target/
+    - echo "DOWNLOAD_URL=https://gitlab.kretschmann.software/stackedcrypto/JaStaCry/-/jobs/${CI_JOB_ID}/artifacts/download" >> deploy.env
   artifacts:
     paths:
       - target/jastacry-*.jar
+    reports:
+      dotenv: deploy.env
 
 test:
   extends:
