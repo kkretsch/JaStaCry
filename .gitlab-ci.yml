@@ -39,8 +39,10 @@ package:
       artifacts: false
   except:
     - schedules
+  before_script:
+    - ls -l target/
   script:
-    - mvn $MAVEN_CLI_OPTS package -Dmaven.test.skip=true
+    - mvn $MAVEN_CLI_OPTS clean package -Dmaven.test.skip=true
   after_script:
     - ls -l target/
     - echo "JARJOB=$CI_JOB_ID" > pvariables.env
