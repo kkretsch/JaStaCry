@@ -25,6 +25,8 @@ build:
     - schedules
   script:
     - mvn $MAVEN_CLI_OPTS compile
+  after_script:
+    - ls -l target/
 
 test:
   extends:
