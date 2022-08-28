@@ -167,7 +167,7 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
     /**
      * Generate random salt.
      */
-    private final void getSalt()
+    private void getSalt()
     {
         salt = new byte[currentSaltLen];
         secrand.nextBytes(salt);

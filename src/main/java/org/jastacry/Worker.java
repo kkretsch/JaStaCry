@@ -113,7 +113,7 @@ class Worker
     /**
      * Constructor of Worker class.
      */
-    public Worker()
+    Worker()
     {
         LOGGER.traceEntry();
         this.threadFactory = new LayerThreadFactory();
