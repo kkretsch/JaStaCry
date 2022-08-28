@@ -183,11 +183,6 @@
 					<version>${surefire.version}</version>
 				</plugin>
 				<plugin>
-					<groupId>org.spdx</groupId>
-					<artifactId>spdx-maven-plugin</artifactId>
-					<version>0.6.0</version>
-				</plugin>
-				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
 					<version>3.2.0</version>
@@ -414,24 +409,6 @@
 				<configuration>
 					<configLocation>checkstyle.xml</configLocation>
 					<linkXRef>false</linkXRef>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.spdx</groupId>
-				<artifactId>spdx-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>build-spdx</id>
-						<goals>
-							<goal>createSPDX</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<excludedFilePatterns>
-						<param>*.spdx</param>
-					</excludedFilePatterns>
 				</configuration>
 			</plugin>
 
