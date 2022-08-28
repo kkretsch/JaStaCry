@@ -24,7 +24,6 @@
 		<checkstyle.version>10.3.2</checkstyle.version>
 		<surefire.version>3.0.0-M7</surefire.version>
 		<jacoco.version>0.8.8</jacoco.version>
-		<junit4.version>4.13.2</junit4.version>
 		<junit5.version>5.9.0</junit5.version>
 		<junit5platform.version>1.9.0</junit5platform.version>
 		<archunit.version>0.23.1</archunit.version>
@@ -249,14 +248,16 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-junit-platform</artifactId>
+						<version>${surefire.version}</version>
+					</dependency>
+				</dependencies>
 				<configuration>
 					<test>org.jastacry.test.AllTests</test>
 				</configuration>
-				<!-- configuration>
-					<excludes>
-						<exclude>**/AllTests.java</exclude>
-					</excludes>
-				</configuration -->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -464,12 +465,6 @@
 			</extension>
 		</extensions>
 	</build>
-	<repositories>
-		<!-- repository>
-			<id>rdfa-bintray</id>
-			<url>https://dl.bintray.com/yevster/maven</url>
-		</repository -->
-	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>commons-cli</groupId>
@@ -498,6 +493,12 @@
 			<groupId>com.tngtech.archunit</groupId>
 			<artifactId>archunit-junit5</artifactId>
 			<version>${archunit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite-engine</artifactId>
+			<version>${junit5platform.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -682,11 +683,6 @@
 				<version>${junit5platform.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit4.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>org.junit.platform</groupId>
 				<artifactId>junit-platform-engine</artifactId>
 				<version>${junit5platform.version}</version>
@@ -697,5 +693,5 @@
 		<url>https://kai.kretschmann.consulting/</url>
 		<name>Kai Kretschmann</name>
 	</organization>
-	<inceptionYear>2021</inceptionYear>
+	<inceptionYear>2022</inceptionYear>
 </project>

@@ -14,10 +14,10 @@ import org.jastacry.GlobalData;
 import org.jastacry.GlobalData.Returncode;
 import org.jastacry.JaStaCry;
 import org.jastacry.test.utils.Tooling;
-
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -136,6 +136,10 @@ public class TestConfig
         tmpFile.delete();
     }
 
+    /**
+     * Local helper function.
+     * @param sConfig String config file name
+     */
     private void testGivenConfig(final String sConfig)
     {
         final String sInputFile = RESOURCES + INPUTFILE;
@@ -169,6 +173,7 @@ public class TestConfig
      * Test method normal for Main function.
      *
      */
+    @DisplayName("Test config with OTF8 BOM")
     @Test
     public void testConfWithBom()
     {
@@ -179,6 +184,7 @@ public class TestConfig
      * Test method normal for Main function.
      *
      */
+    @DisplayName("Test config without OTF8 BOM")
     @Test
     public void testConfWithoutBom()
     {
@@ -190,6 +196,7 @@ public class TestConfig
      *
      */
     @Test
+    @DisplayName("Test config with ISO")
     public void testConfIso()
     {
         testGivenConfig(CONF_ISO);

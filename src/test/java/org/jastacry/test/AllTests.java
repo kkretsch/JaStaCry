@@ -13,9 +13,8 @@ import org.jastacry.layer.TestLayerReverse;
 import org.jastacry.layer.TestLayerRotate;
 import org.jastacry.layer.TestLayerTransparent;
 import org.jastacry.layer.TestLayerXor;
-import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
-import org.junit.runner.RunWith;
+import org.junit.platform.suite.api.Suite;
 
 
 /**
@@ -24,7 +23,7 @@ import org.junit.runner.RunWith;
  * @author Kai Kretschmann
  *
  */
-@RunWith(JUnitPlatform.class)
+@Suite
 @SelectClasses({
     TestConfig.class, TestEntropy.class, TestExportEncryption.class, TestGlobalFunctions.class, TestInputOutput.class, TestLocale.class, TestMain.class,
     TestAbstractBasicLayer.class,
