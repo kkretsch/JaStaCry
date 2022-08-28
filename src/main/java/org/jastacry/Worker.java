@@ -23,13 +23,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.jastacry.GlobalData.Action;
 import org.jastacry.GlobalData.Returncode;
 import org.jastacry.layer.AbstractBasicLayer;
 import org.jastacry.layer.AesCbcLayer;
 import org.jastacry.layer.AesCtrLayer;
 import org.jastacry.layer.AesEcbLayer;
+import org.jastacry.layer.AppendLayer;
 import org.jastacry.layer.AsciiTransportLayer;
 import org.jastacry.layer.FilemergeLayer;
 import org.jastacry.layer.Md5DesLayer;
@@ -358,6 +358,9 @@ class Worker
                 break;
             case GlobalData.LAYER_AESCTR:
                 layer = new AesCtrLayer();
+                break;
+            case GlobalData.LAYER_APPEND:
+                layer = new AppendLayer();
                 break;
             default:
                 LOGGER.error("unknown layer '{}'", sName);

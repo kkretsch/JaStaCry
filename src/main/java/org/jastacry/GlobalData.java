@@ -93,6 +93,11 @@ public final class GlobalData
     static final String LAYER_AESCTR = "aesctr";
 
     /**
+     * Configuration value for layer "append" (lower case).
+     */
+    static final String LAYER_APPEND = "append";
+
+    /**
      * enum range for Actions.
      *
      * @author Kai Kretschmann

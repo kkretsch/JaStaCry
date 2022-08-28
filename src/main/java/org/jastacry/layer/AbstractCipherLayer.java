@@ -66,6 +66,9 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
      */
     private String strAlg;
 
+    /**
+     * Reuse SecureRandom object.
+     */
     private SecureRandom secrand = new SecureRandom();
 
     /**
