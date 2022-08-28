@@ -66,6 +66,8 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
      */
     private String strAlg;
 
+    private SecureRandom secrand = new SecureRandom();
+
     /**
      * Algorithm for the key.
      */
@@ -165,7 +167,7 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
     private final void getSalt()
     {
         salt = new byte[currentSaltLen];
-        new SecureRandom().nextBytes(salt);
+        secrand.nextBytes(salt);
     }
 
     /**
