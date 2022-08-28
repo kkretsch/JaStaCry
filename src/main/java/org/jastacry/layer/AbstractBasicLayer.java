@@ -150,6 +150,7 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
     public final void setAction(final Action newAction)
     {
         this.action = newAction;
+        logger.debug("set action to {}", this.action);
     }
 
     /**
@@ -193,7 +194,7 @@ public abstract class AbstractBasicLayer implements Runnable, Layer
     @SuppressWarnings("ucd")
     public void run()
     {
-        logger.info("started thread");
+        logger.info("started thread for {}", action);
         try
         {
             switch (action)

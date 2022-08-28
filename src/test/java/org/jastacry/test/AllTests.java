@@ -25,7 +25,9 @@ import org.junit.platform.suite.api.Suite;
  */
 @Suite
 @SelectClasses({
-    TestConfig.class, TestEntropy.class, TestExportEncryption.class, TestGlobalFunctions.class, TestInputOutput.class, TestLocale.class, TestMain.class,
+    TestMainBytes.class,
+    TestConfig.class, TestEntropy.class, TestExportEncryption.class, TestGlobalFunctions.class, TestInputOutput.class, TestLocale.class,
+    TestMain.class,
     TestAbstractBasicLayer.class,
     TestLayerAesCbc.class, TestLayerAesCtr.class, TestLayerAesEcb.class,
     TestLayerAsciiTransport.class, TestLayerFilemerge.class, TestLayerMd5Des.class, TestLayerRandom.class, TestLayerReadWrite.class, TestLayerReverse.class,

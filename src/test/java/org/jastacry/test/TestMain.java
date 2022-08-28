@@ -33,7 +33,7 @@ public class TestMain
     /**
      * Maven test resources path.
      */
-    private static final String RESOURCES = "src/test/resources/";
+    public static final String RESOURCES = "src/test/resources/";
 
     /**
      * log4j2 object.

@@ -32,6 +32,7 @@ public class RotateLayer extends AbstractBasicLayer
     public RotateLayer()
     {
         super(RotateLayer.class, LAYERNAME);
+        logger.debug("create layer class {}", LAYERNAME);
     }
 
     /**
@@ -55,6 +56,8 @@ public class RotateLayer extends AbstractBasicLayer
     @Override
     public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
+        logger.traceEntry();
+
         try
         {
             int iChar;
@@ -72,6 +75,8 @@ public class RotateLayer extends AbstractBasicLayer
         {
             throw (JastacryException) new JastacryException("encStream failed").initCause(e);
         }
+
+        logger.traceExit();
     }
 
     /**
@@ -84,6 +89,8 @@ public class RotateLayer extends AbstractBasicLayer
     @Override
     public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
+        logger.traceEntry();
+
         try
         {
             int iChar;
@@ -100,6 +107,8 @@ public class RotateLayer extends AbstractBasicLayer
         {
             throw (JastacryException) new JastacryException("decStream failed").initCause(e);
         }
+
+        logger.traceExit();
     }
 
     @Override

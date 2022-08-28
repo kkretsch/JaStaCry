@@ -35,7 +35,7 @@ public class AppendLayer extends AbstractBasicLayer
     public AppendLayer()
     {
         super(AppendLayer.class, LAYERNAME);
-        logger.debug("create layer class");
+        logger.debug("create layer class {}", LAYERNAME);
         this.fileAppend = null;
     }
 
@@ -50,19 +50,25 @@ public class AppendLayer extends AbstractBasicLayer
     {
         logger.info("use file '{}' for appending", data);
         this.fileAppend = new File(data);
+        long lFileSize = fileAppend.length();
+        logger.info("to append file size {}", lFileSize);
     }
 
     /**
      * Encode data.
      */
     @Override
-    public void encStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
+    public final void encStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
+        logger.traceEntry();
+
         if (null == fileAppend)
         {
             throw (JastacryException) new JastacryException("encodeAndDecode failed, append file undefined");
         }
 
+        long lFileSize = fileAppend.length();
+        logger.info("to append file size {}", lFileSize);
         try (var fIS = new FileInputStream(fileAppend))
         {
             logger.debug("read data input stream");
@@ -86,25 +92,30 @@ public class AppendLayer extends AbstractBasicLayer
         {
             throw (JastacryException) new JastacryException("encodeAndDecode failed").initCause(e);
         }
+
+        logger.traceExit();
     }
 
     /**
      * Decode back.
      */
     @Override
-    public void decStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
+    public final void decStream(final InputStream inputStream, final OutputStream outputStream) throws JastacryException
     {
+        logger.traceEntry();
+
         if (null == fileAppend)
         {
             throw (JastacryException) new JastacryException("encodeAndDecode failed, append file undefined");
         }
         long lFileSize = fileAppend.length();
+        logger.debug("appended file size {}", lFileSize);
 
         try
         {
             if (0 == inputStream.available())
             {
-                throw (JastacryException) new JastacryException("encodeAndDecode failed, input stream empty");
+                logger.warn("might block");
             }
 
             byte[] buf = inputStream.readAllBytes();
@@ -124,6 +135,8 @@ public class AppendLayer extends AbstractBasicLayer
         {
             throw (JastacryException) new JastacryException("decStream failed").initCause(e);
         }
+
+        logger.traceExit();
     }
 
     /**

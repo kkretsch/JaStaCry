@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jastacry.JastacryException;
 import org.jastacry.test.utils.Tooling;
 
@@ -27,6 +29,8 @@ import org.junit.jupiter.api.Test;
  */
 public class TestLayerAppend
 {
+    private final Logger logger = LogManager.getLogger();
+
     /**
      * Test data to play with.
      */
@@ -80,6 +84,7 @@ public class TestLayerAppend
     @Test
     public void testEncDecStream() throws JastacryException
     {
+        logger.debug("test enc " + INITVALUE);
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();

@@ -396,6 +396,7 @@ class Worker
         PipedOutputStream pipedOutputStream = null;
         PipedInputStream pipedInputStreamToFile = null;
 
+        LOGGER.debug("loop layers for action {}", action);
         try
         {
             // Handle file input
