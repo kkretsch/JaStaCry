@@ -20,11 +20,11 @@
 	<properties>
 		<mainclass>org.jastacry.JaStaCry</mainclass>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<pmd.version>6.49.0</pmd.version>
-		<checkstyle.version>10.3.3</checkstyle.version>
+		<pmd.version>6.50.0</pmd.version>
+		<checkstyle.version>10.3.4</checkstyle.version>
 		<surefire.version>3.0.0-M7</surefire.version>
 		<jacoco.version>0.8.8</jacoco.version>
-		<junit5.version>5.9.0</junit5.version>
+		<junit5.version>5.9.1</junit5.version>
 		<junit5platform.version>1.9.1</junit5platform.version>
 		<archunit.version>0.23.1</archunit.version>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
@@ -39,7 +39,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-shade-plugin</artifactId>
-						<version>3.3.0</version>
+						<version>3.4.0</version>
 						<executions>
 							<execution>
 								<phase>package</phase>
@@ -150,12 +150,12 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.2.2</version>
+					<version>3.3.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-shade-plugin</artifactId>
-					<version>3.3.0</version>
+					<version>3.4.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-antrun-plugin</artifactId>
@@ -499,7 +499,7 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.18.0</version>
+			<version>2.19.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven.shared</groupId>
@@ -510,7 +510,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>2.0.0</version>
+			<version>2.0.3</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
