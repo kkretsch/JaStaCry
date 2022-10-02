@@ -24,7 +24,7 @@
 		<checkstyle.version>10.3.4</checkstyle.version>
 		<surefire.version>3.0.0-M7</surefire.version>
 		<jacoco.version>0.8.8</jacoco.version>
-		<junit5.version>5.9.0</junit5.version>
+		<junit5.version>5.9.1</junit5.version>
 		<junit5platform.version>1.9.0</junit5platform.version>
 		<archunit.version>0.23.1</archunit.version>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
