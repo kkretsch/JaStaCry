@@ -20,7 +20,7 @@
 	<properties>
 		<mainclass>org.jastacry.JaStaCry</mainclass>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<pmd.version>6.51.0</pmd.version>
+		<pmd.version>6.52.0</pmd.version>
 		<checkstyle.version>10.5.0</checkstyle.version>
 		<surefire.version>3.0.0-M7</surefire.version>
 		<jacoco.version>0.8.8</jacoco.version>
