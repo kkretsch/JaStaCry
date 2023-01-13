@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<pmd.version>6.53.0</pmd.version>
 		<checkstyle.version>10.6.0</checkstyle.version>
-		<surefire.version>3.0.0-M7</surefire.version>
+		<surefire.version>3.0.0-M8</surefire.version>
 		<jacoco.version>0.8.8</jacoco.version>
 		<junit5.version>5.9.2</junit5.version>
 		<junit5platform.version>1.9.2</junit5platform.version>
