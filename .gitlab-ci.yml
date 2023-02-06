@@ -1,3 +1,9 @@
+stages:
+  - build
+  - test
+  - visualize
+  - deploy
+
 .myglobals:
   interruptible: true
   tags:
@@ -161,6 +167,22 @@ prepare_job:
   artifacts:
     reports:
       dotenv: variables.env
+
+coverage-jdk11:
+  # Must be in a stage later than test-jdk11's stage.
+  # The `visualize` stage does not exist by default.
+  # Please define it first, or choose an existing stage like `deploy`.
+  stage: visualize
+  image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
+  script:
+    # convert report from jacoco to cobertura, using relative project path
+    - python /opt/cover2cover.py target/site/jacoco/jacoco.xml $CI_PROJECT_DIR/src/main/java/ > target/site/cobertura.xml
+  needs: ["test"]
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: target/site/cobertura.xml
 
 release_job:
   extends:
