@@ -4,9 +4,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 20
-    rebase-strategy: auto
-    auto-merge: true
     commit-message:
       prefix: "dependabot maven"
       include: "scope"
