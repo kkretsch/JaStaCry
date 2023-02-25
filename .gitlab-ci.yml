@@ -25,6 +25,9 @@ cache:
     - target/
 
 .pre:
+  extends:
+    - .myglobals
+  stage: build
   script:
     - echo pipeline source is $CI_PIPELINE_SOURCE
 
