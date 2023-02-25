@@ -24,6 +24,10 @@ cache:
     - .m2/repository/
     - target/
 
+.pre:
+  script:
+    - echo pipeline source is $CI_PIPELINE_SOURCE
+
 build:
   extends:
     - .myglobals
