@@ -57,6 +57,7 @@ build:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
   script:
     - mvn $MAVEN_CLI_OPTS clean compile
 
@@ -72,6 +73,7 @@ package:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
   before_script:
     - ls -l target/
   script:
@@ -92,6 +94,7 @@ test:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
   script:
     - mvn $MAVEN_CLI_OPTS test
     - cat target/site/jacoco/index.html | grep -o 'Total[^%]*%'
@@ -110,6 +113,7 @@ bom:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
   variables:
     DTRACK_URL: ${DTRACK_URL}
     DTRACK_API: ${DTRACK_API}
@@ -135,6 +139,7 @@ sonarqube-check:
       when: never
     - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "master" || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push"
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
   cache:
@@ -154,6 +159,7 @@ coverity:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
   cache:
     key: coverity-$CI_COMMIT_REF_SLUG
     paths:
@@ -246,6 +252,7 @@ jdoc:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
   script:
     - mvn $MAVEN_CLI_OPTS site
   artifacts:
@@ -259,6 +266,7 @@ pages:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
   image: alpine
   before_script:
     - mkdir public
