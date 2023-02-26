@@ -45,8 +45,8 @@ cache:
 dependabot:
   stage: test
   extends: .dependabot-gitlab
-#  only:
-#    - schedules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
 
 build:
   extends:
@@ -54,8 +54,9 @@ build:
   stage: build
   cache:
     policy: push
-  except:
-    - schedules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
   script:
     - mvn $MAVEN_CLI_OPTS clean compile
 
@@ -68,8 +69,9 @@ package:
   needs:
     - job: build
       artifacts: false
-  except:
-    - schedules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
   before_script:
     - ls -l target/
   script:
@@ -87,8 +89,9 @@ test:
   extends:
     - .myglobals
   stage: test
-  except:
-    - schedules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
   script:
     - mvn $MAVEN_CLI_OPTS test
     - cat target/site/jacoco/index.html | grep -o 'Total[^%]*%'
@@ -104,8 +107,9 @@ bom:
   extends:
     - .myglobals
   stage: test
-  except:
-    - schedules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
   variables:
     DTRACK_URL: ${DTRACK_URL}
     DTRACK_API: ${DTRACK_API}
@@ -126,8 +130,11 @@ sonarqube-check:
   extends:
     - .myglobals
   stage: test
-  except:
-    - schedules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "master" || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
   cache:
@@ -139,17 +146,14 @@ sonarqube-check:
   script:
     - mvn verify sonar:sonar -Dsonar.qualitygate.wait=true
   allow_failure: true
-  only:
-    - merge_requests
-    - master
-    - develop
 
 coverity:
   extends:
     - .myglobals
   stage: test
-  except:
-    - schedules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
   cache:
     key: coverity-$CI_COMMIT_REF_SLUG
     paths:
@@ -171,16 +175,14 @@ coverity:
     paths:
       - cov-int/
 
-
 prepare_job:
   extends:
     - .myglobals
   stage: build
-  except:
-    - schedules
-  only:
-    variables:
-      - '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_TAG != null'
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_TAG != null
   script:
     - export TAGNOW=$CI_COMMIT_TAG
     - export TAGPREV=$(git describe --abbrev=0 $TAGNOW^)
@@ -198,6 +200,9 @@ coverage-jdk11:
   # Please define it first, or choose an existing stage like `deploy`.
   stage: visualize
   image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
   script:
     # convert report from jacoco to cobertura, using relative project path
     - python /opt/cover2cover.py target/site/jacoco/jacoco.xml $CI_PROJECT_DIR/src/main/java/ > target/site/cobertura.xml
@@ -212,17 +217,16 @@ release_job:
   extends:
     - .myglobals
   stage: deploy
-  except:
-    - schedules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_TAG != null
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   needs:
     - job: prepare_job
       artifacts: true
     - job: package
       artifacts: true
-  only:
-    variables:
-      - '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_TAG != null'
   script:
     - echo "running release_job for $TAG"
   release:
@@ -239,8 +243,9 @@ jdoc:
   extends:
     - .myglobals
   stage: build
-  except:
-    - schedules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
   script:
     - mvn $MAVEN_CLI_OPTS site
   artifacts:
@@ -251,8 +256,9 @@ pages:
   extends:
     - .myglobals
   stage: deploy
-  except:
-    - schedules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
   image: alpine
   before_script:
     - mkdir public
