@@ -5,7 +5,7 @@ stages:
   - deploy
 
 .myglobals:
-#  interruptible: true
+  interruptible: true
   tags:
     - $RUNNERTAG
 
