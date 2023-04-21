@@ -45,7 +45,7 @@ import org.jastacry.layer.XorLayer;
  *
  * <p>SPDX-License-Identifier: MIT
  *
- * @author Kai Kretschmann
+ * @author Kai KRETSCHMANN
  */
 
 class Worker
