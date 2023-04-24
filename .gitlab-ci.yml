@@ -76,7 +76,7 @@ package:
     - .whenNormal
   stage: build
   variables:
-    RUNNER_GENERATE_ARTIFACTS_METADATA: "false"
+    RUNNER_GENERATE_ARTIFACTS_METADATA: "true"
   needs:
     - job: build
       artifacts: false
