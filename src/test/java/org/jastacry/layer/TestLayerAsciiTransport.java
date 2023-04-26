@@ -280,6 +280,10 @@ public class TestLayerAsciiTransport
                 throw new IOException("Expected as a test");
             }
         };
+
+        Object o = null;
+        assertEquals("Layer object null unequal", false, layer.equals(o));
+
         layer.inputStream = is;
         layer.outputStream = os;
         layer.setEndController(endController);
@@ -340,7 +344,7 @@ public class TestLayerAsciiTransport
     {
         AsciiTransportLayer l1 = new AsciiTransportLayer();
         Object o = null;
-        assertEquals("Layer object null unequal", l1.equals(o), false);
+        assertEquals("Layer object null unequal", false, l1.equals(o));
     }
 
     /**
@@ -351,7 +355,7 @@ public class TestLayerAsciiTransport
     {
         AsciiTransportLayer l1 = new AsciiTransportLayer();
         Object o = new Object();
-        assertEquals("Layer object wrong class unequal", l1.equals(o), false);
+        assertEquals("Layer object wrong class unequal", false, l1.equals(o));
     }
 
     /**

@@ -159,7 +159,7 @@ public class TestLayerTransparent
     public void testNotEqualsNull()
     {
         TransparentLayer l1 = new TransparentLayer();
-        assertEquals("Layer object null unequal", l1.equals(null), false);
+        assertEquals("Layer object null unequal", false, l1.equals(null));
     }
 
     /**
@@ -170,7 +170,7 @@ public class TestLayerTransparent
     {
         TransparentLayer l1 = new TransparentLayer();
         Object o = new Object();
-        assertEquals("Layer object null unequal", l1.equals(o), false);
+        assertEquals("Layer object null unequal", false, l1.equals(o));
     }
 
     /**

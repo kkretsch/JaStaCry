@@ -165,6 +165,8 @@ public class TestMain
         final String[] sArguments = {
             "-h"
         };
+        Object o = null;
+        assertEquals("Arguments object null unequal", false, sArguments.equals(o));
         JaStaCry.main(sArguments);
     }
 
@@ -177,6 +179,8 @@ public class TestMain
     public void testMainStaticNoargs()
     {
         final String[] sArguments = {};
+        Object o = null;
+        assertEquals("Arguments object null unequal", false, sArguments.equals(o));
         JaStaCry.main(sArguments);
     }
 
@@ -195,6 +199,8 @@ public class TestMain
         final String[] sArguments = {
             "--encode", "--infile", sInputFile, "--outfile", sOutputFile, "--conffile", sConfigFile
         };
+        Object o = null;
+        assertEquals("Arguments object null unequal", false, sArguments.equals(o));
         JaStaCry.main(sArguments);
     }
 
