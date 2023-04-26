@@ -64,6 +64,7 @@ public class AppendLayer extends AbstractBasicLayer
 
         if (null == fileAppend)
         {
+            logger.error("fileAppend is NULL");
             throw new JastacryException("encodeAndDecode failed, append file undefined");
         }
 
@@ -106,6 +107,7 @@ public class AppendLayer extends AbstractBasicLayer
 
         if (null == fileAppend)
         {
+            logger.error("fileAppend is NULL");
             throw new JastacryException("encodeAndDecode failed, append file undefined");
         }
         long lFileSize = fileAppend.length();

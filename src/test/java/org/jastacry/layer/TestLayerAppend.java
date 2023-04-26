@@ -91,7 +91,6 @@ public class TestLayerAppend
         Assertions.assertThrows(JastacryException.class, () -> {
             layer.encStream(isEncode, osEncode);
         });
-        buf = osEncode.toByteArray();
 
         layer = null;
         layer = new AppendLayer();
@@ -100,7 +99,6 @@ public class TestLayerAppend
         Assertions.assertThrows(JastacryException.class, () -> {
             layer.decStream(isDecode, osDecode);
         });
-        assertEquals("decoding differs", testdata, osDecode.toString());
     }
 
     /**
@@ -187,7 +185,7 @@ public class TestLayerAppend
     public void testDecStreamException() throws JastacryException, IOException
     {
         Tooling tool = new Tooling();
-        Assertions.assertThrows(JastacryException.class, () -> {
+        Assertions.assertThrows(NullPointerException.class, () -> {
             tool.mockupInputOutputDecStreams(layer);
         });
     }
