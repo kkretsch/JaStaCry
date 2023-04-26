@@ -48,7 +48,6 @@ variables:
   script:
     - bundle exec rake "dependabot:update[$PROJECT_PATH,$PACKAGE_MANAGER,$DIRECTORY]"
 
-
 cache:
   paths:
     - .m2/repository/
@@ -142,12 +141,14 @@ sonarqube-check:
     - if: $CI_PIPELINE_SOURCE == "push"
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_FETCH_EXTRA_FLAGS: --unshallow
+    GIT_DEPTH: 0 # avoid shallow clone to give sonar all the info it needs
   cache:
     key: "${CI_JOB_NAME}"
     paths:
       - .sonar/cache
-  before_script:
-    - git fetch --unshallow --all
+#  before_script:
+#    - git fetch --unshallow --all
   script:
     - mvn verify sonar:sonar -Dsonar.qualitygate.wait=true
   allow_failure: true
