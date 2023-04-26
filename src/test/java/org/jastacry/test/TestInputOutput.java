@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.CountDownLatch;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jastacry.layer.ReadWriteLayer;
 
 import org.junit.jupiter.api.AfterEach;
@@ -81,6 +83,9 @@ public class TestInputOutput
                 throw new IOException("Expected as a test");
             }
         };
+
+        Object o = null;
+        assertEquals("Layer object null unequal", false, layer.equals(o));
 
         layer.setInputStream(sInput);
         layer.setOutputStream(sOutput);

@@ -85,6 +85,9 @@ public class TestLayerReadWrite
     @Test
     public void testInit()
     {
+        Object o = null;
+        assertEquals("Layer object null unequal", false, layer.equals(o));
+
         layer.init("");
     }
 
@@ -117,7 +120,7 @@ public class TestLayerReadWrite
     {
         ReadWriteLayer l1 = new ReadWriteLayer();
         Object o = null;
-        assertEquals("Layer object null unequal", l1.equals(o), false);
+        assertEquals("Layer object null unequal", false, l1.equals(o));
     }
 
     /**
@@ -128,7 +131,7 @@ public class TestLayerReadWrite
     {
         ReadWriteLayer l1 = new ReadWriteLayer();
         Object o = new Object();
-        assertEquals("Layer object wrong class unequal", l1.equals(o), false);
+        assertEquals("Layer object wrong class unequal", false, l1.equals(o));
     }
 
     /**

@@ -148,7 +148,7 @@ public class TestLayerReverse
     {
         ReverseLayer l1 = new ReverseLayer();
         Object o = null;
-        assertEquals("Layer object null unequal", l1.equals(o), false);
+        assertEquals("Layer object null unequal", false, l1.equals(o));
     }
 
     /**
@@ -159,7 +159,7 @@ public class TestLayerReverse
     {
         ReverseLayer l1 = new ReverseLayer();
         Object o = new Object();
-        assertEquals("Layer object wrong class unequal", l1.equals(o), false);
+        assertEquals("Layer object wrong class unequal", false, l1.equals(o));
     }
 
     /**

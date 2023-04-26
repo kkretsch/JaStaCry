@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jastacry.GlobalFunctions;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -28,6 +30,8 @@ public class TestGlobalFunctions
     public void testLogDebugTrue()
     {
         Logger oLogger = LogManager.getLogger();
+        Object o = null;
+        assertEquals("Logger object null unequal", false, oLogger.equals(o));
         GlobalFunctions.logDebug(true, oLogger, MSG);
     }
 
@@ -39,6 +43,8 @@ public class TestGlobalFunctions
     public void testLogDebugFalse()
     {
         Logger oLogger = LogManager.getLogger();
+        Object o = null;
+        assertEquals("Logger object null unequal", false, oLogger.equals(o));
         GlobalFunctions.logDebug(false, oLogger, MSG);
     }
 }

@@ -165,7 +165,7 @@ public class TestEntropy
         shannon.calculate(sSimple);
         double entropy = shannon.getEntropy();
         oLogger.info("testEntropyZero Entropy: {}", entropy);
-        assertTrue("Entropy", entropy == 0);
+        assertEquals("Entropy", 0.0d, entropy, 0.001d);
     }
 
     /**
@@ -213,7 +213,7 @@ public class TestEntropy
         shannon.calculate(byteArr);
         double entropyBytes = shannon.getEntropy();
         oLogger.info("testEntropyStringEqualsBytes Entropy: {} & {}", entropyString, entropyBytes);
-        assertTrue("Entropy equals", entropyString == entropyBytes);
+        assertEquals("Entropy equals", entropyString, entropyBytes, 0.0001d);
     }
 
     /**

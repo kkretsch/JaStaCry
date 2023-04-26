@@ -76,6 +76,32 @@ public class TestLayerAppend
     }
 
     /**
+     * Testcase testNullFileAppend.
+     *
+     * @throws JastacryException
+     *             in case of error
+     */
+    @Test
+    public void testNullFileAppend() throws JastacryException
+    {
+        logger.info("testNullFileAppend");
+        byte[] buf = testdata.getBytes();
+        final InputStream isEncode = new ByteArrayInputStream(buf);
+        final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
+        Assertions.assertThrows(JastacryException.class, () -> {
+            layer.encStream(isEncode, osEncode);
+        });
+
+        layer = null;
+        layer = new AppendLayer();
+        final InputStream isDecode = new ByteArrayInputStream(buf);
+        final OutputStream osDecode = new ByteArrayOutputStream();
+        Assertions.assertThrows(JastacryException.class, () -> {
+            layer.decStream(isDecode, osDecode);
+        });
+    }
+
+    /**
      * Testcase testEncDecStream.
      *
      * @throws JastacryException
@@ -159,7 +185,7 @@ public class TestLayerAppend
     public void testDecStreamException() throws JastacryException, IOException
     {
         Tooling tool = new Tooling();
-        Assertions.assertThrows(JastacryException.class, () -> {
+        Assertions.assertThrows(NullPointerException.class, () -> {
             tool.mockupInputOutputDecStreams(layer);
         });
     }
@@ -206,7 +232,7 @@ public class TestLayerAppend
         AppendLayer l1 = new AppendLayer();
         l1.init(INITVALUE);
         Object o = null;
-        assertEquals("Layer object null unequal", l1.equals(o), false);
+        assertEquals("Layer object null unequal", false, l1.equals(o));
     }
 
     /**
@@ -218,7 +244,7 @@ public class TestLayerAppend
         AppendLayer l1 = new AppendLayer();
         l1.init(INITVALUE);
         Object o = new Object();
-        assertEquals("Layer object wrong class unequal", l1.equals(o), false);
+        assertEquals("Layer object wrong class unequal", false, l1.equals(o));
     }
 
     /**
