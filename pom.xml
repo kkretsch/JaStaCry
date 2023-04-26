@@ -30,6 +30,7 @@
 		<dependency.locations.enabled>false</dependency.locations.enabled>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
+		<sonar.exclusions>src/test/**/*.java,src/site/**/*</sonar.exclusions>
 	</properties>
 	<profiles>
 		<profile>
