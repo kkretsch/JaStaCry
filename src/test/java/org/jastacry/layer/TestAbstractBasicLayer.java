@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestAbstractBasicLayer
+class TestAbstractBasicLayer
 {
     /**
      * The layer to test.
@@ -62,7 +62,7 @@ public class TestAbstractBasicLayer
      *
      */
     @Test
-    public void testActionunknown()
+    void testActionunknown()
     {
         InputStream sInput;
         OutputStream sOutput;

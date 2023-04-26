@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
  * @author Kai Kretschmann
  *
  */
-public class TestLayerAesCtr
+class TestLayerAesCtr
 {
     /**
      * Test data to play with.
@@ -77,7 +77,7 @@ public class TestLayerAesCtr
      */
     @Test
     // TestLink(externalId = "JAS-4")
-    public void testEncDecStream() throws JastacryException
+    void testEncDecStream() throws JastacryException
     {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
@@ -96,7 +96,7 @@ public class TestLayerAesCtr
      * Testcase testToString.
      */
     @Test
-    public void testToString()
+    void testToString()
     {
         assertEquals("Layer name mismatch", AesCtrLayer.LAYERNAME, layerEncrypt.toString());
     }
@@ -105,7 +105,7 @@ public class TestLayerAesCtr
      * Testcase equals.
      */
     @Test
-    public void testEquals()
+    void testEquals()
     {
         AesCtrLayer l1 = new AesCtrLayer();
         AesCtrLayer l2 = new AesCtrLayer();
@@ -118,7 +118,7 @@ public class TestLayerAesCtr
      * Testcase equals.
      */
     @Test
-    public void testEqualsSame()
+    void testEqualsSame()
     {
         AesCtrLayer l1 = new AesCtrLayer();
         l1.init(INITVALUE);
@@ -129,7 +129,7 @@ public class TestLayerAesCtr
      * Testcase equals.
      */
     @Test
-    public void testNotEqualsNull()
+    void testNotEqualsNull()
     {
         AesCtrLayer l1 = new AesCtrLayer();
         l1.init(INITVALUE);
@@ -141,7 +141,7 @@ public class TestLayerAesCtr
      * Testcase equals.
      */
     @Test
-    public void testNotEqualsWrongclass()
+    void testNotEqualsWrongclass()
     {
         AesCtrLayer l1 = new AesCtrLayer();
         l1.init(INITVALUE);
@@ -153,7 +153,7 @@ public class TestLayerAesCtr
      * Testcase hashcode.
      */
     @Test
-    public void testHashcode()
+    void testHashcode()
     {
         AesCtrLayer l1 = new AesCtrLayer();
         AesCtrLayer l2 = new AesCtrLayer();
