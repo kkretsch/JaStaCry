@@ -76,7 +76,7 @@ public class TestLayerAppend
     }
 
     /**
-     * Testcase testEncDecStream.
+     * Testcase testNullFileAppend.
      *
      * @throws JastacryException
      *             in case of error
@@ -84,6 +84,7 @@ public class TestLayerAppend
     @Test
     public void testNullFileAppend() throws JastacryException
     {
+        logger.info("testNullFileAppend");
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
         final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
