@@ -82,6 +82,33 @@ public class TestLayerAppend
      *             in case of error
      */
     @Test
+    public void testNullFileAppend() throws JastacryException
+    {
+        byte[] buf = testdata.getBytes();
+        final InputStream isEncode = new ByteArrayInputStream(buf);
+        final ByteArrayOutputStream osEncode = new ByteArrayOutputStream();
+        Assertions.assertThrows(JastacryException.class, () -> {
+            layer.encStream(isEncode, osEncode);
+        });
+        buf = osEncode.toByteArray();
+
+        layer = null;
+        layer = new AppendLayer();
+        final InputStream isDecode = new ByteArrayInputStream(buf);
+        final OutputStream osDecode = new ByteArrayOutputStream();
+        Assertions.assertThrows(JastacryException.class, () -> {
+            layer.decStream(isDecode, osDecode);
+        });
+        assertEquals("decoding differs", testdata, osDecode.toString());
+    }
+
+    /**
+     * Testcase testEncDecStream.
+     *
+     * @throws JastacryException
+     *             in case of error
+     */
+    @Test
     public void testEncDecStream() throws JastacryException
     {
         logger.debug("test enc " + INITVALUE);
