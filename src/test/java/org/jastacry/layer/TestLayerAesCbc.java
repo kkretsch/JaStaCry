@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
  * @author Kai Kretschmann
  *
  */
-class TestLayerAesCbc
+public class TestLayerAesCbc
 {
     /**
      * Test data to play with.
@@ -76,7 +76,7 @@ class TestLayerAesCbc
      *             in case off error
      */
     @Test
-    void testEncDecStream() throws JastacryException
+    public void testEncDecStream() throws JastacryException
     {
         byte[] buf = testdata.getBytes();
         final InputStream isEncode = new ByteArrayInputStream(buf);
@@ -95,7 +95,7 @@ class TestLayerAesCbc
      * Testcase testToString.
      */
     @Test
-    void testToString()
+    public void testToString()
     {
         assertEquals("Layer name mismatch", AesCbcLayer.LAYERNAME, layerEncrypt.toString());
     }
@@ -104,7 +104,7 @@ class TestLayerAesCbc
      * Testcase equals.
      */
     @Test
-    void testEquals()
+    public void testEquals()
     {
         AesCbcLayer l1 = new AesCbcLayer();
         AesCbcLayer l2 = new AesCbcLayer();
@@ -117,7 +117,7 @@ class TestLayerAesCbc
      * Testcase equals.
      */
     @Test
-    void testEqualsSame()
+    public void testEqualsSame()
     {
         AesCbcLayer l1 = new AesCbcLayer();
         l1.init(INITVALUE);
@@ -128,7 +128,7 @@ class TestLayerAesCbc
      * Testcase equals.
      */
     @Test
-    void testNotEqualsNull()
+    public void testNotEqualsNull()
     {
         AesCbcLayer l1 = new AesCbcLayer();
         l1.init(INITVALUE);
@@ -140,7 +140,7 @@ class TestLayerAesCbc
      * Testcase equals.
      */
     @Test
-    void testNotEqualsWrongclass()
+    public void testNotEqualsWrongclass()
     {
         AesCbcLayer l1 = new AesCbcLayer();
         l1.init(INITVALUE);
@@ -152,7 +152,7 @@ class TestLayerAesCbc
      * Testcase hashcode.
      */
     @Test
-    void testHashcode()
+    public void testHashcode()
     {
         AesCbcLayer l1 = new AesCbcLayer();
         AesCbcLayer l2 = new AesCbcLayer();
