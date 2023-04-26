@@ -39,6 +39,7 @@ Updating version hint following files:
 * sonar-project.properties
 * pom.xml
 * VERSION.cpe
+* CHANGELOG
 
 
 # Gitlab pages
