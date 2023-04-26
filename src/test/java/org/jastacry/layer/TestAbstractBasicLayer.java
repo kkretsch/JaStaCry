@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.CountDownLatch;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jastacry.GlobalData.Action;
 
 import org.junit.jupiter.api.AfterEach;
@@ -68,6 +70,9 @@ public class TestAbstractBasicLayer
         OutputStream sOutput;
         sInput = new ByteArrayInputStream(data);
         sOutput = new ByteArrayOutputStream();
+
+        Object o = null;
+        assertEquals("Layer object null unequal", false, layer.equals(o));
 
         layer.setInputStream(sInput);
         layer.setOutputStream(sOutput);

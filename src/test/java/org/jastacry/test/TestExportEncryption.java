@@ -41,6 +41,8 @@ public class TestExportEncryption
     public void testJavaVersion()
     {
         String version = System.getProperty("java.version");
+        Object o = null;
+        assertEquals("String object null unequal", false, version.equals(o));
         System.out.println("Version=" + version);
     }
 

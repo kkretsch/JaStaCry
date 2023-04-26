@@ -201,7 +201,7 @@ public class TestLayerFilemerge
         FilemergeLayer l1 = new FilemergeLayer();
         l1.init(INITVALUE);
         Object o = null;
-        assertEquals("Layer object null unequal", l1.equals(o), false);
+        assertEquals("Layer object null unequal", false, l1.equals(o));
     }
 
     /**
@@ -213,7 +213,7 @@ public class TestLayerFilemerge
         FilemergeLayer l1 = new FilemergeLayer();
         l1.init(INITVALUE);
         Object o = new Object();
-        assertEquals("Layer object wrong class unequal", l1.equals(o), false);
+        assertEquals("Layer object wrong class unequal", false, l1.equals(o));
     }
 
     /**
