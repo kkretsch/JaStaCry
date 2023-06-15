@@ -21,7 +21,7 @@
 		<mainclass>org.jastacry.JaStaCry</mainclass>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<pmd.version>6.55.0</pmd.version>
-		<checkstyle.version>10.11.0</checkstyle.version>
+		<checkstyle.version>10.12.0</checkstyle.version>
 		<surefire.version>3.1.2</surefire.version>
 		<jacoco.version>0.8.10</jacoco.version>
 		<junit5.version>5.9.3</junit5.version>
@@ -104,7 +104,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>versions-maven-plugin</artifactId>
-					<version>2.15.0</version>
+					<version>2.16.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.jacoco</groupId>
@@ -124,7 +124,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>3.0.1</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
@@ -648,7 +648,7 @@
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.12.0</version>
+				<version>2.13.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.junit.platform</groupId>
