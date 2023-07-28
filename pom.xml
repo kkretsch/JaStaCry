@@ -24,8 +24,8 @@
 		<checkstyle.version>10.12.1</checkstyle.version>
 		<surefire.version>3.1.2</surefire.version>
 		<jacoco.version>0.8.10</jacoco.version>
-		<junit5.version>5.9.3</junit5.version>
-		<junit5platform.version>1.9.3</junit5platform.version>
+		<junit5.version>5.10.0</junit5.version>
+		<junit5platform.version>1.10.0</junit5platform.version>
 		<archunit.version>1.0.1</archunit.version>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
 		<maven.compiler.source>11</maven.compiler.source>
@@ -450,18 +450,6 @@
 			<version>1.5.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>${junit5.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junit5.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.tngtech.archunit</groupId>
 			<artifactId>archunit</artifactId>
 			<version>${archunit.version}</version>
@@ -473,6 +461,12 @@
 			<version>${archunit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+                        <groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${junit5.version}</version>
+                        <scope>test</scope>
+                </dependency>
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-suite-engine</artifactId>
@@ -649,16 +643,6 @@
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>2.13.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.junit.platform</groupId>
-				<artifactId>junit-platform-launcher</artifactId>
-				<version>${junit5platform.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.junit.platform</groupId>
-				<artifactId>junit-platform-engine</artifactId>
-				<version>${junit5platform.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
