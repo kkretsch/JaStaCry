@@ -1,7 +1,7 @@
 package org.jastacry;
 
 /**
- * My very own JaStyCry exception class.
+ * My very own JaStaCry exception class.
  * @author kkretsch
  */
 public class JastacryException extends Exception
