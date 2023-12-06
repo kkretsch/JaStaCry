@@ -88,6 +88,11 @@ public final class GlobalData
     static final String LAYER_AESECB = "aesecb";
 
     /**
+     * Configuration value for layer "aesgcm" (lower case).
+     */
+    static final String LAYER_AESGCM = "aesgcm";
+
+    /**
      * Configuration value for layer "aesctr" (lower case).
      */
     static final String LAYER_AESCTR = "aesctr";

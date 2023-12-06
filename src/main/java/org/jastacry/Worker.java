@@ -29,6 +29,7 @@ import org.jastacry.layer.AbstractBasicLayer;
 import org.jastacry.layer.AesCbcLayer;
 import org.jastacry.layer.AesCtrLayer;
 import org.jastacry.layer.AesEcbLayer;
+import org.jastacry.layer.AesGcmLayer;
 import org.jastacry.layer.AppendLayer;
 import org.jastacry.layer.AsciiTransportLayer;
 import org.jastacry.layer.FilemergeLayer;
@@ -355,6 +356,9 @@ class Worker
                 break;
             case GlobalData.LAYER_AESECB:
                 layer = new AesEcbLayer();
+                break;
+            case GlobalData.LAYER_AESGCM:
+                layer = new AesGcmLayer();
                 break;
             case GlobalData.LAYER_AESCTR:
                 layer = new AesCtrLayer();
