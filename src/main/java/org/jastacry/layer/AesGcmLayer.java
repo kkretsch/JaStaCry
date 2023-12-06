@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.jastacry.JastacryException;
@@ -59,6 +60,16 @@ public class AesGcmLayer extends AbstractCipherLayer
     private static final int KEYSIZE = 128;
 
     /**
+     * Size of tag.
+     */
+    private static final int GCM_TAG_LENGTH = 128;
+
+    /**
+     * Parameters for GCM.
+     */
+    GCMParameterSpec gcmParameterSpec;
+
+    /**
      * Constructor of AesLayer.
      */
     public AesGcmLayer()
@@ -83,6 +94,7 @@ public class AesGcmLayer extends AbstractCipherLayer
             final byte[] keyDigestTrimmed = Arrays.copyOf(keyDigest, KEYSIZE / BITSPERBYTE);
 
             pbeSecretKeySpec = new SecretKeySpec(keyDigestTrimmed, MYKEYALG);
+            gcmParameterSpec = new GCMParameterSpec(GCM_TAG_LENGTH, getIv());
         }
         catch (NoSuchAlgorithmException e)
         {

@@ -221,6 +221,10 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
         } // if
     }
 
+    protected byte[] getIv()
+    {
+        return this.ivBytes;
+    }
     /**
      * Read IV data if any.
      * @param inputStream stream to read from
