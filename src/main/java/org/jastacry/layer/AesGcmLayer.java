@@ -42,7 +42,7 @@ public class AesGcmLayer extends AbstractCipherLayer
     /**
      * IV length.
      */
-    private static final int IVLEN = 0;
+    private static final int IVLEN = 12;
 
     /**
      * Salt length.
@@ -63,11 +63,6 @@ public class AesGcmLayer extends AbstractCipherLayer
      * Size of tag.
      */
     private static final int GCM_TAG_LENGTH = 128;
-
-    /**
-     * Parameters for GCM.
-     */
-    GCMParameterSpec gcmParameterSpec;
 
     /**
      * Constructor of AesLayer.
@@ -94,7 +89,11 @@ public class AesGcmLayer extends AbstractCipherLayer
             final byte[] keyDigestTrimmed = Arrays.copyOf(keyDigest, KEYSIZE / BITSPERBYTE);
 
             pbeSecretKeySpec = new SecretKeySpec(keyDigestTrimmed, MYKEYALG);
-            gcmParameterSpec = new GCMParameterSpec(GCM_TAG_LENGTH, getIv());
+
+            byte[] myIV = new byte[IVLEN];
+            setRandom(myIV);
+            setIv(myIV);
+            optParams = new GCMParameterSpec(GCM_TAG_LENGTH, myIV);
         }
         catch (NoSuchAlgorithmException e)
         {

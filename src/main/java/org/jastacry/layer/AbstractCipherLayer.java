@@ -8,6 +8,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.AlgorithmParameterSpec;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -61,6 +62,10 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
      */
     protected SecretKeySpec pbeSecretKeySpec;
 
+    /**
+     * Optional additional parameters depending on algorithm.
+     */
+    protected AlgorithmParameterSpec optParams;
     /**
      * ALG for the data.
      */
@@ -120,6 +125,7 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
     AbstractCipherLayer(final Class<?> cClass, final String layerName)
     {
         super(cClass, layerName);
+        optParams = null;
     }
 
     /**
@@ -174,6 +180,14 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
     }
 
     /**
+     * Generate random bytes for i.e.IV.
+     * @param a
+     */
+    protected void setRandom(byte[] a) {
+        secrand.nextBytes(a);
+    }
+
+    /**
      * Set base values via own getters, which are defined in child classes.
      */
     protected final void init()
@@ -221,10 +235,16 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
         } // if
     }
 
+    protected void setIv(byte[] a)
+    {
+        this.ivBytes = a;
+    }
+
     protected byte[] getIv()
     {
         return this.ivBytes;
     }
+
     /**
      * Read IV data if any.
      * @param inputStream stream to read from
@@ -300,7 +320,11 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
             setupPbe();
 
             pbeCipher = Cipher.getInstance(strAlg);
-            pbeCipher.init(Cipher.ENCRYPT_MODE, pbeSecretKeySpec);
+            if(optParams != null) {
+                pbeCipher.init(Cipher.ENCRYPT_MODE, pbeSecretKeySpec, optParams);
+            } else {
+                pbeCipher.init(Cipher.ENCRYPT_MODE, pbeSecretKeySpec);
+            }
 
             final var buffer = new ByteArrayOutputStream();
 
@@ -326,7 +350,7 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
             outputStream.close();
         }
         catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-                | JastacryException | BadPaddingException | IOException e)
+                | JastacryException | BadPaddingException | IOException | InvalidAlgorithmParameterException e)
         {
             logger.catching(e);
             throw (JastacryException) new JastacryException("encStream failed").initCause(e);
@@ -357,11 +381,19 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
             pbeCipher = Cipher.getInstance(strAlg);
             if (0 == currentIvLen)
             {
-                pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec);
+                if(null != optParams) {
+                    pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec, optParams);
+                } else {
+                    pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec);
+                }
             }
             else
             {
-                pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec, new IvParameterSpec(ivBytes));
+                if(null != optParams) {
+                    pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec, optParams);
+                } else {
+                    pbeCipher.init(Cipher.DECRYPT_MODE, pbeSecretKeySpec, new IvParameterSpec(ivBytes));
+                }
             } // if
 
             final var buffer = new ByteArrayOutputStream();
