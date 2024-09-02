@@ -20,9 +20,9 @@
 	<properties>
 		<mainclass>org.jastacry.JaStaCry</mainclass>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<pmd.version>7.4.0</pmd.version>
+		<pmd.version>7.5.0</pmd.version>
 		<checkstyle.version>10.18.1</checkstyle.version>
-		<surefire.version>3.4.0</surefire.version>
+		<surefire.version>3.5.0</surefire.version>
 		<jacoco.version>0.8.12</jacoco.version>
 		<junit5.version>5.11.0</junit5.version>
 		<junit5platform.version>1.11.0</junit5platform.version>
@@ -198,7 +198,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-pmd-plugin</artifactId>
-					<version>3.24.0</version>
+					<version>3.25.0</version>
 					<dependencies>
 						<dependency>
 							<groupId>net.sourceforge.pmd</groupId>
@@ -542,7 +542,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.8.0</version>
+				<version>3.10.0</version>
 				<configuration>
 					<javadocVersion>11.0.5</javadocVersion>
 				</configuration>
