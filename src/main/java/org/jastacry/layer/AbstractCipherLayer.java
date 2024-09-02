@@ -181,7 +181,7 @@ abstract class AbstractCipherLayer extends AbstractBasicLayer
 
     /**
      * Generate random bytes for i.e.IV.
-     * @param a
+     * @param a the byte array to fill
      */
     protected void setRandom(byte[] a) {
         secrand.nextBytes(a);
