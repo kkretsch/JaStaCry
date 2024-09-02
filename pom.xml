@@ -544,7 +544,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.10.0</version>
 				<configuration>
-					<javadocVersion>11.0.5</javadocVersion>
+					<javadocVersion>11.0.16</javadocVersion>
 				</configuration>
 			</plugin>
 			<plugin>
