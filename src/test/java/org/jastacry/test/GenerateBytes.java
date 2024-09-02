@@ -19,7 +19,7 @@ public class GenerateBytes
      * 
      * @param args
      *            command line
-     * @throws IOException 
+     * @throws IOException on IO error
      */
     public static void main(final String[] args) throws IOException
     {
