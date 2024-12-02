@@ -21,7 +21,7 @@ stages:
       when: never
     - if: ($CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "web") && $CI_COMMIT_TAG != null
 
-image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/maven:3-openjdk-11
+image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/maven:3-openjdk-17
 
 variables:
   MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
