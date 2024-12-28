@@ -20,11 +20,11 @@
 	<properties>
 		<mainclass>org.jastacry.JaStaCry</mainclass>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<pmd.version>7.8.0</pmd.version>
+		<pmd.version>7.9.0</pmd.version>
 		<checkstyle.version>10.21.0</checkstyle.version>
 		<surefire.version>3.5.2</surefire.version>
 		<jacoco.version>0.8.12</jacoco.version>
-		<junit5.version>5.11.3</junit5.version>
+		<junit5.version>5.11.4</junit5.version>
 		<junit5platform.version>1.11.4</junit5platform.version>
 		<archunit.version>1.3.0</archunit.version>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
