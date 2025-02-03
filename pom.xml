@@ -21,7 +21,7 @@
 		<mainclass>org.jastacry.JaStaCry</mainclass>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<pmd.version>7.10.0</pmd.version>
-		<checkstyle.version>10.21.1</checkstyle.version>
+		<checkstyle.version>10.21.2</checkstyle.version>
 		<surefire.version>3.5.2</surefire.version>
 		<jacoco.version>0.8.12</jacoco.version>
 		<junit5.version>5.11.4</junit5.version>
