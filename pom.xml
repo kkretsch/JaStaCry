@@ -23,7 +23,7 @@
 		<pmd.version>7.12.0</pmd.version>
 		<checkstyle.version>10.21.4</checkstyle.version>
 		<surefire.version>3.5.3</surefire.version>
-		<jacoco.version>0.8.12</jacoco.version>
+		<jacoco.version>0.8.13</jacoco.version>
 		<junit5.version>5.12.1</junit5.version>
 		<junit5platform.version>1.12.1</junit5platform.version>
 		<archunit.version>1.4.0</archunit.version>
