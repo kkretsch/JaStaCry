@@ -165,7 +165,7 @@ coverity:
     paths:
        - coverity_tool.tgz
   before_script:
-    - apt install wget
+    - microdnf install wget
     - mvn clean
     - wget -nc -q https://scan.coverity.com/download/linux64 --post-data "token=${COVERITY_TOKEN}&project=${COVERITY_PROJECT}" -O coverity_tool.tgz || true
     - ls -l coverity_tool.tgz
